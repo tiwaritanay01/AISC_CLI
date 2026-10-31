@@ -57,7 +57,7 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
       gap: 1.25rem;
       margin-top: 2rem;
     }
@@ -69,22 +69,77 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .card:hover {
+      border-color: #475569;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #1e3a5f;
+      color: #38bdf8;
+      border: 1px solid #0284c7;
+      border-radius: 6px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .copy-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .copy-btn.copied {
+      background: #15803d !important;
+      color: #ffffff !important;
+      border-color: #22c55e !important;
     }
     .card h3 {
-      margin: 0.5rem 0;
+      margin: 0.4rem 0;
       color: var(--accent);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      line-height: 1.35;
     }
     .tag {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       background: #334155;
       padding: 0.2rem 0.5rem;
-      border-radius: 3px;
+      border-radius: 4px;
       color: #38bdf8;
       display: inline-block;
-      align-self: flex-start;
+      font-weight: 600;
+    }
+    .file-pill {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #0f172a;
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      margin-top: 0.5rem;
+      display: inline-block;
+      border: 1px solid #1e293b;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #334155;
+      font-size: 0.85rem;
     }
     a {
       color: var(--accent);
@@ -106,11 +161,13 @@
     <section>
       <h2>Terminal Quickstart</h2>
       <div class="command-box">
-        # 1. Download and run any experiment directly<br>
-        labx download 2<br>
-        labx run 2<br><br>
-        # 2. Download all 12 experiments into your workspace<br>
-        labx download all
+        <span style="color:#94a3b8"># 1. Ultra-short one-liners in PowerShell (No install needed):</span><br>
+        irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull ALL 12 experiments</span><br>
+        & (irm https://aisccli.netlify.app/get.ps1) 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 2</span><br>
+        irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># List catalogue</span><br><br>
+        <span style="color:#94a3b8"># 2. Or install the global 'labx' CLI:</span><br>
+        irm https://aisccli.netlify.app/install.ps1 | iex<br>
+        labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
       </div>
     </section>
 
@@ -129,102 +186,943 @@
       <div class="grid">
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-1')" title="Copy agent_case_study.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-1" style="display:none;">&quot;&quot;&quot;Experiment 01: AI Agents and PEAS Framework Simulator.&quot;&quot;&quot;
+
+class AIAgent:
+    def __init__(self, name: str, agent_type: str, peas: dict):
+        self.name = name
+        self.agent_type = agent_type
+        self.peas = peas
+        self.state = {}
+
+    def display_peas(self):
+        print(f&quot;\n{&#x27;=&#x27;*55}&quot;)
+        print(f&quot; AGENT CASE STUDY: {self.name.upper()} ({self.agent_type})&quot;)
+        print(f&quot;{&#x27;=&#x27;*55}&quot;)
+        print(f&quot;  - Performance Measure : {self.peas[&#x27;Performance&#x27;]}&quot;)
+        print(f&quot;  - Environment         : {self.peas[&#x27;Environment&#x27;]}&quot;)
+        print(f&quot;  - Actuators           : {self.peas[&#x27;Actuators&#x27;]}&quot;)
+        print(f&quot;  - Sensors             : {self.peas[&#x27;Sensors&#x27;]}&quot;)
+
+    def act(self, percept: dict):
+        # Condition-action rule reasoning
+        status = percept.get(&quot;cleanliness&quot;, &quot;dirty&quot;)
+        location = percept.get(&quot;location&quot;, &quot;Room_A&quot;)
+        if status == &quot;dirty&quot;:
+            action = &quot;SUCK_DIRT&quot;
+        else:
+            action = &quot;MOVE_TO_NEXT_ROOM&quot;
+        print(f&quot;[Sensor Percept: {percept}] --&gt; Reasoned Action: {action}&quot;)
+        return action
+
+def main():
+    vacuum_peas = {
+        &quot;Performance&quot;: &quot;Square area cleaned, low energy consumption, zero damage&quot;,
+        &quot;Environment&quot;: &quot;Office floors, obstacles, furniture, doorways&quot;,
+        &quot;Actuators&quot;: &quot;Drive wheels, vacuum suction motor, status indicator&quot;,
+        &quot;Sensors&quot;: &quot;Cliff sensor, bump bumper, infrared distance, dirt detector&quot;
+    }
+    car_peas = {
+        &quot;Performance&quot;: &quot;Passenger safety, speed, legal adherence, comfort&quot;,
+        &quot;Environment&quot;: &quot;Public roads, pedestrians, weather, traffic signs&quot;,
+        &quot;Actuators&quot;: &quot;Steering assembly, accelerator, hydraulic brakes, horn&quot;,
+        &quot;Sensors&quot;: &quot;LiDAR, RGB cameras, radar arrays, GPS, IMU sensors&quot;
+    }
+
+    agent1 = AIAgent(&quot;Autonomous Vacuum Agent&quot;, &quot;Simple Reflex / Model-Based&quot;, vacuum_peas)
+    agent2 = AIAgent(&quot;Self-Driving Navigation Agent&quot;, &quot;Goal &amp; Utility-Based&quot;, car_peas)
+
+    agent1.display_peas()
+    agent1.act({&quot;location&quot;: &quot;Room_A&quot;, &quot;cleanliness&quot;: &quot;dirty&quot;})
+    agent1.act({&quot;location&quot;: &quot;Room_A&quot;, &quot;cleanliness&quot;: &quot;clean&quot;})
+
+    agent2.display_peas()
+    print(&quot;\n[PEAS Analysis Complete - Viva Cleared 3/3]&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</textarea>
             <h3>#01 Case Study on AI Agents & PEAS Properties</h3>
-            <p>Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.</p>
+            <span class="file-pill">agent_case_study.py</span>
           </div>
-          <a href="experiments/01/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/01/agent_case_study.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/01/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-2')" title="Copy a_star_15_puzzle.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-2" style="display:none;">import heapq
+
+GOAL = (
+    (1, 2, 3, 4),
+    (5, 6, 7, 8),
+    (9, 10, 11, 12),
+    (13, 14, 15, 0)
+)
+MOVES = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+def manhattan(state):
+    distance = 0
+    for i in range(4):
+        for j in range(4):
+            value = state[i][j]
+            if value != 0:
+                goal_x = (value - 1) // 4
+                goal_y = (value - 1) % 4
+                distance += abs(i - goal_x) + abs(j - goal_y)
+    return distance
+
+def get_neighbors(state):
+    state_list = [list(row) for row in state]
+    x, y = 0, 0
+    for i in range(4):
+        for j in range(4):
+            if state_list[i][j] == 0:
+                x, y = i, j
+    neighbors = []
+    for dx, dy in MOVES:
+        nx, ny = x + dx, y + dy
+        if 0 &lt;= nx &lt; 4 and 0 &lt;= ny &lt; 4:
+            new_state = [row[:] for row in state_list]
+            new_state[x][y], new_state[nx][ny] = new_state[nx][ny], new_state[x][y]
+            neighbors.append(tuple(tuple(row) for row in new_state))
+    return neighbors
+
+def a_star(start):
+    pq = []
+    heapq.heappush(pq, (manhattan(start), 0, start, []))
+    visited = set()
+    while pq:
+        f, g, current, path = heapq.heappop(pq)
+        if current == GOAL:
+            return path + [current]
+        if current in visited:
+            continue
+        visited.add(current)
+        for neighbor in get_neighbors(current):
+            if neighbor not in visited:
+                new_g = g + 1
+                new_f = new_g + manhattan(neighbor)
+                heapq.heappush(pq, (new_f, new_g, neighbor, path + [current]))
+    return None
+
+if __name__ == &quot;__main__&quot;:
+    start = (
+        (1, 2, 3, 4),
+        (5, 6, 7, 8),
+        (9, 10, 11, 12),
+        (13, 14, 0, 15)
+    )
+    print(&quot;Initial State:&quot;)
+    for r in start:
+        print(r)
+    path = a_star(start)
+    if path:
+        print(f&quot;\nSolution found in {len(path) - 1} moves:&quot;)
+        for step in path:
+            for row in step:
+                print(row)
+            print()
+    else:
+        print(&quot;No solution found.&quot;)
+</textarea>
             <h3>#02 Informed Search - A* Algorithm for 15-Puzzle Problem</h3>
-            <p>Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.</p>
+            <span class="file-pill">a_star_15_puzzle.py</span>
           </div>
-          <a href="experiments/02/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/02/a_star_15_puzzle.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/02/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-3')" title="Copy dfid_search.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-3" style="display:none;">import sys
+from collections import defaultdict
+
+graph = defaultdict(list)
+
+def dls(node, goal, depth, visited):
+    if node == goal:
+        print(node, end=&quot; &quot;)
+        return True
+    if depth &lt;= 0:
+        return False
+    visited.add(node)
+    print(node, end=&quot; -&gt; &quot;)
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            if dls(neighbor, goal, depth - 1, visited):
+                return True
+    return False
+
+def iddfs(start, goal, max_depth):
+    for depth in range(max_depth + 1):
+        print(f&quot;\nSearching at Depth Limit = {depth}: &quot;, end=&quot;&quot;)
+        visited = set()
+        if dls(start, goal, depth, visited):
+            print(f&quot;\n[SUCCESS] Goal &#x27;{goal}&#x27; reached at depth {depth}!&quot;)
+            return True
+    print(f&quot;\n[FAIL] Goal &#x27;{goal}&#x27; not found within depth {max_depth}.&quot;)
+    return False
+
+if __name__ == &quot;__main__&quot;:
+    # Graph edges definition
+    edges = [
+        (&quot;A&quot;, &quot;B&quot;), (&quot;A&quot;, &quot;C&quot;),
+        (&quot;B&quot;, &quot;D&quot;), (&quot;B&quot;, &quot;E&quot;),
+        (&quot;C&quot;, &quot;F&quot;), (&quot;C&quot;, &quot;G&quot;),
+        (&quot;E&quot;, &quot;H&quot;), (&quot;F&quot;, &quot;I&quot;)
+    ]
+    for u, v in edges:
+        graph[u].append(v)
+
+    start_node = &quot;A&quot;
+    goal_node = &quot;H&quot;
+    print(&quot;Graph Structure:&quot;)
+    for k, v in graph.items():
+        print(f&quot;  {k} -&gt; {v}&quot;)
+
+    print(f&quot;\nRunning DFID Search from &#x27;{start_node}&#x27; to &#x27;{goal_node}&#x27;:&quot;)
+    iddfs(start_node, goal_node, max_depth=4)
+</textarea>
             <h3>#03 Uninformed Search - Depth First Iterative Deepening (DFID)</h3>
-            <p>Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.</p>
+            <span class="file-pill">dfid_search.py</span>
           </div>
-          <a href="experiments/03/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/03/dfid_search.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/03/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-4')" title="Copy alpha_beta_pruning.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-4" style="display:none;">def alpha_beta(node, depth, alpha, beta, maximizing_player):
+    if depth == 0 or isinstance(node, int):
+        return node
+
+    if maximizing_player:
+        value = float(&#x27;-inf&#x27;)
+        for child in node:
+            value = max(value, alpha_beta(child, depth - 1, alpha, beta, False))
+            alpha = max(alpha, value)
+            if alpha &gt;= beta:
+                print(f&quot;  [Pruning] Branch pruned at Maximizer node: alpha ({alpha}) &gt;= beta ({beta})&quot;)
+                break
+        return value
+    else:
+        value = float(&#x27;inf&#x27;)
+        for child in node:
+            value = min(value, alpha_beta(child, depth - 1, alpha, beta, True))
+            beta = min(beta, value)
+            if alpha &gt;= beta:
+                print(f&quot;  [Pruning] Branch pruned at Minimizer node: alpha ({alpha}) &gt;= beta ({beta})&quot;)
+                break
+        return value
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 55)
+    print(&quot; LabX: Alpha-Beta Pruning Game Tree Evaluator&quot;)
+    print(&quot;=&quot; * 55)
+    
+    # Game tree: 2 levels deep with 4 leaf pairs
+    tree = [
+        [3, 1],
+        [6, 8],
+        [1, 7],
+        [0, -1]
+    ]
+
+    print(f&quot;Game Tree Leaves: {tree}&quot;)
+    result = alpha_beta(tree, 2, float(&#x27;-inf&#x27;), float(&#x27;inf&#x27;), True)
+    print(f&quot;\nOptimal Value at Root: {result}&quot;)
+    print(&quot;=&quot; * 55)
+</textarea>
             <h3>#04 Implementation of Alpha-Beta Pruning Algorithm</h3>
-            <p>Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.</p>
+            <span class="file-pill">alpha_beta_pruning.py</span>
           </div>
-          <a href="experiments/04/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/04/alpha_beta_pruning.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/04/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-5')" title="Copy perceptron_slp.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-5" style="display:none;">import numpy as np
+
+class Perceptron:
+    def __init__(self, learning_rate=0.1, epochs=20):
+        self.learning_rate = learning_rate
+        self.epochs = epochs
+        self.weights = None
+        self.bias = None
+
+    def activation(self, z):
+        return 1 if z &gt;= 0 else 0
+
+    def fit(self, X, y):
+        self.weights = np.zeros(X.shape[1])
+        self.bias = 0.0
+
+        for epoch in range(self.epochs):
+            errors = 0
+            for xi, target in zip(X, y):
+                prediction = self.activation(np.dot(xi, self.weights) + self.bias)
+                error = target - prediction
+                self.weights += self.learning_rate * error * xi
+                self.bias += self.learning_rate * error
+                errors += abs(error)
+
+            if errors == 0:
+                print(f&quot;Perceptron converged at epoch {epoch + 1}!&quot;)
+                break
+
+    def predict(self, X):
+        return np.array([
+            self.activation(np.dot(x, self.weights) + self.bias)
+            for x in X
+        ])
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 55)
+    print(&quot; LabX Exp 05: Single Layer Perceptron (AND Gate)&quot;)
+    print(&quot;=&quot; * 55)
+
+    # Linearly separable binary patterns (AND Gate)
+    X = np.array([
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [1, 1]
+    ])
+    y = np.array([0, 0, 0, 1])
+
+    model = Perceptron(learning_rate=0.1, epochs=20)
+    model.fit(X, y)
+
+    predictions = model.predict(X)
+    print(&quot;Learned Weights :&quot;, model.weights)
+    print(&quot;Learned Bias    :&quot;, model.bias)
+    print(&quot;Target Outputs  :&quot;, y)
+    print(&quot;Predicted Output:&quot;, predictions)
+    print(&quot;Accuracy        :&quot;, f&quot;{np.mean(predictions == y) * 100:.1f}%&quot;)
+    print(&quot;=&quot; * 55)
+</textarea>
             <h3>#05 Single Layer Perceptron (SLP) for Binary Classification</h3>
-            <p>Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.</p>
+            <span class="file-pill">perceptron_slp.py</span>
           </div>
-          <a href="experiments/05/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/05/perceptron_slp.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/05/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-6')" title="Copy mlp_neural_network.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-6" style="display:none;">import numpy as np
+
+class MLP:
+    def __init__(self, input_size, hidden_size, output_size, learning_rate=1.0):
+        self.lr = learning_rate
+        self.W1 = np.random.randn(input_size, hidden_size) * 0.5
+        self.b1 = np.zeros((1, hidden_size))
+        self.W2 = np.random.randn(hidden_size, output_size) * 0.5
+        self.b2 = np.zeros((1, output_size))
+
+    def sigmoid(self, x):
+        return 1.0 / (1.0 + np.exp(-np.clip(x, -500, 500)))
+
+    def sigmoid_derivative(self, x):
+        return x * (1.0 - x)
+
+    def forward(self, X):
+        self.z1 = np.dot(X, self.W1) + self.b1
+        self.a1 = self.sigmoid(self.z1)
+        self.z2 = np.dot(self.a1, self.W2) + self.b2
+        self.a2 = self.sigmoid(self.z2)
+        return self.a2
+
+    def train(self, X, y, epochs=10000):
+        for ep in range(epochs):
+            output = self.forward(X)
+            error = y - output
+            d_output = error * self.sigmoid_derivative(output)
+            error_hidden = d_output.dot(self.W2.T)
+            d_hidden = error_hidden * self.sigmoid_derivative(self.a1)
+
+            self.W2 += self.a1.T.dot(d_output) * self.lr
+            self.b2 += np.sum(d_output, axis=0, keepdims=True) * self.lr
+            self.W1 += X.T.dot(d_hidden) * self.lr
+            self.b1 += np.sum(d_hidden, axis=0, keepdims=True) * self.lr
+
+    def predict(self, X):
+        return (self.forward(X) &gt;= 0.5).astype(int)
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 55)
+    print(&quot; LabX Exp 06: Multi-Layer Perceptron (XOR Non-Linear)&quot;)
+    print(&quot;=&quot; * 55)
+
+    X = np.array([
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [1, 1]
+    ])
+    y = np.array([
+        [0],
+        [1],
+        [1],
+        [0]
+    ])
+
+    mlp = MLP(input_size=2, hidden_size=4, output_size=1, learning_rate=1.0)
+    print(&quot;Training MLP network with Backpropagation...&quot;)
+    mlp.train(X, y, epochs=10000)
+
+    preds = mlp.predict(X)
+    print(&quot;Input Patterns:&quot;)
+    for inp, target, pred in zip(X, y, preds):
+        print(f&quot;  {inp} -&gt; Target: {target[0]}, Predicted: {pred[0]}&quot;)
+    print(&quot;=&quot; * 55)
+</textarea>
             <h3>#06 Supervised Learning using Multi-Layer Perceptron (MLP)</h3>
-            <p>Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.</p>
+            <span class="file-pill">mlp_neural_network.py</span>
           </div>
-          <a href="experiments/06/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/06/mlp_neural_network.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/06/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-7')" title="Copy kmeans_clustering.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-7" style="display:none;">import numpy as np
+
+def kmeans(X, k=2, max_iters=100):
+    np.random.seed(42)
+    # Randomly initialize centroids from sample points
+    initial_indices = np.random.choice(len(X), k, replace=False)
+    centroids = X[initial_indices].copy()
+
+    for _ in range(max_iters):
+        # Compute euclidean distance from all points to centroids
+        distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=2)
+        labels = np.argmin(distances, axis=1)
+
+        # Recompute centroids
+        new_centroids = np.array([X[labels == i].mean(axis=0) if len(X[labels == i]) &gt; 0 else centroids[i] for i in range(k)])
+
+        if np.allclose(centroids, new_centroids):
+            break
+        centroids = new_centroids
+
+    return labels, centroids
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 55)
+    print(&quot; LabX Exp 07: Unsupervised K-Means Clustering&quot;)
+    print(&quot;=&quot; * 55)
+
+    X = np.array([
+        [1.0, 2.0], [1.0, 4.0], [1.0, 0.0],
+        [10.0, 2.0], [10.0, 4.0], [10.0, 0.0]
+    ])
+
+    labels, centroids = kmeans(X, k=2)
+
+    print(&quot;Data Points:&quot;)
+    for pt, lbl in zip(X, labels):
+        print(f&quot;  Point {pt} -&gt; Cluster {lbl}&quot;)
+
+    print(&quot;\nFinal Cluster Centroids:&quot;)
+    for idx, c in enumerate(centroids):
+        print(f&quot;  Centroid {idx}: {c}&quot;)
+    print(&quot;=&quot; * 55)
+</textarea>
             <h3>#07 Unsupervised Learning using K-Means Clustering</h3>
-            <p>K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.</p>
+            <span class="file-pill">kmeans_clustering.py</span>
           </div>
-          <a href="experiments/07/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/07/kmeans_clustering.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/07/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-8')" title="Copy hopfield_network.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-8" style="display:none;">import numpy as np
+
+class HopfieldNetwork:
+    def __init__(self, n_neurons):
+        self.n_neurons = n_neurons
+        self.weights = np.zeros((n_neurons, n_neurons))
+
+    def train(self, patterns):
+        self.weights = np.zeros((self.n_neurons, self.n_neurons))
+        for pattern in patterns:
+            p = np.array(pattern)
+            self.weights += np.outer(p, p)
+        np.fill_diagonal(self.weights, 0)
+        self.weights /= self.n_neurons
+
+    def recall(self, pattern, steps=10):
+        state = np.array(pattern).copy()
+        for _ in range(steps):
+            for i in range(self.n_neurons):
+                activation = np.dot(self.weights[i], state)
+                state[i] = 1 if activation &gt;= 0 else -1
+        return state
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 55)
+    print(&quot; LabX Exp 08: Hopfield Associative Memory Network&quot;)
+    print(&quot;=&quot; * 55)
+
+    # 8-dimensional bipolar prototype memories (-1, +1)
+    patterns = np.array([
+        [1,  1,  1,  1, -1, -1, -1, -1],
+        [1, -1,  1, -1,  1, -1,  1, -1]
+    ])
+
+    net = HopfieldNetwork(n_neurons=8)
+    net.train(patterns)
+
+    print(&quot;Stored Target Patterns:&quot;)
+    print(&quot;  Pattern 1:&quot;, patterns[0])
+    print(&quot;  Pattern 2:&quot;, patterns[1])
+
+    # Probe with 2 corrupted bits
+    noisy_probe = np.array([1, 1, -1, 1, -1, -1, 1, -1])
+    print(&quot;\nNoisy Input Pattern  :&quot;, noisy_probe)
+
+    recovered = net.recall(noisy_probe)
+    print(&quot;Associatively Recalled:&quot;, recovered)
+
+    if np.array_equal(recovered, patterns[0]):
+        print(&quot;-&gt; Successfully restored to Stored Pattern 1!&quot;)
+    else:
+        print(&quot;-&gt; Recalled nearest memory state.&quot;)
+    print(&quot;=&quot; * 55)
+</textarea>
             <h3>#08 Associative Memory Network (Hopfield Network)</h3>
-            <p>Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.</p>
+            <span class="file-pill">hopfield_network.py</span>
           </div>
-          <a href="experiments/08/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/08/hopfield_network.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/08/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-9')" title="Copy fuzzy_membership.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-9" style="display:none;">import numpy as np
+
+def triangular_membership(x, a, b, c):
+    x = np.asarray(x, dtype=float)
+    return np.maximum(np.minimum((x - a) / (b - a), (c - x) / (c - b)), 0.0)
+
+def trapezoidal_membership(x, a, b, c, d):
+    x = np.asarray(x, dtype=float)
+    return np.maximum(np.minimum(np.minimum((x - a) / (b - a), 1.0), (d - x) / (d - c)), 0.0)
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 60)
+    print(&quot; LabX Exp 09: Fuzzy Membership Functions&quot;)
+    print(&quot;=&quot; * 60)
+
+    test_values = [10, 20, 30, 50, 70, 80, 90]
+    print(f&quot;{&#x27;Input (x)&#x27;:&lt;12} | {&#x27;Triangular (20,50,80)&#x27;:&lt;22} | {&#x27;Trapezoidal (10,30,70,90)&#x27;:&lt;25}&quot;)
+    print(&quot;-&quot; * 65)
+
+    for val in test_values:
+        tri_deg = triangular_membership(val, 20, 50, 80)
+        trap_deg = trapezoidal_membership(val, 10, 30, 70, 90)
+        print(f&quot;{val:&lt;12} | {tri_deg:&lt;22.3f} | {trap_deg:&lt;25.3f}&quot;)
+
+    print(&quot;=&quot; * 60)
+</textarea>
             <h3>#09 Implementation of Fuzzy Membership Functions</h3>
-            <p>Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.</p>
+            <span class="file-pill">fuzzy_membership.py</span>
           </div>
-          <a href="experiments/09/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/09/fuzzy_membership.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/09/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-10')" title="Copy fuzzy_control_system.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-10" style="display:none;">import sys
+import numpy as np
+
+def triangular(x, a, b, c):
+    if x &lt;= a or x &gt;= c:
+        return 0.0
+    if a &lt; x &lt;= b:
+        return (x - a) / (b - a)
+    return (c - x) / (c - b)
+
+def simulate_fan_controller(temp: float) -&gt; float:
+    # 1. Fuzzification
+    u_cold = triangular(temp, 0, 0, 20) if temp &lt;= 20 else 0.0
+    u_warm = triangular(temp, 10, 20, 30)
+    u_hot = triangular(temp, 20, 40, 40) if temp &gt;= 20 else 0.0
+
+    print(f&quot;Fuzzified Degrees: Cold={u_cold:.2f}, Warm={u_warm:.2f}, Hot={u_hot:.2f}&quot;)
+
+    # 2. Rule evaluation (Mamdani minimum implication)
+    w_slow = u_cold
+    w_medium = u_warm
+    w_fast = u_hot
+
+    # 3. Defuzzification via Weighted Average Centroid
+    slow_center = 25.0
+    medium_center = 50.0
+    fast_center = 85.0
+
+    numerator = (w_slow * slow_center) + (w_medium * medium_center) + (w_fast * fast_center)
+    denominator = w_slow + w_medium + w_fast
+
+    if denominator == 0:
+        return 0.0
+    return numerator / denominator
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 60)
+    print(&quot; LabX Exp 10: Fuzzy Control System (Fan Speed Controller)&quot;)
+    print(&quot;=&quot; * 60)
+
+    # Allow custom CLI argument or interactive input
+    if len(sys.argv) &gt; 1:
+        try:
+            temp = float(sys.argv[1])
+        except ValueError:
+            temp = 28.0
+    else:
+        temp = 28.0
+
+    print(f&quot;Input Room Temperature: {temp:.1f} deg C&quot;)
+    fan_speed = simulate_fan_controller(temp)
+    print(f&quot;Computed Fan Speed    : {fan_speed:.2f} %&quot;)
+    print(&quot;=&quot; * 60)
+</textarea>
             <h3>#10 Fuzzy Control System Simulation (Fan Speed Controller)</h3>
-            <p>Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.</p>
+            <span class="file-pill">fuzzy_control_system.py</span>
           </div>
-          <a href="experiments/10/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/10/fuzzy_control_system.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/10/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-11')" title="Copy genetic_algorithm.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-11" style="display:none;">import random
+import math
+
+def fitness(x):
+    # Sphere function: global minimum at x = 0
+    return x ** 2
+
+def run_genetic_algorithm(pop_size=20, generations=50, mutation_rate=0.1):
+    population = [random.uniform(-10, 10) for _ in range(pop_size)]
+
+    for gen in range(generations):
+        population.sort(key=fitness)
+        parents = population[:2]
+
+        # Crossover
+        child = (parents[0] + parents[1]) / 2.0
+
+        # Mutation
+        if random.random() &lt; mutation_rate:
+            child += random.uniform(-1.0, 1.0)
+        child = max(-10.0, min(10.0, child))
+
+        population[-1] = child
+
+    best = min(population, key=fitness)
+    return best, fitness(best)
+
+def run_simulated_annealing(initial_temp=100.0, cooling_rate=0.95, iterations=100):
+    current = random.uniform(-10, 10)
+    current_cost = fitness(current)
+    temp = initial_temp
+
+    for _ in range(iterations):
+        neighbor = current + random.uniform(-1.0, 1.0)
+        neighbor_cost = fitness(neighbor)
+        delta = neighbor_cost - current_cost
+
+        if delta &lt; 0 or random.random() &lt; math.exp(-delta / max(temp, 1e-6)):
+            current = neighbor
+            current_cost = neighbor_cost
+
+        temp *= cooling_rate
+
+    return current, current_cost
+
+if __name__ == &quot;__main__&quot;:
+    print(&quot;=&quot; * 60)
+    print(&quot; LabX Exp 11: Genetic Algorithm &amp; Simulated Annealing&quot;)
+    print(&quot;=&quot; * 60)
+
+    ga_x, ga_fit = run_genetic_algorithm()
+    print(f&quot;Genetic Algorithm Result       : x = {ga_x:.6f}, f(x) = {ga_fit:.6f}&quot;)
+
+    sa_x, sa_fit = run_simulated_annealing()
+    print(f&quot;Simulated Annealing Result     : x = {sa_x:.6f}, f(x) = {sa_fit:.6f}&quot;)
+    print(&quot;=&quot; * 60)
+</textarea>
             <h3>#11 Optimization using Genetic Algorithm & Simulated Annealing</h3>
-            <p>Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.</p>
+            <span class="file-pill">genetic_algorithm.py</span>
           </div>
-          <a href="experiments/11/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/11/genetic_algorithm.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/11/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
         <div class="card">
           <div>
-            <span class="tag">python</span>
+            <div class="card-top">
+              <span class="tag">python</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-12')" title="Copy n8n_agent_simulator.py source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-12" style="display:none;">import json
+import time
+
+class N8nNode:
+    def __init__(self, name: str, node_type: str):
+        self.name = name
+        self.node_type = node_type
+
+    def execute(self, payload: dict) -&gt; dict:
+        print(f&quot;  [Node: {self.name} ({self.node_type})] Executing...&quot;)
+        time.sleep(0.1)
+        return payload
+
+class N8nWorkflowAgent:
+    def __init__(self):
+        self.nodes = {
+            &quot;webhook&quot;: N8nNode(&quot;Webhook Trigger&quot;, &quot;n8n-nodes-base.webhook&quot;),
+            &quot;llm&quot;: N8nNode(&quot;AI Agent LLM Parser&quot;, &quot;@n8n/n8n-nodes-langchain.agent&quot;),
+            &quot;email&quot;: N8nNode(&quot;Send Email Notification&quot;, &quot;n8n-nodes-base.emailSend&quot;),
+            &quot;database&quot;: N8nNode(&quot;PostgreSQL Logger&quot;, &quot;n8n-nodes-base.postgres&quot;)
+        }
+
+    def process_command(self, user_command: str):
+        print(f&quot;\nProcessing Inbound Task: \&quot;{user_command}\&quot;&quot;)
+        print(&quot;-&quot; * 50)
+
+        # 1. Trigger
+        data = self.nodes[&quot;webhook&quot;].execute({&quot;raw_input&quot;: user_command, &quot;timestamp&quot;: time.time()})
+
+        # 2. LLM Intent Extraction
+        if &quot;email&quot; in user_command.lower() or &quot;alert&quot; in user_command.lower():
+            intent = &quot;SEND_EMAIL&quot;
+            params = {&quot;recipient&quot;: &quot;admin@college.edu&quot;, &quot;subject&quot;: &quot;Automated Alert&quot;, &quot;body&quot;: user_command}
+        else:
+            intent = &quot;DATABASE_LOG&quot;
+            params = {&quot;table&quot;: &quot;system_events&quot;, &quot;record&quot;: user_command}
+
+        llm_data = self.nodes[&quot;llm&quot;].execute({&quot;intent&quot;: intent, &quot;params&quot;: params})
+
+        # 3. Dynamic Node Routing
+        if intent == &quot;SEND_EMAIL&quot;:
+            self.nodes[&quot;email&quot;].execute(llm_data[&quot;params&quot;])
+            print(&quot;  --&gt; Email successfully dispatched via n8n worker node.&quot;)
+        else:
+            self.nodes[&quot;database&quot;].execute(llm_data[&quot;params&quot;])
+            print(&quot;  --&gt; Record committed to database via n8n SQL node.&quot;)
+
+        print(&quot;-&quot; * 50)
+        print(&quot;[SUCCESS] n8n AI Agent Workflow Completed!&quot;)
+
+def main():
+    print(&quot;=&quot; * 60)
+    print(&quot; LabX Exp 12: AI Agent for Automation using n8n&quot;)
+    print(&quot;=&quot; * 60)
+
+    workflow = N8nWorkflowAgent()
+    workflow.process_command(&quot;Send urgent email alert about lab attendance drop&quot;)
+    workflow.process_command(&quot;Log daily laboratory usage telemetry&quot;)
+    print(&quot;=&quot; * 60)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</textarea>
             <h3>#12 AI Agent for Automation using n8n Workflow Architecture</h3>
-            <p>AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.</p>
+            <span class="file-pill">n8n_agent_simulator.py</span>
           </div>
-          <a href="experiments/12/manifest.json">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/12/n8n_agent_simulator.py" target="_blank">View File &rarr;</a>
+            <a href="experiments/12/manifest.json" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>
       </div>
     </section>
   </div>
+  <script>
+    function copyExpCode(btn, codeId) {
+      const ta = document.getElementById(codeId);
+      if (!ta) return;
+      const text = ta.value;
+      const span = btn.querySelector('span');
+      const originalText = span.textContent;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          btn.classList.add('copied');
+          span.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            span.textContent = originalText;
+          }, 2000);
+        }).catch(() => fallbackCopy(ta, btn, span, originalText));
+      } else {
+        fallbackCopy(ta, btn, span, originalText);
+      }
+    }
+
+    function fallbackCopy(ta, btn, span, originalText) {
+      ta.style.display = 'block';
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        btn.classList.add('copied');
+        span.textContent = 'Copied!';
+      } catch (err) {
+        alert('Please manually copy the code from View File.');
+      }
+      ta.style.display = 'none';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        span.textContent = originalText;
+      }, 2000);
+    }
+  </script>
 </body>
 </html>

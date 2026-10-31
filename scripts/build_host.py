@@ -3,6 +3,7 @@ populated from AISC Laboratory Submissions (A_AISC_A_Submissions)."""
 
 import os
 import json
+import html
 import zipfile
 import shutil
 from pathlib import Path
@@ -1166,7 +1167,7 @@ HTML_INDEX = """<!DOCTYPE html>
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
       gap: 1.25rem;
       margin-top: 2rem;
     }
@@ -1178,22 +1179,77 @@ HTML_INDEX = """<!DOCTYPE html>
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .card:hover {
+      border-color: #475569;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #1e3a5f;
+      color: #38bdf8;
+      border: 1px solid #0284c7;
+      border-radius: 6px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .copy-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .copy-btn.copied {
+      background: #15803d !important;
+      color: #ffffff !important;
+      border-color: #22c55e !important;
     }
     .card h3 {
-      margin: 0.5rem 0;
+      margin: 0.4rem 0;
       color: var(--accent);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      line-height: 1.35;
     }
     .tag {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       background: #334155;
       padding: 0.2rem 0.5rem;
-      border-radius: 3px;
+      border-radius: 4px;
       color: #38bdf8;
       display: inline-block;
-      align-self: flex-start;
+      font-weight: 600;
+    }
+    .file-pill {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #0f172a;
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      margin-top: 0.5rem;
+      display: inline-block;
+      border: 1px solid #1e293b;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #334155;
+      font-size: 0.85rem;
     }
     a {
       color: var(--accent);
@@ -1215,11 +1271,13 @@ HTML_INDEX = """<!DOCTYPE html>
     <section>
       <h2>Terminal Quickstart</h2>
       <div class="command-box">
-        # 1. Download and run any experiment directly<br>
-        labx download 2<br>
-        labx run 2<br><br>
-        # 2. Download all 12 experiments into your workspace<br>
-        labx download all
+        <span style="color:#94a3b8"># 1. Ultra-short one-liners in PowerShell (No install needed):</span><br>
+        irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull ALL 12 experiments</span><br>
+        & (irm https://aisccli.netlify.app/get.ps1) 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 2</span><br>
+        irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># List catalogue</span><br><br>
+        <span style="color:#94a3b8"># 2. Or install the global 'labx' CLI:</span><br>
+        irm https://aisccli.netlify.app/install.ps1 | iex<br>
+        labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
       </div>
     </section>
 
@@ -1349,14 +1407,35 @@ def generate_host():
         with open(zip_exp_dir / "README.md", "w", encoding="utf-8") as rf:
             rf.write(readme_content)
 
+        # Identify primary source code
+        py_files = [f for f in exp["files"] if f["path"].endswith(".py")]
+        src_file = py_files[0] if py_files else exp["files"][0]
+        src_name = src_file["path"]
+        src_code = src_file["content"]
+        escaped_code = html.escape(src_code)
+
         # HTML card
         html_cards.append(f"""        <div class="card">
           <div>
-            <span class="tag">{exp['language']}</span>
+            <div class="card-top">
+              <span class="tag">{exp['language']}</span>
+              <button class="copy-btn" onclick="copyExpCode(this, 'code-{exp_id}')" title="Copy {src_name} source code">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-{exp_id}" style="display:none;">{escaped_code}</textarea>
             <h3>#{exp_id:02d} {exp['title']}</h3>
-            <p>{exp['description']}</p>
+            <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">{exp['description']}</p>
+            <span class="file-pill">{src_name}</span>
           </div>
-          <a href="{manifest_url}">View Manifest &rarr;</a>
+          <div class="card-footer">
+            <a href="experiments/{exp_id:02d}/{src_name}" target="_blank">View File &rarr;</a>
+            <a href="{manifest_url}" target="_blank">Manifest &rarr;</a>
+          </div>
         </div>""")
 
     # 4. Write catalog.json
@@ -1386,6 +1465,46 @@ def generate_host():
       </div>
     </section>
   </div>
+  <script>
+    function copyExpCode(btn, codeId) {
+      const ta = document.getElementById(codeId);
+      if (!ta) return;
+      const text = ta.value;
+      const span = btn.querySelector('span');
+      const originalText = span.textContent;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          btn.classList.add('copied');
+          span.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            span.textContent = originalText;
+          }, 2000);
+        }).catch(() => fallbackCopy(ta, btn, span, originalText));
+      } else {
+        fallbackCopy(ta, btn, span, originalText);
+      }
+    }
+
+    function fallbackCopy(ta, btn, span, originalText) {
+      ta.style.display = 'block';
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        btn.classList.add('copied');
+        span.textContent = 'Copied!';
+      } catch (err) {
+        alert('Please manually copy the code from View File.');
+      }
+      ta.style.display = 'none';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        span.textContent = originalText;
+      }, 2000);
+    }
+  </script>
 </body>
 </html>"""
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as hf:
