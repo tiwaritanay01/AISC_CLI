@@ -1,10 +1,10 @@
 # scripts/install_windows.ps1
 # LabX Remote - Automated Student Installation Script for Windows
-# Run in PowerShell: irm https://labx-remote.netlify.app/install.ps1 | iex
+# Run in PowerShell: irm https://aisccli.netlify.app/install.ps1 | iex
 
 param (
     [string]$InstallDir = "$env:LOCALAPPDATA\Programs\LabX",
-    [string]$ReleaseUrl = "https://labx-remote.netlify.app/downloads/labx.exe"
+    [string]$ReleaseUrl = "https://aisccli.netlify.app/downloads/labx.exe"
 )
 
 $ErrorActionPreference = "Stop"

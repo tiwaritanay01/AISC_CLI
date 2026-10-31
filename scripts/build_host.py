@@ -1401,6 +1401,56 @@ def generate_host():
     if install_script.exists():
         shutil.copy(install_script, PUBLIC_DIR / "install.ps1")
 
+    # Generate ultra-short one-liner shell helpers
+    all_ps1 = """$zip = Join-Path $PWD "labx_temp.zip"
+Write-Host "Downloading all 12 AISC experiments from LabX Remote..." -ForegroundColor Cyan
+Invoke-WebRequest "https://aisccli.netlify.app/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
+Expand-Archive $zip -DestinationPath $PWD -Force
+Remove-Item $zip -Force
+Write-Host "[OK] All 12 experiments extracted to current directory!" -ForegroundColor Green
+"""
+    with open(PUBLIC_DIR / "all.ps1", "w", encoding="utf-8") as f:
+        f.write(all_ps1)
+
+    list_ps1 = """$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
+Write-Host "`n==== AISC Laboratory Experiments (LabX Remote) ====" -ForegroundColor Cyan
+$cat.experiments | Format-Table @{Label="ID"; Expression={"Exp " + ("{0:D2}" -f $_.id)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
+Write-Host "Quick commands:" -ForegroundColor Yellow
+Write-Host "  Pull all experiments : irm https://aisccli.netlify.app/all.ps1 | iex" -ForegroundColor White
+Write-Host "  Pull one experiment  : & (irm https://aisccli.netlify.app/get.ps1) <id>`n" -ForegroundColor White
+"""
+    with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
+        f.write(list_ps1)
+
+    get_ps1 = """param($Id)
+if (-not $Id) {
+    $Id = Read-Host "Enter experiment number (1-12)"
+}
+$num = "{0:D2}" -f [int]$Id
+$cat = (Invoke-RestMethod "https://aisccli.netlify.app/catalog.json").experiments | Where-Object { $_.id -eq [int]$Id }
+if (-not $cat) {
+    Write-Host "[!] Experiment $Id not found in catalogue." -ForegroundColor Red
+    return
+}
+$mf = Invoke-RestMethod "https://aisccli.netlify.app/$($cat.manifest_url)"
+$dir = "Experiment$num"
+New-Item -ItemType Directory -Path $dir -Force | Out-Null
+foreach ($f in $mf.files) {
+    Invoke-WebRequest "https://aisccli.netlify.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
+}
+Write-Host "[OK] Downloaded $($cat.title) into $dir/" -ForegroundColor Green
+"""
+    with open(PUBLIC_DIR / "get.ps1", "w", encoding="utf-8") as f:
+        f.write(get_ps1)
+
+    all_sh = """#!/usr/bin/env bash
+echo "Downloading all 12 AISC experiments..."
+curl -sLO https://aisccli.netlify.app/downloads/labx_experiments.zip && unzip -q -o labx_experiments.zip && rm labx_experiments.zip
+echo "[OK] All 12 experiments downloaded into $(pwd)!"
+"""
+    with open(PUBLIC_DIR / "all.sh", "w", encoding="utf-8") as f:
+        f.write(all_sh)
+
     print(f"Successfully generated all {len(EXPERIMENTS)} AISC experiments!")
 
 if __name__ == "__main__":
