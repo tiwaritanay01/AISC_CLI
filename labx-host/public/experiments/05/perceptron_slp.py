@@ -57,3 +57,22 @@ if __name__ == "__main__":
     print("Predicted Output:", predictions)
     print("Accuracy        :", f"{np.mean(predictions == y) * 100:.1f}%")
     print("=" * 55)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# A Single Layer Perceptron is a type of feedforward neural network that
+# consists of an input layer and an output layer, with no hidden layers. The
+# Perceptron Learning Rule is an algorithm used to train the SLP, which is
+# based on the concept of supervised learning. The goal of the SLP is to
+# classify linearly separable binary patterns into two distinct classes. The
+# Perceptron Learning Rule works by iteratively adjusting the weights of the
+# connections between the input and output layers to minimize the error
+# between the predicted output and the actual output. The SLP uses a
+# threshold function to make predictions, where if the weighted sum of the
+# inputs is greater than or equal to the threshold, the output is 1,
+# otherwise it is 0. The Perceptron Learning Rule updates the weights based
+# on the difference between the predicted output and the actual output, and
+# the learning process continues until the SLP is able to correctly classify
+# all the training patterns.
+# ============================================================================

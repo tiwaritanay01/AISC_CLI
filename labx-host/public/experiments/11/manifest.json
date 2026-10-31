@@ -12,7 +12,7 @@
   ],
   "description": "Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.",
   "aim": "To implement Genetic Algorithm and Simulated Annealing metaheuristics for continuous optimization.",
-  "theory": "Genetic Algorithms (GA) mimic biological natural selection: candidate solutions (individuals) undergo selection, crossover (recombination), and mutation across successive generations to optimize a fitness objective.\nSimulated Annealing (SA) mimics the thermodynamic process of metallurgical annealing: a single candidate is perturbed, and uphill moves are conditionally accepted with probability exp(-delta_E / T) allowing escape from local optima.",
+  "theory": "Genetic algorithms mimic biological evolution: a population of candidate solutions is evolved through selection, crossover, and mutation to optimize a fitness function. Simulated annealing mimics physical annealing: a single solution is iteratively perturbed and accepted with a probability that decreases with temperature, allowing escape from local optima. Both methods rely on stochastic search and balance exploration with exploitation. Key parameters: population size, crossover/mutation rates for GA; cooling schedule and acceptance probability for SA.",
   "algorithm": [
     "Initialize population of candidate solution individuals.",
     "Evaluate objective fitness for every individual.",

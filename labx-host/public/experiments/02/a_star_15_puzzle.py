@@ -72,3 +72,17 @@ if __name__ == "__main__":
             print()
     else:
         print("No solution found.")
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# The A* algorithm is an informed search strategy used to find the shortest
+# path between two nodes in a weighted graph. It uses a best-first search
+# approach, where the node with the lowest estimated total cost is chosen
+# next. The algorithm consists of a priority queue to hold nodes to be
+# evaluated, a set of visited nodes, and a heuristic function to estimate
+# the distance from a node to the goal. The heuristic function guides the
+# search towards the goal, making it more efficient than uninformed search
+# algorithms. The algorithm terminates when the goal node is reached or the
+# queue is empty.
+# ============================================================================

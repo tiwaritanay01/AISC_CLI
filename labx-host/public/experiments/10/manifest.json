@@ -12,7 +12,7 @@
   ],
   "description": "Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.",
   "aim": "To write a program to simulate a fuzzy logic control system for temperature-dependent fan speed control.",
-  "theory": "A Fuzzy Logic Controller operates in four stages:\n1. Fuzzification: Translates crisp numeric sensor inputs into linguistic fuzzy variables (Cold, Warm, Hot).\n2. Rule Base: IF-THEN conditional rules defining system dynamics.\n3. Inference Engine: Evaluates active rules using fuzzy operators (e.g. Mamdani min/max).\n4. Defuzzification: Computes a crisp output value (e.g. Centroid / Center of Gravity method).",
+  "theory": "Fuzzy control systems use linguistic variables and membership functions to map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form, combining antecedents with AND/OR operators to produce fuzzy outputs. Defuzzification (e.g., centroid) converts the aggregated fuzzy output back to a crisp control action. The system handles uncertainty by allowing partial membership, enabling smoother transitions than binary logic.",
   "algorithm": [
     "Define input linguistic variable (Temperature: Cold, Warm, Hot).",
     "Define output linguistic variable (Fan Speed: Slow, Medium, Fast).",

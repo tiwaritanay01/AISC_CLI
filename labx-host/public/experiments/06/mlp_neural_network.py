@@ -64,3 +64,16 @@ if __name__ == "__main__":
     for inp, target, pred in zip(X, y, preds):
         print(f"  {inp} -> Target: {target[0]}, Predicted: {pred[0]}")
     print("=" * 55)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Multi-layer perceptron (MLP) is a feed-forward neural network that maps
+# input vectors to output vectors using layers of weighted neurons. Each
+# neuron computes a weighted sum of its inputs, adds a bias, and applies a
+# nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-
+# propagation to compute gradients of a loss function (e.g., cross-entropy)
+# with respect to weights, and optimizers (SGD, Adam) update weights to
+# minimize error. The network learns hierarchical feature representations,
+# enabling classification or regression on complex data.
+# ============================================================================

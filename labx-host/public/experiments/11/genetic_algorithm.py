@@ -54,3 +54,16 @@ if __name__ == "__main__":
     sa_x, sa_fit = run_simulated_annealing()
     print(f"Simulated Annealing Result     : x = {sa_x:.6f}, f(x) = {sa_fit:.6f}")
     print("=" * 60)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Genetic algorithms mimic biological evolution: a population of candidate
+# solutions is evolved through selection, crossover, and mutation to
+# optimize a fitness function. Simulated annealing mimics physical
+# annealing: a single solution is iteratively perturbed and accepted with a
+# probability that decreases with temperature, allowing escape from local
+# optima. Both methods rely on stochastic search and balance exploration
+# with exploitation. Key parameters: population size, crossover/mutation
+# rates for GA; cooling schedule and acceptance probability for SA.
+# ============================================================================

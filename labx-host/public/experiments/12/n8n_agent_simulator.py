@@ -60,3 +60,15 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# n8n is a workflow automation tool that uses nodes to connect services via
+# APIs. An AI agent can be built by creating a node that sends user input to
+# an LLM (e.g., OpenAI) and processes the response. The workflow then routes
+# the LLM output to subsequent nodes that perform actions like sending
+# emails, updating databases, or triggering other APIs. By chaining these
+# nodes, the agent can interpret natural language commands and execute
+# complex automation tasks.
+# ============================================================================

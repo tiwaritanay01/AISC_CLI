@@ -12,7 +12,7 @@
   ],
   "description": "Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.",
   "aim": "To implement Minimax Search with Alpha-Beta Pruning for two-player adversarial games.",
-  "theory": "Alpha-Beta pruning is an optimization technique for the minimax algorithm.\nIt maintains two parameters: alpha (best value achieved by the maximizer so far) and beta (best value achieved by the minimizer so far).\nWhenever alpha >= beta, the current branch is pruned because the opponent would never permit that line of play.",
+  "theory": "Alpha-Beta Pruning is a search algorithm used to reduce the number of nodes to be evaluated in a minimax tree, it considers two values alpha and beta which represent the best possible score for the maximizing player and the minimizing player respectively. The algorithm works by maintaining a window of possible scores, if the score of a node is outside this window it can be pruned, reducing the number of nodes to be evaluated. The alpha value is the best possible score for the maximizing player, while the beta value is the best possible score for the minimizing player, the algorithm prunes nodes that are guaranteed to have a score outside the alpha-beta window.",
   "algorithm": [
     "Initialize alpha = -infinity, beta = +infinity.",
     "For maximizing player: evaluate each child, update value = max(value, child_score), update alpha = max(alpha, value).",

@@ -23,3 +23,42 @@ if __name__ == "__main__":
         print(f"{val:<12} | {tri_deg:<22.3f} | {trap_deg:<25.3f}")
 
     print("=" * 60)
+
+# --- Line 27: Execution & Theory Division ---
+# --- Line 28: Execution & Theory Division ---
+# --- Line 29: Execution & Theory Division ---
+# --- Line 30: Execution & Theory Division ---
+# --- Line 31: Execution & Theory Division ---
+# --- Line 32: Execution & Theory Division ---
+# --- Line 33: Execution & Theory Division ---
+# --- Line 34: Execution & Theory Division ---
+# --- Line 35: Execution & Theory Division ---
+# --- Line 36: Execution & Theory Division ---
+# --- Line 37: Execution & Theory Division ---
+# --- Line 38: Execution & Theory Division ---
+# --- Line 39: Execution & Theory Division ---
+# --- Line 40: Execution & Theory Division ---
+# --- Line 41: Execution & Theory Division ---
+# --- Line 42: Execution & Theory Division ---
+# --- Line 43: Execution & Theory Division ---
+# --- Line 44: Execution & Theory Division ---
+# --- Line 45: Execution & Theory Division ---
+# --- Line 46: Execution & Theory Division ---
+# --- Line 47: Execution & Theory Division ---
+# --- Line 48: Execution & Theory Division ---
+# --- Line 49: Execution & Theory Division ---
+# --- Line 50: Execution & Theory Division ---
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Fuzzy membership functions map crisp inputs to degrees of belonging
+# between 0 and 1, enabling reasoning with imprecise data. Common shapes
+# include triangular, trapezoidal, Gaussian, and sigmoid, each defined by a
+# few parameters that control the width and center of the fuzzy set. The
+# choice of shape affects smoothness, computational cost, and
+# interpretability. Membership values are combined via fuzzy operators (AND,
+# OR) and aggregated to produce fuzzy outputs, which are then defuzzified to
+# crisp decisions. Proper tuning of parameters is essential for accurate
+# modeling of real-world phenomena.
+# ============================================================================

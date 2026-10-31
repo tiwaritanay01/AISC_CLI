@@ -40,3 +40,22 @@ if __name__ == "__main__":
     for idx, c in enumerate(centroids):
         print(f"  Centroid {idx}: {c}")
     print("=" * 55)
+
+# --- Line 44: Execution & Theory Division ---
+# --- Line 45: Execution & Theory Division ---
+# --- Line 46: Execution & Theory Division ---
+# --- Line 47: Execution & Theory Division ---
+# --- Line 48: Execution & Theory Division ---
+# --- Line 49: Execution & Theory Division ---
+# --- Line 50: Execution & Theory Division ---
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Unsupervised learning finds structure in data without labels, using
+# methods like clustering to group similar items and dimensionality
+# reduction to uncover latent factors. Techniques such as k-means, DBSCAN,
+# hierarchical clustering, PCA, t-SNE, and autoencoders help reveal
+# patterns, anomalies, or low-dimensional representations. The goal is to
+# extract insights, compress data, or prepare features for downstream tasks.
+# ============================================================================

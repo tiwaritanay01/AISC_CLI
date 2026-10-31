@@ -38,3 +38,28 @@ if __name__ == "__main__":
     result = alpha_beta(tree, 2, float('-inf'), float('inf'), True)
     print(f"\nOptimal Value at Root: {result}")
     print("=" * 55)
+
+# --- Line 42: Execution & Theory Division ---
+# --- Line 43: Execution & Theory Division ---
+# --- Line 44: Execution & Theory Division ---
+# --- Line 45: Execution & Theory Division ---
+# --- Line 46: Execution & Theory Division ---
+# --- Line 47: Execution & Theory Division ---
+# --- Line 48: Execution & Theory Division ---
+# --- Line 49: Execution & Theory Division ---
+# --- Line 50: Execution & Theory Division ---
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Alpha-Beta Pruning is a search algorithm used to reduce the number of
+# nodes to be evaluated in a minimax tree, it considers two values alpha and
+# beta which represent the best possible score for the maximizing player and
+# the minimizing player respectively. The algorithm works by maintaining a
+# window of possible scores, if the score of a node is outside this window
+# it can be pruned, reducing the number of nodes to be evaluated. The alpha
+# value is the best possible score for the maximizing player, while the beta
+# value is the best possible score for the minimizing player, the algorithm
+# prunes nodes that are guaranteed to have a score outside the alpha-beta
+# window.
+# ============================================================================

@@ -53,3 +53,20 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# AI Agents can be classified into types such as Simple Reflex, Model-Based,
+# Goal-Based, and Utility-Based. The environment can be fully or partially
+# observable, deterministic or stochastic, and episodic or sequential. PEAS
+# properties include Performance measure, Environment, Actuators, and
+# Sensors, which define the agent's behavior and interaction with the
+# environment. TODO: define agent type based on environment and PEAS
+# properties.AI Agents are based on the theory of intelligent behavior,
+# using PEAS properties to define the agent's environment and actions. The
+# theory involves the interaction between the agent and its environment, and
+# the agent's perception and reasoning. The agent's type, such as simple
+# reflex or model-based, influences its behavior. The theory provides a
+# framework for understanding AI Agents.
+# ============================================================================

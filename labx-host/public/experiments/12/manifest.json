@@ -12,7 +12,7 @@
   ],
   "description": "AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.",
   "aim": "To create an AI agent for automation using node-based workflow tools like n8n.",
-  "theory": "n8n is an open, extensible node-based workflow automation tool connecting REST APIs and enterprise services.\nAn autonomous AI Agent in n8n routes natural language prompts through an LLM reasoning node.\nThe model output is parsed into structured parameters and dispatched to downstream nodes (e.g., Slack, Email, PostgreSQL, Notion) for autonomous multi-step execution.",
+  "theory": "n8n is a workflow automation tool that uses nodes to connect services via APIs. An AI agent can be built by creating a node that sends user input to an LLM (e.g., OpenAI) and processes the response. The workflow then routes the LLM output to subsequent nodes that perform actions like sending emails, updating databases, or triggering other APIs. By chaining these nodes, the agent can interpret natural language commands and execute complex automation tasks.",
   "algorithm": [
     "Capture user trigger via incoming Webhook / Chat node.",
     "Forward prompt to LLM agent node configured with system prompt and available tools.",

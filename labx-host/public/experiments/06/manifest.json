@@ -12,7 +12,7 @@
   ],
   "description": "Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.",
   "aim": "To implement the Supervised Learning algorithm using Multi-Layer Perceptron (MLP) with Backpropagation to solve non-linear problems (XOR).",
-  "theory": "A Multi-Layer Perceptron (MLP) consists of an input layer, one or more hidden layers, and an output layer.\nBecause of non-linear activation functions (such as Sigmoid), an MLP is capable of learning non-linearly separable decision boundaries (e.g. XOR gate).\nTraining occurs via Backpropagation: forward pass computes loss, backward pass computes gradients using the chain rule and updates weights.",
+  "theory": "Multi-layer perceptron (MLP) is a feed-forward neural network that maps input vectors to output vectors using layers of weighted neurons. Each neuron computes a weighted sum of its inputs, adds a bias, and applies a nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-propagation to compute gradients of a loss function (e.g., cross-entropy) with respect to weights, and optimizers (SGD, Adam) update weights to minimize error. The network learns hierarchical feature representations, enabling classification or regression on complex data.",
   "algorithm": [
     "Initialize network weights W1, W2 with small random values and biases b1, b2 with zeros.",
     "Forward Propagation: z1 = X . W1 + b1, a1 = sigmoid(z1), z2 = a1 . W2 + b2, output = sigmoid(z2).",

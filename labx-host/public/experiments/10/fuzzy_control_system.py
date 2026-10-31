@@ -51,3 +51,14 @@ if __name__ == "__main__":
     fan_speed = simulate_fan_controller(temp)
     print(f"Computed Fan Speed    : {fan_speed:.2f} %")
     print("=" * 60)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Fuzzy control systems use linguistic variables and membership functions to
+# map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form,
+# combining antecedents with AND/OR operators to produce fuzzy outputs.
+# Defuzzification (e.g., centroid) converts the aggregated fuzzy output back
+# to a crisp control action. The system handles uncertainty by allowing
+# partial membership, enabling smoother transitions than binary logic.
+# ============================================================================

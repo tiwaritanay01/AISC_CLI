@@ -51,3 +51,16 @@ if __name__ == "__main__":
     else:
         print("-> Recalled nearest memory state.")
     print("=" * 55)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Associative memory stores patterns as high-dimensional vectors and
+# retrieves them by similarity. The classic Hopfield network uses a
+# symmetric weight matrix built from outer products of stored patterns, and
+# updates neurons asynchronously until convergence. Retrieval works by
+# presenting a noisy or incomplete pattern, then iteratively applying the
+# sign of the weighted sum until the state stabilizes to the nearest stored
+# pattern. TODO: compute weight matrix W = Σ_i p_i p_iᵀ - N·I, then iterate
+# v ← sign(Wv) until convergence.
+# ============================================================================

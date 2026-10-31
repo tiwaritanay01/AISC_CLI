@@ -12,7 +12,7 @@
   ],
   "description": "Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.",
   "aim": "To implement an Associative Memory Network (Hopfield Network) for pattern storage and associative recall.",
-  "theory": "A Hopfield Network is a recurrent artificial neural network that serves as a content-addressable associative memory system.\nNeurons have binary/bipolar threshold states (-1, +1) and symmetrical synaptic connections with zero self-feedback (w_ii = 0).\nUsing Hebbian learning rules, patterns are stored as stable attractors (local energy minima). When presented with a noisy or incomplete input, the network iteratively converges to the stored prototype.",
+  "theory": "Associative memory stores patterns as high-dimensional vectors and retrieves them by similarity. The classic Hopfield network uses a symmetric weight matrix built from outer products of stored patterns, and updates neurons asynchronously until convergence. Retrieval works by presenting a noisy or incomplete pattern, then iteratively applying the sign of the weighted sum until the state stabilizes to the nearest stored pattern. TODO: compute weight matrix W = \u03a3_i p_i p_i\u1d40 - N\u00b7I, then iterate v \u2190 sign(Wv) until convergence.",
   "algorithm": [
     "Initialize zero weight matrix of size N x N.",
     "For each bipolar prototype pattern P: compute outer product P . P^T and add to weight matrix.",

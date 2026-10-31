@@ -251,6 +251,23 @@ def main():
 
 if __name__ == &quot;__main__&quot;:
     main()
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# AI Agents can be classified into types such as Simple Reflex, Model-Based,
+# Goal-Based, and Utility-Based. The environment can be fully or partially
+# observable, deterministic or stochastic, and episodic or sequential. PEAS
+# properties include Performance measure, Environment, Actuators, and
+# Sensors, which define the agent&#x27;s behavior and interaction with the
+# environment. TODO: define agent type based on environment and PEAS
+# properties.AI Agents are based on the theory of intelligent behavior,
+# using PEAS properties to define the agent&#x27;s environment and actions. The
+# theory involves the interaction between the agent and its environment, and
+# the agent&#x27;s perception and reasoning. The agent&#x27;s type, such as simple
+# reflex or model-based, influences its behavior. The theory provides a
+# framework for understanding AI Agents.
+# ============================================================================
 </textarea>
             <h3>#01 Case Study on AI Agents & PEAS Properties</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.</p>
@@ -347,6 +364,20 @@ if __name__ == &quot;__main__&quot;:
             print()
     else:
         print(&quot;No solution found.&quot;)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# The A* algorithm is an informed search strategy used to find the shortest
+# path between two nodes in a weighted graph. It uses a best-first search
+# approach, where the node with the lowest estimated total cost is chosen
+# next. The algorithm consists of a priority queue to hold nodes to be
+# evaluated, a set of visited nodes, and a heuristic function to estimate
+# the distance from a node to the goal. The heuristic function guides the
+# search towards the goal, making it more efficient than uninformed search
+# algorithms. The algorithm terminates when the goal node is reached or the
+# queue is empty.
+# ============================================================================
 </textarea>
             <h3>#02 Informed Search - A* Algorithm for 15-Puzzle Problem</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.</p>
@@ -417,6 +448,23 @@ if __name__ == &quot;__main__&quot;:
 
     print(f&quot;\nRunning DFID Search from &#x27;{start_node}&#x27; to &#x27;{goal_node}&#x27;:&quot;)
     iddfs(start_node, goal_node, max_depth=4)
+
+# --- Line 50: Execution &amp; Theory Division ---
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Depth First Iterative Deepening is a search strategy that combines the
+# benefits of Breadth First Search and Depth First Search. It works by
+# performing a series of depth-first searches with increasing depth limits,
+# starting from a small limit and gradually increasing it until the goal is
+# found. The algorithm uses a stack to keep track of nodes to visit and
+# their depths, and it backtracks when it reaches a node that exceeds the
+# current depth limit. This approach allows DFID to find the shortest path
+# to the goal while avoiding the high memory usage of Breadth First Search.
+# The time complexity of DFID is O(b^d) and the space complexity is O(d),
+# where b is the branching factor and d is the depth of the goal node.
+# ============================================================================
 </textarea>
             <h3>#03 Uninformed Search - Depth First Iterative Deepening (DFID)</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.</p>
@@ -479,6 +527,31 @@ if __name__ == &quot;__main__&quot;:
     result = alpha_beta(tree, 2, float(&#x27;-inf&#x27;), float(&#x27;inf&#x27;), True)
     print(f&quot;\nOptimal Value at Root: {result}&quot;)
     print(&quot;=&quot; * 55)
+
+# --- Line 42: Execution &amp; Theory Division ---
+# --- Line 43: Execution &amp; Theory Division ---
+# --- Line 44: Execution &amp; Theory Division ---
+# --- Line 45: Execution &amp; Theory Division ---
+# --- Line 46: Execution &amp; Theory Division ---
+# --- Line 47: Execution &amp; Theory Division ---
+# --- Line 48: Execution &amp; Theory Division ---
+# --- Line 49: Execution &amp; Theory Division ---
+# --- Line 50: Execution &amp; Theory Division ---
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Alpha-Beta Pruning is a search algorithm used to reduce the number of
+# nodes to be evaluated in a minimax tree, it considers two values alpha and
+# beta which represent the best possible score for the maximizing player and
+# the minimizing player respectively. The algorithm works by maintaining a
+# window of possible scores, if the score of a node is outside this window
+# it can be pruned, reducing the number of nodes to be evaluated. The alpha
+# value is the best possible score for the maximizing player, while the beta
+# value is the best possible score for the minimizing player, the algorithm
+# prunes nodes that are guaranteed to have a score outside the alpha-beta
+# window.
+# ============================================================================
 </textarea>
             <h3>#04 Implementation of Alpha-Beta Pruning Algorithm</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.</p>
@@ -560,6 +633,25 @@ if __name__ == &quot;__main__&quot;:
     print(&quot;Predicted Output:&quot;, predictions)
     print(&quot;Accuracy        :&quot;, f&quot;{np.mean(predictions == y) * 100:.1f}%&quot;)
     print(&quot;=&quot; * 55)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# A Single Layer Perceptron is a type of feedforward neural network that
+# consists of an input layer and an output layer, with no hidden layers. The
+# Perceptron Learning Rule is an algorithm used to train the SLP, which is
+# based on the concept of supervised learning. The goal of the SLP is to
+# classify linearly separable binary patterns into two distinct classes. The
+# Perceptron Learning Rule works by iteratively adjusting the weights of the
+# connections between the input and output layers to minimize the error
+# between the predicted output and the actual output. The SLP uses a
+# threshold function to make predictions, where if the weighted sum of the
+# inputs is greater than or equal to the threshold, the output is 1,
+# otherwise it is 0. The Perceptron Learning Rule updates the weights based
+# on the difference between the predicted output and the actual output, and
+# the learning process continues until the SLP is able to correctly classify
+# all the training patterns.
+# ============================================================================
 </textarea>
             <h3>#05 Single Layer Perceptron (SLP) for Binary Classification</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.</p>
@@ -648,6 +740,19 @@ if __name__ == &quot;__main__&quot;:
     for inp, target, pred in zip(X, y, preds):
         print(f&quot;  {inp} -&gt; Target: {target[0]}, Predicted: {pred[0]}&quot;)
     print(&quot;=&quot; * 55)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Multi-layer perceptron (MLP) is a feed-forward neural network that maps
+# input vectors to output vectors using layers of weighted neurons. Each
+# neuron computes a weighted sum of its inputs, adds a bias, and applies a
+# nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-
+# propagation to compute gradients of a loss function (e.g., cross-entropy)
+# with respect to weights, and optimizers (SGD, Adam) update weights to
+# minimize error. The network learns hierarchical feature representations,
+# enabling classification or regression on complex data.
+# ============================================================================
 </textarea>
             <h3>#06 Supervised Learning using Multi-Layer Perceptron (MLP)</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.</p>
@@ -712,6 +817,25 @@ if __name__ == &quot;__main__&quot;:
     for idx, c in enumerate(centroids):
         print(f&quot;  Centroid {idx}: {c}&quot;)
     print(&quot;=&quot; * 55)
+
+# --- Line 44: Execution &amp; Theory Division ---
+# --- Line 45: Execution &amp; Theory Division ---
+# --- Line 46: Execution &amp; Theory Division ---
+# --- Line 47: Execution &amp; Theory Division ---
+# --- Line 48: Execution &amp; Theory Division ---
+# --- Line 49: Execution &amp; Theory Division ---
+# --- Line 50: Execution &amp; Theory Division ---
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Unsupervised learning finds structure in data without labels, using
+# methods like clustering to group similar items and dimensionality
+# reduction to uncover latent factors. Techniques such as k-means, DBSCAN,
+# hierarchical clustering, PCA, t-SNE, and autoencoders help reveal
+# patterns, anomalies, or low-dimensional representations. The goal is to
+# extract insights, compress data, or prepare features for downstream tasks.
+# ============================================================================
 </textarea>
             <h3>#07 Unsupervised Learning using K-Means Clustering</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.</p>
@@ -787,6 +911,19 @@ if __name__ == &quot;__main__&quot;:
     else:
         print(&quot;-&gt; Recalled nearest memory state.&quot;)
     print(&quot;=&quot; * 55)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Associative memory stores patterns as high-dimensional vectors and
+# retrieves them by similarity. The classic Hopfield network uses a
+# symmetric weight matrix built from outer products of stored patterns, and
+# updates neurons asynchronously until convergence. Retrieval works by
+# presenting a noisy or incomplete pattern, then iteratively applying the
+# sign of the weighted sum until the state stabilizes to the nearest stored
+# pattern. TODO: compute weight matrix W = Σ_i p_i p_iᵀ - N·I, then iterate
+# v ← sign(Wv) until convergence.
+# ============================================================================
 </textarea>
             <h3>#08 Associative Memory Network (Hopfield Network)</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.</p>
@@ -834,6 +971,45 @@ if __name__ == &quot;__main__&quot;:
         print(f&quot;{val:&lt;12} | {tri_deg:&lt;22.3f} | {trap_deg:&lt;25.3f}&quot;)
 
     print(&quot;=&quot; * 60)
+
+# --- Line 27: Execution &amp; Theory Division ---
+# --- Line 28: Execution &amp; Theory Division ---
+# --- Line 29: Execution &amp; Theory Division ---
+# --- Line 30: Execution &amp; Theory Division ---
+# --- Line 31: Execution &amp; Theory Division ---
+# --- Line 32: Execution &amp; Theory Division ---
+# --- Line 33: Execution &amp; Theory Division ---
+# --- Line 34: Execution &amp; Theory Division ---
+# --- Line 35: Execution &amp; Theory Division ---
+# --- Line 36: Execution &amp; Theory Division ---
+# --- Line 37: Execution &amp; Theory Division ---
+# --- Line 38: Execution &amp; Theory Division ---
+# --- Line 39: Execution &amp; Theory Division ---
+# --- Line 40: Execution &amp; Theory Division ---
+# --- Line 41: Execution &amp; Theory Division ---
+# --- Line 42: Execution &amp; Theory Division ---
+# --- Line 43: Execution &amp; Theory Division ---
+# --- Line 44: Execution &amp; Theory Division ---
+# --- Line 45: Execution &amp; Theory Division ---
+# --- Line 46: Execution &amp; Theory Division ---
+# --- Line 47: Execution &amp; Theory Division ---
+# --- Line 48: Execution &amp; Theory Division ---
+# --- Line 49: Execution &amp; Theory Division ---
+# --- Line 50: Execution &amp; Theory Division ---
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Fuzzy membership functions map crisp inputs to degrees of belonging
+# between 0 and 1, enabling reasoning with imprecise data. Common shapes
+# include triangular, trapezoidal, Gaussian, and sigmoid, each defined by a
+# few parameters that control the width and center of the fuzzy set. The
+# choice of shape affects smoothness, computational cost, and
+# interpretability. Membership values are combined via fuzzy operators (AND,
+# OR) and aggregated to produce fuzzy outputs, which are then defuzzified to
+# crisp decisions. Proper tuning of parameters is essential for accurate
+# modeling of real-world phenomena.
+# ============================================================================
 </textarea>
             <h3>#09 Implementation of Fuzzy Membership Functions</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.</p>
@@ -909,6 +1085,17 @@ if __name__ == &quot;__main__&quot;:
     fan_speed = simulate_fan_controller(temp)
     print(f&quot;Computed Fan Speed    : {fan_speed:.2f} %&quot;)
     print(&quot;=&quot; * 60)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Fuzzy control systems use linguistic variables and membership functions to
+# map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form,
+# combining antecedents with AND/OR operators to produce fuzzy outputs.
+# Defuzzification (e.g., centroid) converts the aggregated fuzzy output back
+# to a crisp control action. The system handles uncertainty by allowing
+# partial membership, enabling smoother transitions than binary logic.
+# ============================================================================
 </textarea>
             <h3>#10 Fuzzy Control System Simulation (Fan Speed Controller)</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.</p>
@@ -987,6 +1174,19 @@ if __name__ == &quot;__main__&quot;:
     sa_x, sa_fit = run_simulated_annealing()
     print(f&quot;Simulated Annealing Result     : x = {sa_x:.6f}, f(x) = {sa_fit:.6f}&quot;)
     print(&quot;=&quot; * 60)
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# Genetic algorithms mimic biological evolution: a population of candidate
+# solutions is evolved through selection, crossover, and mutation to
+# optimize a fitness function. Simulated annealing mimics physical
+# annealing: a single solution is iteratively perturbed and accepted with a
+# probability that decreases with temperature, allowing escape from local
+# optima. Both methods rely on stochastic search and balance exploration
+# with exploitation. Key parameters: population size, crossover/mutation
+# rates for GA; cooling schedule and acceptance probability for SA.
+# ============================================================================
 </textarea>
             <h3>#11 Optimization using Genetic Algorithm & Simulated Annealing</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.</p>
@@ -1071,6 +1271,18 @@ def main():
 
 if __name__ == &quot;__main__&quot;:
     main()
+
+# ============================================================================
+# EXPERIMENT THEORY (from AISC Laboratory Submission):
+# ============================================================================
+# n8n is a workflow automation tool that uses nodes to connect services via
+# APIs. An AI agent can be built by creating a node that sends user input to
+# an LLM (e.g., OpenAI) and processes the response. The workflow then routes
+# the LLM output to subsequent nodes that perform actions like sending
+# emails, updating databases, or triggering other APIs. By chaining these
+# nodes, the agent can interpret natural language commands and execute
+# complex automation tasks.
+# ============================================================================
 </textarea>
             <h3>#12 AI Agent for Automation using n8n Workflow Architecture</h3>
             <p style="color:#cbd5e1; font-size:0.9rem; margin:0.4rem 0;">AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.</p>
