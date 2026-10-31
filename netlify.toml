@@ -1,0 +1,20 @@
+# Root Netlify Configuration
+# Automatically tells Netlify where the public entrypoint and static assets are located.
+
+[build]
+  publish = "labx-host/public"
+  command = "python scripts/build_host.py"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Headers = "*"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"
+
