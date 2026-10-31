@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "labx-remote"
+version = "1.0.0"
+description = "Terminal-first remote experiment distribution and execution system"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "LabX Systems Team", email = "systems@labx.local" }
+]
+keywords = ["laboratory", "education", "cli", "experiments", "compiler", "systems"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Education",
+    "Topic :: Software Development :: Build Tools"
+]
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "httpx>=0.25.0",
+    "rapidfuzz>=3.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pyinstaller>=6.0.0"
+]
+
+[project.scripts]
+labx = "labx.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["labx*"]
+

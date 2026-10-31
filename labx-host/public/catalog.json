@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-10-31T12:00:00Z",
+  "zip_url": "downloads/labx_experiments.zip",
+  "experiments": [
+    {
+      "id": 1,
+      "slug": "factorial-fibonacci-python",
+      "title": "Factorial and Fibonacci Sequence Generator",
+      "language": "python",
+      "aliases": [
+        "factorial",
+        "fibonacci",
+        "math sequence",
+        "python factorial"
+      ],
+      "description": "Computation of mathematical factorial and Fibonacci sequences using iterative and recursive techniques.",
+      "manifest_url": "experiments/01/manifest.json"
+    },
+    {
+      "id": 2,
+      "slug": "matrix-multiplication-c",
+      "title": "Matrix Multiplication & Transpose Operations",
+      "language": "c",
+      "aliases": [
+        "matrix multiplication",
+        "matrix transpose",
+        "c matrix",
+        "linear algebra c"
+      ],
+      "description": "Multiplication, transposition, and dynamic memory operations on two-dimensional matrices in C.",
+      "manifest_url": "experiments/02/manifest.json"
+    },
+    {
+      "id": 3,
+      "slug": "java-socket-programming",
+      "title": "Java Socket Programming (Client-Server)",
+      "language": "java",
+      "aliases": [
+        "socket programming",
+        "java sockets",
+        "client server socket",
+        "tcp socket java"
+      ],
+      "description": "Two-way client-server network communication using Java TCP Sockets and Stream I/O.",
+      "manifest_url": "experiments/03/manifest.json"
+    },
+    {
+      "id": 4,
+      "slug": "dijkstra-routing-cpp",
+      "title": "Dijkstra's Shortest Path Routing Algorithm",
+      "language": "cpp",
+      "aliases": [
+        "dijkstra",
+        "shortest path",
+        "routing algorithm",
+        "dynamic routing",
+        "c++ dijkstra"
+      ],
+      "description": "Simulation of dynamic routing and shortest path calculation in packet networks using Dijkstra's algorithm.",
+      "manifest_url": "experiments/04/manifest.json"
+    },
+    {
+      "id": 5,
+      "slug": "sliding-window-protocol",
+      "title": "Sliding Window Flow Control Protocol (Go-Back-N)",
+      "language": "c",
+      "aliases": [
+        "sliding window",
+        "go back n",
+        "flow control",
+        "sliding window c"
+      ],
+      "description": "Simulation of the Go-Back-N sliding window flow control and error recovery protocol in C.",
+      "manifest_url": "experiments/05/manifest.json"
+    },
+    {
+      "id": 6,
+      "slug": "page-replacement-simulation",
+      "title": "Page Replacement Simulation (FIFO & LRU)",
+      "language": "python",
+      "aliases": [
+        "page replacement",
+        "fifo lru",
+        "virtual memory",
+        "paging simulation"
+      ],
+      "description": "Simulation and performance comparison of FIFO and LRU virtual memory page replacement algorithms.",
+      "manifest_url": "experiments/06/manifest.json"
+    },
+    {
+      "id": 7,
+      "slug": "multithreaded-echo-server",
+      "title": "Multi-Threaded Echo Server in Java",
+      "language": "java",
+      "aliases": [
+        "multithreaded server",
+        "echo server java",
+        "threads socket",
+        "java concurrency"
+      ],
+      "description": "Concurrent multi-threaded TCP server handling multiple simultaneous client connections.",
+      "manifest_url": "experiments/07/manifest.json"
+    },
+    {
+      "id": 8,
+      "slug": "lexical-analyzer-c",
+      "title": "Lexical Analyzer for Arithmetic Expressions",
+      "language": "c",
+      "aliases": [
+        "lexical analyzer",
+        "compiler lexer",
+        "tokenizer c",
+        "lexer"
+      ],
+      "description": "Deterministic finite automaton (DFA) based lexical analyzer tokenizing source input in C.",
+      "manifest_url": "experiments/08/manifest.json"
+    },
+    {
+      "id": 9,
+      "slug": "binary-search-tree-cpp",
+      "title": "Binary Search Tree Operations & Traversals",
+      "language": "cpp",
+      "aliases": [
+        "binary search tree",
+        "bst",
+        "tree traversals",
+        "bst cpp"
+      ],
+      "description": "Insertion, searching, deletion, and in-order/pre-order traversals of a Binary Search Tree in C++.",
+      "manifest_url": "experiments/09/manifest.json"
+    },
+    {
+      "id": 10,
+      "slug": "arm7-lpc2148-gpio-timer",
+      "title": "ARM7 LPC2148 GPIO LED Flasher & Timer Driver",
+      "language": "embedded_c",
+      "aliases": [
+        "arm7",
+        "lpc2148",
+        "gpio led",
+        "embedded c",
+        "keil lpc2148",
+        "proteus arm"
+      ],
+      "description": "Hardware driver in Embedded C configuring GPIO pins and Timer0 registers for NXP ARM7 LPC2148.",
+      "manifest_url": "experiments/10/manifest.json"
+    }
+  ]
+}

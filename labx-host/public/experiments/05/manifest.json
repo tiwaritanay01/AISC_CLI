@@ -1,0 +1,36 @@
+{
+  "id": 5,
+  "slug": "sliding-window-protocol",
+  "title": "Sliding Window Flow Control Protocol (Go-Back-N)",
+  "language": "c",
+  "aliases": [
+    "sliding window",
+    "go back n",
+    "flow control",
+    "sliding window c"
+  ],
+  "description": "Simulation of the Go-Back-N sliding window flow control and error recovery protocol in C.",
+  "aim": "To simulate the sliding window protocol (Go-Back-N) for flow control in data link layers.",
+  "theory": "The sliding window protocol is a method of flow control where the sender is allowed to transmit multiple frames before receiving an acknowledgment from the receiver.\nIn Go-Back-N ARQ, if a frame is corrupted or lost, the receiver discards all subsequent frames, and the sender retransmits all unacknowledged frames starting from the lost frame.",
+  "algorithm": [
+    "Input window size W and total number of frames N.",
+    "Initialize window bounds [base, base + W - 1].",
+    "Transmit frames within the current window.",
+    "Simulate reception and acknowledgment for transmitted frames.",
+    "Simulate occasional transmission failure or frame timeout.",
+    "Upon timeout, slide window back to the last acknowledged frame and retransmit.",
+    "Repeat until all N frames are successfully delivered and acknowledged."
+  ],
+  "files": [
+    {
+      "path": "sliding_window.c",
+      "source": "sliding_window.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "c",
+    "entry": "sliding_window.c"
+  },
+  "version": "1.0.0"
+}

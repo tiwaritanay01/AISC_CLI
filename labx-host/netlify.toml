@@ -1,0 +1,15 @@
+[build]
+  publish = "public"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Headers = "*"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"

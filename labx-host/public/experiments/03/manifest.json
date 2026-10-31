@@ -1,0 +1,53 @@
+{
+  "id": 3,
+  "slug": "java-socket-programming",
+  "title": "Java Socket Programming (Client-Server)",
+  "language": "java",
+  "aliases": [
+    "socket programming",
+    "java sockets",
+    "client server socket",
+    "tcp socket java"
+  ],
+  "description": "Two-way client-server network communication using Java TCP Sockets and Stream I/O.",
+  "aim": "To implement a client-server socket communication program using Java TCP Sockets.",
+  "theory": "A socket is an endpoint for communication between two machines over a network.\nJava provides the java.net package, containing ServerSocket (listening on a port for inbound connections) and Socket (connecting to the server's IP address and port).\nData transfer occurs via BufferedReader and PrintWriter wrapping socket input/output streams.",
+  "algorithm": [
+    "Start the Server application on port 5000.",
+    "Server creates a ServerSocket and enters accept() waiting for incoming connection.",
+    "Client creates a Socket connecting to localhost:5000.",
+    "Connection accepted; both sides obtain InputStream and OutputStream.",
+    "Client sends greeting message 'Hello from LabX Java Client!'.",
+    "Server receives message, processes it, and responds with acknowledgment.",
+    "Close streams and sockets cleanly."
+  ],
+  "files": [
+    {
+      "path": "Server.java",
+      "source": "Server.java",
+      "role": "source"
+    },
+    {
+      "path": "Client.java",
+      "source": "Client.java",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "java",
+    "entry": "Server.java",
+    "components": {
+      "server": {
+        "name": "Server",
+        "entry": "Server.java",
+        "description": "Starts the socket listener server on port 5000"
+      },
+      "client": {
+        "name": "Client",
+        "entry": "Client.java",
+        "description": "Connects to server at localhost:5000 and sends test message"
+      }
+    }
+  },
+  "version": "1.0.0"
+}

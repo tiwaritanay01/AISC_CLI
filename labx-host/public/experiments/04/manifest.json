@@ -1,0 +1,37 @@
+{
+  "id": 4,
+  "slug": "dijkstra-routing-cpp",
+  "title": "Dijkstra's Shortest Path Routing Algorithm",
+  "language": "cpp",
+  "aliases": [
+    "dijkstra",
+    "shortest path",
+    "routing algorithm",
+    "dynamic routing",
+    "c++ dijkstra"
+  ],
+  "description": "Simulation of dynamic routing and shortest path calculation in packet networks using Dijkstra's algorithm.",
+  "aim": "To implement Dijkstra's shortest path algorithm in C++ for network link-state routing simulation.",
+  "theory": "Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a weighted graph.\nIn computer networking, it forms the foundation of Link State routing protocols such as Open Shortest Path First (OSPF).\nEach router maintains a complete topology map and computes the shortest path tree from itself as the root to all other nodes.",
+  "algorithm": [
+    "Initialize distance array with infinity for all nodes except source node (distance 0).",
+    "Create a min-priority queue storing (distance, node).",
+    "Extract node with minimum distance from queue.",
+    "For each adjacent neighbor, calculate alternative distance through current node.",
+    "If alternative distance is less than current recorded distance, update distance and record previous hop.",
+    "Repeat until priority queue is empty.",
+    "Print shortest path cost and hop sequence to every destination."
+  ],
+  "files": [
+    {
+      "path": "dijkstra.cpp",
+      "source": "dijkstra.cpp",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "cpp",
+    "entry": "dijkstra.cpp"
+  },
+  "version": "1.0.0"
+}

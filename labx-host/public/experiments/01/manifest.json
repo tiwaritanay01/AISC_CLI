@@ -1,0 +1,34 @@
+{
+  "id": 1,
+  "slug": "factorial-fibonacci-python",
+  "title": "Factorial and Fibonacci Sequence Generator",
+  "language": "python",
+  "aliases": [
+    "factorial",
+    "fibonacci",
+    "math sequence",
+    "python factorial"
+  ],
+  "description": "Computation of mathematical factorial and Fibonacci sequences using iterative and recursive techniques.",
+  "aim": "To write a Python program to calculate the factorial of a given number and generate the Fibonacci sequence up to N terms.",
+  "theory": "The factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n.\nThe Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, usually starting with 0 and 1.\nBoth problems demonstrate recursion, stack frames, and memoization in computer science.",
+  "algorithm": [
+    "Start the program and prompt the user for input N.",
+    "Define factorial(n): if n <= 1 return 1, else return n * factorial(n - 1).",
+    "Define fibonacci(n): initialize [0, 1] and iteratively append sum of previous two elements.",
+    "Display calculated factorial and formatted Fibonacci series.",
+    "End execution."
+  ],
+  "files": [
+    {
+      "path": "main.py",
+      "source": "main.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "main.py"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,51 @@
+{
+  "id": 7,
+  "slug": "multithreaded-echo-server",
+  "title": "Multi-Threaded Echo Server in Java",
+  "language": "java",
+  "aliases": [
+    "multithreaded server",
+    "echo server java",
+    "threads socket",
+    "java concurrency"
+  ],
+  "description": "Concurrent multi-threaded TCP server handling multiple simultaneous client connections.",
+  "aim": "To implement a concurrent multi-threaded echo server using Java Runnable and Socket threads.",
+  "theory": "A single-threaded server can only service one client at a time, leaving other connection requests blocked.\nA multi-threaded server spawns a dedicated worker thread for each accepted client socket, enabling concurrent data processing.",
+  "algorithm": [
+    "Server starts ServerSocket on port 6000.",
+    "In an infinite loop, server calls accept() to wait for incoming connections.",
+    "For each incoming client, server creates an instance of ClientHandler implementing Runnable.",
+    "Start the thread to process reading and echoing back messages.",
+    "Client connects, sends payload, prints echoed response, and exits."
+  ],
+  "files": [
+    {
+      "path": "EchoServer.java",
+      "source": "EchoServer.java",
+      "role": "source"
+    },
+    {
+      "path": "EchoClient.java",
+      "source": "EchoClient.java",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "java",
+    "entry": "EchoServer.java",
+    "components": {
+      "server": {
+        "name": "EchoServer",
+        "entry": "EchoServer.java",
+        "description": "Multi-threaded echo listener"
+      },
+      "client": {
+        "name": "EchoClient",
+        "entry": "EchoClient.java",
+        "description": "Echo client tester"
+      }
+    }
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,40 @@
+{
+  "id": 2,
+  "slug": "matrix-multiplication-c",
+  "title": "Matrix Multiplication & Transpose Operations",
+  "language": "c",
+  "aliases": [
+    "matrix multiplication",
+    "matrix transpose",
+    "c matrix",
+    "linear algebra c"
+  ],
+  "description": "Multiplication, transposition, and dynamic memory operations on two-dimensional matrices in C.",
+  "aim": "To implement matrix multiplication and transpose in C using modular functions.",
+  "theory": "Matrix multiplication of matrix A (m x k) and B (k x n) yields matrix C (m x n), where each element C[i][j] is the dot product of row i of A and column j of B.\nMatrix transposition flips a matrix over its diagonal, switching the row and column indices of the matrix.",
+  "algorithm": [
+    "Input dimensions for Matrix A and Matrix B.",
+    "Check condition: Columns of A must equal Rows of B.",
+    "Initialize matrices with sample or user values.",
+    "Multiply row elements of A by column elements of B and accumulate sum into C.",
+    "Compute transpose of Matrix C by swapping indices [i][j] to [j][i].",
+    "Display original matrices, product matrix, and transpose matrix."
+  ],
+  "files": [
+    {
+      "path": "matrix.h",
+      "source": "matrix.h",
+      "role": "header"
+    },
+    {
+      "path": "matrix.c",
+      "source": "matrix.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "c",
+    "entry": "matrix.c"
+  },
+  "version": "1.0.0"
+}

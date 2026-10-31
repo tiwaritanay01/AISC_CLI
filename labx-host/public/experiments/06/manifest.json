@@ -1,0 +1,36 @@
+{
+  "id": 6,
+  "slug": "page-replacement-simulation",
+  "title": "Page Replacement Simulation (FIFO & LRU)",
+  "language": "python",
+  "aliases": [
+    "page replacement",
+    "fifo lru",
+    "virtual memory",
+    "paging simulation"
+  ],
+  "description": "Simulation and performance comparison of FIFO and LRU virtual memory page replacement algorithms.",
+  "aim": "To write a Python simulation of FIFO and LRU page replacement policies and compare their page fault rates.",
+  "theory": "Virtual memory uses paging to map virtual addresses to physical frames. When a requested page is not in memory, a page fault occurs.\nFIFO (First-In, First-Out) replaces the oldest resident page in memory.\nLRU (Least Recently Used) replaces the page that has not been referenced for the longest period of time.",
+  "algorithm": [
+    "Initialize memory frames with capacity F.",
+    "For FIFO: Maintain a FIFO queue of page numbers in memory.",
+    "For LRU: Track page reference timestamps or maintain an ordered history list.",
+    "Iterate through reference string.",
+    "If page exists in memory, count as a Hit (and update LRU recency).",
+    "If page missing, count as a Page Fault and evict page according to algorithm policy.",
+    "Calculate and display total faults and hit ratio."
+  ],
+  "files": [
+    {
+      "path": "page_replacement.py",
+      "source": "page_replacement.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "page_replacement.py"
+  },
+  "version": "1.0.0"
+}

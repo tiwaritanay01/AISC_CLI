@@ -1,0 +1,40 @@
+{
+  "id": 8,
+  "slug": "lexical-analyzer-c",
+  "title": "Lexical Analyzer for Arithmetic Expressions",
+  "language": "c",
+  "aliases": [
+    "lexical analyzer",
+    "compiler lexer",
+    "tokenizer c",
+    "lexer"
+  ],
+  "description": "Deterministic finite automaton (DFA) based lexical analyzer tokenizing source input in C.",
+  "aim": "To construct a lexical analyzer in C to identify keywords, identifiers, constants, and operators.",
+  "theory": "Lexical analysis is the first phase of a compiler.\nIt scans source characters into meaningful sequences called lexemes and produces corresponding tokens: <TOKEN_TYPE, VALUE> for subsequent syntax analysis.",
+  "algorithm": [
+    "Read input expression string character by character.",
+    "Skip whitespace characters.",
+    "If character is alphabetical or underscore, scan complete alphanumeric identifier and check against keywords.",
+    "If character is numeric digit, scan complete integer constant.",
+    "If character matches an operator (+, -, *, /, =), emit operator token.",
+    "Display tokens with categorized token types."
+  ],
+  "files": [
+    {
+      "path": "tokens.h",
+      "source": "tokens.h",
+      "role": "header"
+    },
+    {
+      "path": "lexer.c",
+      "source": "lexer.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "c",
+    "entry": "lexer.c"
+  },
+  "version": "1.0.0"
+}
