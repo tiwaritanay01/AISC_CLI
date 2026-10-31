@@ -28,15 +28,15 @@ def test_cli_list_command(live_server):
     result = runner.invoke(app, ["list", "--url", live_server])
     assert result.exit_code == 0
     assert "Experiment Catalogue" in result.stdout
-    assert "Factorial" in result.stdout
-    assert "Socket" in result.stdout
+    assert "Informed Search" in result.stdout or "15-Puzzle" in result.stdout
+    assert "DFID" in result.stdout or "Depth First" in result.stdout
 
 
 def test_cli_search_command(live_server):
-    result = runner.invoke(app, ["search", "socket", "--url", live_server])
+    result = runner.invoke(app, ["search", "puzzle", "--url", live_server])
     assert result.exit_code == 0
-    assert "Search Results for 'socket'" in result.stdout
-    assert "Java Socket Programming" in result.stdout
+    assert "Search Results for 'puzzle'" in result.stdout
+    assert "15-Puzzle" in result.stdout
 
 
 def test_cli_info_command(live_server):
@@ -60,9 +60,9 @@ def test_cli_download_and_run_workflow(live_server, tmp_path):
     assert "Downloaded Experiment 01" in res_dl.stdout
 
     # Verify files created in tmp_path
-    exp_dir = tmp_path / "Experiment01_factorial_fibonacci_python"
+    exp_dir = tmp_path / "Experiment01_ai_agents_peas_case_study"
     assert exp_dir.exists()
-    assert (exp_dir / "main.py").exists()
+    assert (exp_dir / "agent_case_study.py").exists()
 
     # 2. Run Experiment 1 from that directory
     res_run = runner.invoke(app, [
@@ -92,4 +92,4 @@ def test_cli_download_all_zip(live_server, tmp_path):
     ])
     assert res.exit_code == 0
     assert "Extracted" in res.stdout
-    assert (tmp_path / "Experiment04_dijkstra_routing_cpp").exists()
+    assert (tmp_path / "Experiment04_alpha_beta_pruning").exists()

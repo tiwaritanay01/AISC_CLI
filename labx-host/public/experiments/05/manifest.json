@@ -1,36 +1,36 @@
 {
   "id": 5,
-  "slug": "sliding-window-protocol",
-  "title": "Sliding Window Flow Control Protocol (Go-Back-N)",
-  "language": "c",
+  "slug": "single-layer-perceptron-slp",
+  "title": "Single Layer Perceptron (SLP) for Binary Classification",
+  "language": "python",
   "aliases": [
-    "sliding window",
-    "go back n",
-    "flow control",
-    "sliding window c"
+    "perceptron",
+    "slp",
+    "single layer perceptron",
+    "perceptron learning rule",
+    "binary classification"
   ],
-  "description": "Simulation of the Go-Back-N sliding window flow control and error recovery protocol in C.",
-  "aim": "To simulate the sliding window protocol (Go-Back-N) for flow control in data link layers.",
-  "theory": "The sliding window protocol is a method of flow control where the sender is allowed to transmit multiple frames before receiving an acknowledgment from the receiver.\nIn Go-Back-N ARQ, if a frame is corrupted or lost, the receiver discards all subsequent frames, and the sender retransmits all unacknowledged frames starting from the lost frame.",
+  "description": "Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.",
+  "aim": "To implement a Single Layer Perceptron (SLP) neural network using the Perceptron Learning Rule to classify linearly separable binary patterns.",
+  "theory": "A Single Layer Perceptron is the fundamental unit of an artificial neural network.\nIt computes a linear combination of inputs weighted by parameter vector W plus bias b, passed through a step activation function.\nThe Perceptron Learning Rule updates weights iteratively: W = W + eta * (y - y_hat) * X, converging for linearly separable datasets.",
   "algorithm": [
-    "Input window size W and total number of frames N.",
-    "Initialize window bounds [base, base + W - 1].",
-    "Transmit frames within the current window.",
-    "Simulate reception and acknowledgment for transmitted frames.",
-    "Simulate occasional transmission failure or frame timeout.",
-    "Upon timeout, slide window back to the last acknowledged frame and retransmit.",
-    "Repeat until all N frames are successfully delivered and acknowledged."
+    "Initialize weights vector W with zeros and bias b = 0.",
+    "For each training sample (x_i, target_i): compute linear output z = W . x_i + b.",
+    "Apply hard step activation: output = 1 if z >= 0 else 0.",
+    "Compute error = target - output.",
+    "Update weights: W += learning_rate * error * x_i; bias += learning_rate * error.",
+    "Repeat for specified epochs or until training error converges to zero."
   ],
   "files": [
     {
-      "path": "sliding_window.c",
-      "source": "sliding_window.c",
+      "path": "perceptron_slp.py",
+      "source": "perceptron_slp.py",
       "role": "source"
     }
   ],
   "run": {
-    "kind": "c",
-    "entry": "sliding_window.c"
+    "kind": "python",
+    "entry": "perceptron_slp.py"
   },
   "version": "1.0.0"
 }

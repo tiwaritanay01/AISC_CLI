@@ -1,40 +1,36 @@
 {
   "id": 2,
-  "slug": "matrix-multiplication-c",
-  "title": "Matrix Multiplication & Transpose Operations",
-  "language": "c",
+  "slug": "a-star-15-puzzle-problem",
+  "title": "Informed Search - A* Algorithm for 15-Puzzle Problem",
+  "language": "python",
   "aliases": [
-    "matrix multiplication",
-    "matrix transpose",
-    "c matrix",
-    "linear algebra c"
+    "a star",
+    "15 puzzle",
+    "a star algorithm",
+    "informed search",
+    "manhattan distance"
   ],
-  "description": "Multiplication, transposition, and dynamic memory operations on two-dimensional matrices in C.",
-  "aim": "To implement matrix multiplication and transpose in C using modular functions.",
-  "theory": "Matrix multiplication of matrix A (m x k) and B (k x n) yields matrix C (m x n), where each element C[i][j] is the dot product of row i of A and column j of B.\nMatrix transposition flips a matrix over its diagonal, switching the row and column indices of the matrix.",
+  "description": "Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.",
+  "aim": "Informed Search - A* Algorithm for the 15-Puzzle Problem using Manhattan Distance heuristic.",
+  "theory": "The A* algorithm is an informed search strategy used to find the shortest path between nodes in a state-space graph.\nIt evaluates nodes using f(n) = g(n) + h(n), where g(n) is the exact cost to reach node n from the start, and h(n) is an admissible heuristic estimating the cost from n to the goal.\nFor the 15-puzzle problem, the sum of Manhattan distances of all tiles to their goal coordinates provides an admissible and consistent heuristic.",
   "algorithm": [
-    "Input dimensions for Matrix A and Matrix B.",
-    "Check condition: Columns of A must equal Rows of B.",
-    "Initialize matrices with sample or user values.",
-    "Multiply row elements of A by column elements of B and accumulate sum into C.",
-    "Compute transpose of Matrix C by swapping indices [i][j] to [j][i].",
-    "Display original matrices, product matrix, and transpose matrix."
+    "Initialize priority queue with start state, g=0, and f=manhattan(start).",
+    "Pop state with minimum f-value from priority queue.",
+    "If current state matches GOAL, return reconstructed solution path.",
+    "Generate valid neighbor states by sliding empty tile (0) in 4 directions.",
+    "For each unvisited neighbor, compute g_new = g + 1, f_new = g_new + manhattan(neighbor).",
+    "Push updated states into priority queue and repeat until goal is reached."
   ],
   "files": [
     {
-      "path": "matrix.h",
-      "source": "matrix.h",
-      "role": "header"
-    },
-    {
-      "path": "matrix.c",
-      "source": "matrix.c",
+      "path": "a_star_15_puzzle.py",
+      "source": "a_star_15_puzzle.py",
       "role": "source"
     }
   ],
   "run": {
-    "kind": "c",
-    "entry": "matrix.c"
+    "kind": "python",
+    "entry": "a_star_15_puzzle.py"
   },
   "version": "1.0.0"
 }

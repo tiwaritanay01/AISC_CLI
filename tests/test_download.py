@@ -13,28 +13,27 @@ def test_individual_download_via_live_server(live_server, tmp_path):
     downloader = ExperimentDownloader(client)
 
     item = CatalogItem(
-        id=3,
-        slug="java-socket-programming",
-        title="Java Socket Programming (Client-Server)",
-        language="java",
-        aliases=["socket programming"],
-        description="Two-way client-server network communication using Java TCP Sockets",
-        manifest_url="experiments/03/manifest.json"
+        id=2,
+        slug="a-star-15-puzzle-problem",
+        title="Informed Search - A* Algorithm for 15-Puzzle Problem",
+        language="python",
+        aliases=["a star", "15 puzzle"],
+        description="Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.",
+        manifest_url="experiments/02/manifest.json"
     )
 
     success = downloader.download_individual(item, tmp_path, force=True)
     assert success is True
 
-    exp_dir = tmp_path / "Experiment03_java_socket_programming"
+    exp_dir = tmp_path / "Experiment02_a_star_15_puzzle_problem"
     assert exp_dir.exists()
-    assert (exp_dir / "Server.java").exists()
-    assert (exp_dir / "Client.java").exists()
+    assert (exp_dir / "a_star_15_puzzle.py").exists()
     assert (exp_dir / "manifest.json").exists()
     assert (exp_dir / "README.md").exists()
 
-    # Verify content of Server.java
-    content = (exp_dir / "Server.java").read_text(encoding="utf-8")
-    assert "ServerSocket" in content
+    # Verify content of a_star_15_puzzle.py
+    content = (exp_dir / "a_star_15_puzzle.py").read_text(encoding="utf-8")
+    assert "manhattan" in content.lower()
 
 
 def test_individual_download_overwrite_protection(live_server, tmp_path):
@@ -43,11 +42,11 @@ def test_individual_download_overwrite_protection(live_server, tmp_path):
 
     item = CatalogItem(
         id=1,
-        slug="factorial-fibonacci-python",
-        title="Factorial and Fibonacci Generator",
+        slug="ai-agents-peas-case-study",
+        title="Case Study on AI Agents & PEAS Properties",
         language="python",
-        aliases=["factorial"],
-        description="Math sequences",
+        aliases=["ai agents", "peas"],
+        description="Comprehensive study and simulation of AI Agent types and PEAS properties.",
         manifest_url="experiments/01/manifest.json"
     )
 
@@ -55,7 +54,7 @@ def test_individual_download_overwrite_protection(live_server, tmp_path):
     assert downloader.download_individual(item, tmp_path, force=True) is True
 
     # Pre-existing file with custom modification
-    exp_dir = tmp_path / "Experiment01_factorial_fibonacci_python"
+    exp_dir = tmp_path / "Experiment01_ai_agents_peas_case_study"
     custom_marker = exp_dir / "user_notes.txt"
     custom_marker.write_text("student notes", encoding="utf-8")
 
@@ -74,14 +73,13 @@ def test_all_experiments_zip_download(live_server, tmp_path):
 
     # Check extracted experiments
     extracted_dirs = list(tmp_path.glob("Experiment*"))
-    assert len(extracted_dirs) == 10
+    assert len(extracted_dirs) == 12
 
-    # Check Experiment 10 (Embedded C)
-    exp10 = tmp_path / "Experiment10_arm7_lpc2148_gpio_timer"
-    assert exp10.exists()
-    assert (exp10 / "main.c").exists()
-    assert (exp10 / "LPC214x.h").exists()
-    assert (exp10 / "Makefile").exists()
+    # Check Experiment 12 (AI Agent Automation n8n)
+    exp12 = tmp_path / "Experiment12_n8n_ai_agent_automation"
+    assert exp12.exists()
+    assert (exp12 / "n8n_agent_simulator.py").exists()
+    assert (exp12 / "n8n_workflow.json").exists()
 
 
 def test_path_safety_check(tmp_path):

@@ -1,51 +1,35 @@
 {
   "id": 7,
-  "slug": "multithreaded-echo-server",
-  "title": "Multi-Threaded Echo Server in Java",
-  "language": "java",
+  "slug": "kmeans-unsupervised-clustering",
+  "title": "Unsupervised Learning using K-Means Clustering",
+  "language": "python",
   "aliases": [
-    "multithreaded server",
-    "echo server java",
-    "threads socket",
-    "java concurrency"
+    "kmeans",
+    "k-means",
+    "clustering",
+    "unsupervised learning",
+    "cluster centroids"
   ],
-  "description": "Concurrent multi-threaded TCP server handling multiple simultaneous client connections.",
-  "aim": "To implement a concurrent multi-threaded echo server using Java Runnable and Socket threads.",
-  "theory": "A single-threaded server can only service one client at a time, leaving other connection requests blocked.\nA multi-threaded server spawns a dedicated worker thread for each accepted client socket, enabling concurrent data processing.",
+  "description": "K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.",
+  "aim": "To implement the Unsupervised Learning algorithm using K-Means Clustering to group unlabelled sample points.",
+  "theory": "K-Means is an unsupervised clustering algorithm that groups n observations into k clusters.\nEach observation belongs to the cluster with the nearest mean (cluster centroid), which serves as a prototype of the cluster.\nThe objective is to minimize intra-cluster variance (Within-Cluster Sum of Squares, WCSS).",
   "algorithm": [
-    "Server starts ServerSocket on port 6000.",
-    "In an infinite loop, server calls accept() to wait for incoming connections.",
-    "For each incoming client, server creates an instance of ClientHandler implementing Runnable.",
-    "Start the thread to process reading and echoing back messages.",
-    "Client connects, sends payload, prints echoed response, and exits."
+    "Select K centroid initial locations.",
+    "Compute Euclidean distance from each sample point to all K centroids.",
+    "Assign each sample point to the nearest cluster centroid.",
+    "Recalculate cluster centroids as the arithmetic mean of all points assigned to that cluster.",
+    "Repeat distance computation and reassignment until centroids stabilize and convergence is reached."
   ],
   "files": [
     {
-      "path": "EchoServer.java",
-      "source": "EchoServer.java",
-      "role": "source"
-    },
-    {
-      "path": "EchoClient.java",
-      "source": "EchoClient.java",
+      "path": "kmeans_clustering.py",
+      "source": "kmeans_clustering.py",
       "role": "source"
     }
   ],
   "run": {
-    "kind": "java",
-    "entry": "EchoServer.java",
-    "components": {
-      "server": {
-        "name": "EchoServer",
-        "entry": "EchoServer.java",
-        "description": "Multi-threaded echo listener"
-      },
-      "client": {
-        "name": "EchoClient",
-        "entry": "EchoClient.java",
-        "description": "Echo client tester"
-      }
-    }
+    "kind": "python",
+    "entry": "kmeans_clustering.py"
   },
   "version": "1.0.0"
 }

@@ -1,34 +1,40 @@
 {
   "id": 1,
-  "slug": "factorial-fibonacci-python",
-  "title": "Factorial and Fibonacci Sequence Generator",
+  "slug": "ai-agents-peas-case-study",
+  "title": "Case Study on AI Agents & PEAS Properties",
   "language": "python",
   "aliases": [
-    "factorial",
-    "fibonacci",
-    "math sequence",
-    "python factorial"
+    "ai agents",
+    "peas",
+    "agent types",
+    "case study ai",
+    "peas properties"
   ],
-  "description": "Computation of mathematical factorial and Fibonacci sequences using iterative and recursive techniques.",
-  "aim": "To write a Python program to calculate the factorial of a given number and generate the Fibonacci sequence up to N terms.",
-  "theory": "The factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n.\nThe Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, usually starting with 0 and 1.\nBoth problems demonstrate recursion, stack frames, and memoization in computer science.",
+  "description": "Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.",
+  "aim": "To prepare a case study on AI Agents including type, environment, and PEAS properties.",
+  "theory": "AI Agents can be classified into four primary types: Simple Reflex, Model-Based, Goal-Based, and Utility-Based.\nThe environment can be categorized across dimensions: fully vs. partially observable, deterministic vs. stochastic, static vs. dynamic, and episodic vs. sequential.\nThe PEAS framework defines: Performance measure, Environment, Actuators, and Sensors, formalizing the agent's interaction loop.",
   "algorithm": [
-    "Start the program and prompt the user for input N.",
-    "Define factorial(n): if n <= 1 return 1, else return n * factorial(n - 1).",
-    "Define fibonacci(n): initialize [0, 1] and iteratively append sum of previous two elements.",
-    "Display calculated factorial and formatted Fibonacci series.",
-    "End execution."
+    "Define PEAS descriptor tuple: (P)erformance metric, (E)nvironment state, (A)ctuator commands, (S)ensor percepts.",
+    "Classify environment properties (Observability, Determinism, Dynamism, Episodic nature).",
+    "Select agent architecture: evaluate condition-action rules for reflex or internal state mapping for model-based agents.",
+    "Simulate agent percept-reason-act cycle across discrete operational timesteps.",
+    "Report performance score and environmental impact."
   ],
   "files": [
     {
-      "path": "main.py",
-      "source": "main.py",
+      "path": "agent_case_study.py",
+      "source": "agent_case_study.py",
       "role": "source"
+    },
+    {
+      "path": "CASE_STUDY.md",
+      "source": "CASE_STUDY.md",
+      "role": "docs"
     }
   ],
   "run": {
     "kind": "python",
-    "entry": "main.py"
+    "entry": "agent_case_study.py"
   },
   "version": "1.0.0"
 }

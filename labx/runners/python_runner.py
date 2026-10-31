@@ -18,9 +18,10 @@ class PythonRunner(BaseLanguageRunner):
 
     def _resolve_python_executable(self) -> Optional[str]:
         """Detect the best Python binary on this system."""
-        # 1. If currently in a Python runtime
-        if sys.executable and Path(sys.executable).is_file():
-            return sys.executable
+        # 1. If currently running from a normal Python runtime (not frozen PyInstaller binary)
+        if not getattr(sys, "frozen", False):
+            if sys.executable and Path(sys.executable).is_file():
+                return sys.executable
 
         # 2. Check py launcher on Windows
         if shutil.which("py"):

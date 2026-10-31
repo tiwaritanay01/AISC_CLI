@@ -1,40 +1,36 @@
 {
   "id": 8,
-  "slug": "lexical-analyzer-c",
-  "title": "Lexical Analyzer for Arithmetic Expressions",
-  "language": "c",
+  "slug": "hopfield-associative-memory-network",
+  "title": "Associative Memory Network (Hopfield Network)",
+  "language": "python",
   "aliases": [
-    "lexical analyzer",
-    "compiler lexer",
-    "tokenizer c",
-    "lexer"
+    "hopfield",
+    "associative memory",
+    "hebbian learning",
+    "pattern recall",
+    "hopfield network"
   ],
-  "description": "Deterministic finite automaton (DFA) based lexical analyzer tokenizing source input in C.",
-  "aim": "To construct a lexical analyzer in C to identify keywords, identifiers, constants, and operators.",
-  "theory": "Lexical analysis is the first phase of a compiler.\nIt scans source characters into meaningful sequences called lexemes and produces corresponding tokens: <TOKEN_TYPE, VALUE> for subsequent syntax analysis.",
+  "description": "Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.",
+  "aim": "To implement an Associative Memory Network (Hopfield Network) for pattern storage and associative recall.",
+  "theory": "A Hopfield Network is a recurrent artificial neural network that serves as a content-addressable associative memory system.\nNeurons have binary/bipolar threshold states (-1, +1) and symmetrical synaptic connections with zero self-feedback (w_ii = 0).\nUsing Hebbian learning rules, patterns are stored as stable attractors (local energy minima). When presented with a noisy or incomplete input, the network iteratively converges to the stored prototype.",
   "algorithm": [
-    "Read input expression string character by character.",
-    "Skip whitespace characters.",
-    "If character is alphabetical or underscore, scan complete alphanumeric identifier and check against keywords.",
-    "If character is numeric digit, scan complete integer constant.",
-    "If character matches an operator (+, -, *, /, =), emit operator token.",
-    "Display tokens with categorized token types."
+    "Initialize zero weight matrix of size N x N.",
+    "For each bipolar prototype pattern P: compute outer product P . P^T and add to weight matrix.",
+    "Zero out diagonal entries (no self-loops: W_ii = 0) and normalize weights by 1/N.",
+    "To recall: initialize network state with noisy probe pattern.",
+    "Iteratively update neuron states: state_i = +1 if sum(W_ij * state_j) >= 0 else -1.",
+    "Repeat until state stabilizes at the nearest stored memory attractor."
   ],
   "files": [
     {
-      "path": "tokens.h",
-      "source": "tokens.h",
-      "role": "header"
-    },
-    {
-      "path": "lexer.c",
-      "source": "lexer.c",
+      "path": "hopfield_network.py",
+      "source": "hopfield_network.py",
       "role": "source"
     }
   ],
   "run": {
-    "kind": "c",
-    "entry": "lexer.c"
+    "kind": "python",
+    "entry": "hopfield_network.py"
   },
   "version": "1.0.0"
 }

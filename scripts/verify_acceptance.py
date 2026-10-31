@@ -48,41 +48,40 @@ def run_e2e_tests():
     try:
         # Scenario F: Clean list command
         print("\n--- SCENARIO F: Listing catalogue ---")
-        res = subprocess.run([str(EXE_PATH), "list", "--url", server_url], cwd=str(test_sandbox), capture_output=True, text=True)
+        res = subprocess.run([str(EXE_PATH), "list", "--url", server_url], cwd=str(test_sandbox), capture_output=True, encoding="utf-8", errors="replace")
         assert res.returncode == 0, f"list failed: {res.stderr}"
         assert "Experiment Catalogue" in res.stdout
-        assert "Java Socket Programming" in res.stdout
+        assert "15-Puzzle" in res.stdout
         print("[PASS] Scenario F: Clean catalogue load & display")
 
         # Scenario A: Individual experiment download
-        print("\n--- SCENARIO A: Individual experiment download (labx download 3) ---")
-        res = subprocess.run([str(EXE_PATH), "download", "3", "--force", "--url", server_url], cwd=str(test_sandbox), capture_output=True, text=True)
-        assert res.returncode == 0, f"download 3 failed: {res.stderr}"
-        exp3_dir = test_sandbox / "Experiment03_java_socket_programming"
-        assert exp3_dir.exists(), "Experiment03 folder missing!"
-        assert (exp3_dir / "Server.java").exists(), "Server.java missing!"
-        assert (exp3_dir / "Client.java").exists(), "Client.java missing!"
-        assert (exp3_dir / "manifest.json").exists(), "manifest.json missing!"
-        print("[PASS] Scenario A: Individual experiment 3 downloaded correctly into CWD")
+        print("\n--- SCENARIO A: Individual experiment download (labx download 2) ---")
+        res = subprocess.run([str(EXE_PATH), "download", "2", "--force", "--url", server_url], cwd=str(test_sandbox), capture_output=True, encoding="utf-8", errors="replace")
+        assert res.returncode == 0, f"download 2 failed: {res.stderr}"
+        exp2_dir = test_sandbox / "Experiment02_a_star_15_puzzle_problem"
+        assert exp2_dir.exists(), "Experiment02 folder missing!"
+        assert (exp2_dir / "a_star_15_puzzle.py").exists(), "a_star_15_puzzle.py missing!"
+        assert (exp2_dir / "manifest.json").exists(), "manifest.json missing!"
+        print("[PASS] Scenario A: Individual experiment 2 downloaded correctly into CWD")
 
-        # Scenario D: Compile & Execute
-        print("\n--- SCENARIO D: Compile & Execute experiment (labx run 3) ---")
-        res = subprocess.run([str(EXE_PATH), "run", "3", "--url", server_url], cwd=str(test_sandbox), capture_output=True, text=True)
-        assert res.returncode == 0, f"run 3 failed: {res.stderr}\n{res.stdout}"
-        assert "Java Socket Server" in res.stdout
-        print("[PASS] Scenario D: Experiment 3 compiled & executed with live socket output")
+        # Scenario D: Execute
+        print("\n--- SCENARIO D: Execute experiment (labx run 2) ---")
+        res = subprocess.run([str(EXE_PATH), "run", "2", "--url", server_url], cwd=str(test_sandbox), capture_output=True, encoding="utf-8", errors="replace")
+        assert res.returncode == 0, f"run 2 failed: {res.stderr}\n{res.stdout}"
+        assert "Solution found" in res.stdout or "Initial State" in res.stdout
+        print("[PASS] Scenario D: Experiment 2 executed with live A* puzzle output")
 
         # Scenario B: Fuzzy Search & Download
-        print("\n--- SCENARIO B: Fuzzy Search (labx download \"socket programing\") ---")
+        print("\n--- SCENARIO B: Fuzzy Search (labx download \"15 puzle\") ---")
         fuzzy_sandbox = BASE_DIR / "test_fuzzy_sandbox"
         if fuzzy_sandbox.exists():
             shutil.rmtree(fuzzy_sandbox)
         fuzzy_sandbox.mkdir(parents=True, exist_ok=True)
 
-        res = subprocess.run([str(EXE_PATH), "download", "socket programing", "--force", "--url", server_url], cwd=str(fuzzy_sandbox), capture_output=True, text=True)
+        res = subprocess.run([str(EXE_PATH), "download", "15 puzle", "--force", "--url", server_url], cwd=str(fuzzy_sandbox), capture_output=True, encoding="utf-8", errors="replace")
         assert res.returncode == 0, f"fuzzy download failed: {res.stderr}"
-        assert (fuzzy_sandbox / "Experiment03_java_socket_programming").exists()
-        print("[PASS] Scenario B: Fuzzy search resolved typo 'socket programing' to Exp #3")
+        assert (fuzzy_sandbox / "Experiment02_a_star_15_puzzle_problem").exists()
+        print("[PASS] Scenario B: Fuzzy search resolved typo '15 puzle' to Exp #2")
 
         # Scenario C: Full Collection Download
         print("\n--- SCENARIO C: Full ZIP Collection (labx download all) ---")
@@ -91,11 +90,11 @@ def run_e2e_tests():
             shutil.rmtree(bulk_sandbox)
         bulk_sandbox.mkdir(parents=True, exist_ok=True)
 
-        res = subprocess.run([str(EXE_PATH), "download", "all", "--force", "--url", server_url], cwd=str(bulk_sandbox), capture_output=True, text=True)
+        res = subprocess.run([str(EXE_PATH), "download", "all", "--force", "--url", server_url], cwd=str(bulk_sandbox), capture_output=True, encoding="utf-8", errors="replace")
         assert res.returncode == 0, f"download all failed: {res.stderr}"
         exp_folders = list(bulk_sandbox.glob("Experiment*"))
-        assert len(exp_folders) == 10, f"Expected 10 experiments, found {len(exp_folders)}"
-        print(f"[PASS] Scenario C: Successfully downloaded & safely extracted all 10 experiments")
+        assert len(exp_folders) == 12, f"Expected 12 experiments, found {len(exp_folders)}"
+        print(f"[PASS] Scenario C: Successfully downloaded & safely extracted all 12 experiments")
 
         # Scenario E: Offline Execution
         print("\n--- SCENARIO E: Offline Execution (server unreachable) ---")
@@ -104,10 +103,10 @@ def run_e2e_tests():
         server.server_close()
         print("[OK] Server terminated (simulating offline mode)")
 
-        # Run already downloaded experiment 3 in test_sandbox
-        res = subprocess.run([str(EXE_PATH), "run", "3", "--url", "http://127.0.0.1:59999"], cwd=str(test_sandbox), capture_output=True, text=True)
+        # Run already downloaded experiment 2 in test_sandbox
+        res = subprocess.run([str(EXE_PATH), "run", "2", "--url", "http://127.0.0.1:59999"], cwd=str(test_sandbox), capture_output=True, encoding="utf-8", errors="replace")
         assert res.returncode == 0, f"offline run failed: {res.stderr}"
-        assert "Java Socket Server" in res.stdout
+        assert "Solution found" in res.stdout or "Initial State" in res.stdout
         print("[PASS] Scenario E: Offline execution succeeded for previously downloaded experiment")
 
         print("\n" + "=" * 60)

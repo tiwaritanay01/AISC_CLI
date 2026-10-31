@@ -59,3 +59,4 @@ Write-Host "   labx list" -ForegroundColor White
 Write-Host "   labx download 3" -ForegroundColor White
 Write-Host "   labx run 3" -ForegroundColor White
 Write-Host "==========================================================" -ForegroundColor Cyan
+

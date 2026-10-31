@@ -1,34 +1,35 @@
 {
   "id": 9,
-  "slug": "binary-search-tree-cpp",
-  "title": "Binary Search Tree Operations & Traversals",
-  "language": "cpp",
+  "slug": "fuzzy-membership-functions",
+  "title": "Implementation of Fuzzy Membership Functions",
+  "language": "python",
   "aliases": [
-    "binary search tree",
-    "bst",
-    "tree traversals",
-    "bst cpp"
+    "fuzzy membership",
+    "fuzzy logic",
+    "triangular membership",
+    "trapezoidal membership",
+    "soft computing"
   ],
-  "description": "Insertion, searching, deletion, and in-order/pre-order traversals of a Binary Search Tree in C++.",
-  "aim": "To construct a Binary Search Tree (BST) and implement traversals (Inorder, Preorder, Postorder).",
-  "theory": "A Binary Search Tree is a binary tree data structure where each node has at most two children.\nThe key of each internal node is greater than all keys in its left subtree and less than all keys in its right subtree.\nAn inorder traversal of a BST yields keys in sorted ascending order.",
+  "description": "Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.",
+  "aim": "To implement fuzzy membership functions (Triangular and Trapezoidal) and calculate degrees of membership for inputs.",
+  "theory": "Unlike classical binary sets where elements have strict membership (0 or 1), fuzzy sets assign elements a continuous degree of membership between [0, 1].\nTriangular Membership Function: defined by lower limit a, peak b, and upper limit c.\nTrapezoidal Membership Function: defined by lower limit a, plateau span [b, c], and upper limit d.",
   "algorithm": [
-    "Define Node structure with key, left pointer, and right pointer.",
-    "Implement insert(root, key): recursively find correct leaf position and attach new Node.",
-    "Implement inorder(root): traverse left subtree, visit root, traverse right subtree.",
-    "Implement search(root, key): compare key and branch left or right.",
-    "Test tree with sample keys and display traversal output."
+    "Define triangular function: max(min((x - a)/(b - a), (c - x)/(c - b)), 0).",
+    "Define trapezoidal function: max(min(min((x - a)/(b - a), 1), (d - x)/(d - c)), 0).",
+    "Generate discrete input universe of discourse X.",
+    "Compute membership degree for each input value.",
+    "Display membership evaluation table across boundary and transition points."
   ],
   "files": [
     {
-      "path": "bst.cpp",
-      "source": "bst.cpp",
+      "path": "fuzzy_membership.py",
+      "source": "fuzzy_membership.py",
       "role": "source"
     }
   ],
   "run": {
-    "kind": "cpp",
-    "entry": "bst.cpp"
+    "kind": "python",
+    "entry": "fuzzy_membership.py"
   },
   "version": "1.0.0"
 }

@@ -106,10 +106,10 @@ def test_live_server_catalog_fetch(live_server):
     assert version == "1.0.0"
 
     catalog = client.fetch_catalog()
-    assert len(catalog.experiments) == 10
+    assert len(catalog.experiments) == 12
     exp3 = catalog.get_by_id(3)
     assert exp3 is not None
-    assert "Socket" in exp3.title
+    assert "DFID" in exp3.title or "Depth First" in exp3.title
 
 
 def test_remote_failure_handling():

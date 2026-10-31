@@ -1,36 +1,37 @@
 {
   "id": 6,
-  "slug": "page-replacement-simulation",
-  "title": "Page Replacement Simulation (FIFO & LRU)",
+  "slug": "mlp-supervised-learning",
+  "title": "Supervised Learning using Multi-Layer Perceptron (MLP)",
   "language": "python",
   "aliases": [
-    "page replacement",
-    "fifo lru",
-    "virtual memory",
-    "paging simulation"
+    "mlp",
+    "multilayer perceptron",
+    "backpropagation",
+    "supervised learning",
+    "neural network"
   ],
-  "description": "Simulation and performance comparison of FIFO and LRU virtual memory page replacement algorithms.",
-  "aim": "To write a Python simulation of FIFO and LRU page replacement policies and compare their page fault rates.",
-  "theory": "Virtual memory uses paging to map virtual addresses to physical frames. When a requested page is not in memory, a page fault occurs.\nFIFO (First-In, First-Out) replaces the oldest resident page in memory.\nLRU (Least Recently Used) replaces the page that has not been referenced for the longest period of time.",
+  "description": "Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.",
+  "aim": "To implement the Supervised Learning algorithm using Multi-Layer Perceptron (MLP) with Backpropagation to solve non-linear problems (XOR).",
+  "theory": "A Multi-Layer Perceptron (MLP) consists of an input layer, one or more hidden layers, and an output layer.\nBecause of non-linear activation functions (such as Sigmoid), an MLP is capable of learning non-linearly separable decision boundaries (e.g. XOR gate).\nTraining occurs via Backpropagation: forward pass computes loss, backward pass computes gradients using the chain rule and updates weights.",
   "algorithm": [
-    "Initialize memory frames with capacity F.",
-    "For FIFO: Maintain a FIFO queue of page numbers in memory.",
-    "For LRU: Track page reference timestamps or maintain an ordered history list.",
-    "Iterate through reference string.",
-    "If page exists in memory, count as a Hit (and update LRU recency).",
-    "If page missing, count as a Page Fault and evict page according to algorithm policy.",
-    "Calculate and display total faults and hit ratio."
+    "Initialize network weights W1, W2 with small random values and biases b1, b2 with zeros.",
+    "Forward Propagation: z1 = X . W1 + b1, a1 = sigmoid(z1), z2 = a1 . W2 + b2, output = sigmoid(z2).",
+    "Compute error = target - output.",
+    "Backward Propagation: calculate output delta = error * sigmoid_derivative(output).",
+    "Propagate error to hidden layer: hidden delta = (output_delta . W2.T) * sigmoid_derivative(a1).",
+    "Update weights and biases using gradient descent with learning rate lr.",
+    "Iterate across training epochs."
   ],
   "files": [
     {
-      "path": "page_replacement.py",
-      "source": "page_replacement.py",
+      "path": "mlp_neural_network.py",
+      "source": "mlp_neural_network.py",
       "role": "source"
     }
   ],
   "run": {
     "kind": "python",
-    "entry": "page_replacement.py"
+    "entry": "mlp_neural_network.py"
   },
   "version": "1.0.0"
 }

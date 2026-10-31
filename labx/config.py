@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from typing import Optional
 
-DEFAULT_REMOTE_URL = "https://labx-remote.netlify.app"
+DEFAULT_REMOTE_URL = "https://aisccli.netlify.app"
 ENV_REMOTE_URL_KEY = "LABX_REMOTE_URL"
 DEFAULT_TIMEOUT_SECONDS = 15.0
 

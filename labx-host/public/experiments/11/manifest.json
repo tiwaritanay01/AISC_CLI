@@ -1,0 +1,36 @@
+{
+  "id": 11,
+  "slug": "genetic-algorithm-simulated-annealing",
+  "title": "Optimization using Genetic Algorithm & Simulated Annealing",
+  "language": "python",
+  "aliases": [
+    "genetic algorithm",
+    "simulated annealing",
+    "optimization",
+    "metaheuristic",
+    "ga"
+  ],
+  "description": "Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.",
+  "aim": "To implement Genetic Algorithm and Simulated Annealing metaheuristics for continuous optimization.",
+  "theory": "Genetic Algorithms (GA) mimic biological natural selection: candidate solutions (individuals) undergo selection, crossover (recombination), and mutation across successive generations to optimize a fitness objective.\nSimulated Annealing (SA) mimics the thermodynamic process of metallurgical annealing: a single candidate is perturbed, and uphill moves are conditionally accepted with probability exp(-delta_E / T) allowing escape from local optima.",
+  "algorithm": [
+    "Initialize population of candidate solution individuals.",
+    "Evaluate objective fitness for every individual.",
+    "Select fittest individuals as parents for mating pool.",
+    "Perform crossover to produce offspring candidates.",
+    "Apply mutation with mutation probability.",
+    "Replace low-fitness individuals and iterate until convergence."
+  ],
+  "files": [
+    {
+      "path": "genetic_algorithm.py",
+      "source": "genetic_algorithm.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "genetic_algorithm.py"
+  },
+  "version": "1.0.0"
+}
