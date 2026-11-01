@@ -607,6 +607,127 @@ HTML_INDEX = """<!DOCTYPE html>
     a:hover {
       text-decoration: underline;
     }
+    .uploader-section {
+      margin: 2.5rem 0;
+    }
+    .uploader-card {
+      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid #0284c7;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
+    }
+    .uploader-header h2 {
+      margin: 0.3rem 0;
+      color: #38bdf8;
+      font-size: 1.35rem;
+    }
+    .drop-zone {
+      border: 2px dashed #0284c7;
+      background: #090d16;
+      border-radius: 8px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 1.25rem;
+      transition: all 0.2s ease;
+    }
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: #38bdf8;
+      background: #0f1c30;
+      transform: scale(1.005);
+    }
+    .browse-btn {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 0.35rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-left: 0.3rem;
+      transition: background 0.2s;
+    }
+    .browse-btn:hover {
+      background: #0369a1;
+    }
+    .upload-result-box {
+      margin-top: 1.5rem;
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .command-delivery-box {
+      background: #021427;
+      border: 1px solid #0284c7;
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .command-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    .cmd-text {
+      flex: 1;
+      background: #090d16;
+      padding: 0.6rem 0.85rem;
+      border-radius: 4px;
+      color: #7dd3fc;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      border: 1px solid #1e3a5f;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .copy-cmd-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #0284c7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .copy-cmd-btn:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+    .copy-cmd-btn.copied {
+      background: #15803d !important;
+    }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      margin-bottom: 0.3rem;
+      color: #94a3b8;
+    }
+    .preview-pre {
+      background: #090d16;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid #1f2937;
+    }
   </style>
 </head>
 <body>
@@ -638,6 +759,71 @@ HTML_INDEX = """<!DOCTYPE html>
         <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> — Full 12-experiment ZIP archive</li>
         <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> — Windows standalone executable</li>
       </ul>
+    </section>
+
+    <section class="uploader-section">
+      <div class="uploader-card">
+        <div class="uploader-header">
+          <span class="badge" style="background:#0284c7;">CUSTOM EXPERIMENT INGESTER</span>
+          <h2>⚡ Upload Submission HTML &rarr; Get Custom PowerShell Delivery Command</h2>
+          <p class="muted" style="margin-top:0.25rem;">Upload any experiment HTML submission file. It extracts the code, pads to 50 lines, embeds the authentic theory in comments, and gives you a custom <code>irm &lt;URL&gt; | iex</code> command to pull the file directly in PowerShell anytime.</p>
+        </div>
+
+        <div id="drop-zone" class="drop-zone">
+          <input type="file" id="html-file-input" accept=".html,.htm" style="display:none;" />
+          <div class="drop-zone-content">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p style="margin:0.25rem 0; font-size:1rem; color:#f1f5f9;">Drag &amp; drop an Experiment HTML file here, or <button type="button" class="browse-btn" onclick="document.getElementById('html-file-input').click()">Browse File</button></p>
+            <span style="font-size:0.8rem; color:#94a3b8;">Supports experiment HTML submissions with Aim, Theory &amp; Source Code</span>
+          </div>
+        </div>
+
+        <div id="upload-result" style="display:none;" class="upload-result-box">
+          <div class="result-header">
+            <div>
+              <span class="tag" style="background:#0369a1; color:#e0f2fe;">READY TO DELIVER</span>
+              <h3 id="res-title" style="margin:0.4rem 0 0.2rem 0; color:#38bdf8;"></h3>
+              <span id="res-file" class="file-pill"></span>
+            </div>
+            <button id="res-copy-code-btn" class="copy-btn" onclick="copyCustomCode()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Code</span>
+            </button>
+          </div>
+
+          <div class="command-delivery-box">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:600; color:#38bdf8;">🚀 Custom PowerShell Command:</span>
+              <span class="muted" style="font-size:0.75rem;">Run in PowerShell to pull this experiment directly</span>
+            </div>
+            <div class="command-row">
+              <code id="res-command" class="cmd-text">Generating custom delivery command...</code>
+              <button id="res-copy-cmd-btn" class="copy-cmd-btn" onclick="copyCustomCommand()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Command</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem;">
+            <div class="preview-header">
+              <span>Code Preview (Theory placed after line 50)</span>
+              <span id="res-lines"></span>
+            </div>
+            <pre id="res-code-preview" class="preview-pre"></pre>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section>
@@ -852,6 +1038,289 @@ def generate_host():
         btn.classList.remove('copied');
         span.textContent = originalText;
       }, 2000);
+    }
+
+    // Custom Ingester State
+    window._customCode = '';
+    window._customCommand = '';
+
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('html-file-input');
+
+    if (dropZone && fileInput) {
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+      dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+          handleUploadedFile(e.dataTransfer.files[0]);
+        }
+      });
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+          handleUploadedFile(e.target.files[0]);
+        }
+      });
+    }
+
+    function cleanTextArtifacts(str) {
+      return str
+        .replace(/\\u2011/g, '-')
+        .replace(/\\u2013/g, '-')
+        .replace(/\\u2014/g, '--')
+        .replace(/[\\u2018\\u2019]/g, "'")
+        .replace(/[\\u201c\\u201d]/g, '"')
+        .replace(/\\u2022/g, '-')
+        .replace(/\\u2500/g, '-')
+        .replace(/\\u00b0/g, ' deg ')
+        .replace(/\\xa0/g, ' ');
+    }
+
+    function sanitizePythonCode(rawCode) {
+      let code = cleanTextArtifacts(rawCode)
+        .replace(/for_in /g, 'for _ in ')
+        .replace(/visited=sewt\\(\\)/g, 'visited = set()')
+        .replace(/return true\\b/g, 'return True')
+        .replace(/return false\\b/g, 'return False');
+
+      const theoryIdx = code.indexOf('# EXPERIMENT THEORY');
+      if (theoryIdx !== -1) {
+        code = code.substring(0, theoryIdx).trimEnd();
+      }
+
+      const lines = code.trim().split('\\n');
+      while (lines.length < 50) {
+        if (lines.length === 49) {
+          lines.push('# --- Line 50: Execution & Theory Division ---');
+        } else {
+          lines.push('');
+        }
+      }
+      return lines.join('\\n');
+    }
+
+    function formatTheoryComments(rawTheory) {
+      const clean = cleanTextArtifacts(rawTheory);
+      const paragraphs = clean.split('\\n');
+      const out = [
+        '',
+        '# ' + '='.repeat(76),
+        '# EXPERIMENT THEORY (from AISC Laboratory Submission):',
+        '# ' + '='.repeat(76)
+      ];
+
+      for (const p of paragraphs) {
+        const trimmed = p.trim();
+        if (!trimmed) {
+          out.push('#');
+          continue;
+        }
+        const words = trimmed.split(/\\s+/);
+        let curr = '#';
+        for (const w of words) {
+          if ((curr + ' ' + w).length > 76) {
+            out.push(curr);
+            curr = '# ' + w;
+          } else {
+            curr += (curr === '#' ? ' ' : ' ') + w;
+          }
+        }
+        if (curr !== '#') out.push(curr);
+      }
+      out.push('# ' + '='.repeat(76));
+      return out.join('\\n');
+    }
+
+    function buildPowerShellDelivery(filename, code) {
+      return `# LabX Remote - Custom Experiment Delivery\\n$filename = "${filename}"\\n$code = @'\\n${code}\\n'@\\n$target = Join-Path $PWD $filename\\nSet-Content -Path $target -Value $code -Encoding utf8\\nWrite-Host ""\\nWrite-Host "============================================================" -ForegroundColor Cyan\\nWrite-Host " [OK] Experiment code saved to: $filename" -ForegroundColor Green\\nWrite-Host " Theory is embedded after line 50. Ready to execute!" -ForegroundColor White\\nWrite-Host " Run: py $filename" -ForegroundColor Yellow\\nWrite-Host "============================================================" -ForegroundColor Cyan\\n`;
+    }
+
+    async function handleUploadedFile(file) {
+      const resultBox = document.getElementById('upload-result');
+      resultBox.style.display = 'block';
+      document.getElementById('res-title').textContent = 'Parsing HTML file...';
+      document.getElementById('res-file').textContent = file.name;
+      document.getElementById('res-command').textContent = 'Extracting code and embedding theory...';
+      document.getElementById('res-code-preview').textContent = 'Reading submission file...';
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const htmlText = e.target.result;
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlText, 'text/html');
+
+          const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, b, strong'));
+
+          // 1. Aim / Title
+          let title = '';
+          for (const h of headings) {
+            const txt = h.textContent.trim().toLowerCase();
+            if (txt.includes('aim') || txt.includes('objective')) {
+              let sib = h.nextElementSibling;
+              while (sib && !['H1','H2','H3','H4','H5'].includes(sib.tagName)) {
+                if (sib.textContent.trim()) {
+                  title = sib.textContent.trim();
+                  break;
+                }
+                sib = sib.nextElementSibling;
+              }
+              if (title) break;
+            }
+          }
+          if (!title) {
+            title = doc.querySelector('title')?.textContent.trim() || file.name.replace(/\\.[^/.]+$/, '').replace(/[_-]+/g, ' ');
+          }
+
+          // 2. Theory
+          let theoryText = '';
+          for (const h of headings) {
+            if (h.textContent.trim().toLowerCase().includes('theory')) {
+              const parts = [];
+              let sib = h.nextElementSibling;
+              while (sib && !['H1','H2','H3','H4','H5'].includes(sib.tagName)) {
+                const t = sib.textContent.trim();
+                if (t) parts.push(t);
+                sib = sib.nextElementSibling;
+              }
+              theoryText = parts.join('\\n\\n');
+              break;
+            }
+          }
+
+          // 3. Source Code
+          let sourceCode = '';
+          for (const h of headings) {
+            const txt = h.textContent.trim().toLowerCase();
+            if (txt.includes('source code') || txt.includes('code')) {
+              let sib = h.nextElementSibling;
+              while (sib && !['H1','H2','H3','H4','H5'].includes(sib.tagName)) {
+                if (sib.tagName === 'PRE' || sib.querySelector('pre') || sib.tagName === 'CODE') {
+                  sourceCode = sib.textContent.trim();
+                  break;
+                }
+                sib = sib.nextElementSibling;
+              }
+              if (sourceCode) break;
+            }
+          }
+          if (!sourceCode) {
+            const pres = Array.from(doc.querySelectorAll('pre, code'));
+            for (const pre of pres) {
+              const txt = pre.textContent.trim();
+              if (txt.includes('def ') || txt.includes('import ') || txt.includes('print(') || txt.includes('class ')) {
+                sourceCode = txt;
+                break;
+              }
+            }
+          }
+
+          if (!sourceCode) {
+            document.getElementById('res-title').textContent = 'Error: Code not found';
+            document.getElementById('res-command').textContent = 'Could not find a <pre> or source code block in this HTML.';
+            return;
+          }
+
+          // 4. Sanitize, Pad to 50 lines, and Embed Theory Comments
+          const paddedCode = sanitizePythonCode(sourceCode);
+          const theoryBlock = formatTheoryComments(theoryText || 'AISC Experiment Theory');
+          const finalCode = paddedCode + '\\n\\n' + theoryBlock + '\\n';
+
+          let baseName = file.name.replace(/\\.[^/.]+$/, '').toLowerCase().replace(/[^\\w]/g, '_');
+          if (!baseName.endsWith('.py')) baseName += '.py';
+
+          window._customCode = finalCode;
+          window._customFilename = baseName;
+
+          const totalLines = finalCode.split('\\n').length;
+          document.getElementById('res-title').textContent = title;
+          document.getElementById('res-file').textContent = baseName;
+          document.getElementById('res-lines').textContent = `${totalLines} lines (Theory begins after line 50)`;
+          document.getElementById('res-code-preview').textContent = finalCode;
+
+          // 5. Generate Custom Delivery Command
+          const deliveryScript = buildPowerShellDelivery(baseName, finalCode);
+          document.getElementById('res-command').textContent = 'Connecting to generate custom URL...';
+
+          try {
+            const apiRes = await fetch('/api/publish', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ filename: baseName, script: deliveryScript })
+            });
+            if (apiRes.ok) {
+              const data = await apiRes.json();
+              if (data.command) {
+                document.getElementById('res-command').textContent = data.command;
+                window._customCommand = data.command;
+                return;
+              }
+            }
+          } catch (e) {
+            console.warn('API publish error, trying fallback:', e);
+          }
+
+          // Fallback via dpaste direct
+          try {
+            const dpRes = await fetch('https://dpaste.org/api/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({
+                content: deliveryScript,
+                format: 'url',
+                expiry_days: '30'
+              })
+            });
+            if (dpRes.ok) {
+              const url = (await dpRes.text()).trim();
+              const slug = url.split('/').filter(Boolean).pop();
+              const cmd = `irm https://aisccli.netlify.app/s/${slug} | iex`;
+              document.getElementById('res-command').textContent = cmd;
+              window._customCommand = cmd;
+              return;
+            }
+          } catch (e2) {}
+
+          const defaultCmd = `irm https://aisccli.netlify.app/all.ps1 | iex`;
+          document.getElementById('res-command').textContent = defaultCmd;
+          window._customCommand = defaultCmd;
+
+        } catch (err) {
+          console.error(err);
+          document.getElementById('res-title').textContent = 'Error parsing HTML: ' + err.message;
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function copyCustomCommand() {
+      const cmd = window._customCommand || document.getElementById('res-command').textContent;
+      navigator.clipboard.writeText(cmd).then(() => {
+        const btn = document.getElementById('res-copy-cmd-btn');
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.querySelector('span').textContent = 'Copy Command';
+        }, 2000);
+      });
+    }
+
+    function copyCustomCode() {
+      const code = window._customCode || '';
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('res-copy-code-btn');
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.querySelector('span').textContent = 'Copy Code';
+        }, 2000);
+      });
     }
   </script>
 </body>

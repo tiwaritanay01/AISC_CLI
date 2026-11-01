@@ -1,15 +1,16 @@
 # Root Netlify Configuration
-# Automatically tells Netlify where the public entrypoint and static assets are located.
+# Automatically tells Netlify where the public entrypoint, functions, and static assets are located.
 
 [build]
   publish = "labx-host/public"
+  functions = "netlify/functions"
   command = "python scripts/build_host.py"
 
 [[headers]]
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Methods = "GET, HEAD, POST, OPTIONS"
     Access-Control-Allow-Headers = "*"
     Cache-Control = "public, max-age=3600"
 
@@ -18,3 +19,19 @@
   [headers.values]
     Content-Type = "application/json; charset=utf-8"
 
+# Custom Experiment Delivery Redirects
+[[redirects]]
+  from = "/api/publish"
+  to = "/.netlify/functions/publish"
+  status = 200
+
+[[redirects]]
+  from = "/r"
+  to = "/.netlify/functions/raw"
+  status = 200
+
+[[redirects]]
+  from = "/s/:id"
+  to = "https://dpaste.org/:id/raw"
+  status = 200
+  force = true
