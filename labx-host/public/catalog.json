@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "updated_at": "2026-11-02T12:00:00Z",
   "zip_url": "downloads/labx_experiments.zip",
+  "ertos_zip_url": "downloads/ertos.zip",
   "experiments": [
     {
       "id": 1,
