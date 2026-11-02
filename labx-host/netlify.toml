@@ -1,11 +1,12 @@
 [build]
   publish = "public"
+  functions = "../netlify/functions"
 
 [[headers]]
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Methods = "GET, HEAD, POST, OPTIONS"
     Access-Control-Allow-Headers = "*"
     Cache-Control = "public, max-age=3600"
 
@@ -13,3 +14,19 @@
   for = "/*.json"
   [headers.values]
     Content-Type = "application/json; charset=utf-8"
+
+[[redirects]]
+  from = "/api/publish"
+  to = "/.netlify/functions/publish"
+  status = 200
+
+[[redirects]]
+  from = "/r"
+  to = "/.netlify/functions/raw"
+  status = 200
+
+[[redirects]]
+  from = "/s/:id"
+  to = "https://dpaste.org/:id/raw"
+  status = 200
+  force = true

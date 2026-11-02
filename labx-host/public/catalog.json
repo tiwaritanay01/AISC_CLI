@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-10-31T21:00:00Z",
+  "updated_at": "2026-11-02T12:00:00Z",
   "zip_url": "downloads/labx_experiments.zip",
   "experiments": [
     {
@@ -182,6 +182,154 @@
       ],
       "description": "AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.",
       "manifest_url": "experiments/12/manifest.json"
+    },
+    {
+      "id": 13,
+      "slug": "keil-uvision-flash-magic-setup",
+      "title": "Installation and Verification of Keil uVision & Flash Magic Toolchains",
+      "language": "c",
+      "aliases": [
+        "keil",
+        "flash magic",
+        "arm7 setup",
+        "keil uvision",
+        "lpc2148 setup"
+      ],
+      "description": "ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.",
+      "manifest_url": "experiments/13/manifest.json"
+    },
+    {
+      "id": 14,
+      "slug": "lpc2148-led-interfacing",
+      "title": "Interfacing of LED with LPC2148 Microcontroller",
+      "language": "c",
+      "aliases": [
+        "led interfacing",
+        "lpc2148 led",
+        "gpio led",
+        "blinking led",
+        "led counter"
+      ],
+      "description": "General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.",
+      "manifest_url": "experiments/14/manifest.json"
+    },
+    {
+      "id": 15,
+      "slug": "lpc2148-lcd-interfacing",
+      "title": "Interfacing 16x2 Alphanumeric LCD with LPC2148",
+      "language": "c",
+      "aliases": [
+        "lcd interfacing",
+        "lpc2148 lcd",
+        "16x2 lcd",
+        "hd44780",
+        "lcd display"
+      ],
+      "description": "8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.",
+      "manifest_url": "experiments/15/manifest.json"
+    },
+    {
+      "id": 16,
+      "slug": "lpc2148-uart-serial",
+      "title": "Serial Communication using UART0 on LPC2148",
+      "language": "c",
+      "aliases": [
+        "uart",
+        "serial communication",
+        "lpc2148 uart",
+        "baud rate",
+        "uart0"
+      ],
+      "description": "Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.",
+      "manifest_url": "experiments/16/manifest.json"
+    },
+    {
+      "id": 17,
+      "slug": "lpc2148-power-management",
+      "title": "Power Management & Low-Power Modes in LPC2148",
+      "language": "c",
+      "aliases": [
+        "power management",
+        "lpc2148 power",
+        "idle mode",
+        "power down",
+        "eint0"
+      ],
+      "description": "LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.",
+      "manifest_url": "experiments/17/manifest.json"
+    },
+    {
+      "id": 18,
+      "slug": "freertos-semaphores-synchronization",
+      "title": "Task Synchronization using Binary and Counting Semaphores in FreeRTOS",
+      "language": "cpp",
+      "aliases": [
+        "freertos semaphores",
+        "binary semaphore",
+        "counting semaphore",
+        "task sync",
+        "freertos"
+      ],
+      "description": "Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.",
+      "manifest_url": "experiments/18/manifest.json"
+    },
+    {
+      "id": 19,
+      "slug": "freertos-arduino-porting",
+      "title": "Porting FreeRTOS to Arduino Development Board & Task Scheduling",
+      "language": "cpp",
+      "aliases": [
+        "porting freertos",
+        "arduino rtos",
+        "freertos porting",
+        "task scheduling",
+        "freertos uno"
+      ],
+      "description": "Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.",
+      "manifest_url": "experiments/19/manifest.json"
+    },
+    {
+      "id": 20,
+      "slug": "freertos-multiple-tasks-creation",
+      "title": "Creating Multiple Tasks in FreeRTOS with Priority Preemption",
+      "language": "cpp",
+      "aliases": [
+        "multiple tasks",
+        "freertos tasks",
+        "priority preemption",
+        "rtos multitasking"
+      ],
+      "description": "Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.",
+      "manifest_url": "experiments/20/manifest.json"
+    },
+    {
+      "id": 21,
+      "slug": "freertos-ipc-queue-eventgroup",
+      "title": "Multitasking Real-Time IPC using Message Queue, Event Group & Semaphore",
+      "language": "cpp",
+      "aliases": [
+        "freertos ipc",
+        "message queue",
+        "event group",
+        "rtos queue",
+        "inter process communication"
+      ],
+      "description": "Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.",
+      "manifest_url": "experiments/21/manifest.json"
+    },
+    {
+      "id": 22,
+      "slug": "lpc2148-traffic-light-controller",
+      "title": "Design and Implementation of a Real-Time Traffic Light Controller on LPC2148",
+      "language": "c",
+      "aliases": [
+        "traffic light",
+        "lpc2148 traffic light",
+        "traffic controller",
+        "fsm traffic"
+      ],
+      "description": "Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.",
+      "manifest_url": "experiments/22/manifest.json"
     }
   ]
 }

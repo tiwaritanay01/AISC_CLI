@@ -1,0 +1,36 @@
+{
+  "id": 14,
+  "slug": "lpc2148-led-interfacing",
+  "title": "Interfacing of LED with LPC2148 Microcontroller",
+  "language": "c",
+  "aliases": [
+    "led interfacing",
+    "lpc2148 led",
+    "gpio led",
+    "blinking led",
+    "led counter"
+  ],
+  "description": "General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.",
+  "aim": "Interfacing of LED with an embedded core (LPC 2148)",
+  "theory": "The LPC2148 is an ARM7TDMI-S based 32-bit microcontroller with two 32-bit general-purpose I/O ports (Port 0 and Port 1). GPIO pins are controlled by registers: PINSEL (Pin Function Select), IOxDIR (Direction register: 1 for Output, 0 for Input), IOxSET (Set pin high), and IOxCLR (Clear pin low). An LED connected in active-high or active-low configuration is toggled with software delay loops. In this experiment, Port 0 pins (P0.10 - P0.17) drive an 8-LED bar display, demonstrating single-pin blinking, alternating blinking, and binary counter sequences.",
+  "algorithm": [
+    "Configure PINSEL0 to set P0.10 to P0.17 as standard GPIO pins.",
+    "Configure IO0DIR to set pins P0.10 to P0.17 as outputs (IO0DIR |= 0x000FF000).",
+    "Turn off all LEDs initially using IO0CLR = 0x000FF000.",
+    "In a continuous loop, set IO0SET to turn LEDs ON, call delay(300), and set IO0CLR to turn LEDs OFF.",
+    "Implement alternating and binary counter patterns on the LED array."
+  ],
+  "files": [
+    {
+      "path": "lpc2148_led.c",
+      "source": "lpc2148_led.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "lpc2148_led.c",
+    "hardware": "NXP LPC2148 (ARM7TDMI-S)"
+  },
+  "version": "1.0.0"
+}

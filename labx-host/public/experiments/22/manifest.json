@@ -1,0 +1,36 @@
+{
+  "id": 22,
+  "slug": "lpc2148-traffic-light-controller",
+  "title": "Design and Implementation of a Real-Time Traffic Light Controller on LPC2148",
+  "language": "c",
+  "aliases": [
+    "traffic light",
+    "lpc2148 traffic light",
+    "traffic controller",
+    "fsm traffic"
+  ],
+  "description": "Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.",
+  "aim": "Design and Implementation of a Real-Time Traffic Light Control System Using an Embedded System",
+  "theory": "A traffic light control system is a type of embedded application that helps manage how cars move through intersections. It uses red, yellow, and green lights in a certain order to keep traffic moving safely and prevent accidents. A real-time traffic light control system was created using the LPC2148 embedded controller. GPIO pins were configured as outputs to control the red, yellow, and green LEDs, and a programmed sequence was executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.",
+  "algorithm": [
+    "Start the program. Set up the LPC2148 microcontroller.",
+    "Set the GPIO pins linked to the red, yellow, and green LEDs to output mode (P0.10, P0.11, P0.12).",
+    "Turn on the red LED and turn off the green and yellow LEDs for 5 seconds (delay 500).",
+    "Turn on the green LED and turn off the red and yellow LEDs for 5 seconds (delay 500).",
+    "Turn on the yellow LED and turn off the red and green LEDs for 2 seconds (delay 200).",
+    "Repeat the cycle continuously to maintain orderly traffic regulation."
+  ],
+  "files": [
+    {
+      "path": "lpc2148_traffic.c",
+      "source": "lpc2148_traffic.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "lpc2148_traffic.c",
+    "hardware": "NXP LPC2148 (ARM7TDMI-S)"
+  },
+  "version": "1.0.0"
+}

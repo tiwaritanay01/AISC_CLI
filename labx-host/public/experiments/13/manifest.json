@@ -1,0 +1,36 @@
+{
+  "id": 13,
+  "slug": "keil-uvision-flash-magic-setup",
+  "title": "Installation and Verification of Keil uVision & Flash Magic Toolchains",
+  "language": "c",
+  "aliases": [
+    "keil",
+    "flash magic",
+    "arm7 setup",
+    "keil uvision",
+    "lpc2148 setup"
+  ],
+  "description": "ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.",
+  "aim": "Installation of Keil uVision IDE and Flash Magic ISP flashing utility, and verifying ARM7 microcontroller project setup.",
+  "theory": "Keil uVision is an integrated development environment (IDE) that provides code editing, compilation, simulation, and debugging for ARM-based microcontrollers like the LPC2148. Flash Magic is a dedicated In-System Programming (ISP) tool used to burn compiled Intel HEX binaries into the LPC2148 on-chip flash memory via UART serial interface. The toolchain workflow requires configuring the LPC2148 device database, selecting the ARM target oscillator frequency (12.0 MHz), generating a HEX binary via Armcc / Armclang, and flashing over COM port with ISP handshaking.",
+  "algorithm": [
+    "Download Keil uVision and Flash Magic installers from official vendor repositories.",
+    "Install Keil uVision, set toolchain path, and add LPC2148 device database support.",
+    "Install Flash Magic, configure COM port baud rate (9600 to 57600), device LPC2148, and oscillator frequency (12.0 MHz).",
+    "Create a target test project in Keil uVision, select LPC2148, and include startup assembly code (Startup.s).",
+    "Compile and generate Intel HEX binary (test_project.hex), and verify target connection via Flash Magic ISP handshake."
+  ],
+  "files": [
+    {
+      "path": "verify_keil_setup.c",
+      "source": "verify_keil_setup.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "verify_keil_setup.c",
+    "hardware": "NXP LPC2148 (ARM7TDMI-S)"
+  },
+  "version": "1.0.0"
+}

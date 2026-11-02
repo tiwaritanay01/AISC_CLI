@@ -1,0 +1,38 @@
+{
+  "id": 17,
+  "slug": "lpc2148-power-management",
+  "title": "Power Management & Low-Power Modes in LPC2148",
+  "language": "c",
+  "aliases": [
+    "power management",
+    "lpc2148 power",
+    "idle mode",
+    "power down",
+    "eint0"
+  ],
+  "description": "LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.",
+  "aim": "To implement power management techniques in the LPC2148 embedded controller by configuring its power saving modes to reduce power consumption.",
+  "theory": "To implement power management techniques in the LPC2148 embedded controller by configuring its power-saving modes to reduce power consumption. Power management in the LPC2148 is controlled via the PCON (Power Control) and PCONP (Power Control for Peripherals) registers. LPC2148 supports Idle Mode (PCON=0x01) where the CPU clock stops while peripherals continue running, and Power Down Mode (PCON=0x02) where both CPU and oscillator are halted. An external interrupt (EINT0 on P0.16) is configured via the Vectored Interrupt Controller (VIC) to wake the microcontroller from low-power state, toggle a status LED, and resume operation.",
+  "algorithm": [
+    "Initiate the program and initialize LPC2148 system clocks.",
+    "Configure GPIO P0.10 as an output for status LED indication.",
+    "Configure P0.16 as External Interrupt 0 (EINT0) in PINSEL1.",
+    "Configure EINT0 as edge-sensitive, falling edge trigger using EXTMODE and EXTPOLAR.",
+    "Assign eint0_isr to VICVectAddr0, enable slot in VICVectCntl0, and unmask interrupt in VICIntEnable.",
+    "Enter low-power Idle mode by writing 0x01 to PCON.",
+    "On interrupt trigger, ISR sets wakeup_flag and toggles LED before returning to sleep."
+  ],
+  "files": [
+    {
+      "path": "lpc2148_power.c",
+      "source": "lpc2148_power.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "lpc2148_power.c",
+    "hardware": "NXP LPC2148 (ARM7TDMI-S)"
+  },
+  "version": "1.0.0"
+}

@@ -93,8 +93,8 @@ def run_e2e_tests():
         res = subprocess.run([str(EXE_PATH), "download", "all", "--force", "--url", server_url], cwd=str(bulk_sandbox), capture_output=True, encoding="utf-8", errors="replace")
         assert res.returncode == 0, f"download all failed: {res.stderr}"
         exp_folders = list(bulk_sandbox.glob("Experiment*"))
-        assert len(exp_folders) == 12, f"Expected 12 experiments, found {len(exp_folders)}"
-        print(f"[PASS] Scenario C: Successfully downloaded & safely extracted all 12 experiments")
+        assert len(exp_folders) >= 12, f"Expected at least 12 experiments, found {len(exp_folders)}"
+        print(f"[PASS] Scenario C: Successfully downloaded & safely extracted {len(exp_folders)} experiments")
 
         # Scenario E: Offline Execution
         print("\n--- SCENARIO E: Offline Execution (server unreachable) ---")

@@ -1,0 +1,36 @@
+{
+  "id": 18,
+  "slug": "freertos-semaphores-synchronization",
+  "title": "Task Synchronization using Binary and Counting Semaphores in FreeRTOS",
+  "language": "cpp",
+  "aliases": [
+    "freertos semaphores",
+    "binary semaphore",
+    "counting semaphore",
+    "task sync",
+    "freertos"
+  ],
+  "description": "Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.",
+  "aim": "To illustrate the use of Binary Semaphore and Counting Semaphore for Task Synchronization using FreeRTOS",
+  "theory": "FreeRTOS is a lightweight open source Real time Operating system (RTOS) made for use in embedded systems. It helps manage multiple tasks schedules them properly allows tasks to work together smoothly and share resources without conflict. Semaphores are synchronization mechanisms used to coordinate tasks. A Binary Semaphore has a maximum count of 1, functioning similarly to a mutex flag to signal events between tasks or ISRs using xSemaphoreCreateBinary, xSemaphoreTake, and xSemaphoreGive. A Counting Semaphore has a count >= 1 (xSemaphoreCreateCounting), tracking multiple available units of a shared resource or counting events. When tasks take the semaphore, the count decrements; when tasks release the resource, the count increments.",
+  "algorithm": [
+    "Create a binary semaphore using xSemaphoreCreateBinary and a counting semaphore using xSemaphoreCreateCounting.",
+    "Initialize the counting semaphore with a count (e.g. 3).",
+    "Use xSemaphoreTake to acquire the semaphore in the consumer/worker tasks.",
+    "Use xSemaphoreGive to release the semaphore in the producer/signaling task.",
+    "Observe task synchronization and shared resource access coordination over serial telemetry."
+  ],
+  "files": [
+    {
+      "path": "freertos_semaphores.ino",
+      "source": "freertos_semaphores.ino",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "freertos_semaphores.ino",
+    "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
+  },
+  "version": "1.0.0"
+}

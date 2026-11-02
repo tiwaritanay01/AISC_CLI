@@ -1,0 +1,36 @@
+{
+  "id": 19,
+  "slug": "freertos-arduino-porting",
+  "title": "Porting FreeRTOS to Arduino Development Board & Task Scheduling",
+  "language": "cpp",
+  "aliases": [
+    "porting freertos",
+    "arduino rtos",
+    "freertos porting",
+    "task scheduling",
+    "freertos uno"
+  ],
+  "description": "Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.",
+  "aim": "To port FreeRTOS to an Arduino UNO or STM32 development board and create multiple tasks to understand task scheduling and multitasking in a Real Time Operating System (RTOS)",
+  "theory": "FreeRTOS is a lightweight real-time operating system designed for embedded systems with constrained memory footprint. Porting FreeRTOS to the ATmega328P microcontroller on the Arduino UNO board allows developers to run preemptive priority-based multitasking on an 8-bit platform. The FreeRTOS kernel replaces the traditional single-threaded loop() construct with independent task routines, each possessing its own stack, priority, and state machine. Tasks yield control cooperatively using vTaskDelay(), allowing the scheduler to context-switch to ready tasks.",
+  "algorithm": [
+    "Include Arduino_FreeRTOS header and configure system tick timer.",
+    "Define task prototypes TaskBlink1 (fast blink, 250ms) and TaskBlink2 (slow blink, 1000ms).",
+    "In setup(), initialize hardware serial and create Task 1 and Task 2 using xTaskCreate.",
+    "In each task loop, execute GPIO toggling and yield using vTaskDelay(pdMS_TO_TICKS(duration)).",
+    "Start the scheduler and monitor concurrent multitasking on the serial console."
+  ],
+  "files": [
+    {
+      "path": "freertos_porting.ino",
+      "source": "freertos_porting.ino",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "freertos_porting.ino",
+    "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
+  },
+  "version": "1.0.0"
+}

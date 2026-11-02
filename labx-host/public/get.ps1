@@ -1,6 +1,6 @@
 param($Id)
 if (-not $Id) {
-    $Id = Read-Host "Enter experiment number (1-12)"
+    $Id = Read-Host "Enter experiment number (1-22)"
 }
 $num = "{0:D2}" -f [int]$Id
 $cat = (Invoke-RestMethod "https://aisccli.netlify.app/catalog.json").experiments | Where-Object { $_.id -eq [int]$Id }

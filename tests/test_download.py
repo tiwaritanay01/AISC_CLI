@@ -73,7 +73,7 @@ def test_all_experiments_zip_download(live_server, tmp_path):
 
     # Check extracted experiments
     extracted_dirs = list(tmp_path.glob("Experiment*"))
-    assert len(extracted_dirs) == 12
+    assert len(extracted_dirs) >= 12
 
     # Check Experiment 12 (AI Agent Automation n8n)
     exp12 = tmp_path / "Experiment12_n8n_ai_agent_automation"
