@@ -473,9 +473,10 @@
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (22)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (25)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (3)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -2625,6 +2626,496 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
               <a href="experiments/22/lpc2148_traffic.c" target="_blank">View File &rarr;</a>
               <a href="outputs/ertos_exp10_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/22/manifest.json" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="CN">
+          <div>
+            <div class="card-top">
+              <span class="tag">CN &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-23', '')" title="Copy code and download output PDF">
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-23" style="display:none;">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+void divide(char data[], char gen[], int n, int m)
+{
+    for (int i = 0; i &lt;= n - m; i++)
+    {
+        if (data[i] == &#x27;1&#x27;)
+        {
+            for (int j = 0; j &lt; m; j++)
+            {
+                data[i + j] =
+                (data[i + j] == gen[j]) ? &#x27;0&#x27; : &#x27;1&#x27;;
+            }
+        }
+    }
+}
+
+int main()
+{
+    char data[256], gen[256];
+    char temp[256], codeword[256];
+    char received[256];
+
+    int n, m, i;
+
+    printf(&quot;Enter data bits: &quot;);
+    scanf(&quot;%255s&quot;, data);
+
+    printf(&quot;Enter generator bits: &quot;);
+    scanf(&quot;%255s&quot;, gen);
+
+    n = strlen(data);
+    m = strlen(gen);
+
+    if (n == 0 || m &lt; 2 || n + m - 1 &gt;= 256 || gen[0] != &#x27;1&#x27;)
+    {
+        printf(&quot;Invalid input!\n&quot;);
+        return 1;
+    }
+
+    for (i = 0; i &lt; n; i++)
+        if (data[i] != &#x27;0&#x27; &amp;&amp; data[i] != &#x27;1&#x27;)
+            return printf(&quot;Invalid data!\n&quot;), 1;
+
+    for (i = 0; i &lt; m; i++)
+        if (gen[i] != &#x27;0&#x27; &amp;&amp; gen[i] != &#x27;1&#x27;)
+            return printf(&quot;Invalid generator!\n&quot;), 1;
+
+    strcpy(temp, data);
+
+    for (i = 0; i &lt; m - 1; i++)
+        temp[n + i] = &#x27;0&#x27;;
+
+    temp[n + m - 1] = &#x27;\0&#x27;;
+
+    divide(temp, gen, n + m - 1, m);
+
+    strcpy(codeword, data);
+    strncat(codeword, temp + n, m - 1);
+
+    printf(&quot;\nCRC Remainder: %.*s\n&quot;, m - 1, temp + n);
+    printf(&quot;Transmitted Codeword: %s\n&quot;, codeword);
+
+    printf(&quot;\nEnter received codeword: &quot;);
+    scanf(&quot;%255s&quot;, received);
+
+    if (strlen(received) != n + m - 1)
+    {
+        printf(&quot;Invalid codeword length!\n&quot;);
+        return 1;
+    }
+
+    strcpy(temp, received);
+
+    divide(temp, gen, n + m - 1, m);
+
+    for (i = n; i &lt; n + m - 1; i++)
+        if (temp[i] != &#x27;0&#x27;)
+            break;
+
+    if (i == n + m - 1)
+        printf(&quot;No error detected.\n&quot;);
+    else
+        printf(&quot;Error detected.\n&quot;);
+
+    return 0;
+}
+
+/*
+============================================================================
+EXPERIMENT THEORY (Computer Networks - Cyclic Redundancy Check):
+============================================================================
+Cyclic Redundancy Check (CRC) is an error-detecting code widely used in
+digital communication networks and storage systems (e.g., Ethernet, Wi-Fi,
+and HDLC) to verify frame integrity.
+
+Mathematical Foundation:
+1. Polynomial Representation: A binary string b_n b_{n-1} ... b_0 is represented
+   as a polynomial M(x) = b_n x^n + b_{n-1} x^{n-1} + ... + b_0.
+2. Generator Polynomial G(x): A predetermined divisor polynomial of degree (m-1)
+   known to both sender and receiver. The leading and trailing bits must be 1.
+3. Zero Padding: The sender multiplies M(x) by x^(m-1), effectively appending
+   (m - 1) zeros to the data bits.
+4. Modulo-2 Division: The padded bit string is divided by G(x) using modulo-2
+   arithmetic (bitwise XOR addition without carries).
+5. Transmitted Codeword T(x): The resulting remainder R(x) of length (m - 1) is
+   appended to the original message: T(x) = M(x) * x^(m-1) + R(x).
+6. Verification at Receiver: The receiver divides the incoming bit stream T&#x27;(x)
+   by G(x).
+   - If remainder R&#x27;(x) == 0: The transmission is assumed error-free.
+   - If remainder R&#x27;(x) != 0: An error occurred, and the frame is rejected.
+
+Error Detection Capabilities:
+- Detects all single-bit errors.
+- Detects all double-bit errors (if G(x) contains at least 3 terms).
+- Detects any odd number of errors (if G(x) has (x + 1) as a factor).
+- Detects all burst errors of length &lt;= (m - 1).
+============================================================================
+*/
+</textarea>
+            <h3>#06 Experiment 6 – CRC (Cyclic Redundancy Check)</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Implementation of Cyclic Redundancy Check (CRC) error detection using modulo-2 polynomial division.</p>
+            <span class="file-pill">crc.c</span>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/cn6.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/cn6.ps1 | iex')">Copy</button>
+            </div>
+            <div class="card-footer">
+              <a href="experiments/23/crc.c" target="_blank">View File &rarr;</a>
+              
+              <a href="experiments/23/manifest.json" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="CN">
+          <div>
+            <div class="card-top">
+              <span class="tag">CN &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-24', '')" title="Copy code and download output PDF">
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-24" style="display:none;">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main()
+{
+    int data[50], hamming[100], received[100];
+    int n, r = 0, i, j, k, pos;
+    int syndrome = 0;
+
+    printf(&quot;Enter number of data bits: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+
+    if (n &lt; 1 || n &gt; 40)
+    {
+        printf(&quot;Invalid number of bits!\n&quot;);
+        return 1;
+    }
+
+    printf(&quot;Enter data bits (0 or 1): &quot;);
+
+    for (i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%1d&quot;, &amp;data[i]);
+
+        if (data[i] != 0 &amp;&amp; data[i] != 1)
+        {
+            printf(&quot;Invalid data!\n&quot;);
+            return 1;
+        }
+    }
+
+    while ((1 &lt;&lt; r) &lt; n + r + 1)
+        r++;
+
+    int total = n + r;
+
+    j = 0;
+
+    for (i = 1; i &lt;= total; i++)
+    {
+        if ((i &amp; (i - 1)) == 0)
+            hamming[i] = 0;
+        else
+            hamming[i] = data[j++];
+    }
+
+    for (i = 0; i &lt; r; i++)
+    {
+        pos = 1 &lt;&lt; i;
+        int parity = 0;
+
+        for (j = 1; j &lt;= total; j++)
+        {
+            if (j &amp; pos)
+                parity ^= hamming[j];
+        }
+
+        hamming[pos] = parity;
+    }
+
+    printf(&quot;\nHamming Code: &quot;);
+
+    for (i = total; i &gt;= 1; i--)
+        printf(&quot;%d&quot;, hamming[i]);
+
+    printf(&quot;\nEnter received codeword: &quot;);
+
+    for (i = total; i &gt;= 1; i--)
+    {
+        scanf(&quot;%1d&quot;, &amp;received[i]);
+
+        if (received[i] != 0 &amp;&amp; received[i] != 1)
+        {
+            printf(&quot;Invalid received data!\n&quot;);
+            return 1;
+        }
+    }
+
+    for (i = 0; i &lt; r; i++)
+    {
+        pos = 1 &lt;&lt; i;
+        int parity = 0;
+
+        for (j = 1; j &lt;= total; j++)
+        {
+            if (j &amp; pos)
+                parity ^= received[j];
+        }
+
+        if (parity)
+            syndrome += pos;
+    }
+
+    if (syndrome == 0)
+    {
+        printf(&quot;No error detected.\n&quot;);
+    }
+    else if (syndrome &lt;= total)
+    {
+        printf(&quot;Error detected at position: %d\n&quot;, syndrome);
+
+        received[syndrome] ^= 1;
+
+        printf(&quot;Corrected Codeword: &quot;);
+
+        for (i = total; i &gt;= 1; i--)
+            printf(&quot;%d&quot;, received[i]);
+    }
+    else
+    {
+        printf(&quot;Invalid syndrome!\n&quot;);
+    }
+
+    return 0;
+}
+
+/*
+============================================================================
+EXPERIMENT THEORY (Computer Networks - Hamming Code Error Detection &amp; Correction):
+============================================================================
+Hamming Code is a linear error-correcting code invented by Richard Hamming in 1950.
+It can detect up to two simultaneous bit errors and correct single-bit errors (SEC-DED).
+
+Operating Principles:
+1. Redundancy Bit Calculation:
+   For &#x27;n&#x27; data bits and &#x27;r&#x27; parity/redundant bits, the relationship is given
+   by the Hamming Inequality:
+       2^r &gt;= n + r + 1
+2. Bit Positioning (1-based indexing):
+   - Redundant bits occupy bit positions that are powers of 2: 1, 2, 4, 8, 16, etc.
+   - Data bits occupy all remaining bit positions: 3, 5, 6, 7, 9, 10, etc.
+3. Parity Determination:
+   Each parity bit P_i at position 2^i calculates even parity across all bit
+   positions whose binary representation has the i-th bit set to 1.
+   - P1 (pos 1): checks bits 1, 3, 5, 7, 9, 11, ...
+   - P2 (pos 2): checks bits 2, 3, 6, 7, 10, 11, ...
+   - P4 (pos 4): checks bits 4, 5, 6, 7, 12, 13, ...
+   - P8 (pos 8): checks bits 8-15, 24-31, ...
+4. Syndrome Evaluation:
+   At the receiver, the parity checks are recomputed over the entire received
+   word. Each check produces an error bit S_i. The combined binary value of
+   (S_r ... S_2 S_1) is known as the Error Syndrome:
+   - Syndrome == 0: No error occurred.
+   - Syndrome &gt; 0: Indicates the EXACT bit position of the corrupted bit.
+5. Error Correction:
+   Inverting the bit at received[syndrome] restores the original codeword.
+============================================================================
+*/
+</textarea>
+            <h3>#07 Experiment 7 – Hamming Code Error Detection & Correction</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Implementation of Hamming Code for single-bit error detection and automatic bit correction.</p>
+            <span class="file-pill">hamming.c</span>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/cn7.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/cn7.ps1 | iex')">Copy</button>
+            </div>
+            <div class="card-footer">
+              <a href="experiments/24/hamming.c" target="_blank">View File &rarr;</a>
+              
+              <a href="experiments/24/manifest.json" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="CN">
+          <div>
+            <div class="card-top">
+              <span class="tag">CN &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-25', '')" title="Copy code and download output PDF">
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-25" style="display:none;">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int readBinary()
+{
+    char bits[20];
+    int value = 0;
+
+    scanf(&quot;%19s&quot;, bits);
+
+    if (strlen(bits) != 8)
+        return -1;
+
+    for (int i = 0; i &lt; 8; i++)
+    {
+        if (bits[i] != &#x27;0&#x27; &amp;&amp; bits[i] != &#x27;1&#x27;)
+            return -1;
+
+        value = value * 2 + (bits[i] - &#x27;0&#x27;);
+    }
+
+    return value;
+}
+
+void printBinary(int value)
+{
+    for (int i = 7; i &gt;= 0; i--)
+        printf(&quot;%d&quot;, (value &gt;&gt; i) &amp; 1);
+}
+
+int add(int sum, int value)
+{
+    sum += value;
+
+    while (sum &gt; 255)
+        sum = (sum &amp; 255) + (sum &gt;&gt; 8);
+
+    return sum;
+}
+
+int main()
+{
+    int n, i, data[20];
+    int sum = 0, checksum;
+    int received, verify = 0;
+
+    printf(&quot;Enter number of 8-bit data words: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+
+    if (n &lt; 1 || n &gt; 20)
+    {
+        printf(&quot;Invalid number of words!\n&quot;);
+        return 1;
+    }
+
+    printf(&quot;Enter %d binary data words:\n&quot;, n);
+
+    for (i = 0; i &lt; n; i++)
+    {
+        data[i] = readBinary();
+
+        if (data[i] &lt; 0)
+        {
+            printf(&quot;Invalid 8-bit data!\n&quot;);
+            return 1;
+        }
+
+        sum = add(sum, data[i]);
+    }
+
+    checksum = (~sum) &amp; 255;
+
+    printf(&quot;\nChecksum: &quot;);
+    printBinary(checksum);
+
+    printf(&quot;\n\nEnter received data words:\n&quot;);
+
+    for (i = 0; i &lt; n; i++)
+    {
+        received = readBinary();
+
+        if (received &lt; 0)
+        {
+            printf(&quot;Invalid received data!\n&quot;);
+            return 1;
+        }
+
+        verify = add(verify, received);
+    }
+
+    printf(&quot;Enter received checksum: &quot;);
+
+    received = readBinary();
+
+    if (received &lt; 0)
+    {
+        printf(&quot;Invalid checksum!\n&quot;);
+        return 1;
+    }
+
+    verify = add(verify, received);
+
+    printf(&quot;\nReceiver Sum: &quot;);
+    printBinary(verify);
+
+    if (verify == 255)
+        printf(&quot;\nNo error detected.\n&quot;);
+    else
+        printf(&quot;\nError detected.\n&quot;);
+
+    return 0;
+}
+
+/*
+============================================================================
+EXPERIMENT THEORY (Computer Networks - Checksum Error Detection):
+============================================================================
+The Checksum algorithm is an error-detection technique widely deployed at the
+Transport layer (TCP, UDP) and Network layer (IPv4 header) of the Internet
+protocol suite.
+
+Mathematical Foundation (One&#x27;s Complement Arithmetic):
+1. Word Segmentation:
+   The message is divided into fixed-width k-bit words (here, 8-bit bytes;
+   in TCP/IP, 16-bit words).
+2. One&#x27;s Complement Addition:
+   All words are summed using one&#x27;s complement addition. In binary arithmetic,
+   if an addition produces an overflow carry bit past the k-th bit (sum &gt; 255),
+   that carry bit must be wrapped around and added to the least significant bit
+   (end-around carry: `(sum &amp; 255) + (sum &gt;&gt; 8)`).
+3. Checksum Generation:
+   The sender inverts all bits of the accumulated sum (bitwise NOT / complement:
+   `(~sum) &amp; 0xFF`). This inverted value is the Checksum and is appended to
+   the data transmission.
+4. Receiver Verification:
+   The receiver sums all received data words PLUS the received checksum word
+   using the identical one&#x27;s complement arithmetic.
+5. Error Decision:
+   - If no corruption occurred: Sum + (~Sum) = all 1s (0xFF or 255 in 8-bit).
+     Inverting the receiver sum produces all 0s (0x00).
+   - If any bit changed during transmission: The sum will not equal all 1s,
+     and an error is reported.
+============================================================================
+*/
+</textarea>
+            <h3>#08 Experiment 8 – Checksum Error Detection</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Implementation of Internet Checksum algorithm using 8-bit one's complement arithmetic and end-around carry.</p>
+            <span class="file-pill">checksum.c</span>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/cn8.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/cn8.ps1 | iex')">Copy</button>
+            </div>
+            <div class="card-footer">
+              <a href="experiments/25/checksum.c" target="_blank">View File &rarr;</a>
+              
+              <a href="experiments/25/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
         </div>      </div>

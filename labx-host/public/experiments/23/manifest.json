@@ -1,0 +1,36 @@
+{
+  "id": 23,
+  "slug": "cn-crc-cyclic-redundancy-check",
+  "title": "Experiment 6 \u2013 CRC (Cyclic Redundancy Check)",
+  "language": "c",
+  "aliases": [
+    "crc",
+    "cyclic redundancy check",
+    "cn 6",
+    "cn exp 6",
+    "crc error detection"
+  ],
+  "description": "Implementation of Cyclic Redundancy Check (CRC) error detection using modulo-2 polynomial division.",
+  "aim": "To write a C program to implement Cyclic Redundancy Check (CRC) error detection technique.",
+  "theory": "CRC is an error-detecting code based on polynomial arithmetic modulo 2. The sender generates a codeword by appending remainder bits from dividing data bits by a predetermined generator polynomial. The receiver performs the same division; a non-zero remainder indicates transmission error.",
+  "algorithm": [
+    "Read data bits and generator polynomial bits.",
+    "Append (m - 1) zeros to the data bits, where m is the generator length.",
+    "Perform modulo-2 binary division using XOR operations.",
+    "Append the resulting (m - 1) remainder bits to original data to construct the transmitted codeword.",
+    "At receiver, perform modulo-2 division on received codeword with generator polynomial.",
+    "If remainder is all zeros report no error; otherwise report error detected."
+  ],
+  "files": [
+    {
+      "path": "crc.c",
+      "source": "crc.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "c",
+    "entry": "crc.c"
+  },
+  "version": "1.0.0"
+}

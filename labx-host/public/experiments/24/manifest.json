@@ -1,0 +1,36 @@
+{
+  "id": 24,
+  "slug": "cn-hamming-code-error-detection",
+  "title": "Experiment 7 \u2013 Hamming Code Error Detection & Correction",
+  "language": "c",
+  "aliases": [
+    "hamming",
+    "hamming code",
+    "cn 7",
+    "cn exp 7",
+    "hamming error correction"
+  ],
+  "description": "Implementation of Hamming Code for single-bit error detection and automatic bit correction.",
+  "aim": "To write a C program to implement Hamming Code for error detection and correction of data bits.",
+  "theory": "Hamming code adds redundant parity bits at power-of-two positions (1, 2, 4, 8, ...). By evaluating parity checks across specific bit subsets, the receiver calculates an error syndrome whose binary value pinpoints the exact corrupted bit position for correction.",
+  "algorithm": [
+    "Read number of data bits and data bit stream.",
+    "Calculate number of redundant parity bits r such that 2^r >= n + r + 1.",
+    "Place data bits and initialize parity bits at positions that are powers of 2.",
+    "Calculate even parity for each parity bit position.",
+    "Transmit codeword. At receiver, evaluate parity checks to compute error syndrome.",
+    "If syndrome is 0, report no error; otherwise report corrupted position and invert bit to correct."
+  ],
+  "files": [
+    {
+      "path": "hamming.c",
+      "source": "hamming.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "c",
+    "entry": "hamming.c"
+  },
+  "version": "1.0.0"
+}

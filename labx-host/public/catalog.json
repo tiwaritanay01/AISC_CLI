@@ -3,6 +3,7 @@
   "updated_at": "2026-11-02T22:00:00Z",
   "zip_url": "downloads/labx_experiments.zip",
   "ertos_zip_url": "downloads/ertos.zip",
+  "cn_zip_url": "downloads/cn.zip",
   "experiments": [
     {
       "id": 1,
@@ -397,6 +398,60 @@
       "subject": "ES_RTOS",
       "lab_serial": 10,
       "output_url": "outputs/ertos_exp10_output.pdf"
+    },
+    {
+      "id": 23,
+      "slug": "cn-crc-cyclic-redundancy-check",
+      "title": "Experiment 6 \u2013 CRC (Cyclic Redundancy Check)",
+      "language": "c",
+      "aliases": [
+        "crc",
+        "cyclic redundancy check",
+        "cn 6",
+        "cn exp 6",
+        "crc error detection"
+      ],
+      "description": "Implementation of Cyclic Redundancy Check (CRC) error detection using modulo-2 polynomial division.",
+      "manifest_url": "experiments/23/manifest.json",
+      "subject": "CN",
+      "lab_serial": 6,
+      "output_url": null
+    },
+    {
+      "id": 24,
+      "slug": "cn-hamming-code-error-detection",
+      "title": "Experiment 7 \u2013 Hamming Code Error Detection & Correction",
+      "language": "c",
+      "aliases": [
+        "hamming",
+        "hamming code",
+        "cn 7",
+        "cn exp 7",
+        "hamming error correction"
+      ],
+      "description": "Implementation of Hamming Code for single-bit error detection and automatic bit correction.",
+      "manifest_url": "experiments/24/manifest.json",
+      "subject": "CN",
+      "lab_serial": 7,
+      "output_url": null
+    },
+    {
+      "id": 25,
+      "slug": "cn-checksum-error-detection",
+      "title": "Experiment 8 \u2013 Checksum Error Detection",
+      "language": "c",
+      "aliases": [
+        "checksum",
+        "checksum detection",
+        "cn 8",
+        "cn exp 8",
+        "binary checksum"
+      ],
+      "description": "Implementation of Internet Checksum algorithm using 8-bit one's complement arithmetic and end-around carry.",
+      "manifest_url": "experiments/25/manifest.json",
+      "subject": "CN",
+      "lab_serial": 8,
+      "output_url": null
     }
   ]
 }

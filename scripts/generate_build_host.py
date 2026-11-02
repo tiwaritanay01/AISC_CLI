@@ -509,9 +509,10 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (22)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (25)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (3)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -1276,8 +1277,9 @@ generate_host_code = '''def generate_host():
     zip_staging_all = HOST_DIR / "zip_staging_all"
     zip_staging_ertos = HOST_DIR / "zip_staging_ertos"
     zip_staging_aisc = HOST_DIR / "zip_staging_aisc"
+    zip_staging_cn = HOST_DIR / "zip_staging_cn"
 
-    for stg in [zip_staging_all, zip_staging_ertos, zip_staging_aisc]:
+    for stg in [zip_staging_all, zip_staging_ertos, zip_staging_aisc, zip_staging_cn]:
         if stg.exists():
             shutil.rmtree(stg)
         stg.mkdir(parents=True, exist_ok=True)
@@ -1353,6 +1355,13 @@ generate_host_code = '''def generate_host():
         subject_type = exp.get("subject", "AISC")
         if subject_type == "ES_RTOS":
             shutil.copytree(zip_exp_all, zip_staging_ertos / folder_tag)
+        elif subject_type == "CN":
+            cn_dir = zip_staging_cn / "CN"
+            cn_dir.mkdir(parents=True, exist_ok=True)
+            for f_info in exp["files"]:
+                shutil.copy(target_exp_dir / f_info["path"], cn_dir / f_info["path"])
+            if (BASE_DIR / "CN" / "README.md").exists():
+                shutil.copy(BASE_DIR / "CN" / "README.md", cn_dir / "README.md")
         else:
             shutil.copytree(zip_exp_all, zip_staging_aisc / folder_tag)
 
@@ -1368,6 +1377,11 @@ generate_host_code = '''def generate_host():
             subject_label = "ES & RTOS"
             cmd_str = f"irm https://aisccli.netlify.app/e{lab_serial}.ps1 | iex"
             output_url = exp.get("output_url", "")
+        elif subject_type == "CN":
+            display_title = f"#{lab_serial:02d} {exp['title']}"
+            subject_label = "CN"
+            cmd_str = f"irm https://aisccli.netlify.app/cn{lab_serial}.ps1 | iex"
+            output_url = ""
         else:
             display_title = f"#{exp_id:02d} {exp['title']}"
             subject_label = "AISC"
@@ -1410,15 +1424,16 @@ generate_host_code = '''def generate_host():
         "updated_at": "2026-11-02T22:00:00Z",
         "zip_url": "downloads/labx_experiments.zip",
         "ertos_zip_url": "downloads/ertos.zip",
+        "cn_zip_url": "downloads/cn.zip",
         "experiments": catalog_items
     }
     with open(PUBLIC_DIR / "catalog.json", "w", encoding="utf-8") as f:
         json.dump(catalog_data, f, indent=2)
 
     # 5. Build ZIP archives:
-    # A. Full 22 experiments
+    # A. Full experiments
     zip_all_out = DL_DIR / "labx_experiments.zip"
-    print(f"Building complete 22-experiment ZIP archive at {zip_all_out}...")
+    print(f"Building complete {len(EXPERIMENTS)}-experiment ZIP archive at {zip_all_out}...")
     with zipfile.ZipFile(zip_all_out, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, _, files in os.walk(zip_staging_all):
             for file in files:
@@ -1450,17 +1465,27 @@ generate_host_code = '''def generate_host():
                 rel_path = full_path.relative_to(zip_staging_aisc)
                 zf.write(full_path, arcname=str(rel_path).replace("\\\\", "/"))
 
+    # D. Dedicated CN ZIP (Exp 06-08 in CN/ folder)
+    zip_cn_out = DL_DIR / "cn.zip"
+    print(f"Building dedicated CN ZIP archive at {zip_cn_out}...")
+    with zipfile.ZipFile(zip_cn_out, "w", zipfile.ZIP_DEFLATED) as zf:
+        for root, _, files in os.walk(zip_staging_cn):
+            for file in files:
+                full_path = Path(root) / file
+                rel_path = full_path.relative_to(zip_staging_cn)
+                zf.write(full_path, arcname=str(rel_path).replace("\\\\", "/"))
+
     # Cleanup staging
-    for stg in [zip_staging_all, zip_staging_ertos, zip_staging_aisc]:
+    for stg in [zip_staging_all, zip_staging_ertos, zip_staging_aisc, zip_staging_cn]:
         shutil.rmtree(stg)
 
     # 6. PowerShell scripts
-    all_ps1 = """$zip = Join-Path $PWD "labx_temp.zip"
-Write-Host "Downloading all 22 experiments (AISC + Embedded Systems & RTOS) from LabX Remote..." -ForegroundColor White
+    all_ps1 = f"""$zip = Join-Path $PWD "labx_temp.zip"
+Write-Host "Downloading all {len(EXPERIMENTS)} experiments (AISC, ES & RTOS, and Computer Networks) from LabX Remote..." -ForegroundColor White
 Invoke-WebRequest "https://aisccli.netlify.app/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
-Write-Host "[OK] All 22 experiments extracted to current directory!" -ForegroundColor White
+Write-Host "[OK] All {len(EXPERIMENTS)} experiments extracted to current directory!" -ForegroundColor White
 """
     with open(PUBLIC_DIR / "all.ps1", "w", encoding="utf-8") as f:
         f.write(all_ps1)
@@ -1476,6 +1501,16 @@ Write-Host "[OK] All 10 ES & RTOS experiments extracted to current directory!" -
         f.write(ertos_ps1)
     with open(PUBLIC_DIR / "rtos.ps1", "w", encoding="utf-8") as f:
         f.write(ertos_ps1)
+
+    cn_ps1 = """$zip = Join-Path $PWD "cn_temp.zip"
+Write-Host "Downloading Computer Networks (CN) Experiments from LabX Remote..." -ForegroundColor White
+Invoke-WebRequest "https://aisccli.netlify.app/downloads/cn.zip" -OutFile $zip -UseBasicParsing
+Expand-Archive $zip -DestinationPath $PWD -Force
+Remove-Item $zip -Force
+Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -ForegroundColor White
+"""
+    with open(PUBLIC_DIR / "cn.ps1", "w", encoding="utf-8") as f:
+        f.write(cn_ps1)
 
     # Generate individual dual code + output delivery scripts (e1.ps1 - e10.ps1) for ERTOS
     for exp in EXPERIMENTS:
@@ -1508,9 +1543,33 @@ Write-Host "[OK] All 10 ES & RTOS experiments extracted to current directory!" -
             with open(PUBLIC_DIR / f"e{s_num}.ps1", "w", encoding="utf-8") as f:
                 f.write(e_ps1)
 
+    # Generate individual scripts (cn6.ps1 - cn8.ps1) for CN
+    for exp in EXPERIMENTS:
+        if exp.get("subject") == "CN":
+            s_num = exp.get("lab_serial", 1)
+            src_file = exp["files"][0]
+            src_fname = src_file["path"]
+            src_content = src_file["content"]
+            
+            lines_ps1 = [
+                f"# LabX Remote: CN Exp {s_num:02d} ({exp['title']})",
+                f'$filename = "{src_fname}"',
+                "$code = @'",
+                src_content,
+                "'@",
+                "$target = Join-Path $PWD $filename",
+                "Set-Content -Path $target -Value $code -Encoding utf8",
+                f'Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -ForegroundColor White'
+            ]
+            cn_code = "\\n".join(lines_ps1)
+            with open(PUBLIC_DIR / f"cn{s_num}.ps1", "w", encoding="utf-8") as f:
+                f.write(cn_code)
+            with open(PUBLIC_DIR / f"c{s_num}.ps1", "w", encoding="utf-8") as f:
+                f.write(cn_code)
+
     get_ps1 = """param($Id, [string]$Lab = "")
 if (-not $Id) {
-    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 1-12 for AISC, or 1-22)"
+    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 6-8 for CN, 1-12 for AISC, or 1-25)"
 }
 
 $intId = [int]$Id
@@ -1518,12 +1577,16 @@ $cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
 
 if ($Lab -eq "ertos" -or $Lab -eq "es") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+} elseif ($Lab -eq "cn") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
 } elseif ($Lab -eq "aisc") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "AISC" -and $_.lab_serial -eq $intId }
 } else {
     $item = $cat.experiments | Where-Object { $_.id -eq $intId }
+    if (-not $item -and $intId -ge 6 -and $intId -le 8) {
+        $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
+    }
     if (-not $item -and $intId -le 10) {
-        # Default to ERTOS if requested 1-10
         $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
     }
 }
@@ -1552,12 +1615,13 @@ if ($item.output_url) {
         f.write(get_ps1)
 
     list_ps1 = """$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
-Write-Host "`n==== AISC & Embedded Systems / RTOS Laboratory Experiments ====" -ForegroundColor White
+Write-Host "`n==== AISC, Embedded Systems / RTOS & Computer Networks Experiments ====" -ForegroundColor White
 $cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
 Write-Host "Quick commands:" -ForegroundColor White
 Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://aisccli.netlify.app/e2.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All ERTOS experiments       : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All 22 experiments          : irm https://aisccli.netlify.app/all.ps1 | iex`n" -ForegroundColor Gray
+Write-Host "  Pull All Computer Networks (CN)  : irm https://aisccli.netlify.app/cn.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All experiments             : irm https://aisccli.netlify.app/all.ps1 | iex`n" -ForegroundColor Gray
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)

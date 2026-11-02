@@ -892,5 +892,124 @@
     "lab_serial": 10,
     "lab_label": "ERTOS Exp 10",
     "output_url": "outputs/ertos_exp10_output.pdf"
+  },
+  {
+    "id": 23,
+    "slug": "cn-crc-cyclic-redundancy-check",
+    "title": "Experiment 6 \u2013 CRC (Cyclic Redundancy Check)",
+    "language": "c",
+    "aliases": [
+      "crc",
+      "cyclic redundancy check",
+      "cn 6",
+      "cn exp 6",
+      "crc error detection"
+    ],
+    "description": "Implementation of Cyclic Redundancy Check (CRC) error detection using modulo-2 polynomial division.",
+    "aim": "To write a C program to implement Cyclic Redundancy Check (CRC) error detection technique.",
+    "theory": "CRC is an error-detecting code based on polynomial arithmetic modulo 2. The sender generates a codeword by appending remainder bits from dividing data bits by a predetermined generator polynomial. The receiver performs the same division; a non-zero remainder indicates transmission error.",
+    "algorithm": [
+      "Read data bits and generator polynomial bits.",
+      "Append (m - 1) zeros to the data bits, where m is the generator length.",
+      "Perform modulo-2 binary division using XOR operations.",
+      "Append the resulting (m - 1) remainder bits to original data to construct the transmitted codeword.",
+      "At receiver, perform modulo-2 division on received codeword with generator polynomial.",
+      "If remainder is all zeros report no error; otherwise report error detected."
+    ],
+    "files": [
+      {
+        "path": "crc.c",
+        "source": "crc.c",
+        "role": "source",
+        "content": "#include <stdio.h>\n#include <string.h>\n\nvoid divide(char data[], char gen[], int n, int m)\n{\n    for (int i = 0; i <= n - m; i++)\n    {\n        if (data[i] == '1')\n        {\n            for (int j = 0; j < m; j++)\n            {\n                data[i + j] =\n                (data[i + j] == gen[j]) ? '0' : '1';\n            }\n        }\n    }\n}\n\nint main()\n{\n    char data[256], gen[256];\n    char temp[256], codeword[256];\n    char received[256];\n\n    int n, m, i;\n\n    printf(\"Enter data bits: \");\n    scanf(\"%255s\", data);\n\n    printf(\"Enter generator bits: \");\n    scanf(\"%255s\", gen);\n\n    n = strlen(data);\n    m = strlen(gen);\n\n    if (n == 0 || m < 2 || n + m - 1 >= 256 || gen[0] != '1')\n    {\n        printf(\"Invalid input!\\n\");\n        return 1;\n    }\n\n    for (i = 0; i < n; i++)\n        if (data[i] != '0' && data[i] != '1')\n            return printf(\"Invalid data!\\n\"), 1;\n\n    for (i = 0; i < m; i++)\n        if (gen[i] != '0' && gen[i] != '1')\n            return printf(\"Invalid generator!\\n\"), 1;\n\n    strcpy(temp, data);\n\n    for (i = 0; i < m - 1; i++)\n        temp[n + i] = '0';\n\n    temp[n + m - 1] = '\\0';\n\n    divide(temp, gen, n + m - 1, m);\n\n    strcpy(codeword, data);\n    strncat(codeword, temp + n, m - 1);\n\n    printf(\"\\nCRC Remainder: %.*s\\n\", m - 1, temp + n);\n    printf(\"Transmitted Codeword: %s\\n\", codeword);\n\n    printf(\"\\nEnter received codeword: \");\n    scanf(\"%255s\", received);\n\n    if (strlen(received) != n + m - 1)\n    {\n        printf(\"Invalid codeword length!\\n\");\n        return 1;\n    }\n\n    strcpy(temp, received);\n\n    divide(temp, gen, n + m - 1, m);\n\n    for (i = n; i < n + m - 1; i++)\n        if (temp[i] != '0')\n            break;\n\n    if (i == n + m - 1)\n        printf(\"No error detected.\\n\");\n    else\n        printf(\"Error detected.\\n\");\n\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (Computer Networks - Cyclic Redundancy Check):\n============================================================================\nCyclic Redundancy Check (CRC) is an error-detecting code widely used in\ndigital communication networks and storage systems (e.g., Ethernet, Wi-Fi,\nand HDLC) to verify frame integrity.\n\nMathematical Foundation:\n1. Polynomial Representation: A binary string b_n b_{n-1} ... b_0 is represented\n   as a polynomial M(x) = b_n x^n + b_{n-1} x^{n-1} + ... + b_0.\n2. Generator Polynomial G(x): A predetermined divisor polynomial of degree (m-1)\n   known to both sender and receiver. The leading and trailing bits must be 1.\n3. Zero Padding: The sender multiplies M(x) by x^(m-1), effectively appending\n   (m - 1) zeros to the data bits.\n4. Modulo-2 Division: The padded bit string is divided by G(x) using modulo-2\n   arithmetic (bitwise XOR addition without carries).\n5. Transmitted Codeword T(x): The resulting remainder R(x) of length (m - 1) is\n   appended to the original message: T(x) = M(x) * x^(m-1) + R(x).\n6. Verification at Receiver: The receiver divides the incoming bit stream T'(x)\n   by G(x).\n   - If remainder R'(x) == 0: The transmission is assumed error-free.\n   - If remainder R'(x) != 0: An error occurred, and the frame is rejected.\n\nError Detection Capabilities:\n- Detects all single-bit errors.\n- Detects all double-bit errors (if G(x) contains at least 3 terms).\n- Detects any odd number of errors (if G(x) has (x + 1) as a factor).\n- Detects all burst errors of length <= (m - 1).\n============================================================================\n*/\n"
+      }
+    ],
+    "run": {
+      "kind": "c",
+      "entry": "crc.c"
+    },
+    "subject": "CN",
+    "lab_serial": 6,
+    "lab_label": "CN Exp 06",
+    "output_url": null
+  },
+  {
+    "id": 24,
+    "slug": "cn-hamming-code-error-detection",
+    "title": "Experiment 7 \u2013 Hamming Code Error Detection & Correction",
+    "language": "c",
+    "aliases": [
+      "hamming",
+      "hamming code",
+      "cn 7",
+      "cn exp 7",
+      "hamming error correction"
+    ],
+    "description": "Implementation of Hamming Code for single-bit error detection and automatic bit correction.",
+    "aim": "To write a C program to implement Hamming Code for error detection and correction of data bits.",
+    "theory": "Hamming code adds redundant parity bits at power-of-two positions (1, 2, 4, 8, ...). By evaluating parity checks across specific bit subsets, the receiver calculates an error syndrome whose binary value pinpoints the exact corrupted bit position for correction.",
+    "algorithm": [
+      "Read number of data bits and data bit stream.",
+      "Calculate number of redundant parity bits r such that 2^r >= n + r + 1.",
+      "Place data bits and initialize parity bits at positions that are powers of 2.",
+      "Calculate even parity for each parity bit position.",
+      "Transmit codeword. At receiver, evaluate parity checks to compute error syndrome.",
+      "If syndrome is 0, report no error; otherwise report corrupted position and invert bit to correct."
+    ],
+    "files": [
+      {
+        "path": "hamming.c",
+        "source": "hamming.c",
+        "role": "source",
+        "content": "#include <stdio.h>\n#include <string.h>\n\nint main()\n{\n    int data[50], hamming[100], received[100];\n    int n, r = 0, i, j, k, pos;\n    int syndrome = 0;\n\n    printf(\"Enter number of data bits: \");\n    scanf(\"%d\", &n);\n\n    if (n < 1 || n > 40)\n    {\n        printf(\"Invalid number of bits!\\n\");\n        return 1;\n    }\n\n    printf(\"Enter data bits (0 or 1): \");\n\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%1d\", &data[i]);\n\n        if (data[i] != 0 && data[i] != 1)\n        {\n            printf(\"Invalid data!\\n\");\n            return 1;\n        }\n    }\n\n    while ((1 << r) < n + r + 1)\n        r++;\n\n    int total = n + r;\n\n    j = 0;\n\n    for (i = 1; i <= total; i++)\n    {\n        if ((i & (i - 1)) == 0)\n            hamming[i] = 0;\n        else\n            hamming[i] = data[j++];\n    }\n\n    for (i = 0; i < r; i++)\n    {\n        pos = 1 << i;\n        int parity = 0;\n\n        for (j = 1; j <= total; j++)\n        {\n            if (j & pos)\n                parity ^= hamming[j];\n        }\n\n        hamming[pos] = parity;\n    }\n\n    printf(\"\\nHamming Code: \");\n\n    for (i = total; i >= 1; i--)\n        printf(\"%d\", hamming[i]);\n\n    printf(\"\\nEnter received codeword: \");\n\n    for (i = total; i >= 1; i--)\n    {\n        scanf(\"%1d\", &received[i]);\n\n        if (received[i] != 0 && received[i] != 1)\n        {\n            printf(\"Invalid received data!\\n\");\n            return 1;\n        }\n    }\n\n    for (i = 0; i < r; i++)\n    {\n        pos = 1 << i;\n        int parity = 0;\n\n        for (j = 1; j <= total; j++)\n        {\n            if (j & pos)\n                parity ^= received[j];\n        }\n\n        if (parity)\n            syndrome += pos;\n    }\n\n    if (syndrome == 0)\n    {\n        printf(\"No error detected.\\n\");\n    }\n    else if (syndrome <= total)\n    {\n        printf(\"Error detected at position: %d\\n\", syndrome);\n\n        received[syndrome] ^= 1;\n\n        printf(\"Corrected Codeword: \");\n\n        for (i = total; i >= 1; i--)\n            printf(\"%d\", received[i]);\n    }\n    else\n    {\n        printf(\"Invalid syndrome!\\n\");\n    }\n\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (Computer Networks - Hamming Code Error Detection & Correction):\n============================================================================\nHamming Code is a linear error-correcting code invented by Richard Hamming in 1950.\nIt can detect up to two simultaneous bit errors and correct single-bit errors (SEC-DED).\n\nOperating Principles:\n1. Redundancy Bit Calculation:\n   For 'n' data bits and 'r' parity/redundant bits, the relationship is given\n   by the Hamming Inequality:\n       2^r >= n + r + 1\n2. Bit Positioning (1-based indexing):\n   - Redundant bits occupy bit positions that are powers of 2: 1, 2, 4, 8, 16, etc.\n   - Data bits occupy all remaining bit positions: 3, 5, 6, 7, 9, 10, etc.\n3. Parity Determination:\n   Each parity bit P_i at position 2^i calculates even parity across all bit\n   positions whose binary representation has the i-th bit set to 1.\n   - P1 (pos 1): checks bits 1, 3, 5, 7, 9, 11, ...\n   - P2 (pos 2): checks bits 2, 3, 6, 7, 10, 11, ...\n   - P4 (pos 4): checks bits 4, 5, 6, 7, 12, 13, ...\n   - P8 (pos 8): checks bits 8-15, 24-31, ...\n4. Syndrome Evaluation:\n   At the receiver, the parity checks are recomputed over the entire received\n   word. Each check produces an error bit S_i. The combined binary value of\n   (S_r ... S_2 S_1) is known as the Error Syndrome:\n   - Syndrome == 0: No error occurred.\n   - Syndrome > 0: Indicates the EXACT bit position of the corrupted bit.\n5. Error Correction:\n   Inverting the bit at received[syndrome] restores the original codeword.\n============================================================================\n*/\n"
+      }
+    ],
+    "run": {
+      "kind": "c",
+      "entry": "hamming.c"
+    },
+    "subject": "CN",
+    "lab_serial": 7,
+    "lab_label": "CN Exp 07",
+    "output_url": null
+  },
+  {
+    "id": 25,
+    "slug": "cn-checksum-error-detection",
+    "title": "Experiment 8 \u2013 Checksum Error Detection",
+    "language": "c",
+    "aliases": [
+      "checksum",
+      "checksum detection",
+      "cn 8",
+      "cn exp 8",
+      "binary checksum"
+    ],
+    "description": "Implementation of Internet Checksum algorithm using 8-bit one's complement arithmetic and end-around carry.",
+    "aim": "To write a C program to implement Checksum error detection using one's complement addition.",
+    "theory": "The checksum algorithm partitions data into equal k-bit words and sums them using one's complement arithmetic with end-around carry. The sender transmits the bitwise complement as the checksum. The receiver sums data words plus checksum; a total equal to all 1s confirms error-free transmission.",
+    "algorithm": [
+      "Read number of 8-bit data words and their binary representations.",
+      "Accumulate one's complement sum with end-around carry for any overflow past 255.",
+      "Compute checksum as bitwise NOT of final accumulated sum.",
+      "At receiver, sum all received data words plus received checksum.",
+      "If receiver sum equals 255 (all 1s), report no error; otherwise report error detected."
+    ],
+    "files": [
+      {
+        "path": "checksum.c",
+        "source": "checksum.c",
+        "role": "source",
+        "content": "#include <stdio.h>\n#include <string.h>\n\nint readBinary()\n{\n    char bits[20];\n    int value = 0;\n\n    scanf(\"%19s\", bits);\n\n    if (strlen(bits) != 8)\n        return -1;\n\n    for (int i = 0; i < 8; i++)\n    {\n        if (bits[i] != '0' && bits[i] != '1')\n            return -1;\n\n        value = value * 2 + (bits[i] - '0');\n    }\n\n    return value;\n}\n\nvoid printBinary(int value)\n{\n    for (int i = 7; i >= 0; i--)\n        printf(\"%d\", (value >> i) & 1);\n}\n\nint add(int sum, int value)\n{\n    sum += value;\n\n    while (sum > 255)\n        sum = (sum & 255) + (sum >> 8);\n\n    return sum;\n}\n\nint main()\n{\n    int n, i, data[20];\n    int sum = 0, checksum;\n    int received, verify = 0;\n\n    printf(\"Enter number of 8-bit data words: \");\n    scanf(\"%d\", &n);\n\n    if (n < 1 || n > 20)\n    {\n        printf(\"Invalid number of words!\\n\");\n        return 1;\n    }\n\n    printf(\"Enter %d binary data words:\\n\", n);\n\n    for (i = 0; i < n; i++)\n    {\n        data[i] = readBinary();\n\n        if (data[i] < 0)\n        {\n            printf(\"Invalid 8-bit data!\\n\");\n            return 1;\n        }\n\n        sum = add(sum, data[i]);\n    }\n\n    checksum = (~sum) & 255;\n\n    printf(\"\\nChecksum: \");\n    printBinary(checksum);\n\n    printf(\"\\n\\nEnter received data words:\\n\");\n\n    for (i = 0; i < n; i++)\n    {\n        received = readBinary();\n\n        if (received < 0)\n        {\n            printf(\"Invalid received data!\\n\");\n            return 1;\n        }\n\n        verify = add(verify, received);\n    }\n\n    printf(\"Enter received checksum: \");\n\n    received = readBinary();\n\n    if (received < 0)\n    {\n        printf(\"Invalid checksum!\\n\");\n        return 1;\n    }\n\n    verify = add(verify, received);\n\n    printf(\"\\nReceiver Sum: \");\n    printBinary(verify);\n\n    if (verify == 255)\n        printf(\"\\nNo error detected.\\n\");\n    else\n        printf(\"\\nError detected.\\n\");\n\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (Computer Networks - Checksum Error Detection):\n============================================================================\nThe Checksum algorithm is an error-detection technique widely deployed at the\nTransport layer (TCP, UDP) and Network layer (IPv4 header) of the Internet\nprotocol suite.\n\nMathematical Foundation (One's Complement Arithmetic):\n1. Word Segmentation:\n   The message is divided into fixed-width k-bit words (here, 8-bit bytes;\n   in TCP/IP, 16-bit words).\n2. One's Complement Addition:\n   All words are summed using one's complement addition. In binary arithmetic,\n   if an addition produces an overflow carry bit past the k-th bit (sum > 255),\n   that carry bit must be wrapped around and added to the least significant bit\n   (end-around carry: `(sum & 255) + (sum >> 8)`).\n3. Checksum Generation:\n   The sender inverts all bits of the accumulated sum (bitwise NOT / complement:\n   `(~sum) & 0xFF`). This inverted value is the Checksum and is appended to\n   the data transmission.\n4. Receiver Verification:\n   The receiver sums all received data words PLUS the received checksum word\n   using the identical one's complement arithmetic.\n5. Error Decision:\n   - If no corruption occurred: Sum + (~Sum) = all 1s (0xFF or 255 in 8-bit).\n     Inverting the receiver sum produces all 0s (0x00).\n   - If any bit changed during transmission: The sum will not equal all 1s,\n     and an error is reported.\n============================================================================\n*/\n"
+      }
+    ],
+    "run": {
+      "kind": "c",
+      "entry": "checksum.c"
+    },
+    "subject": "CN",
+    "lab_serial": 8,
+    "lab_label": "CN Exp 08",
+    "output_url": null
   }
 ]
