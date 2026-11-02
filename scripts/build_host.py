@@ -1,5 +1,5 @@
 """Host builder script: generates public/ catalog, manifests, experiment sources, HTML, and ZIP archives
-populated from AISC and Embedded Systems & RTOS Laboratory Submissions."""
+with Minimalist Black & White aesthetic and paired Code + Output PDF delivery."""
 
 import os
 import json
@@ -13,844 +13,16 @@ HOST_DIR = BASE_DIR / "labx-host"
 PUBLIC_DIR = HOST_DIR / "public"
 EXP_DIR = PUBLIC_DIR / "experiments"
 DL_DIR = PUBLIC_DIR / "downloads"
+OUT_DIR = PUBLIC_DIR / "outputs"
 
-EXPERIMENTS = [
-    {
-        "id": 1,
-        "slug": "ai-agents-peas-case-study",
-        "title": "Case Study on AI Agents & PEAS Properties",
-        "language": "python",
-        "aliases": [
-            "ai agents",
-            "peas",
-            "agent types",
-            "case study ai",
-            "peas properties"
-        ],
-        "description": "Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.",
-        "aim": "To prepare a case study on AI Agents including type, environment, and PEAS properties.",
-        "theory": "AI Agents can be classified into types such as Simple Reflex, Model-Based, Goal-Based, and Utility-Based. The environment can be fully or partially observable, deterministic or stochastic, and episodic or sequential. PEAS properties include Performance measure, Environment, Actuators, and Sensors, which define the agent's behavior and interaction with the environment. TODO: define agent type based on environment and PEAS properties.AI Agents are based on the theory of intelligent behavior, using PEAS properties to define the agent's environment and actions. The theory involves the interaction between the agent and its environment, and the agent's perception and reasoning. The agent's type, such as simple reflex or model-based, influences its behavior. The theory provides a framework for understanding AI Agents.",
-        "algorithm": [
-            "Define PEAS descriptor tuple: (P)erformance metric, (E)nvironment state, (A)ctuator commands, (S)ensor percepts.",
-            "Classify environment properties (Observability, Determinism, Dynamism, Episodic nature).",
-            "Select agent architecture: evaluate condition-action rules for reflex or internal state mapping for model-based agents.",
-            "Simulate agent percept-reason-act cycle across discrete operational timesteps.",
-            "Report performance score and environmental impact."
-        ],
-        "files": [
-            {
-                "path": "agent_case_study.py",
-                "source": "agent_case_study.py",
-                "role": "source",
-                "content": "\"\"\"Experiment 01: AI Agents and PEAS Framework Simulator.\"\"\"\n\nclass AIAgent:\n    def __init__(self, name: str, agent_type: str, peas: dict):\n        self.name = name\n        self.agent_type = agent_type\n        self.peas = peas\n        self.state = {}\n\n    def display_peas(self):\n        print(f\"\\n{'='*55}\")\n        print(f\" AGENT CASE STUDY: {self.name.upper()} ({self.agent_type})\")\n        print(f\"{'='*55}\")\n        print(f\"  - Performance Measure : {self.peas['Performance']}\")\n        print(f\"  - Environment         : {self.peas['Environment']}\")\n        print(f\"  - Actuators           : {self.peas['Actuators']}\")\n        print(f\"  - Sensors             : {self.peas['Sensors']}\")\n\n    def act(self, percept: dict):\n        # Condition-action rule reasoning\n        status = percept.get(\"cleanliness\", \"dirty\")\n        location = percept.get(\"location\", \"Room_A\")\n        if status == \"dirty\":\n            action = \"SUCK_DIRT\"\n        else:\n            action = \"MOVE_TO_NEXT_ROOM\"\n        print(f\"[Sensor Percept: {percept}] --> Reasoned Action: {action}\")\n        return action\n\ndef main():\n    vacuum_peas = {\n        \"Performance\": \"Square area cleaned, low energy consumption, zero damage\",\n        \"Environment\": \"Office floors, obstacles, furniture, doorways\",\n        \"Actuators\": \"Drive wheels, vacuum suction motor, status indicator\",\n        \"Sensors\": \"Cliff sensor, bump bumper, infrared distance, dirt detector\"\n    }\n    car_peas = {\n        \"Performance\": \"Passenger safety, speed, legal adherence, comfort\",\n        \"Environment\": \"Public roads, pedestrians, weather, traffic signs\",\n        \"Actuators\": \"Steering assembly, accelerator, hydraulic brakes, horn\",\n        \"Sensors\": \"LiDAR, RGB cameras, radar arrays, GPS, IMU sensors\"\n    }\n\n    agent1 = AIAgent(\"Autonomous Vacuum Agent\", \"Simple Reflex / Model-Based\", vacuum_peas)\n    agent2 = AIAgent(\"Self-Driving Navigation Agent\", \"Goal & Utility-Based\", car_peas)\n\n    agent1.display_peas()\n    agent1.act({\"location\": \"Room_A\", \"cleanliness\": \"dirty\"})\n    agent1.act({\"location\": \"Room_A\", \"cleanliness\": \"clean\"})\n\n    agent2.display_peas()\n    print(\"\\n[PEAS Analysis Complete - Viva Cleared 3/3]\")\n\nif __name__ == \"__main__\":\n    main()\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# AI Agents can be classified into types such as Simple Reflex, Model-Based,\n# Goal-Based, and Utility-Based. The environment can be fully or partially\n# observable, deterministic or stochastic, and episodic or sequential. PEAS\n# properties include Performance measure, Environment, Actuators, and\n# Sensors, which define the agent's behavior and interaction with the\n# environment. TODO: define agent type based on environment and PEAS\n# properties.AI Agents are based on the theory of intelligent behavior,\n# using PEAS properties to define the agent's environment and actions. The\n# theory involves the interaction between the agent and its environment, and\n# the agent's perception and reasoning. The agent's type, such as simple\n# reflex or model-based, influences its behavior. The theory provides a\n# framework for understanding AI Agents.\n# ============================================================================\n"
-            },
-            {
-                "path": "CASE_STUDY.md",
-                "source": "CASE_STUDY.md",
-                "role": "docs",
-                "content": "# AI Agents & PEAS Framework Case Study\n\n## 1. Agent Classification\n1. **Simple Reflex Agents**: Act strictly on current percept via condition-action rules.\n2. **Model-Based Reflex Agents**: Maintain internal model state of unobserved environment.\n3. **Goal-Based Agents**: Reason over future states required to achieve goals.\n4. **Utility-Based Agents**: Maximize continuous utility / satisfaction functions.\n\n## 2. PEAS Analysis\n- **P** (Performance): Metric defining success.\n- **E** (Environment): Context in which agent operates.\n- **A** (Actuators): Tools agent uses to exert physical/virtual influence.\n- **S** (Sensors): Inbound sensory mechanisms.\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "agent_case_study.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 2,
-        "slug": "a-star-15-puzzle-problem",
-        "title": "Informed Search - A* Algorithm for 15-Puzzle Problem",
-        "language": "python",
-        "aliases": [
-            "a star",
-            "15 puzzle",
-            "a star algorithm",
-            "informed search",
-            "manhattan distance"
-        ],
-        "description": "Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.",
-        "aim": "Informed Search - A* Algorithm for the 15-Puzzle Problem using Manhattan Distance heuristic.",
-        "theory": "The A* algorithm is an informed search strategy used to find the shortest path between two nodes in a weighted graph. It uses a best-first search approach, where the node with the lowest estimated total cost is chosen next. The algorithm consists of a priority queue to hold nodes to be evaluated, a set of visited nodes, and a heuristic function to estimate the distance from a node to the goal. The heuristic function guides the search towards the goal, making it more efficient than uninformed search algorithms. The algorithm terminates when the goal node is reached or the queue is empty.",
-        "algorithm": [
-            "Initialize priority queue with start state, g=0, and f=manhattan(start).",
-            "Pop state with minimum f-value from priority queue.",
-            "If current state matches GOAL, return reconstructed solution path.",
-            "Generate valid neighbor states by sliding empty tile (0) in 4 directions.",
-            "For each unvisited neighbor, compute g_new = g + 1, f_new = g_new + manhattan(neighbor).",
-            "Push updated states into priority queue and repeat until goal is reached."
-        ],
-        "files": [
-            {
-                "path": "a_star_15_puzzle.py",
-                "source": "a_star_15_puzzle.py",
-                "role": "source",
-                "content": "import heapq\n\nGOAL = (\n    (1, 2, 3, 4),\n    (5, 6, 7, 8),\n    (9, 10, 11, 12),\n    (13, 14, 15, 0)\n)\nMOVES = [(-1, 0), (1, 0), (0, -1), (0, 1)]\n\ndef manhattan(state):\n    distance = 0\n    for i in range(4):\n        for j in range(4):\n            value = state[i][j]\n            if value != 0:\n                goal_x = (value - 1) // 4\n                goal_y = (value - 1) % 4\n                distance += abs(i - goal_x) + abs(j - goal_y)\n    return distance\n\ndef get_neighbors(state):\n    state_list = [list(row) for row in state]\n    x, y = 0, 0\n    for i in range(4):\n        for j in range(4):\n            if state_list[i][j] == 0:\n                x, y = i, j\n    neighbors = []\n    for dx, dy in MOVES:\n        nx, ny = x + dx, y + dy\n        if 0 <= nx < 4 and 0 <= ny < 4:\n            new_state = [row[:] for row in state_list]\n            new_state[x][y], new_state[nx][ny] = new_state[nx][ny], new_state[x][y]\n            neighbors.append(tuple(tuple(row) for row in new_state))\n    return neighbors\n\ndef a_star(start):\n    pq = []\n    heapq.heappush(pq, (manhattan(start), 0, start, []))\n    visited = set()\n    while pq:\n        f, g, current, path = heapq.heappop(pq)\n        if current == GOAL:\n            return path + [current]\n        if current in visited:\n            continue\n        visited.add(current)\n        for neighbor in get_neighbors(current):\n            if neighbor not in visited:\n                new_g = g + 1\n                new_f = new_g + manhattan(neighbor)\n                heapq.heappush(pq, (new_f, new_g, neighbor, path + [current]))\n    return None\n\nif __name__ == \"__main__\":\n    start = (\n        (1, 2, 3, 4),\n        (5, 6, 7, 8),\n        (9, 10, 11, 12),\n        (13, 14, 0, 15)\n    )\n    print(\"Initial State:\")\n    for r in start:\n        print(r)\n    path = a_star(start)\n    if path:\n        print(f\"\\nSolution found in {len(path) - 1} moves:\")\n        for step in path:\n            for row in step:\n                print(row)\n            print()\n    else:\n        print(\"No solution found.\")\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# The A* algorithm is an informed search strategy used to find the shortest\n# path between two nodes in a weighted graph. It uses a best-first search\n# approach, where the node with the lowest estimated total cost is chosen\n# next. The algorithm consists of a priority queue to hold nodes to be\n# evaluated, a set of visited nodes, and a heuristic function to estimate\n# the distance from a node to the goal. The heuristic function guides the\n# search towards the goal, making it more efficient than uninformed search\n# algorithms. The algorithm terminates when the goal node is reached or the\n# queue is empty.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "a_star_15_puzzle.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 3,
-        "slug": "dfid-uninformed-search",
-        "title": "Uninformed Search - Depth First Iterative Deepening (DFID)",
-        "language": "python",
-        "aliases": [
-            "dfid",
-            "iterative deepening",
-            "iddfs",
-            "uninformed search",
-            "depth first"
-        ],
-        "description": "Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.",
-        "aim": "Uninformed Search - Depth First Iterative Deepening (DFID) search implementation on state graphs.",
-        "theory": "Depth First Iterative Deepening is a search strategy that combines the benefits of Breadth First Search and Depth First Search. It works by performing a series of depth-first searches with increasing depth limits, starting from a small limit and gradually increasing it until the goal is found. The algorithm uses a stack to keep track of nodes to visit and their depths, and it backtracks when it reaches a node that exceeds the current depth limit. This approach allows DFID to find the shortest path to the goal while avoiding the high memory usage of Breadth First Search. The time complexity of DFID is O(b^d) and the space complexity is O(d), where b is the branching factor and d is the depth of the goal node.",
-        "algorithm": [
-            "Set current depth limit L = 0.",
-            "Execute recursive Depth-Limited Search (DLS) starting from root up to limit L.",
-            "If goal node is encountered during traversal, terminate search and return path.",
-            "If entire tree up to depth L is traversed without goal, increment L = L + 1.",
-            "Repeat until goal is found or maximum search depth is exhausted."
-        ],
-        "files": [
-            {
-                "path": "dfid_search.py",
-                "source": "dfid_search.py",
-                "role": "source",
-                "content": "import sys\nfrom collections import defaultdict\n\ngraph = defaultdict(list)\n\ndef dls(node, goal, depth, visited):\n    if node == goal:\n        print(node, end=\" \")\n        return True\n    if depth <= 0:\n        return False\n    visited.add(node)\n    print(node, end=\" -> \")\n    for neighbor in graph[node]:\n        if neighbor not in visited:\n            if dls(neighbor, goal, depth - 1, visited):\n                return True\n    return False\n\ndef iddfs(start, goal, max_depth):\n    for depth in range(max_depth + 1):\n        print(f\"\\nSearching at Depth Limit = {depth}: \", end=\"\")\n        visited = set()\n        if dls(start, goal, depth, visited):\n            print(f\"\\n[SUCCESS] Goal '{goal}' reached at depth {depth}!\")\n            return True\n    print(f\"\\n[FAIL] Goal '{goal}' not found within depth {max_depth}.\")\n    return False\n\nif __name__ == \"__main__\":\n    # Graph edges definition\n    edges = [\n        (\"A\", \"B\"), (\"A\", \"C\"),\n        (\"B\", \"D\"), (\"B\", \"E\"),\n        (\"C\", \"F\"), (\"C\", \"G\"),\n        (\"E\", \"H\"), (\"F\", \"I\")\n    ]\n    for u, v in edges:\n        graph[u].append(v)\n\n    start_node = \"A\"\n    goal_node = \"H\"\n    print(\"Graph Structure:\")\n    for k, v in graph.items():\n        print(f\"  {k} -> {v}\")\n\n    print(f\"\\nRunning DFID Search from '{start_node}' to '{goal_node}':\")\n    iddfs(start_node, goal_node, max_depth=4)\n\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Depth First Iterative Deepening is a search strategy that combines the\n# benefits of Breadth First Search and Depth First Search. It works by\n# performing a series of depth-first searches with increasing depth limits,\n# starting from a small limit and gradually increasing it until the goal is\n# found. The algorithm uses a stack to keep track of nodes to visit and\n# their depths, and it backtracks when it reaches a node that exceeds the\n# current depth limit. This approach allows DFID to find the shortest path\n# to the goal while avoiding the high memory usage of Breadth First Search.\n# The time complexity of DFID is O(b^d) and the space complexity is O(d),\n# where b is the branching factor and d is the depth of the goal node.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "dfid_search.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 4,
-        "slug": "alpha-beta-pruning",
-        "title": "Implementation of Alpha-Beta Pruning Algorithm",
-        "language": "python",
-        "aliases": [
-            "alpha beta",
-            "game search",
-            "minimax",
-            "alpha beta pruning",
-            "adversarial search"
-        ],
-        "description": "Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.",
-        "aim": "To implement Minimax Search with Alpha-Beta Pruning for two-player adversarial games.",
-        "theory": "Alpha-Beta Pruning is a search algorithm used to reduce the number of nodes to be evaluated in a minimax tree, it considers two values alpha and beta which represent the best possible score for the maximizing player and the minimizing player respectively. The algorithm works by maintaining a window of possible scores, if the score of a node is outside this window it can be pruned, reducing the number of nodes to be evaluated. The alpha value is the best possible score for the maximizing player, while the beta value is the best possible score for the minimizing player, the algorithm prunes nodes that are guaranteed to have a score outside the alpha-beta window.",
-        "algorithm": [
-            "Initialize alpha = -infinity, beta = +infinity.",
-            "For maximizing player: evaluate each child, update value = max(value, child_score), update alpha = max(alpha, value).",
-            "If beta <= alpha, break loop (prune remaining siblings).",
-            "For minimizing player: evaluate each child, update value = min(value, child_score), update beta = min(beta, value).",
-            "If beta <= alpha, break loop (prune remaining siblings).",
-            "Return optimal evaluated terminal score."
-        ],
-        "files": [
-            {
-                "path": "alpha_beta_pruning.py",
-                "source": "alpha_beta_pruning.py",
-                "role": "source",
-                "content": "def alpha_beta(node, depth, alpha, beta, maximizing_player):\n    if depth == 0 or isinstance(node, int):\n        return node\n\n    if maximizing_player:\n        value = float('-inf')\n        for child in node:\n            value = max(value, alpha_beta(child, depth - 1, alpha, beta, False))\n            alpha = max(alpha, value)\n            if alpha >= beta:\n                print(f\"  [Pruning] Branch pruned at Maximizer node: alpha ({alpha}) >= beta ({beta})\")\n                break\n        return value\n    else:\n        value = float('inf')\n        for child in node:\n            value = min(value, alpha_beta(child, depth - 1, alpha, beta, True))\n            beta = min(beta, value)\n            if alpha >= beta:\n                print(f\"  [Pruning] Branch pruned at Minimizer node: alpha ({alpha}) >= beta ({beta})\")\n                break\n        return value\n\nif __name__ == \"__main__\":\n    print(\"=\" * 55)\n    print(\" LabX: Alpha-Beta Pruning Game Tree Evaluator\")\n    print(\"=\" * 55)\n    \n    # Game tree: 2 levels deep with 4 leaf pairs\n    tree = [\n        [3, 1],\n        [6, 8],\n        [1, 7],\n        [0, -1]\n    ]\n\n    print(f\"Game Tree Leaves: {tree}\")\n    result = alpha_beta(tree, 2, float('-inf'), float('inf'), True)\n    print(f\"\\nOptimal Value at Root: {result}\")\n    print(\"=\" * 55)\n\n# --- Line 42: Execution & Theory Division ---\n# --- Line 43: Execution & Theory Division ---\n# --- Line 44: Execution & Theory Division ---\n# --- Line 45: Execution & Theory Division ---\n# --- Line 46: Execution & Theory Division ---\n# --- Line 47: Execution & Theory Division ---\n# --- Line 48: Execution & Theory Division ---\n# --- Line 49: Execution & Theory Division ---\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Alpha-Beta Pruning is a search algorithm used to reduce the number of\n# nodes to be evaluated in a minimax tree, it considers two values alpha and\n# beta which represent the best possible score for the maximizing player and\n# the minimizing player respectively. The algorithm works by maintaining a\n# window of possible scores, if the score of a node is outside this window\n# it can be pruned, reducing the number of nodes to be evaluated. The alpha\n# value is the best possible score for the maximizing player, while the beta\n# value is the best possible score for the minimizing player, the algorithm\n# prunes nodes that are guaranteed to have a score outside the alpha-beta\n# window.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "alpha_beta_pruning.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 5,
-        "slug": "single-layer-perceptron-slp",
-        "title": "Single Layer Perceptron (SLP) for Binary Classification",
-        "language": "python",
-        "aliases": [
-            "perceptron",
-            "slp",
-            "single layer perceptron",
-            "perceptron learning rule",
-            "binary classification"
-        ],
-        "description": "Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.",
-        "aim": "To implement a Single Layer Perceptron (SLP) neural network using the Perceptron Learning Rule to classify linearly separable binary patterns.",
-        "theory": "A Single Layer Perceptron is a type of feedforward neural network that consists of an input layer and an output layer, with no hidden layers. The Perceptron Learning Rule is an algorithm used to train the SLP, which is based on the concept of supervised learning. The goal of the SLP is to classify linearly separable binary patterns into two distinct classes. The Perceptron Learning Rule works by iteratively adjusting the weights of the connections between the input and output layers to minimize the error between the predicted output and the actual output. The SLP uses a threshold function to make predictions, where if the weighted sum of the inputs is greater than or equal to the threshold, the output is 1, otherwise it is 0. The Perceptron Learning Rule updates the weights based on the difference between the predicted output and the actual output, and the learning process continues until the SLP is able to correctly classify all the training patterns.",
-        "algorithm": [
-            "Initialize weights vector W with zeros and bias b = 0.",
-            "For each training sample (x_i, target_i): compute linear output z = W . x_i + b.",
-            "Apply hard step activation: output = 1 if z >= 0 else 0.",
-            "Compute error = target - output.",
-            "Update weights: W += learning_rate * error * x_i; bias += learning_rate * error.",
-            "Repeat for specified epochs or until training error converges to zero."
-        ],
-        "files": [
-            {
-                "path": "perceptron_slp.py",
-                "source": "perceptron_slp.py",
-                "role": "source",
-                "content": "import numpy as np\n\nclass Perceptron:\n    def __init__(self, learning_rate=0.1, epochs=20):\n        self.learning_rate = learning_rate\n        self.epochs = epochs\n        self.weights = None\n        self.bias = None\n\n    def activation(self, z):\n        return 1 if z >= 0 else 0\n\n    def fit(self, X, y):\n        self.weights = np.zeros(X.shape[1])\n        self.bias = 0.0\n\n        for epoch in range(self.epochs):\n            errors = 0\n            for xi, target in zip(X, y):\n                prediction = self.activation(np.dot(xi, self.weights) + self.bias)\n                error = target - prediction\n                self.weights += self.learning_rate * error * xi\n                self.bias += self.learning_rate * error\n                errors += abs(error)\n\n            if errors == 0:\n                print(f\"Perceptron converged at epoch {epoch + 1}!\")\n                break\n\n    def predict(self, X):\n        return np.array([\n            self.activation(np.dot(x, self.weights) + self.bias)\n            for x in X\n        ])\n\nif __name__ == \"__main__\":\n    print(\"=\" * 55)\n    print(\" LabX Exp 05: Single Layer Perceptron (AND Gate)\")\n    print(\"=\" * 55)\n\n    # Linearly separable binary patterns (AND Gate)\n    X = np.array([\n        [0, 0],\n        [0, 1],\n        [1, 0],\n        [1, 1]\n    ])\n    y = np.array([0, 0, 0, 1])\n\n    model = Perceptron(learning_rate=0.1, epochs=20)\n    model.fit(X, y)\n\n    predictions = model.predict(X)\n    print(\"Learned Weights :\", model.weights)\n    print(\"Learned Bias    :\", model.bias)\n    print(\"Target Outputs  :\", y)\n    print(\"Predicted Output:\", predictions)\n    print(\"Accuracy        :\", f\"{np.mean(predictions == y) * 100:.1f}%\")\n    print(\"=\" * 55)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# A Single Layer Perceptron is a type of feedforward neural network that\n# consists of an input layer and an output layer, with no hidden layers. The\n# Perceptron Learning Rule is an algorithm used to train the SLP, which is\n# based on the concept of supervised learning. The goal of the SLP is to\n# classify linearly separable binary patterns into two distinct classes. The\n# Perceptron Learning Rule works by iteratively adjusting the weights of the\n# connections between the input and output layers to minimize the error\n# between the predicted output and the actual output. The SLP uses a\n# threshold function to make predictions, where if the weighted sum of the\n# inputs is greater than or equal to the threshold, the output is 1,\n# otherwise it is 0. The Perceptron Learning Rule updates the weights based\n# on the difference between the predicted output and the actual output, and\n# the learning process continues until the SLP is able to correctly classify\n# all the training patterns.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "perceptron_slp.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 6,
-        "slug": "mlp-supervised-learning",
-        "title": "Supervised Learning using Multi-Layer Perceptron (MLP)",
-        "language": "python",
-        "aliases": [
-            "mlp",
-            "multilayer perceptron",
-            "backpropagation",
-            "supervised learning",
-            "neural network"
-        ],
-        "description": "Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.",
-        "aim": "To implement the Supervised Learning algorithm using Multi-Layer Perceptron (MLP) with Backpropagation to solve non-linear problems (XOR).",
-        "theory": "Multi-layer perceptron (MLP) is a feed-forward neural network that maps input vectors to output vectors using layers of weighted neurons. Each neuron computes a weighted sum of its inputs, adds a bias, and applies a nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-propagation to compute gradients of a loss function (e.g., cross-entropy) with respect to weights, and optimizers (SGD, Adam) update weights to minimize error. The network learns hierarchical feature representations, enabling classification or regression on complex data.",
-        "algorithm": [
-            "Initialize network weights W1, W2 with small random values and biases b1, b2 with zeros.",
-            "Forward Propagation: z1 = X . W1 + b1, a1 = sigmoid(z1), z2 = a1 . W2 + b2, output = sigmoid(z2).",
-            "Compute error = target - output.",
-            "Backward Propagation: calculate output delta = error * sigmoid_derivative(output).",
-            "Propagate error to hidden layer: hidden delta = (output_delta . W2.T) * sigmoid_derivative(a1).",
-            "Update weights and biases using gradient descent with learning rate lr.",
-            "Iterate across training epochs."
-        ],
-        "files": [
-            {
-                "path": "mlp_neural_network.py",
-                "source": "mlp_neural_network.py",
-                "role": "source",
-                "content": "import numpy as np\n\nclass MLP:\n    def __init__(self, input_size, hidden_size, output_size, learning_rate=1.0):\n        self.lr = learning_rate\n        self.W1 = np.random.randn(input_size, hidden_size) * 0.5\n        self.b1 = np.zeros((1, hidden_size))\n        self.W2 = np.random.randn(hidden_size, output_size) * 0.5\n        self.b2 = np.zeros((1, output_size))\n\n    def sigmoid(self, x):\n        return 1.0 / (1.0 + np.exp(-np.clip(x, -500, 500)))\n\n    def sigmoid_derivative(self, x):\n        return x * (1.0 - x)\n\n    def forward(self, X):\n        self.z1 = np.dot(X, self.W1) + self.b1\n        self.a1 = self.sigmoid(self.z1)\n        self.z2 = np.dot(self.a1, self.W2) + self.b2\n        self.a2 = self.sigmoid(self.z2)\n        return self.a2\n\n    def train(self, X, y, epochs=10000):\n        for ep in range(epochs):\n            output = self.forward(X)\n            error = y - output\n            d_output = error * self.sigmoid_derivative(output)\n            error_hidden = d_output.dot(self.W2.T)\n            d_hidden = error_hidden * self.sigmoid_derivative(self.a1)\n\n            self.W2 += self.a1.T.dot(d_output) * self.lr\n            self.b2 += np.sum(d_output, axis=0, keepdims=True) * self.lr\n            self.W1 += X.T.dot(d_hidden) * self.lr\n            self.b1 += np.sum(d_hidden, axis=0, keepdims=True) * self.lr\n\n    def predict(self, X):\n        return (self.forward(X) >= 0.5).astype(int)\n\nif __name__ == \"__main__\":\n    print(\"=\" * 55)\n    print(\" LabX Exp 06: Multi-Layer Perceptron (XOR Non-Linear)\")\n    print(\"=\" * 55)\n\n    X = np.array([\n        [0, 0],\n        [0, 1],\n        [1, 0],\n        [1, 1]\n    ])\n    y = np.array([\n        [0],\n        [1],\n        [1],\n        [0]\n    ])\n\n    mlp = MLP(input_size=2, hidden_size=4, output_size=1, learning_rate=1.0)\n    print(\"Training MLP network with Backpropagation...\")\n    mlp.train(X, y, epochs=10000)\n\n    preds = mlp.predict(X)\n    print(\"Input Patterns:\")\n    for inp, target, pred in zip(X, y, preds):\n        print(f\"  {inp} -> Target: {target[0]}, Predicted: {pred[0]}\")\n    print(\"=\" * 55)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Multi-layer perceptron (MLP) is a feed-forward neural network that maps\n# input vectors to output vectors using layers of weighted neurons. Each\n# neuron computes a weighted sum of its inputs, adds a bias, and applies a\n# nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-\n# propagation to compute gradients of a loss function (e.g., cross-entropy)\n# with respect to weights, and optimizers (SGD, Adam) update weights to\n# minimize error. The network learns hierarchical feature representations,\n# enabling classification or regression on complex data.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "mlp_neural_network.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 7,
-        "slug": "kmeans-unsupervised-clustering",
-        "title": "Unsupervised Learning using K-Means Clustering",
-        "language": "python",
-        "aliases": [
-            "kmeans",
-            "k-means",
-            "clustering",
-            "unsupervised learning",
-            "cluster centroids"
-        ],
-        "description": "K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.",
-        "aim": "To implement the Unsupervised Learning algorithm using K-Means Clustering to group unlabelled sample points.",
-        "theory": "Unsupervised learning finds structure in data without labels, using methods like clustering to group similar items and dimensionality reduction to uncover latent factors. Techniques such as k-means, DBSCAN, hierarchical clustering, PCA, t-SNE, and autoencoders help reveal patterns, anomalies, or low-dimensional representations. The goal is to extract insights, compress data, or prepare features for downstream tasks.",
-        "algorithm": [
-            "Select K centroid initial locations.",
-            "Compute Euclidean distance from each sample point to all K centroids.",
-            "Assign each sample point to the nearest cluster centroid.",
-            "Recalculate cluster centroids as the arithmetic mean of all points assigned to that cluster.",
-            "Repeat distance computation and reassignment until centroids stabilize and convergence is reached."
-        ],
-        "files": [
-            {
-                "path": "kmeans_clustering.py",
-                "source": "kmeans_clustering.py",
-                "role": "source",
-                "content": "import numpy as np\n\ndef kmeans(X, k=2, max_iters=100):\n    np.random.seed(42)\n    # Randomly initialize centroids from sample points\n    initial_indices = np.random.choice(len(X), k, replace=False)\n    centroids = X[initial_indices].copy()\n\n    for _ in range(max_iters):\n        # Compute euclidean distance from all points to centroids\n        distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=2)\n        labels = np.argmin(distances, axis=1)\n\n        # Recompute centroids\n        new_centroids = np.array([X[labels == i].mean(axis=0) if len(X[labels == i]) > 0 else centroids[i] for i in range(k)])\n\n        if np.allclose(centroids, new_centroids):\n            break\n        centroids = new_centroids\n\n    return labels, centroids\n\nif __name__ == \"__main__\":\n    print(\"=\" * 55)\n    print(\" LabX Exp 07: Unsupervised K-Means Clustering\")\n    print(\"=\" * 55)\n\n    X = np.array([\n        [1.0, 2.0], [1.0, 4.0], [1.0, 0.0],\n        [10.0, 2.0], [10.0, 4.0], [10.0, 0.0]\n    ])\n\n    labels, centroids = kmeans(X, k=2)\n\n    print(\"Data Points:\")\n    for pt, lbl in zip(X, labels):\n        print(f\"  Point {pt} -> Cluster {lbl}\")\n\n    print(\"\\nFinal Cluster Centroids:\")\n    for idx, c in enumerate(centroids):\n        print(f\"  Centroid {idx}: {c}\")\n    print(\"=\" * 55)\n\n# --- Line 44: Execution & Theory Division ---\n# --- Line 45: Execution & Theory Division ---\n# --- Line 46: Execution & Theory Division ---\n# --- Line 47: Execution & Theory Division ---\n# --- Line 48: Execution & Theory Division ---\n# --- Line 49: Execution & Theory Division ---\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Unsupervised learning finds structure in data without labels, using\n# methods like clustering to group similar items and dimensionality\n# reduction to uncover latent factors. Techniques such as k-means, DBSCAN,\n# hierarchical clustering, PCA, t-SNE, and autoencoders help reveal\n# patterns, anomalies, or low-dimensional representations. The goal is to\n# extract insights, compress data, or prepare features for downstream tasks.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "kmeans_clustering.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 8,
-        "slug": "hopfield-associative-memory-network",
-        "title": "Associative Memory Network (Hopfield Network)",
-        "language": "python",
-        "aliases": [
-            "hopfield",
-            "associative memory",
-            "hebbian learning",
-            "pattern recall",
-            "hopfield network"
-        ],
-        "description": "Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.",
-        "aim": "To implement an Associative Memory Network (Hopfield Network) for pattern storage and associative recall.",
-        "theory": "Associative memory stores patterns as high-dimensional vectors and retrieves them by similarity. The classic Hopfield network uses a symmetric weight matrix built from outer products of stored patterns, and updates neurons asynchronously until convergence. Retrieval works by presenting a noisy or incomplete pattern, then iteratively applying the sign of the weighted sum until the state stabilizes to the nearest stored pattern. TODO: compute weight matrix W = \u03a3_i p_i p_i\u1d40 - N\u00b7I, then iterate v \u2190 sign(Wv) until convergence.",
-        "algorithm": [
-            "Initialize zero weight matrix of size N x N.",
-            "For each bipolar prototype pattern P: compute outer product P . P^T and add to weight matrix.",
-            "Zero out diagonal entries (no self-loops: W_ii = 0) and normalize weights by 1/N.",
-            "To recall: initialize network state with noisy probe pattern.",
-            "Iteratively update neuron states: state_i = +1 if sum(W_ij * state_j) >= 0 else -1.",
-            "Repeat until state stabilizes at the nearest stored memory attractor."
-        ],
-        "files": [
-            {
-                "path": "hopfield_network.py",
-                "source": "hopfield_network.py",
-                "role": "source",
-                "content": "import numpy as np\n\nclass HopfieldNetwork:\n    def __init__(self, n_neurons):\n        self.n_neurons = n_neurons\n        self.weights = np.zeros((n_neurons, n_neurons))\n\n    def train(self, patterns):\n        self.weights = np.zeros((self.n_neurons, self.n_neurons))\n        for pattern in patterns:\n            p = np.array(pattern)\n            self.weights += np.outer(p, p)\n        np.fill_diagonal(self.weights, 0)\n        self.weights /= self.n_neurons\n\n    def recall(self, pattern, steps=10):\n        state = np.array(pattern).copy()\n        for _ in range(steps):\n            for i in range(self.n_neurons):\n                activation = np.dot(self.weights[i], state)\n                state[i] = 1 if activation >= 0 else -1\n        return state\n\nif __name__ == \"__main__\":\n    print(\"=\" * 55)\n    print(\" LabX Exp 08: Hopfield Associative Memory Network\")\n    print(\"=\" * 55)\n\n    # 8-dimensional bipolar prototype memories (-1, +1)\n    patterns = np.array([\n        [1,  1,  1,  1, -1, -1, -1, -1],\n        [1, -1,  1, -1,  1, -1,  1, -1]\n    ])\n\n    net = HopfieldNetwork(n_neurons=8)\n    net.train(patterns)\n\n    print(\"Stored Target Patterns:\")\n    print(\"  Pattern 1:\", patterns[0])\n    print(\"  Pattern 2:\", patterns[1])\n\n    # Probe with 2 corrupted bits\n    noisy_probe = np.array([1, 1, -1, 1, -1, -1, 1, -1])\n    print(\"\\nNoisy Input Pattern  :\", noisy_probe)\n\n    recovered = net.recall(noisy_probe)\n    print(\"Associatively Recalled:\", recovered)\n\n    if np.array_equal(recovered, patterns[0]):\n        print(\"-> Successfully restored to Stored Pattern 1!\")\n    else:\n        print(\"-> Recalled nearest memory state.\")\n    print(\"=\" * 55)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Associative memory stores patterns as high-dimensional vectors and\n# retrieves them by similarity. The classic Hopfield network uses a\n# symmetric weight matrix built from outer products of stored patterns, and\n# updates neurons asynchronously until convergence. Retrieval works by\n# presenting a noisy or incomplete pattern, then iteratively applying the\n# sign of the weighted sum until the state stabilizes to the nearest stored\n# pattern. TODO: compute weight matrix W = \u03a3_i p_i p_i\u1d40 - N\u00b7I, then iterate\n# v \u2190 sign(Wv) until convergence.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "hopfield_network.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 9,
-        "slug": "fuzzy-membership-functions",
-        "title": "Implementation of Fuzzy Membership Functions",
-        "language": "python",
-        "aliases": [
-            "fuzzy membership",
-            "fuzzy logic",
-            "triangular membership",
-            "trapezoidal membership",
-            "soft computing"
-        ],
-        "description": "Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.",
-        "aim": "To implement fuzzy membership functions (Triangular and Trapezoidal) and calculate degrees of membership for inputs.",
-        "theory": "Fuzzy membership functions map crisp inputs to degrees of belonging between 0 and 1, enabling reasoning with imprecise data. Common shapes include triangular, trapezoidal, Gaussian, and sigmoid, each defined by a few parameters that control the width and center of the fuzzy set. The choice of shape affects smoothness, computational cost, and interpretability. Membership values are combined via fuzzy operators (AND, OR) and aggregated to produce fuzzy outputs, which are then defuzzified to crisp decisions. Proper tuning of parameters is essential for accurate modeling of real-world phenomena.",
-        "algorithm": [
-            "Define triangular function: max(min((x - a)/(b - a), (c - x)/(c - b)), 0).",
-            "Define trapezoidal function: max(min(min((x - a)/(b - a), 1), (d - x)/(d - c)), 0).",
-            "Generate discrete input universe of discourse X.",
-            "Compute membership degree for each input value.",
-            "Display membership evaluation table across boundary and transition points."
-        ],
-        "files": [
-            {
-                "path": "fuzzy_membership.py",
-                "source": "fuzzy_membership.py",
-                "role": "source",
-                "content": "import numpy as np\n\ndef triangular_membership(x, a, b, c):\n    x = np.asarray(x, dtype=float)\n    return np.maximum(np.minimum((x - a) / (b - a), (c - x) / (c - b)), 0.0)\n\ndef trapezoidal_membership(x, a, b, c, d):\n    x = np.asarray(x, dtype=float)\n    return np.maximum(np.minimum(np.minimum((x - a) / (b - a), 1.0), (d - x) / (d - c)), 0.0)\n\nif __name__ == \"__main__\":\n    print(\"=\" * 60)\n    print(\" LabX Exp 09: Fuzzy Membership Functions\")\n    print(\"=\" * 60)\n\n    test_values = [10, 20, 30, 50, 70, 80, 90]\n    print(f\"{'Input (x)':<12} | {'Triangular (20,50,80)':<22} | {'Trapezoidal (10,30,70,90)':<25}\")\n    print(\"-\" * 65)\n\n    for val in test_values:\n        tri_deg = triangular_membership(val, 20, 50, 80)\n        trap_deg = trapezoidal_membership(val, 10, 30, 70, 90)\n        print(f\"{val:<12} | {tri_deg:<22.3f} | {trap_deg:<25.3f}\")\n\n    print(\"=\" * 60)\n\n# --- Line 27: Execution & Theory Division ---\n# --- Line 28: Execution & Theory Division ---\n# --- Line 29: Execution & Theory Division ---\n# --- Line 30: Execution & Theory Division ---\n# --- Line 31: Execution & Theory Division ---\n# --- Line 32: Execution & Theory Division ---\n# --- Line 33: Execution & Theory Division ---\n# --- Line 34: Execution & Theory Division ---\n# --- Line 35: Execution & Theory Division ---\n# --- Line 36: Execution & Theory Division ---\n# --- Line 37: Execution & Theory Division ---\n# --- Line 38: Execution & Theory Division ---\n# --- Line 39: Execution & Theory Division ---\n# --- Line 40: Execution & Theory Division ---\n# --- Line 41: Execution & Theory Division ---\n# --- Line 42: Execution & Theory Division ---\n# --- Line 43: Execution & Theory Division ---\n# --- Line 44: Execution & Theory Division ---\n# --- Line 45: Execution & Theory Division ---\n# --- Line 46: Execution & Theory Division ---\n# --- Line 47: Execution & Theory Division ---\n# --- Line 48: Execution & Theory Division ---\n# --- Line 49: Execution & Theory Division ---\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Fuzzy membership functions map crisp inputs to degrees of belonging\n# between 0 and 1, enabling reasoning with imprecise data. Common shapes\n# include triangular, trapezoidal, Gaussian, and sigmoid, each defined by a\n# few parameters that control the width and center of the fuzzy set. The\n# choice of shape affects smoothness, computational cost, and\n# interpretability. Membership values are combined via fuzzy operators (AND,\n# OR) and aggregated to produce fuzzy outputs, which are then defuzzified to\n# crisp decisions. Proper tuning of parameters is essential for accurate\n# modeling of real-world phenomena.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "fuzzy_membership.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 10,
-        "slug": "fuzzy-control-system-simulation",
-        "title": "Fuzzy Control System Simulation (Fan Speed Controller)",
-        "language": "python",
-        "aliases": [
-            "fuzzy control",
-            "fuzzy controller",
-            "mamdani",
-            "temperature fan controller",
-            "fuzzy simulation"
-        ],
-        "description": "Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.",
-        "aim": "To write a program to simulate a fuzzy logic control system for temperature-dependent fan speed control.",
-        "theory": "Fuzzy control systems use linguistic variables and membership functions to map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form, combining antecedents with AND/OR operators to produce fuzzy outputs. Defuzzification (e.g., centroid) converts the aggregated fuzzy output back to a crisp control action. The system handles uncertainty by allowing partial membership, enabling smoother transitions than binary logic.",
-        "algorithm": [
-            "Define input linguistic variable (Temperature: Cold, Warm, Hot).",
-            "Define output linguistic variable (Fan Speed: Slow, Medium, Fast).",
-            "Define rule base: (Cold -> Slow), (Warm -> Medium), (Hot -> Fast).",
-            "Obtain crisp input temperature value.",
-            "Perform fuzzification, evaluate active rule firing strengths.",
-            "Defuzzify aggregated fuzzy region using centroid calculation and output crisp speed."
-        ],
-        "files": [
-            {
-                "path": "fuzzy_control_system.py",
-                "source": "fuzzy_control_system.py",
-                "role": "source",
-                "content": "import sys\nimport numpy as np\n\ndef triangular(x, a, b, c):\n    if x <= a or x >= c:\n        return 0.0\n    if a < x <= b:\n        return (x - a) / (b - a)\n    return (c - x) / (c - b)\n\ndef simulate_fan_controller(temp: float) -> float:\n    # 1. Fuzzification\n    u_cold = triangular(temp, 0, 0, 20) if temp <= 20 else 0.0\n    u_warm = triangular(temp, 10, 20, 30)\n    u_hot = triangular(temp, 20, 40, 40) if temp >= 20 else 0.0\n\n    print(f\"Fuzzified Degrees: Cold={u_cold:.2f}, Warm={u_warm:.2f}, Hot={u_hot:.2f}\")\n\n    # 2. Rule evaluation (Mamdani minimum implication)\n    w_slow = u_cold\n    w_medium = u_warm\n    w_fast = u_hot\n\n    # 3. Defuzzification via Weighted Average Centroid\n    slow_center = 25.0\n    medium_center = 50.0\n    fast_center = 85.0\n\n    numerator = (w_slow * slow_center) + (w_medium * medium_center) + (w_fast * fast_center)\n    denominator = w_slow + w_medium + w_fast\n\n    if denominator == 0:\n        return 0.0\n    return numerator / denominator\n\nif __name__ == \"__main__\":\n    print(\"=\" * 60)\n    print(\" LabX Exp 10: Fuzzy Control System (Fan Speed Controller)\")\n    print(\"=\" * 60)\n\n    # Allow custom CLI argument or interactive input\n    if len(sys.argv) > 1:\n        try:\n            temp = float(sys.argv[1])\n        except ValueError:\n            temp = 28.0\n    else:\n        temp = 28.0\n\n    print(f\"Input Room Temperature: {temp:.1f} deg C\")\n    fan_speed = simulate_fan_controller(temp)\n    print(f\"Computed Fan Speed    : {fan_speed:.2f} %\")\n    print(\"=\" * 60)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Fuzzy control systems use linguistic variables and membership functions to\n# map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form,\n# combining antecedents with AND/OR operators to produce fuzzy outputs.\n# Defuzzification (e.g., centroid) converts the aggregated fuzzy output back\n# to a crisp control action. The system handles uncertainty by allowing\n# partial membership, enabling smoother transitions than binary logic.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "fuzzy_control_system.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 11,
-        "slug": "genetic-algorithm-simulated-annealing",
-        "title": "Optimization using Genetic Algorithm & Simulated Annealing",
-        "language": "python",
-        "aliases": [
-            "genetic algorithm",
-            "simulated annealing",
-            "optimization",
-            "metaheuristic",
-            "ga"
-        ],
-        "description": "Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.",
-        "aim": "To implement Genetic Algorithm and Simulated Annealing metaheuristics for continuous optimization.",
-        "theory": "Genetic algorithms mimic biological evolution: a population of candidate solutions is evolved through selection, crossover, and mutation to optimize a fitness function. Simulated annealing mimics physical annealing: a single solution is iteratively perturbed and accepted with a probability that decreases with temperature, allowing escape from local optima. Both methods rely on stochastic search and balance exploration with exploitation. Key parameters: population size, crossover/mutation rates for GA; cooling schedule and acceptance probability for SA.",
-        "algorithm": [
-            "Initialize population of candidate solution individuals.",
-            "Evaluate objective fitness for every individual.",
-            "Select fittest individuals as parents for mating pool.",
-            "Perform crossover to produce offspring candidates.",
-            "Apply mutation with mutation probability.",
-            "Replace low-fitness individuals and iterate until convergence."
-        ],
-        "files": [
-            {
-                "path": "genetic_algorithm.py",
-                "source": "genetic_algorithm.py",
-                "role": "source",
-                "content": "import random\nimport math\n\ndef fitness(x):\n    # Sphere function: global minimum at x = 0\n    return x ** 2\n\ndef run_genetic_algorithm(pop_size=20, generations=50, mutation_rate=0.1):\n    population = [random.uniform(-10, 10) for _ in range(pop_size)]\n\n    for gen in range(generations):\n        population.sort(key=fitness)\n        parents = population[:2]\n\n        # Crossover\n        child = (parents[0] + parents[1]) / 2.0\n\n        # Mutation\n        if random.random() < mutation_rate:\n            child += random.uniform(-1.0, 1.0)\n        child = max(-10.0, min(10.0, child))\n\n        population[-1] = child\n\n    best = min(population, key=fitness)\n    return best, fitness(best)\n\ndef run_simulated_annealing(initial_temp=100.0, cooling_rate=0.95, iterations=100):\n    current = random.uniform(-10, 10)\n    current_cost = fitness(current)\n    temp = initial_temp\n\n    for _ in range(iterations):\n        neighbor = current + random.uniform(-1.0, 1.0)\n        neighbor_cost = fitness(neighbor)\n        delta = neighbor_cost - current_cost\n\n        if delta < 0 or random.random() < math.exp(-delta / max(temp, 1e-6)):\n            current = neighbor\n            current_cost = neighbor_cost\n\n        temp *= cooling_rate\n\n    return current, current_cost\n\nif __name__ == \"__main__\":\n    print(\"=\" * 60)\n    print(\" LabX Exp 11: Genetic Algorithm & Simulated Annealing\")\n    print(\"=\" * 60)\n\n    ga_x, ga_fit = run_genetic_algorithm()\n    print(f\"Genetic Algorithm Result       : x = {ga_x:.6f}, f(x) = {ga_fit:.6f}\")\n\n    sa_x, sa_fit = run_simulated_annealing()\n    print(f\"Simulated Annealing Result     : x = {sa_x:.6f}, f(x) = {sa_fit:.6f}\")\n    print(\"=\" * 60)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Genetic algorithms mimic biological evolution: a population of candidate\n# solutions is evolved through selection, crossover, and mutation to\n# optimize a fitness function. Simulated annealing mimics physical\n# annealing: a single solution is iteratively perturbed and accepted with a\n# probability that decreases with temperature, allowing escape from local\n# optima. Both methods rely on stochastic search and balance exploration\n# with exploitation. Key parameters: population size, crossover/mutation\n# rates for GA; cooling schedule and acceptance probability for SA.\n# ============================================================================\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "genetic_algorithm.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 12,
-        "slug": "n8n-ai-agent-automation",
-        "title": "AI Agent for Automation using n8n Workflow Architecture",
-        "language": "python",
-        "aliases": [
-            "n8n",
-            "ai automation",
-            "agent workflow",
-            "n8n agent",
-            "automation agent"
-        ],
-        "description": "AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.",
-        "aim": "To create an AI agent for automation using node-based workflow tools like n8n.",
-        "theory": "n8n is a workflow automation tool that uses nodes to connect services via APIs. An AI agent can be built by creating a node that sends user input to an LLM (e.g., OpenAI) and processes the response. The workflow then routes the LLM output to subsequent nodes that perform actions like sending emails, updating databases, or triggering other APIs. By chaining these nodes, the agent can interpret natural language commands and execute complex automation tasks.",
-        "algorithm": [
-            "Capture user trigger via incoming Webhook / Chat node.",
-            "Forward prompt to LLM agent node configured with system prompt and available tools.",
-            "Parse model response into target action intent and parameter payload.",
-            "Conditionally branch execution through node routing connectors.",
-            "Execute automated external service operations and return status to caller."
-        ],
-        "files": [
-            {
-                "path": "n8n_agent_simulator.py",
-                "source": "n8n_agent_simulator.py",
-                "role": "source",
-                "content": "import json\nimport time\n\nclass N8nNode:\n    def __init__(self, name: str, node_type: str):\n        self.name = name\n        self.node_type = node_type\n\n    def execute(self, payload: dict) -> dict:\n        print(f\"  [Node: {self.name} ({self.node_type})] Executing...\")\n        time.sleep(0.1)\n        return payload\n\nclass N8nWorkflowAgent:\n    def __init__(self):\n        self.nodes = {\n            \"webhook\": N8nNode(\"Webhook Trigger\", \"n8n-nodes-base.webhook\"),\n            \"llm\": N8nNode(\"AI Agent LLM Parser\", \"@n8n/n8n-nodes-langchain.agent\"),\n            \"email\": N8nNode(\"Send Email Notification\", \"n8n-nodes-base.emailSend\"),\n            \"database\": N8nNode(\"PostgreSQL Logger\", \"n8n-nodes-base.postgres\")\n        }\n\n    def process_command(self, user_command: str):\n        print(f\"\\nProcessing Inbound Task: \\\"{user_command}\\\"\")\n        print(\"-\" * 50)\n\n        # 1. Trigger\n        data = self.nodes[\"webhook\"].execute({\"raw_input\": user_command, \"timestamp\": time.time()})\n\n        # 2. LLM Intent Extraction\n        if \"email\" in user_command.lower() or \"alert\" in user_command.lower():\n            intent = \"SEND_EMAIL\"\n            params = {\"recipient\": \"admin@college.edu\", \"subject\": \"Automated Alert\", \"body\": user_command}\n        else:\n            intent = \"DATABASE_LOG\"\n            params = {\"table\": \"system_events\", \"record\": user_command}\n\n        llm_data = self.nodes[\"llm\"].execute({\"intent\": intent, \"params\": params})\n\n        # 3. Dynamic Node Routing\n        if intent == \"SEND_EMAIL\":\n            self.nodes[\"email\"].execute(llm_data[\"params\"])\n            print(\"  --> Email successfully dispatched via n8n worker node.\")\n        else:\n            self.nodes[\"database\"].execute(llm_data[\"params\"])\n            print(\"  --> Record committed to database via n8n SQL node.\")\n\n        print(\"-\" * 50)\n        print(\"[SUCCESS] n8n AI Agent Workflow Completed!\")\n\ndef main():\n    print(\"=\" * 60)\n    print(\" LabX Exp 12: AI Agent for Automation using n8n\")\n    print(\"=\" * 60)\n\n    workflow = N8nWorkflowAgent()\n    workflow.process_command(\"Send urgent email alert about lab attendance drop\")\n    workflow.process_command(\"Log daily laboratory usage telemetry\")\n    print(\"=\" * 60)\n\nif __name__ == \"__main__\":\n    main()\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# n8n is a workflow automation tool that uses nodes to connect services via\n# APIs. An AI agent can be built by creating a node that sends user input to\n# an LLM (e.g., OpenAI) and processes the response. The workflow then routes\n# the LLM output to subsequent nodes that perform actions like sending\n# emails, updating databases, or triggering other APIs. By chaining these\n# nodes, the agent can interpret natural language commands and execute\n# complex automation tasks.\n# ============================================================================\n"
-            },
-            {
-                "path": "n8n_workflow.json",
-                "source": "n8n_workflow.json",
-                "role": "config",
-                "content": "{\n  \"name\": \"LabX AI Agent Automation\",\n  \"nodes\": [\n    {\n      \"parameters\": {\"path\": \"labx-webhook\"},\n      \"name\": \"Webhook\",\n      \"type\": \"n8n-nodes-base.webhook\",\n      \"position\": [250, 300]\n    },\n    {\n      \"parameters\": {\"model\": \"gpt-4o\"},\n      \"name\": \"AI Agent\",\n      \"type\": \"@n8n/n8n-nodes-langchain.agent\",\n      \"position\": [450, 300]\n    },\n    {\n      \"parameters\": {\"toEmail\": \"admin@college.edu\"},\n      \"name\": \"Email\",\n      \"type\": \"n8n-nodes-base.emailSend\",\n      \"position\": [700, 200]\n    }\n  ]\n}\n"
-            }
-        ],
-        "run": {
-            "kind": "python",
-            "entry": "n8n_agent_simulator.py"
-        },
-        "subject": "AISC"
-    },
-    {
-        "id": 13,
-        "slug": "keil-uvision-flash-magic-setup",
-        "subject": "ES_RTOS",
-        "title": "Installation and Verification of Keil uVision & Flash Magic Toolchains",
-        "language": "c",
-        "aliases": [
-            "keil",
-            "flash magic",
-            "arm7 setup",
-            "keil uvision",
-            "lpc2148 setup"
-        ],
-        "description": "ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.",
-        "aim": "Installation of Keil uVision IDE and Flash Magic ISP flashing utility, and verifying ARM7 microcontroller project setup.",
-        "theory": "Keil uVision is an integrated development environment (IDE) that provides code editing, compilation, simulation, and debugging for ARM-based microcontrollers like the LPC2148. Flash Magic is a dedicated In-System Programming (ISP) tool used to burn compiled Intel HEX binaries into the LPC2148 on-chip flash memory via UART serial interface. The toolchain workflow requires configuring the LPC2148 device database, selecting the ARM target oscillator frequency (12.0 MHz), generating a HEX binary via Armcc / Armclang, and flashing over COM port with ISP handshaking.",
-        "algorithm": [
-            "Download Keil uVision and Flash Magic installers from official vendor repositories.",
-            "Install Keil uVision, set toolchain path, and add LPC2148 device database support.",
-            "Install Flash Magic, configure COM port baud rate (9600 to 57600), device LPC2148, and oscillator frequency (12.0 MHz).",
-            "Create a target test project in Keil uVision, select LPC2148, and include startup assembly code (Startup.s).",
-            "Compile and generate Intel HEX binary (test_project.hex), and verify target connection via Flash Magic ISP handshake."
-        ],
-        "files": [
-            {
-                "path": "verify_keil_setup.c",
-                "source": "verify_keil_setup.c",
-                "role": "source",
-                "content": "/*\n * Experiment 13: Installation & Verification of Keil uVision & Flash Magic\n * Target: NXP LPC2148 ARM7TDMI-S Microcontroller\n */\n\n#include <LPC214x.h>\n\nvoid delay_ms(unsigned int ms) {\n    unsigned int i, j;\n    for (i = 0; i < ms; i++) {\n        for (j = 0; j < 6000; j++) {\n            #ifdef __GNUC__\n            __asm__(\"nop\");\n            #endif\n        }\n    }\n}\n\nvoid System_Init(void) {\n    // Configure PLL0 for 60 MHz operation with 12 MHz crystal\n    PLL0CON = 0x01;             // Enable PLL0\n    PLL0CFG = 0x24;             // M=5, P=2 (CCLK = 60MHz)\n    PLL0FEED = 0xAA;\n    PLL0FEED = 0x55;\n    while (!(PLL0STAT & (1 << 10))); // Wait for PLL lock\n    PLL0CON = 0x03;             // Connect PLL0\n    PLL0FEED = 0xAA;\n    PLL0FEED = 0x55;\n    VPBDIV = 0x02;              // PCLK = CCLK / 2 = 30 MHz\n}\n\nint main(void) {\n    System_Init();\n\n    // Configure P0.10 as GPIO Output (Status Indicator)\n    PINSEL0 &= ~(3U << 20);\n    IO0DIR |= (1U << 10);\n\n    while (1) {\n        IO0SET = (1U << 10);    // LED ON: Keil Toolchain Alive\n        delay_ms(250);\n        IO0CLR = (1U << 10);    // LED OFF\n        delay_ms(250);\n    }\n    return 0;\n}\n\n\n\n/* --- Line 50: Execution & Theory Division --- */\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nKeil uVision is an integrated development environment (IDE) that provides\ncode editing, compilation, simulation, and debugging for ARM-based\nmicrocontrollers like the LPC2148. Flash Magic is a dedicated In-System\nProgramming (ISP) tool used to burn compiled Intel HEX binaries into the\nLPC2148 on-chip flash memory via UART serial interface. The toolchain\nworkflow requires configuring the LPC2148 device database, selecting the\nARM target oscillator frequency (12.0 MHz), generating a HEX binary via\nArmcc / Armclang, and flashing over COM port with ISP handshaking.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "verify_keil_setup.c",
-            "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-        }
-    },
-    {
-        "id": 14,
-        "slug": "lpc2148-led-interfacing",
-        "subject": "ES_RTOS",
-        "title": "Interfacing of LED with LPC2148 Microcontroller",
-        "language": "c",
-        "aliases": [
-            "led interfacing",
-            "lpc2148 led",
-            "gpio led",
-            "blinking led",
-            "led counter"
-        ],
-        "description": "General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.",
-        "aim": "Interfacing of LED with an embedded core (LPC 2148)",
-        "theory": "The LPC2148 is an ARM7TDMI-S based 32-bit microcontroller with two 32-bit general-purpose I/O ports (Port 0 and Port 1). GPIO pins are controlled by registers: PINSEL (Pin Function Select), IOxDIR (Direction register: 1 for Output, 0 for Input), IOxSET (Set pin high), and IOxCLR (Clear pin low). An LED connected in active-high or active-low configuration is toggled with software delay loops. In this experiment, Port 0 pins (P0.10 - P0.17) drive an 8-LED bar display, demonstrating single-pin blinking, alternating blinking, and binary counter sequences.",
-        "algorithm": [
-            "Configure PINSEL0 to set P0.10 to P0.17 as standard GPIO pins.",
-            "Configure IO0DIR to set pins P0.10 to P0.17 as outputs (IO0DIR |= 0x000FF000).",
-            "Turn off all LEDs initially using IO0CLR = 0x000FF000.",
-            "In a continuous loop, set IO0SET to turn LEDs ON, call delay(300), and set IO0CLR to turn LEDs OFF.",
-            "Implement alternating and binary counter patterns on the LED array."
-        ],
-        "files": [
-            {
-                "path": "lpc2148_led.c",
-                "source": "lpc2148_led.c",
-                "role": "source",
-                "content": "/*\n * Experiment 14: Interfacing of LED with Embedded Core (LPC 2148)\n * Demonstrates Port 0 GPIO Pin Configuration, Set, Clear, and Patterns\n */\n\n#include <LPC214x.h>\n\n#define LED_PINS (0xFF << 10)   // P0.10 to P0.17 for 8 LEDs\n\nvoid delay(unsigned int count) {\n    unsigned int i, j;\n    for (i = 0; i < count; i++) {\n        for (j = 0; j < 6000; j++) {\n            #ifdef __GNUC__\n            __asm__(\"nop\");\n            #endif\n        }\n    }\n}\n\nvoid led_counter(void) {\n    unsigned int count;\n    for (count = 0; count < 256; count++) {\n        IO0CLR = LED_PINS;\n        IO0SET = (count << 10) & LED_PINS;\n        delay(100);\n    }\n}\n\nint main(void) {\n    // Select GPIO function for P0.10 - P0.17\n    PINSEL0 &= ~0xFFFF0000;\n\n    // Configure P0.10 - P0.17 as output\n    IO0DIR |= LED_PINS;\n\n    // Initially turn off all LEDs\n    IO0CLR = LED_PINS;\n\n    while (1) {\n        // Pattern 1: All ON / All OFF\n        IO0SET = LED_PINS;\n        delay(300);\n        IO0CLR = LED_PINS;\n        delay(300);\n\n        // Pattern 2: Binary Ripple Counter\n        led_counter();\n    }\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nThe LPC2148 is an ARM7TDMI-S based 32-bit microcontroller with two 32-bit\ngeneral-purpose I/O ports (Port 0 and Port 1). GPIO pins are controlled by\nregisters: PINSEL (Pin Function Select), IOxDIR (Direction register: 1 for\nOutput, 0 for Input), IOxSET (Set pin high), and IOxCLR (Clear pin low).\nAn LED connected in active-high or active-low configuration is toggled\nwith software delay loops. In this experiment, Port 0 pins (P0.10 - P0.17)\ndrive an 8-LED bar display, demonstrating single-pin blinking, alternating\nblinking, and binary counter sequences.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "lpc2148_led.c",
-            "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-        }
-    },
-    {
-        "id": 15,
-        "slug": "lpc2148-lcd-interfacing",
-        "subject": "ES_RTOS",
-        "title": "Interfacing 16x2 Alphanumeric LCD with LPC2148",
-        "language": "c",
-        "aliases": [
-            "lcd interfacing",
-            "lpc2148 lcd",
-            "16x2 lcd",
-            "hd44780",
-            "lcd display"
-        ],
-        "description": "8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.",
-        "aim": "Interfacing of LCD with an embedded core (LPC 2148)",
-        "theory": "A 16x2 alphanumeric LCD display interfaces with the LPC2148 using 8 data lines (D0-D7) and 3 control lines: RS (Register Select - 0 for command, 1 for data), RW (Read/Write - grounded for write), and EN (Enable - high-to-low pulse to latch data). Commands initialize display mode (0x38 for 8-bit, 2-line mode), display ON cursor OFF (0x0C), clear screen (0x01), and set DDRAM address (0x80 line 1, 0xC0 line 2). The LPC2148 drives the LCD by asserting RS, placing data on Port 0, and pulsing EN with sufficient setup and hold time.",
-        "algorithm": [
-            "Connect LCD data pins D0-D7 to P0.0-P0.7 and control pins RS, RW, EN to P0.8, P0.9, P0.10.",
-            "Configure P0.0 through P0.10 as GPIO outputs in PINSEL0 and IO0DIR.",
-            "Define LCD_Command function to latch command bytes (RS=0, RW=0, pulse EN).",
-            "Define LCD_Data function to latch character bytes (RS=1, RW=0, pulse EN).",
-            "Initialize LCD with commands 0x38 (8-bit mode), 0x0C (display ON), 0x06 (auto-increment), and 0x01 (clear screen).",
-            "Write custom strings to Line 1 and Line 2."
-        ],
-        "files": [
-            {
-                "path": "lpc2148_lcd.c",
-                "source": "lpc2148_lcd.c",
-                "role": "source",
-                "content": "/*\n * Experiment 15: Interfacing 16x2 Alphanumeric LCD with LPC2148\n * 8-Bit Interface: Data on P0.0-P0.7, Control on P0.8(RS), P0.9(RW), P0.10(EN)\n */\n\n#include <LPC214x.h>\n\n#define LCD_DATA_PINS  0x000000FF  // P0.0 - P0.7\n#define RS_PIN         (1U << 8)   // P0.8\n#define RW_PIN         (1U << 9)   // P0.9\n#define EN_PIN         (1U << 10)  // P0.10\n\nvoid delay_lcd(unsigned int count) {\n    unsigned int i, j;\n    for (i = 0; i < count; i++)\n        for (j = 0; j < 3000; j++);\n}\n\nvoid LCD_Command(unsigned char cmd) {\n    IO0CLR = LCD_DATA_PINS | RS_PIN | RW_PIN;\n    IO0SET = (cmd & 0xFF);\n    IO0SET = EN_PIN;\n    delay_lcd(2);\n    IO0CLR = EN_PIN;\n    delay_lcd(5);\n}\n\nvoid LCD_Data(unsigned char data_byte) {\n    IO0CLR = LCD_DATA_PINS | RW_PIN;\n    IO0SET = RS_PIN | (data_byte & 0xFF);\n    IO0SET = EN_PIN;\n    delay_lcd(2);\n    IO0CLR = EN_PIN;\n    delay_lcd(5);\n}\n\nvoid LCD_String(const char *str) {\n    while (*str) {\n        LCD_Data((unsigned char)*str++);\n    }\n}\n\nvoid LCD_Init(void) {\n    PINSEL0 &= ~0x001FFFFF;      // Configure P0.0 - P0.10 as GPIO\n    IO0DIR |= (LCD_DATA_PINS | RS_PIN | RW_PIN | EN_PIN);\n\n    LCD_Command(0x38);           // 8-bit mode, 2 lines, 5x7 dots\n    LCD_Command(0x0C);           // Display ON, Cursor OFF\n    LCD_Command(0x06);           // Increment cursor\n    LCD_Command(0x01);           // Clear display screen\n    delay_lcd(10);\n}\n\nint main(void) {\n    LCD_Init();\n    LCD_Command(0x80);           // Move cursor to Line 1\n    LCD_String(\"LabX Embedded C\");\n    LCD_Command(0xC0);           // Move cursor to Line 2\n    LCD_String(\"LPC2148 LCD OK\");\n\n    while (1) {\n        // Static message display\n    }\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nA 16x2 alphanumeric LCD display interfaces with the LPC2148 using 8 data\nlines (D0-D7) and 3 control lines: RS (Register Select - 0 for command, 1\nfor data), RW (Read/Write - grounded for write), and EN (Enable -\nhigh-to-low pulse to latch data). Commands initialize display mode (0x38\nfor 8-bit, 2-line mode), display ON cursor OFF (0x0C), clear screen\n(0x01), and set DDRAM address (0x80 line 1, 0xC0 line 2). The LPC2148\ndrives the LCD by asserting RS, placing data on Port 0, and pulsing EN\nwith sufficient setup and hold time.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "lpc2148_lcd.c",
-            "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-        }
-    },
-    {
-        "id": 16,
-        "slug": "lpc2148-uart-serial",
-        "subject": "ES_RTOS",
-        "title": "Serial Communication using UART0 on LPC2148",
-        "language": "c",
-        "aliases": [
-            "uart",
-            "serial communication",
-            "lpc2148 uart",
-            "baud rate",
-            "uart0"
-        ],
-        "description": "Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.",
-        "aim": "Serial communication between controller boards or any other device (UART on LPC 2148)",
-        "theory": "LPC2148 features two asynchronous serial ports (UART0 and UART1). UART communication requires setting the baud rate generator using U0LCR (Line Control Register, DLAB=1), U0DLL, and U0DLM divider latches based on PCLK (Peripheral Clock). Data transmission occurs by polling the Transmit Holding Register Empty (THRE) flag in U0LSR and writing bytes to U0THR. Data reception polls the Receiver Data Ready (RDR) flag and reads from U0RBR. Setting word length to 8 bits, 1 stop bit, and no parity establishes standard 9600-8-N-1 serial framing.",
-        "algorithm": [
-            "Configure P0.0 as TXD0 and P0.1 as RXD0 using PINSEL0 (PINSEL0 |= 0x00000005).",
-            "Enable Divisor Latch Access Bit (DLAB = 1) in U0LCR.",
-            "Set baud rate divisor latches (U0DLL = 97, U0DLM = 0 for 9600 baud rate at PCLK=15MHz).",
-            "Clear DLAB bit and set 8-bit character length with 1 stop bit (U0LCR = 0x03).",
-            "Define UART0_SendChar and UART0_SendString functions by polling the THRE flag in U0LSR.",
-            "Define UART0_ReceiveChar by polling the RDR flag in U0LSR.",
-            "Send welcome message and echo back incoming serial keystrokes."
-        ],
-        "files": [
-            {
-                "path": "lpc2148_uart.c",
-                "source": "lpc2148_uart.c",
-                "role": "source",
-                "content": "/*\n * Experiment 16: Serial Communication between Controller Boards (UART0 on LPC2148)\n * Configures 9600 Baud, 8 Data Bits, 1 Stop Bit, No Parity (9600-8-N-1)\n */\n\n#include <LPC214x.h>\n\nvoid UART0_Init(void) {\n    // Configure P0.0 as TXD0, P0.1 as RXD0\n    PINSEL0 &= ~0x0000000F;\n    PINSEL0 |= 0x00000005;\n\n    // Enable Divisor Latch Access Bit (DLAB = 1)\n    U0LCR = 0x83;\n\n    // Set Baud Rate to 9600 for PCLK = 15 MHz (15000000 / (16 * 9600) = 97.65)\n    U0DLM = 0x00;\n    U0DLL = 97;\n\n    // Disable DLAB and set 8-bit word length\n    U0LCR = 0x03;\n\n    // Enable and reset FIFO buffers\n    U0FCR = 0x07;\n}\n\nvoid UART0_SendChar(char ch) {\n    // Wait until Transmit Holding Register is Empty (THRE = bit 5)\n    while (!(U0LSR & 0x20));\n    U0THR = ch;\n}\n\nchar UART0_ReceiveChar(void) {\n    // Wait until Receiver Data Ready (RDR = bit 0)\n    while (!(U0LSR & 0x01));\n    return (char)U0RBR;\n}\n\nvoid UART0_SendString(const char *str) {\n    while (*str) {\n        UART0_SendChar(*str++);\n    }\n}\n\nint main(void) {\n    UART0_Init();\n    UART0_SendString(\"\\r\\n==========================================\\r\\n\");\n    UART0_SendString(\" LabX Remote: LPC2148 UART0 Communication\\r\\n\");\n    UART0_SendString(\" Serial Port Initialized at 9600 Baud (8-N-1)\\r\\n\");\n    UART0_SendString(\"==========================================\\r\\n\");\n    UART0_SendString(\"Type characters in terminal to echo back:\\r\\n\");\n\n    while (1) {\n        char ch = UART0_ReceiveChar();\n        UART0_SendChar(ch);     // Echo back received character\n        if (ch == '\\r') {\n            UART0_SendChar('\\n');\n        }\n    }\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nLPC2148 features two asynchronous serial ports (UART0 and UART1). UART\ncommunication requires setting the baud rate generator using U0LCR (Line\nControl Register, DLAB=1), U0DLL, and U0DLM divider latches based on PCLK\n(Peripheral Clock). Data transmission occurs by polling the Transmit\nHolding Register Empty (THRE) flag in U0LSR and writing bytes to U0THR.\nData reception polls the Receiver Data Ready (RDR) flag and reads from\nU0RBR. Setting word length to 8 bits, 1 stop bit, and no parity\nestablishes standard 9600-8-N-1 serial framing.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "lpc2148_uart.c",
-            "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-        }
-    },
-    {
-        "id": 17,
-        "slug": "lpc2148-power-management",
-        "subject": "ES_RTOS",
-        "title": "Power Management & Low-Power Modes in LPC2148",
-        "language": "c",
-        "aliases": [
-            "power management",
-            "lpc2148 power",
-            "idle mode",
-            "power down",
-            "eint0"
-        ],
-        "description": "LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.",
-        "aim": "To implement power management techniques in the LPC2148 embedded controller by configuring its power saving modes to reduce power consumption.",
-        "theory": "To implement power management techniques in the LPC2148 embedded controller by configuring its power-saving modes to reduce power consumption. Power management in the LPC2148 is controlled via the PCON (Power Control) and PCONP (Power Control for Peripherals) registers. LPC2148 supports Idle Mode (PCON=0x01) where the CPU clock stops while peripherals continue running, and Power Down Mode (PCON=0x02) where both CPU and oscillator are halted. An external interrupt (EINT0 on P0.16) is configured via the Vectored Interrupt Controller (VIC) to wake the microcontroller from low-power state, toggle a status LED, and resume operation.",
-        "algorithm": [
-            "Initiate the program and initialize LPC2148 system clocks.",
-            "Configure GPIO P0.10 as an output for status LED indication.",
-            "Configure P0.16 as External Interrupt 0 (EINT0) in PINSEL1.",
-            "Configure EINT0 as edge-sensitive, falling edge trigger using EXTMODE and EXTPOLAR.",
-            "Assign eint0_isr to VICVectAddr0, enable slot in VICVectCntl0, and unmask interrupt in VICIntEnable.",
-            "Enter low-power Idle mode by writing 0x01 to PCON.",
-            "On interrupt trigger, ISR sets wakeup_flag and toggles LED before returning to sleep."
-        ],
-        "files": [
-            {
-                "path": "lpc2148_power.c",
-                "source": "lpc2148_power.c",
-                "role": "source",
-                "content": "#include <LPC214x.h>\n\n#define LED       (1U << 10)   // P0.10\n#define EINT0_PIN (1U << 16)   // P0.16\n\nvolatile unsigned int wakeup_flag = 0;\n\n/* External Interrupt 0 service routine */\nvoid eint0_isr(void) __irq\n{\n    EXTINT = 0x01;             // Clear EINT0 interrupt flag\n    wakeup_flag = 1;\n\n    VICVectAddr = 0x00;        // End of interrupt\n}\n\nvoid eint0_init(void)\n{\n    /* Configure P0.16 as EINT0 */\n    PINSEL1 &= ~(3U << 0);\n    PINSEL1 |=  (1U << 0);\n\n    /* Configure EINT0 as edge-sensitive, falling edge */\n    EXTMODE |= 0x01;\n    EXTPOLAR &= ~0x01;\n    EXTINT = 0x01;\n\n    /* Configure VIC for EINT0 */\n    VICIntSelect &= ~(1U << 14);\n    VICVectAddr0 = (unsigned long)eint0_isr;\n    VICVectCntl0 = 0x20 | 14;\n    VICIntEnable |= (1U << 14);\n}\n\nint main(void)\n{\n    /* Configure P0.10 as GPIO output */\n    PINSEL0 &= ~(3U << 20);\n    IO0DIR |= LED;\n    IO0CLR = LED;\n\n    eint0_init();\n\n    while (1)\n    {\n        if (wakeup_flag)\n        {\n            wakeup_flag = 0;\n            IO0PIN ^= LED;     // Toggle LED after wake-up\n        }\n\n        /* Enter Idle Mode */\n        PCON = 0x01;\n    }\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nTo implement power management techniques in the LPC2148 embedded\ncontroller by configuring its power-saving modes to reduce power\nconsumption. Power management in the LPC2148 is controlled via the PCON\n(Power Control) and PCONP (Power Control for Peripherals) registers.\nLPC2148 supports Idle Mode (PCON=0x01) where the CPU clock stops while\nperipherals continue running, and Power Down Mode (PCON=0x02) where both\nCPU and oscillator are halted. An external interrupt (EINT0 on P0.16) is\nconfigured via the Vectored Interrupt Controller (VIC) to wake the\nmicrocontroller from low-power state, toggle a status LED, and resume\noperation.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "lpc2148_power.c",
-            "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-        }
-    },
-    {
-        "id": 18,
-        "slug": "freertos-semaphores-synchronization",
-        "subject": "ES_RTOS",
-        "title": "Task Synchronization using Binary and Counting Semaphores in FreeRTOS",
-        "language": "cpp",
-        "aliases": [
-            "freertos semaphores",
-            "binary semaphore",
-            "counting semaphore",
-            "task sync",
-            "freertos"
-        ],
-        "description": "Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.",
-        "aim": "To illustrate the use of Binary Semaphore and Counting Semaphore for Task Synchronization using FreeRTOS",
-        "theory": "FreeRTOS is a lightweight open source Real time Operating system (RTOS) made for use in embedded systems. It helps manage multiple tasks schedules them properly allows tasks to work together smoothly and share resources without conflict. Semaphores are synchronization mechanisms used to coordinate tasks. A Binary Semaphore has a maximum count of 1, functioning similarly to a mutex flag to signal events between tasks or ISRs using xSemaphoreCreateBinary, xSemaphoreTake, and xSemaphoreGive. A Counting Semaphore has a count >= 1 (xSemaphoreCreateCounting), tracking multiple available units of a shared resource or counting events. When tasks take the semaphore, the count decrements; when tasks release the resource, the count increments.",
-        "algorithm": [
-            "Create a binary semaphore using xSemaphoreCreateBinary and a counting semaphore using xSemaphoreCreateCounting.",
-            "Initialize the counting semaphore with a count (e.g. 3).",
-            "Use xSemaphoreTake to acquire the semaphore in the consumer/worker tasks.",
-            "Use xSemaphoreGive to release the semaphore in the producer/signaling task.",
-            "Observe task synchronization and shared resource access coordination over serial telemetry."
-        ],
-        "files": [
-            {
-                "path": "freertos_semaphores.ino",
-                "source": "freertos_semaphores.ino",
-                "role": "source",
-                "content": "/*\n * Experiment 18: Binary and Counting Semaphores for Task Synchronization in FreeRTOS\n * Demonstrates xSemaphoreCreateBinary and xSemaphoreCreateCounting on Arduino / AVR\n */\n\n#include <Arduino_FreeRTOS.h>\n#include <semphr.h>\n\nSemaphoreHandle_t xBinarySemaphore;\nSemaphoreHandle_t xCountingSemaphore;\n\nvoid TaskProducer(void *pvParameters) {\n    (void) pvParameters;\n    int eventCount = 0;\n    for (;;) {\n        vTaskDelay(pdMS_TO_TICKS(1500));\n        eventCount++;\n        Serial.print(\"[Producer] Signaling Binary Event #\");\n        Serial.println(eventCount);\n        xSemaphoreGive(xBinarySemaphore);\n\n        // Also give counting token if space allows\n        xSemaphoreGive(xCountingSemaphore);\n    }\n}\n\nvoid TaskBinaryConsumer(void *pvParameters) {\n    (void) pvParameters;\n    for (;;) {\n        if (xSemaphoreTake(xBinarySemaphore, portMAX_DELAY) == pdTRUE) {\n            Serial.println(\"  --> [Binary Consumer] Acquired semaphore! Synchronized task executed.\");\n        }\n    }\n}\n\nvoid TaskCountingWorker(void *pvParameters) {\n    (void) pvParameters;\n    for (;;) {\n        if (xSemaphoreTake(xCountingSemaphore, pdMS_TO_TICKS(3000)) == pdTRUE) {\n            Serial.println(\"  --> [Counting Worker] Shared resource accessed (Token acquired).\");\n            vTaskDelay(pdMS_TO_TICKS(400));\n        } else {\n            Serial.println(\"  --> [Counting Worker] Resource wait timeout.\");\n        }\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println(\"=== FreeRTOS Binary & Counting Semaphore Demo ===\");\n\n    xBinarySemaphore = xSemaphoreCreateBinary();\n    xCountingSemaphore = xSemaphoreCreateCounting(3, 0);\n\n    if (xBinarySemaphore != NULL && xCountingSemaphore != NULL) {\n        xTaskCreate(TaskProducer, \"Producer\", 128, NULL, 2, NULL);\n        xTaskCreate(TaskBinaryConsumer, \"BinConsumer\", 128, NULL, 1, NULL);\n        xTaskCreate(TaskCountingWorker, \"CountWorker\", 128, NULL, 1, NULL);\n    }\n}\n\nvoid loop() {\n    // Empty: FreeRTOS scheduler manages execution\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nFreeRTOS is a lightweight open source Real time Operating system (RTOS)\nmade for use in embedded systems. It helps manage multiple tasks schedules\nthem properly allows tasks to work together smoothly and share resources\nwithout conflict. Semaphores are synchronization mechanisms used to\ncoordinate tasks. A Binary Semaphore has a maximum count of 1, functioning\nsimilarly to a mutex flag to signal events between tasks or ISRs using\nxSemaphoreCreateBinary, xSemaphoreTake, and xSemaphoreGive. A Counting\nSemaphore has a count >= 1 (xSemaphoreCreateCounting), tracking multiple\navailable units of a shared resource or counting events. When tasks take\nthe semaphore, the count decrements; when tasks release the resource, the\ncount increments.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "freertos_semaphores.ino",
-            "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-        }
-    },
-    {
-        "id": 19,
-        "slug": "freertos-arduino-porting",
-        "subject": "ES_RTOS",
-        "title": "Porting FreeRTOS to Arduino Development Board & Task Scheduling",
-        "language": "cpp",
-        "aliases": [
-            "porting freertos",
-            "arduino rtos",
-            "freertos porting",
-            "task scheduling",
-            "freertos uno"
-        ],
-        "description": "Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.",
-        "aim": "To port FreeRTOS to an Arduino UNO or STM32 development board and create multiple tasks to understand task scheduling and multitasking in a Real Time Operating System (RTOS)",
-        "theory": "FreeRTOS is a lightweight real-time operating system designed for embedded systems with constrained memory footprint. Porting FreeRTOS to the ATmega328P microcontroller on the Arduino UNO board allows developers to run preemptive priority-based multitasking on an 8-bit platform. The FreeRTOS kernel replaces the traditional single-threaded loop() construct with independent task routines, each possessing its own stack, priority, and state machine. Tasks yield control cooperatively using vTaskDelay(), allowing the scheduler to context-switch to ready tasks.",
-        "algorithm": [
-            "Include Arduino_FreeRTOS header and configure system tick timer.",
-            "Define task prototypes TaskBlink1 (fast blink, 250ms) and TaskBlink2 (slow blink, 1000ms).",
-            "In setup(), initialize hardware serial and create Task 1 and Task 2 using xTaskCreate.",
-            "In each task loop, execute GPIO toggling and yield using vTaskDelay(pdMS_TO_TICKS(duration)).",
-            "Start the scheduler and monitor concurrent multitasking on the serial console."
-        ],
-        "files": [
-            {
-                "path": "freertos_porting.ino",
-                "source": "freertos_porting.ino",
-                "role": "source",
-                "content": "/*\n * Experiment 19: Porting FreeRTOS to Arduino UNO (ATmega328P) Development Board\n * Demonstrates Kernel Porting, Preemptive Task Scheduling & vTaskDelay()\n */\n\n#include <Arduino_FreeRTOS.h>\n\n#define LED_PIN_1 12\n#define LED_PIN_2 13\n\nvoid TaskBlink1(void *pvParameters) {\n    (void) pvParameters;\n    pinMode(LED_PIN_1, OUTPUT);\n    for (;;) {\n        digitalWrite(LED_PIN_1, HIGH);\n        vTaskDelay(pdMS_TO_TICKS(250));\n        digitalWrite(LED_PIN_1, LOW);\n        vTaskDelay(pdMS_TO_TICKS(250));\n        Serial.println(\"[Task 1] Fast Blink (250ms) - Priority 1\");\n    }\n}\n\nvoid TaskBlink2(void *pvParameters) {\n    (void) pvParameters;\n    pinMode(LED_PIN_2, OUTPUT);\n    for (;;) {\n        digitalWrite(LED_PIN_2, HIGH);\n        vTaskDelay(pdMS_TO_TICKS(1000));\n        digitalWrite(LED_PIN_2, LOW);\n        vTaskDelay(pdMS_TO_TICKS(1000));\n        Serial.println(\"[Task 2] Slow Heartbeat (1000ms) - Priority 1\");\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println(\"=== FreeRTOS Arduino Porting & Multitasking Initialized ===\");\n\n    xTaskCreate(TaskBlink1, \"FastBlink\", 128, NULL, 1, NULL);\n    xTaskCreate(TaskBlink2, \"SlowBlink\", 128, NULL, 1, NULL);\n}\n\nvoid loop() {\n    // Arduino loop stays empty; RTOS scheduler handles tasks\n}\n\n\n\n/* --- Line 50: Execution & Theory Division --- */\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nFreeRTOS is a lightweight real-time operating system designed for embedded\nsystems with constrained memory footprint. Porting FreeRTOS to the\nATmega328P microcontroller on the Arduino UNO board allows developers to\nrun preemptive priority-based multitasking on an 8-bit platform. The\nFreeRTOS kernel replaces the traditional single-threaded loop() construct\nwith independent task routines, each possessing its own stack, priority,\nand state machine. Tasks yield control cooperatively using vTaskDelay(),\nallowing the scheduler to context-switch to ready tasks.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "freertos_porting.ino",
-            "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-        }
-    },
-    {
-        "id": 20,
-        "slug": "freertos-multiple-tasks-creation",
-        "subject": "ES_RTOS",
-        "title": "Creating Multiple Tasks in FreeRTOS with Priority Preemption",
-        "language": "cpp",
-        "aliases": [
-            "multiple tasks",
-            "freertos tasks",
-            "priority preemption",
-            "rtos multitasking"
-        ],
-        "description": "Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.",
-        "aim": "To create Multiple Task using free RTOS On an Arduino UNO and understanding the multitasking capabilities of RTOS",
-        "theory": "Multitasking in FreeRTOS enables the concurrent execution of multiple independent operational threads on a single core microcontroller. The FreeRTOS preemptive scheduler enforces priority-based task switching, ensuring that the highest priority ready task always gains execution control. In this experiment, three distinct tasks (Sensor Reading Task, Display/Telemetry Task, and Heartbeat Monitor Task) are instantiated with varying priorities to demonstrate how priority inversion is avoided and how tasks cleanly share CPU cycles.",
-        "algorithm": [
-            "Include Arduino_FreeRTOS library.",
-            "Define TaskSensorRead (priority 2), TaskDisplay (priority 1), and TaskHeartbeat (priority 1).",
-            "Allocate individual stack depths and task parameters for each task.",
-            "Create the three tasks in setup() using xTaskCreate.",
-            "Use vTaskDelayUntil or vTaskDelay for deterministic periodic execution.",
-            "Observe concurrent execution output on Arduino Serial Monitor."
-        ],
-        "files": [
-            {
-                "path": "freertos_multitask.ino",
-                "source": "freertos_multitask.ino",
-                "role": "source",
-                "content": "/*\n * Experiment 20: Creating Multiple Tasks using FreeRTOS on Arduino UNO\n * Demonstrates Priority-Based Preemption and Task State Transitions\n */\n\n#include <Arduino_FreeRTOS.h>\n\nvoid TaskHighPriority(void *pvParameters) {\n    (void) pvParameters;\n    for (;;) {\n        Serial.println(\">>> [HIGH PRIORITY TASK - 3] Critical execution cycle started.\");\n        vTaskDelay(pdMS_TO_TICKS(2000));\n    }\n}\n\nvoid TaskMediumPriority(void *pvParameters) {\n    (void) pvParameters;\n    int reading = 0;\n    for (;;) {\n        reading = analogRead(A0);\n        Serial.print(\"  [MED PRIORITY TASK - 2] Telemetry Sensor A0: \");\n        Serial.println(reading);\n        vTaskDelay(pdMS_TO_TICKS(1000));\n    }\n}\n\nvoid TaskLowPriority(void *pvParameters) {\n    (void) pvParameters;\n    unsigned long count = 0;\n    for (;;) {\n        count++;\n        Serial.print(\"    [LOW PRIORITY TASK - 1] Background heartbeat tick: \");\n        Serial.println(count);\n        vTaskDelay(pdMS_TO_TICKS(500));\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println(\"=== FreeRTOS Multiple Tasks & Preemption Demonstration ===\");\n\n    xTaskCreate(TaskLowPriority,    \"LowTask\",  128, NULL, 1, NULL);\n    xTaskCreate(TaskMediumPriority, \"MedTask\",  128, NULL, 2, NULL);\n    xTaskCreate(TaskHighPriority,   \"HighTask\", 128, NULL, 3, NULL);\n}\n\nvoid loop() {\n    // Managed by RTOS\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nMultitasking in FreeRTOS enables the concurrent execution of multiple\nindependent operational threads on a single core microcontroller. The\nFreeRTOS preemptive scheduler enforces priority-based task switching,\nensuring that the highest priority ready task always gains execution\ncontrol. In this experiment, three distinct tasks (Sensor Reading Task,\nDisplay/Telemetry Task, and Heartbeat Monitor Task) are instantiated with\nvarying priorities to demonstrate how priority inversion is avoided and\nhow tasks cleanly share CPU cycles.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "freertos_multitask.ino",
-            "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-        }
-    },
-    {
-        "id": 21,
-        "slug": "freertos-ipc-queue-eventgroup",
-        "subject": "ES_RTOS",
-        "title": "Multitasking Real-Time IPC using Message Queue, Event Group & Semaphore",
-        "language": "cpp",
-        "aliases": [
-            "freertos ipc",
-            "message queue",
-            "event group",
-            "rtos queue",
-            "inter process communication"
-        ],
-        "description": "Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.",
-        "aim": "To develop a multitasking real-time application using FreeRTOS and demonstrate inter-process communication using Message Queue, Event Group, and Semaphore",
-        "theory": "Inter-Process Communication (IPC) is a vital RTOS mechanism that allows asynchronously executing tasks to safely exchange data and synchronization events without memory corruption or race conditions. FreeRTOS provides Message Queues (xQueueCreate, xQueueSend, xQueueReceive) for thread-safe FIFO passing of data packets, Event Groups (xEventGroupCreate, xEventGroupSetBits, xEventGroupWaitBits) for compound multi-task flag synchronization, and Semaphores/Mutexes for mutually exclusive hardware bus access. In this experiment, a producer task sends data packets through a queue while an event group signals synchronization milestones.",
-        "algorithm": [
-            "Define data payload structure struct SensorPacket { int sensorId; int reading; }.",
-            "Create a Message Queue of capacity 5 using xQueueCreate.",
-            "Create a Mutex Semaphore for serial port synchronization using xSemaphoreCreateMutex.",
-            "Create Producer Task that populates packets and calls xQueueSend.",
-            "Create Consumer Task that blocks on xQueueReceive and safely prints data using the serial mutex.",
-            "Verify race-free inter-task communication via the serial monitor."
-        ],
-        "files": [
-            {
-                "path": "freertos_ipc.ino",
-                "source": "freertos_ipc.ino",
-                "role": "source",
-                "content": "/*\n * Experiment 21: Real-Time Application IPC in FreeRTOS\n * Demonstrates Message Queues, Mutexes, and Event Groups for Inter-Task Messaging\n */\n\n#include <Arduino_FreeRTOS.h>\n#include <queue.h>\n#include <semphr.h>\n\nstruct SensorPacket {\n    int sensorId;\n    int reading;\n};\n\nQueueHandle_t xSensorQueue;\nSemaphoreHandle_t xSerialMutex;\n\nvoid TaskProducer(void *pvParameters) {\n    (void) pvParameters;\n    struct SensorPacket packet;\n    int counter = 0;\n    for (;;) {\n        counter++;\n        packet.sensorId = 101;\n        packet.reading = 50 + (counter % 30);\n\n        if (xQueueSend(xSensorQueue, &packet, pdMS_TO_TICKS(100)) == pdPASS) {\n            if (xSemaphoreTake(xSerialMutex, portMAX_DELAY) == pdTRUE) {\n                Serial.print(\"[Producer] Sent packet #\");\n                Serial.print(counter);\n                Serial.print(\" Value: \");\n                Serial.println(packet.reading);\n                xSemaphoreGive(xSerialMutex);\n            }\n        }\n        vTaskDelay(pdMS_TO_TICKS(800));\n    }\n}\n\nvoid TaskConsumer(void *pvParameters) {\n    (void) pvParameters;\n    struct SensorPacket received;\n    for (;;) {\n        if (xQueueReceive(xSensorQueue, &received, portMAX_DELAY) == pdPASS) {\n            if (xSemaphoreTake(xSerialMutex, portMAX_DELAY) == pdTRUE) {\n                Serial.print(\"  --> [Consumer] Received Sensor: \");\n                Serial.print(received.sensorId);\n                Serial.print(\" | Calibrated Data: \");\n                Serial.println(received.reading * 1.5);\n                xSemaphoreGive(xSerialMutex);\n            }\n        }\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println(\"=== FreeRTOS IPC: Queue, Mutex & Task Synchronization ===\");\n\n    xSensorQueue = xQueueCreate(5, sizeof(struct SensorPacket));\n    xSerialMutex = xSemaphoreCreateMutex();\n\n    if (xSensorQueue != NULL && xSerialMutex != NULL) {\n        xTaskCreate(TaskProducer, \"Producer\", 128, NULL, 1, NULL);\n        xTaskCreate(TaskConsumer, \"Consumer\", 128, NULL, 1, NULL);\n    }\n}\n\nvoid loop() {\n    // RTOS Managed\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nInter-Process Communication (IPC) is a vital RTOS mechanism that allows\nasynchronously executing tasks to safely exchange data and synchronization\nevents without memory corruption or race conditions. FreeRTOS provides\nMessage Queues (xQueueCreate, xQueueSend, xQueueReceive) for thread-safe\nFIFO passing of data packets, Event Groups (xEventGroupCreate,\nxEventGroupSetBits, xEventGroupWaitBits) for compound multi-task flag\nsynchronization, and Semaphores/Mutexes for mutually exclusive hardware\nbus access. In this experiment, a producer task sends data packets through\na queue while an event group signals synchronization milestones.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "freertos_ipc.ino",
-            "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-        }
-    },
-    {
-        "id": 22,
-        "slug": "lpc2148-traffic-light-controller",
-        "subject": "ES_RTOS",
-        "title": "Design and Implementation of a Real-Time Traffic Light Controller on LPC2148",
-        "language": "c",
-        "aliases": [
-            "traffic light",
-            "lpc2148 traffic light",
-            "traffic controller",
-            "fsm traffic"
-        ],
-        "description": "Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.",
-        "aim": "Design and Implementation of a Real-Time Traffic Light Control System Using an Embedded System",
-        "theory": "A traffic light control system is a type of embedded application that helps manage how cars move through intersections. It uses red, yellow, and green lights in a certain order to keep traffic moving safely and prevent accidents. A real-time traffic light control system was created using the LPC2148 embedded controller. GPIO pins were configured as outputs to control the red, yellow, and green LEDs, and a programmed sequence was executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.",
-        "algorithm": [
-            "Start the program. Set up the LPC2148 microcontroller.",
-            "Set the GPIO pins linked to the red, yellow, and green LEDs to output mode (P0.10, P0.11, P0.12).",
-            "Turn on the red LED and turn off the green and yellow LEDs for 5 seconds (delay 500).",
-            "Turn on the green LED and turn off the red and yellow LEDs for 5 seconds (delay 500).",
-            "Turn on the yellow LED and turn off the red and green LEDs for 2 seconds (delay 200).",
-            "Repeat the cycle continuously to maintain orderly traffic regulation."
-        ],
-        "files": [
-            {
-                "path": "lpc2148_traffic.c",
-                "source": "lpc2148_traffic.c",
-                "role": "source",
-                "content": "#include <LPC214x.h>\n\n#define RED     (1U << 10)  // P0.10\n#define YELLOW  (1U << 11)  // P0.11\n#define GREEN   (1U << 12)  // P0.12\n\n#define ALL_LEDS (RED | YELLOW | GREEN)\n\nvoid delay(unsigned int count)\n{\n    unsigned int i, j;\n\n    for (i = 0; i < count; i++)\n        for (j = 0; j < 6000; j++);\n}\n\nvoid traffic_light(unsigned int signal)\n{\n    IO0CLR = ALL_LEDS;  // Turn OFF all LEDs\n    IO0SET = signal;    // Turn ON selected LED\n}\n\nint main(void)\n{\n    // Select GPIO function for P0.10, P0.11 and P0.12\n    PINSEL0 &= ~((3U << 20) |\n                 (3U << 22) |\n                 (3U << 24));\n\n    // Configure LED pins as outputs\n    IO0DIR |= ALL_LEDS;\n\n    // Initially turn OFF all LEDs\n    IO0CLR = ALL_LEDS;\n\n    while (1)\n    {\n        // RED: Stop\n        traffic_light(RED);\n        delay(500);\n\n        // GREEN: Go\n        traffic_light(GREEN);\n        delay(500);\n\n        // YELLOW: Caution\n        traffic_light(YELLOW);\n        delay(200);\n    }\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nA traffic light control system is a type of embedded application that\nhelps manage how cars move through intersections. It uses red, yellow, and\ngreen lights in a certain order to keep traffic moving safely and prevent\naccidents. A real-time traffic light control system was created using the\nLPC2148 embedded controller. GPIO pins were configured as outputs to\ncontrol the red, yellow, and green LEDs, and a programmed sequence was\nexecuted using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.\n============================================================================\n*/\n"
-            }
-        ],
-        "run": {
-            "kind": "embedded",
-            "entry": "lpc2148_traffic.c",
-            "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-        }
-    }
-]
+EXPERIMENTS = [{'id': 1, 'slug': 'ai-agents-peas-case-study', 'title': 'Case Study on AI Agents & PEAS Properties', 'language': 'python', 'aliases': ['ai agents', 'peas', 'agent types', 'case study ai', 'peas properties'], 'description': 'Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.', 'aim': 'To prepare a case study on AI Agents including type, environment, and PEAS properties.', 'theory': "AI Agents can be classified into types such as Simple Reflex, Model-Based, Goal-Based, and Utility-Based. The environment can be fully or partially observable, deterministic or stochastic, and episodic or sequential. PEAS properties include Performance measure, Environment, Actuators, and Sensors, which define the agent's behavior and interaction with the environment. TODO: define agent type based on environment and PEAS properties.AI Agents are based on the theory of intelligent behavior, using PEAS properties to define the agent's environment and actions. The theory involves the interaction between the agent and its environment, and the agent's perception and reasoning. The agent's type, such as simple reflex or model-based, influences its behavior. The theory provides a framework for understanding AI Agents.", 'algorithm': ['Define PEAS descriptor tuple: (P)erformance metric, (E)nvironment state, (A)ctuator commands, (S)ensor percepts.', 'Classify environment properties (Observability, Determinism, Dynamism, Episodic nature).', 'Select agent architecture: evaluate condition-action rules for reflex or internal state mapping for model-based agents.', 'Simulate agent percept-reason-act cycle across discrete operational timesteps.', 'Report performance score and environmental impact.'], 'files': [{'path': 'agent_case_study.py', 'source': 'agent_case_study.py', 'role': 'source', 'content': '"""Experiment 01: AI Agents and PEAS Framework Simulator."""\n\nclass AIAgent:\n    def __init__(self, name: str, agent_type: str, peas: dict):\n        self.name = name\n        self.agent_type = agent_type\n        self.peas = peas\n        self.state = {}\n\n    def display_peas(self):\n        print(f"\\n{\'=\'*55}")\n        print(f" AGENT CASE STUDY: {self.name.upper()} ({self.agent_type})")\n        print(f"{\'=\'*55}")\n        print(f"  - Performance Measure : {self.peas[\'Performance\']}")\n        print(f"  - Environment         : {self.peas[\'Environment\']}")\n        print(f"  - Actuators           : {self.peas[\'Actuators\']}")\n        print(f"  - Sensors             : {self.peas[\'Sensors\']}")\n\n    def act(self, percept: dict):\n        # Condition-action rule reasoning\n        status = percept.get("cleanliness", "dirty")\n        location = percept.get("location", "Room_A")\n        if status == "dirty":\n            action = "SUCK_DIRT"\n        else:\n            action = "MOVE_TO_NEXT_ROOM"\n        print(f"[Sensor Percept: {percept}] --> Reasoned Action: {action}")\n        return action\n\ndef main():\n    vacuum_peas = {\n        "Performance": "Square area cleaned, low energy consumption, zero damage",\n        "Environment": "Office floors, obstacles, furniture, doorways",\n        "Actuators": "Drive wheels, vacuum suction motor, status indicator",\n        "Sensors": "Cliff sensor, bump bumper, infrared distance, dirt detector"\n    }\n    car_peas = {\n        "Performance": "Passenger safety, speed, legal adherence, comfort",\n        "Environment": "Public roads, pedestrians, weather, traffic signs",\n        "Actuators": "Steering assembly, accelerator, hydraulic brakes, horn",\n        "Sensors": "LiDAR, RGB cameras, radar arrays, GPS, IMU sensors"\n    }\n\n    agent1 = AIAgent("Autonomous Vacuum Agent", "Simple Reflex / Model-Based", vacuum_peas)\n    agent2 = AIAgent("Self-Driving Navigation Agent", "Goal & Utility-Based", car_peas)\n\n    agent1.display_peas()\n    agent1.act({"location": "Room_A", "cleanliness": "dirty"})\n    agent1.act({"location": "Room_A", "cleanliness": "clean"})\n\n    agent2.display_peas()\n    print("\\n[PEAS Analysis Complete - Viva Cleared 3/3]")\n\nif __name__ == "__main__":\n    main()\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# AI Agents can be classified into types such as Simple Reflex, Model-Based,\n# Goal-Based, and Utility-Based. The environment can be fully or partially\n# observable, deterministic or stochastic, and episodic or sequential. PEAS\n# properties include Performance measure, Environment, Actuators, and\n# Sensors, which define the agent\'s behavior and interaction with the\n# environment. TODO: define agent type based on environment and PEAS\n# properties.AI Agents are based on the theory of intelligent behavior,\n# using PEAS properties to define the agent\'s environment and actions. The\n# theory involves the interaction between the agent and its environment, and\n# the agent\'s perception and reasoning. The agent\'s type, such as simple\n# reflex or model-based, influences its behavior. The theory provides a\n# framework for understanding AI Agents.\n# ============================================================================\n'}, {'path': 'CASE_STUDY.md', 'source': 'CASE_STUDY.md', 'role': 'docs', 'content': '# AI Agents & PEAS Framework Case Study\n\n## 1. Agent Classification\n1. **Simple Reflex Agents**: Act strictly on current percept via condition-action rules.\n2. **Model-Based Reflex Agents**: Maintain internal model state of unobserved environment.\n3. **Goal-Based Agents**: Reason over future states required to achieve goals.\n4. **Utility-Based Agents**: Maximize continuous utility / satisfaction functions.\n\n## 2. PEAS Analysis\n- **P** (Performance): Metric defining success.\n- **E** (Environment): Context in which agent operates.\n- **A** (Actuators): Tools agent uses to exert physical/virtual influence.\n- **S** (Sensors): Inbound sensory mechanisms.\n'}], 'run': {'kind': 'python', 'entry': 'agent_case_study.py'}, 'subject': 'AISC', 'lab_serial': 1, 'lab_label': 'AISC Exp 01', 'output_url': None}, {'id': 2, 'slug': 'a-star-15-puzzle-problem', 'title': 'Informed Search - A* Algorithm for 15-Puzzle Problem', 'language': 'python', 'aliases': ['a star', '15 puzzle', 'a star algorithm', 'informed search', 'manhattan distance'], 'description': 'Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.', 'aim': 'Informed Search - A* Algorithm for the 15-Puzzle Problem using Manhattan Distance heuristic.', 'theory': 'The A* algorithm is an informed search strategy used to find the shortest path between two nodes in a weighted graph. It uses a best-first search approach, where the node with the lowest estimated total cost is chosen next. The algorithm consists of a priority queue to hold nodes to be evaluated, a set of visited nodes, and a heuristic function to estimate the distance from a node to the goal. The heuristic function guides the search towards the goal, making it more efficient than uninformed search algorithms. The algorithm terminates when the goal node is reached or the queue is empty.', 'algorithm': ['Initialize priority queue with start state, g=0, and f=manhattan(start).', 'Pop state with minimum f-value from priority queue.', 'If current state matches GOAL, return reconstructed solution path.', 'Generate valid neighbor states by sliding empty tile (0) in 4 directions.', 'For each unvisited neighbor, compute g_new = g + 1, f_new = g_new + manhattan(neighbor).', 'Push updated states into priority queue and repeat until goal is reached.'], 'files': [{'path': 'a_star_15_puzzle.py', 'source': 'a_star_15_puzzle.py', 'role': 'source', 'content': 'import heapq\n\nGOAL = (\n    (1, 2, 3, 4),\n    (5, 6, 7, 8),\n    (9, 10, 11, 12),\n    (13, 14, 15, 0)\n)\nMOVES = [(-1, 0), (1, 0), (0, -1), (0, 1)]\n\ndef manhattan(state):\n    distance = 0\n    for i in range(4):\n        for j in range(4):\n            value = state[i][j]\n            if value != 0:\n                goal_x = (value - 1) // 4\n                goal_y = (value - 1) % 4\n                distance += abs(i - goal_x) + abs(j - goal_y)\n    return distance\n\ndef get_neighbors(state):\n    state_list = [list(row) for row in state]\n    x, y = 0, 0\n    for i in range(4):\n        for j in range(4):\n            if state_list[i][j] == 0:\n                x, y = i, j\n    neighbors = []\n    for dx, dy in MOVES:\n        nx, ny = x + dx, y + dy\n        if 0 <= nx < 4 and 0 <= ny < 4:\n            new_state = [row[:] for row in state_list]\n            new_state[x][y], new_state[nx][ny] = new_state[nx][ny], new_state[x][y]\n            neighbors.append(tuple(tuple(row) for row in new_state))\n    return neighbors\n\ndef a_star(start):\n    pq = []\n    heapq.heappush(pq, (manhattan(start), 0, start, []))\n    visited = set()\n    while pq:\n        f, g, current, path = heapq.heappop(pq)\n        if current == GOAL:\n            return path + [current]\n        if current in visited:\n            continue\n        visited.add(current)\n        for neighbor in get_neighbors(current):\n            if neighbor not in visited:\n                new_g = g + 1\n                new_f = new_g + manhattan(neighbor)\n                heapq.heappush(pq, (new_f, new_g, neighbor, path + [current]))\n    return None\n\nif __name__ == "__main__":\n    start = (\n        (1, 2, 3, 4),\n        (5, 6, 7, 8),\n        (9, 10, 11, 12),\n        (13, 14, 0, 15)\n    )\n    print("Initial State:")\n    for r in start:\n        print(r)\n    path = a_star(start)\n    if path:\n        print(f"\\nSolution found in {len(path) - 1} moves:")\n        for step in path:\n            for row in step:\n                print(row)\n            print()\n    else:\n        print("No solution found.")\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# The A* algorithm is an informed search strategy used to find the shortest\n# path between two nodes in a weighted graph. It uses a best-first search\n# approach, where the node with the lowest estimated total cost is chosen\n# next. The algorithm consists of a priority queue to hold nodes to be\n# evaluated, a set of visited nodes, and a heuristic function to estimate\n# the distance from a node to the goal. The heuristic function guides the\n# search towards the goal, making it more efficient than uninformed search\n# algorithms. The algorithm terminates when the goal node is reached or the\n# queue is empty.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'a_star_15_puzzle.py'}, 'subject': 'AISC', 'lab_serial': 2, 'lab_label': 'AISC Exp 02', 'output_url': None}, {'id': 3, 'slug': 'dfid-uninformed-search', 'title': 'Uninformed Search - Depth First Iterative Deepening (DFID)', 'language': 'python', 'aliases': ['dfid', 'iterative deepening', 'iddfs', 'uninformed search', 'depth first'], 'description': 'Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.', 'aim': 'Uninformed Search - Depth First Iterative Deepening (DFID) search implementation on state graphs.', 'theory': 'Depth First Iterative Deepening is a search strategy that combines the benefits of Breadth First Search and Depth First Search. It works by performing a series of depth-first searches with increasing depth limits, starting from a small limit and gradually increasing it until the goal is found. The algorithm uses a stack to keep track of nodes to visit and their depths, and it backtracks when it reaches a node that exceeds the current depth limit. This approach allows DFID to find the shortest path to the goal while avoiding the high memory usage of Breadth First Search. The time complexity of DFID is O(b^d) and the space complexity is O(d), where b is the branching factor and d is the depth of the goal node.', 'algorithm': ['Set current depth limit L = 0.', 'Execute recursive Depth-Limited Search (DLS) starting from root up to limit L.', 'If goal node is encountered during traversal, terminate search and return path.', 'If entire tree up to depth L is traversed without goal, increment L = L + 1.', 'Repeat until goal is found or maximum search depth is exhausted.'], 'files': [{'path': 'dfid_search.py', 'source': 'dfid_search.py', 'role': 'source', 'content': 'import sys\nfrom collections import defaultdict\n\ngraph = defaultdict(list)\n\ndef dls(node, goal, depth, visited):\n    if node == goal:\n        print(node, end=" ")\n        return True\n    if depth <= 0:\n        return False\n    visited.add(node)\n    print(node, end=" -> ")\n    for neighbor in graph[node]:\n        if neighbor not in visited:\n            if dls(neighbor, goal, depth - 1, visited):\n                return True\n    return False\n\ndef iddfs(start, goal, max_depth):\n    for depth in range(max_depth + 1):\n        print(f"\\nSearching at Depth Limit = {depth}: ", end="")\n        visited = set()\n        if dls(start, goal, depth, visited):\n            print(f"\\n[SUCCESS] Goal \'{goal}\' reached at depth {depth}!")\n            return True\n    print(f"\\n[FAIL] Goal \'{goal}\' not found within depth {max_depth}.")\n    return False\n\nif __name__ == "__main__":\n    # Graph edges definition\n    edges = [\n        ("A", "B"), ("A", "C"),\n        ("B", "D"), ("B", "E"),\n        ("C", "F"), ("C", "G"),\n        ("E", "H"), ("F", "I")\n    ]\n    for u, v in edges:\n        graph[u].append(v)\n\n    start_node = "A"\n    goal_node = "H"\n    print("Graph Structure:")\n    for k, v in graph.items():\n        print(f"  {k} -> {v}")\n\n    print(f"\\nRunning DFID Search from \'{start_node}\' to \'{goal_node}\':")\n    iddfs(start_node, goal_node, max_depth=4)\n\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Depth First Iterative Deepening is a search strategy that combines the\n# benefits of Breadth First Search and Depth First Search. It works by\n# performing a series of depth-first searches with increasing depth limits,\n# starting from a small limit and gradually increasing it until the goal is\n# found. The algorithm uses a stack to keep track of nodes to visit and\n# their depths, and it backtracks when it reaches a node that exceeds the\n# current depth limit. This approach allows DFID to find the shortest path\n# to the goal while avoiding the high memory usage of Breadth First Search.\n# The time complexity of DFID is O(b^d) and the space complexity is O(d),\n# where b is the branching factor and d is the depth of the goal node.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'dfid_search.py'}, 'subject': 'AISC', 'lab_serial': 3, 'lab_label': 'AISC Exp 03', 'output_url': None}, {'id': 4, 'slug': 'alpha-beta-pruning', 'title': 'Implementation of Alpha-Beta Pruning Algorithm', 'language': 'python', 'aliases': ['alpha beta', 'game search', 'minimax', 'alpha beta pruning', 'adversarial search'], 'description': 'Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.', 'aim': 'To implement Minimax Search with Alpha-Beta Pruning for two-player adversarial games.', 'theory': 'Alpha-Beta Pruning is a search algorithm used to reduce the number of nodes to be evaluated in a minimax tree, it considers two values alpha and beta which represent the best possible score for the maximizing player and the minimizing player respectively. The algorithm works by maintaining a window of possible scores, if the score of a node is outside this window it can be pruned, reducing the number of nodes to be evaluated. The alpha value is the best possible score for the maximizing player, while the beta value is the best possible score for the minimizing player, the algorithm prunes nodes that are guaranteed to have a score outside the alpha-beta window.', 'algorithm': ['Initialize alpha = -infinity, beta = +infinity.', 'For maximizing player: evaluate each child, update value = max(value, child_score), update alpha = max(alpha, value).', 'If beta <= alpha, break loop (prune remaining siblings).', 'For minimizing player: evaluate each child, update value = min(value, child_score), update beta = min(beta, value).', 'If beta <= alpha, break loop (prune remaining siblings).', 'Return optimal evaluated terminal score.'], 'files': [{'path': 'alpha_beta_pruning.py', 'source': 'alpha_beta_pruning.py', 'role': 'source', 'content': 'def alpha_beta(node, depth, alpha, beta, maximizing_player):\n    if depth == 0 or isinstance(node, int):\n        return node\n\n    if maximizing_player:\n        value = float(\'-inf\')\n        for child in node:\n            value = max(value, alpha_beta(child, depth - 1, alpha, beta, False))\n            alpha = max(alpha, value)\n            if alpha >= beta:\n                print(f"  [Pruning] Branch pruned at Maximizer node: alpha ({alpha}) >= beta ({beta})")\n                break\n        return value\n    else:\n        value = float(\'inf\')\n        for child in node:\n            value = min(value, alpha_beta(child, depth - 1, alpha, beta, True))\n            beta = min(beta, value)\n            if alpha >= beta:\n                print(f"  [Pruning] Branch pruned at Minimizer node: alpha ({alpha}) >= beta ({beta})")\n                break\n        return value\n\nif __name__ == "__main__":\n    print("=" * 55)\n    print(" LabX: Alpha-Beta Pruning Game Tree Evaluator")\n    print("=" * 55)\n    \n    # Game tree: 2 levels deep with 4 leaf pairs\n    tree = [\n        [3, 1],\n        [6, 8],\n        [1, 7],\n        [0, -1]\n    ]\n\n    print(f"Game Tree Leaves: {tree}")\n    result = alpha_beta(tree, 2, float(\'-inf\'), float(\'inf\'), True)\n    print(f"\\nOptimal Value at Root: {result}")\n    print("=" * 55)\n\n# --- Line 42: Execution & Theory Division ---\n# --- Line 43: Execution & Theory Division ---\n# --- Line 44: Execution & Theory Division ---\n# --- Line 45: Execution & Theory Division ---\n# --- Line 46: Execution & Theory Division ---\n# --- Line 47: Execution & Theory Division ---\n# --- Line 48: Execution & Theory Division ---\n# --- Line 49: Execution & Theory Division ---\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Alpha-Beta Pruning is a search algorithm used to reduce the number of\n# nodes to be evaluated in a minimax tree, it considers two values alpha and\n# beta which represent the best possible score for the maximizing player and\n# the minimizing player respectively. The algorithm works by maintaining a\n# window of possible scores, if the score of a node is outside this window\n# it can be pruned, reducing the number of nodes to be evaluated. The alpha\n# value is the best possible score for the maximizing player, while the beta\n# value is the best possible score for the minimizing player, the algorithm\n# prunes nodes that are guaranteed to have a score outside the alpha-beta\n# window.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'alpha_beta_pruning.py'}, 'subject': 'AISC', 'lab_serial': 4, 'lab_label': 'AISC Exp 04', 'output_url': None}, {'id': 5, 'slug': 'single-layer-perceptron-slp', 'title': 'Single Layer Perceptron (SLP) for Binary Classification', 'language': 'python', 'aliases': ['perceptron', 'slp', 'single layer perceptron', 'perceptron learning rule', 'binary classification'], 'description': 'Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.', 'aim': 'To implement a Single Layer Perceptron (SLP) neural network using the Perceptron Learning Rule to classify linearly separable binary patterns.', 'theory': 'A Single Layer Perceptron is a type of feedforward neural network that consists of an input layer and an output layer, with no hidden layers. The Perceptron Learning Rule is an algorithm used to train the SLP, which is based on the concept of supervised learning. The goal of the SLP is to classify linearly separable binary patterns into two distinct classes. The Perceptron Learning Rule works by iteratively adjusting the weights of the connections between the input and output layers to minimize the error between the predicted output and the actual output. The SLP uses a threshold function to make predictions, where if the weighted sum of the inputs is greater than or equal to the threshold, the output is 1, otherwise it is 0. The Perceptron Learning Rule updates the weights based on the difference between the predicted output and the actual output, and the learning process continues until the SLP is able to correctly classify all the training patterns.', 'algorithm': ['Initialize weights vector W with zeros and bias b = 0.', 'For each training sample (x_i, target_i): compute linear output z = W . x_i + b.', 'Apply hard step activation: output = 1 if z >= 0 else 0.', 'Compute error = target - output.', 'Update weights: W += learning_rate * error * x_i; bias += learning_rate * error.', 'Repeat for specified epochs or until training error converges to zero.'], 'files': [{'path': 'perceptron_slp.py', 'source': 'perceptron_slp.py', 'role': 'source', 'content': 'import numpy as np\n\nclass Perceptron:\n    def __init__(self, learning_rate=0.1, epochs=20):\n        self.learning_rate = learning_rate\n        self.epochs = epochs\n        self.weights = None\n        self.bias = None\n\n    def activation(self, z):\n        return 1 if z >= 0 else 0\n\n    def fit(self, X, y):\n        self.weights = np.zeros(X.shape[1])\n        self.bias = 0.0\n\n        for epoch in range(self.epochs):\n            errors = 0\n            for xi, target in zip(X, y):\n                prediction = self.activation(np.dot(xi, self.weights) + self.bias)\n                error = target - prediction\n                self.weights += self.learning_rate * error * xi\n                self.bias += self.learning_rate * error\n                errors += abs(error)\n\n            if errors == 0:\n                print(f"Perceptron converged at epoch {epoch + 1}!")\n                break\n\n    def predict(self, X):\n        return np.array([\n            self.activation(np.dot(x, self.weights) + self.bias)\n            for x in X\n        ])\n\nif __name__ == "__main__":\n    print("=" * 55)\n    print(" LabX Exp 05: Single Layer Perceptron (AND Gate)")\n    print("=" * 55)\n\n    # Linearly separable binary patterns (AND Gate)\n    X = np.array([\n        [0, 0],\n        [0, 1],\n        [1, 0],\n        [1, 1]\n    ])\n    y = np.array([0, 0, 0, 1])\n\n    model = Perceptron(learning_rate=0.1, epochs=20)\n    model.fit(X, y)\n\n    predictions = model.predict(X)\n    print("Learned Weights :", model.weights)\n    print("Learned Bias    :", model.bias)\n    print("Target Outputs  :", y)\n    print("Predicted Output:", predictions)\n    print("Accuracy        :", f"{np.mean(predictions == y) * 100:.1f}%")\n    print("=" * 55)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# A Single Layer Perceptron is a type of feedforward neural network that\n# consists of an input layer and an output layer, with no hidden layers. The\n# Perceptron Learning Rule is an algorithm used to train the SLP, which is\n# based on the concept of supervised learning. The goal of the SLP is to\n# classify linearly separable binary patterns into two distinct classes. The\n# Perceptron Learning Rule works by iteratively adjusting the weights of the\n# connections between the input and output layers to minimize the error\n# between the predicted output and the actual output. The SLP uses a\n# threshold function to make predictions, where if the weighted sum of the\n# inputs is greater than or equal to the threshold, the output is 1,\n# otherwise it is 0. The Perceptron Learning Rule updates the weights based\n# on the difference between the predicted output and the actual output, and\n# the learning process continues until the SLP is able to correctly classify\n# all the training patterns.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'perceptron_slp.py'}, 'subject': 'AISC', 'lab_serial': 5, 'lab_label': 'AISC Exp 05', 'output_url': None}, {'id': 6, 'slug': 'mlp-supervised-learning', 'title': 'Supervised Learning using Multi-Layer Perceptron (MLP)', 'language': 'python', 'aliases': ['mlp', 'multilayer perceptron', 'backpropagation', 'supervised learning', 'neural network'], 'description': 'Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.', 'aim': 'To implement the Supervised Learning algorithm using Multi-Layer Perceptron (MLP) with Backpropagation to solve non-linear problems (XOR).', 'theory': 'Multi-layer perceptron (MLP) is a feed-forward neural network that maps input vectors to output vectors using layers of weighted neurons. Each neuron computes a weighted sum of its inputs, adds a bias, and applies a nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-propagation to compute gradients of a loss function (e.g., cross-entropy) with respect to weights, and optimizers (SGD, Adam) update weights to minimize error. The network learns hierarchical feature representations, enabling classification or regression on complex data.', 'algorithm': ['Initialize network weights W1, W2 with small random values and biases b1, b2 with zeros.', 'Forward Propagation: z1 = X . W1 + b1, a1 = sigmoid(z1), z2 = a1 . W2 + b2, output = sigmoid(z2).', 'Compute error = target - output.', 'Backward Propagation: calculate output delta = error * sigmoid_derivative(output).', 'Propagate error to hidden layer: hidden delta = (output_delta . W2.T) * sigmoid_derivative(a1).', 'Update weights and biases using gradient descent with learning rate lr.', 'Iterate across training epochs.'], 'files': [{'path': 'mlp_neural_network.py', 'source': 'mlp_neural_network.py', 'role': 'source', 'content': 'import numpy as np\n\nclass MLP:\n    def __init__(self, input_size, hidden_size, output_size, learning_rate=1.0):\n        self.lr = learning_rate\n        self.W1 = np.random.randn(input_size, hidden_size) * 0.5\n        self.b1 = np.zeros((1, hidden_size))\n        self.W2 = np.random.randn(hidden_size, output_size) * 0.5\n        self.b2 = np.zeros((1, output_size))\n\n    def sigmoid(self, x):\n        return 1.0 / (1.0 + np.exp(-np.clip(x, -500, 500)))\n\n    def sigmoid_derivative(self, x):\n        return x * (1.0 - x)\n\n    def forward(self, X):\n        self.z1 = np.dot(X, self.W1) + self.b1\n        self.a1 = self.sigmoid(self.z1)\n        self.z2 = np.dot(self.a1, self.W2) + self.b2\n        self.a2 = self.sigmoid(self.z2)\n        return self.a2\n\n    def train(self, X, y, epochs=10000):\n        for ep in range(epochs):\n            output = self.forward(X)\n            error = y - output\n            d_output = error * self.sigmoid_derivative(output)\n            error_hidden = d_output.dot(self.W2.T)\n            d_hidden = error_hidden * self.sigmoid_derivative(self.a1)\n\n            self.W2 += self.a1.T.dot(d_output) * self.lr\n            self.b2 += np.sum(d_output, axis=0, keepdims=True) * self.lr\n            self.W1 += X.T.dot(d_hidden) * self.lr\n            self.b1 += np.sum(d_hidden, axis=0, keepdims=True) * self.lr\n\n    def predict(self, X):\n        return (self.forward(X) >= 0.5).astype(int)\n\nif __name__ == "__main__":\n    print("=" * 55)\n    print(" LabX Exp 06: Multi-Layer Perceptron (XOR Non-Linear)")\n    print("=" * 55)\n\n    X = np.array([\n        [0, 0],\n        [0, 1],\n        [1, 0],\n        [1, 1]\n    ])\n    y = np.array([\n        [0],\n        [1],\n        [1],\n        [0]\n    ])\n\n    mlp = MLP(input_size=2, hidden_size=4, output_size=1, learning_rate=1.0)\n    print("Training MLP network with Backpropagation...")\n    mlp.train(X, y, epochs=10000)\n\n    preds = mlp.predict(X)\n    print("Input Patterns:")\n    for inp, target, pred in zip(X, y, preds):\n        print(f"  {inp} -> Target: {target[0]}, Predicted: {pred[0]}")\n    print("=" * 55)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Multi-layer perceptron (MLP) is a feed-forward neural network that maps\n# input vectors to output vectors using layers of weighted neurons. Each\n# neuron computes a weighted sum of its inputs, adds a bias, and applies a\n# nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-\n# propagation to compute gradients of a loss function (e.g., cross-entropy)\n# with respect to weights, and optimizers (SGD, Adam) update weights to\n# minimize error. The network learns hierarchical feature representations,\n# enabling classification or regression on complex data.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'mlp_neural_network.py'}, 'subject': 'AISC', 'lab_serial': 6, 'lab_label': 'AISC Exp 06', 'output_url': None}, {'id': 7, 'slug': 'kmeans-unsupervised-clustering', 'title': 'Unsupervised Learning using K-Means Clustering', 'language': 'python', 'aliases': ['kmeans', 'k-means', 'clustering', 'unsupervised learning', 'cluster centroids'], 'description': 'K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.', 'aim': 'To implement the Unsupervised Learning algorithm using K-Means Clustering to group unlabelled sample points.', 'theory': 'Unsupervised learning finds structure in data without labels, using methods like clustering to group similar items and dimensionality reduction to uncover latent factors. Techniques such as k-means, DBSCAN, hierarchical clustering, PCA, t-SNE, and autoencoders help reveal patterns, anomalies, or low-dimensional representations. The goal is to extract insights, compress data, or prepare features for downstream tasks.', 'algorithm': ['Select K centroid initial locations.', 'Compute Euclidean distance from each sample point to all K centroids.', 'Assign each sample point to the nearest cluster centroid.', 'Recalculate cluster centroids as the arithmetic mean of all points assigned to that cluster.', 'Repeat distance computation and reassignment until centroids stabilize and convergence is reached.'], 'files': [{'path': 'kmeans_clustering.py', 'source': 'kmeans_clustering.py', 'role': 'source', 'content': 'import numpy as np\n\ndef kmeans(X, k=2, max_iters=100):\n    np.random.seed(42)\n    # Randomly initialize centroids from sample points\n    initial_indices = np.random.choice(len(X), k, replace=False)\n    centroids = X[initial_indices].copy()\n\n    for _ in range(max_iters):\n        # Compute euclidean distance from all points to centroids\n        distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=2)\n        labels = np.argmin(distances, axis=1)\n\n        # Recompute centroids\n        new_centroids = np.array([X[labels == i].mean(axis=0) if len(X[labels == i]) > 0 else centroids[i] for i in range(k)])\n\n        if np.allclose(centroids, new_centroids):\n            break\n        centroids = new_centroids\n\n    return labels, centroids\n\nif __name__ == "__main__":\n    print("=" * 55)\n    print(" LabX Exp 07: Unsupervised K-Means Clustering")\n    print("=" * 55)\n\n    X = np.array([\n        [1.0, 2.0], [1.0, 4.0], [1.0, 0.0],\n        [10.0, 2.0], [10.0, 4.0], [10.0, 0.0]\n    ])\n\n    labels, centroids = kmeans(X, k=2)\n\n    print("Data Points:")\n    for pt, lbl in zip(X, labels):\n        print(f"  Point {pt} -> Cluster {lbl}")\n\n    print("\\nFinal Cluster Centroids:")\n    for idx, c in enumerate(centroids):\n        print(f"  Centroid {idx}: {c}")\n    print("=" * 55)\n\n# --- Line 44: Execution & Theory Division ---\n# --- Line 45: Execution & Theory Division ---\n# --- Line 46: Execution & Theory Division ---\n# --- Line 47: Execution & Theory Division ---\n# --- Line 48: Execution & Theory Division ---\n# --- Line 49: Execution & Theory Division ---\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Unsupervised learning finds structure in data without labels, using\n# methods like clustering to group similar items and dimensionality\n# reduction to uncover latent factors. Techniques such as k-means, DBSCAN,\n# hierarchical clustering, PCA, t-SNE, and autoencoders help reveal\n# patterns, anomalies, or low-dimensional representations. The goal is to\n# extract insights, compress data, or prepare features for downstream tasks.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'kmeans_clustering.py'}, 'subject': 'AISC', 'lab_serial': 7, 'lab_label': 'AISC Exp 07', 'output_url': None}, {'id': 8, 'slug': 'hopfield-associative-memory-network', 'title': 'Associative Memory Network (Hopfield Network)', 'language': 'python', 'aliases': ['hopfield', 'associative memory', 'hebbian learning', 'pattern recall', 'hopfield network'], 'description': 'Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.', 'aim': 'To implement an Associative Memory Network (Hopfield Network) for pattern storage and associative recall.', 'theory': 'Associative memory stores patterns as high-dimensional vectors and retrieves them by similarity. The classic Hopfield network uses a symmetric weight matrix built from outer products of stored patterns, and updates neurons asynchronously until convergence. Retrieval works by presenting a noisy or incomplete pattern, then iteratively applying the sign of the weighted sum until the state stabilizes to the nearest stored pattern. TODO: compute weight matrix W = Σ_i p_i p_iᵀ - N·I, then iterate v ← sign(Wv) until convergence.', 'algorithm': ['Initialize zero weight matrix of size N x N.', 'For each bipolar prototype pattern P: compute outer product P . P^T and add to weight matrix.', 'Zero out diagonal entries (no self-loops: W_ii = 0) and normalize weights by 1/N.', 'To recall: initialize network state with noisy probe pattern.', 'Iteratively update neuron states: state_i = +1 if sum(W_ij * state_j) >= 0 else -1.', 'Repeat until state stabilizes at the nearest stored memory attractor.'], 'files': [{'path': 'hopfield_network.py', 'source': 'hopfield_network.py', 'role': 'source', 'content': 'import numpy as np\n\nclass HopfieldNetwork:\n    def __init__(self, n_neurons):\n        self.n_neurons = n_neurons\n        self.weights = np.zeros((n_neurons, n_neurons))\n\n    def train(self, patterns):\n        self.weights = np.zeros((self.n_neurons, self.n_neurons))\n        for pattern in patterns:\n            p = np.array(pattern)\n            self.weights += np.outer(p, p)\n        np.fill_diagonal(self.weights, 0)\n        self.weights /= self.n_neurons\n\n    def recall(self, pattern, steps=10):\n        state = np.array(pattern).copy()\n        for _ in range(steps):\n            for i in range(self.n_neurons):\n                activation = np.dot(self.weights[i], state)\n                state[i] = 1 if activation >= 0 else -1\n        return state\n\nif __name__ == "__main__":\n    print("=" * 55)\n    print(" LabX Exp 08: Hopfield Associative Memory Network")\n    print("=" * 55)\n\n    # 8-dimensional bipolar prototype memories (-1, +1)\n    patterns = np.array([\n        [1,  1,  1,  1, -1, -1, -1, -1],\n        [1, -1,  1, -1,  1, -1,  1, -1]\n    ])\n\n    net = HopfieldNetwork(n_neurons=8)\n    net.train(patterns)\n\n    print("Stored Target Patterns:")\n    print("  Pattern 1:", patterns[0])\n    print("  Pattern 2:", patterns[1])\n\n    # Probe with 2 corrupted bits\n    noisy_probe = np.array([1, 1, -1, 1, -1, -1, 1, -1])\n    print("\\nNoisy Input Pattern  :", noisy_probe)\n\n    recovered = net.recall(noisy_probe)\n    print("Associatively Recalled:", recovered)\n\n    if np.array_equal(recovered, patterns[0]):\n        print("-> Successfully restored to Stored Pattern 1!")\n    else:\n        print("-> Recalled nearest memory state.")\n    print("=" * 55)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Associative memory stores patterns as high-dimensional vectors and\n# retrieves them by similarity. The classic Hopfield network uses a\n# symmetric weight matrix built from outer products of stored patterns, and\n# updates neurons asynchronously until convergence. Retrieval works by\n# presenting a noisy or incomplete pattern, then iteratively applying the\n# sign of the weighted sum until the state stabilizes to the nearest stored\n# pattern. TODO: compute weight matrix W = Σ_i p_i p_iᵀ - N·I, then iterate\n# v ← sign(Wv) until convergence.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'hopfield_network.py'}, 'subject': 'AISC', 'lab_serial': 8, 'lab_label': 'AISC Exp 08', 'output_url': None}, {'id': 9, 'slug': 'fuzzy-membership-functions', 'title': 'Implementation of Fuzzy Membership Functions', 'language': 'python', 'aliases': ['fuzzy membership', 'fuzzy logic', 'triangular membership', 'trapezoidal membership', 'soft computing'], 'description': 'Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.', 'aim': 'To implement fuzzy membership functions (Triangular and Trapezoidal) and calculate degrees of membership for inputs.', 'theory': 'Fuzzy membership functions map crisp inputs to degrees of belonging between 0 and 1, enabling reasoning with imprecise data. Common shapes include triangular, trapezoidal, Gaussian, and sigmoid, each defined by a few parameters that control the width and center of the fuzzy set. The choice of shape affects smoothness, computational cost, and interpretability. Membership values are combined via fuzzy operators (AND, OR) and aggregated to produce fuzzy outputs, which are then defuzzified to crisp decisions. Proper tuning of parameters is essential for accurate modeling of real-world phenomena.', 'algorithm': ['Define triangular function: max(min((x - a)/(b - a), (c - x)/(c - b)), 0).', 'Define trapezoidal function: max(min(min((x - a)/(b - a), 1), (d - x)/(d - c)), 0).', 'Generate discrete input universe of discourse X.', 'Compute membership degree for each input value.', 'Display membership evaluation table across boundary and transition points.'], 'files': [{'path': 'fuzzy_membership.py', 'source': 'fuzzy_membership.py', 'role': 'source', 'content': 'import numpy as np\n\ndef triangular_membership(x, a, b, c):\n    x = np.asarray(x, dtype=float)\n    return np.maximum(np.minimum((x - a) / (b - a), (c - x) / (c - b)), 0.0)\n\ndef trapezoidal_membership(x, a, b, c, d):\n    x = np.asarray(x, dtype=float)\n    return np.maximum(np.minimum(np.minimum((x - a) / (b - a), 1.0), (d - x) / (d - c)), 0.0)\n\nif __name__ == "__main__":\n    print("=" * 60)\n    print(" LabX Exp 09: Fuzzy Membership Functions")\n    print("=" * 60)\n\n    test_values = [10, 20, 30, 50, 70, 80, 90]\n    print(f"{\'Input (x)\':<12} | {\'Triangular (20,50,80)\':<22} | {\'Trapezoidal (10,30,70,90)\':<25}")\n    print("-" * 65)\n\n    for val in test_values:\n        tri_deg = triangular_membership(val, 20, 50, 80)\n        trap_deg = trapezoidal_membership(val, 10, 30, 70, 90)\n        print(f"{val:<12} | {tri_deg:<22.3f} | {trap_deg:<25.3f}")\n\n    print("=" * 60)\n\n# --- Line 27: Execution & Theory Division ---\n# --- Line 28: Execution & Theory Division ---\n# --- Line 29: Execution & Theory Division ---\n# --- Line 30: Execution & Theory Division ---\n# --- Line 31: Execution & Theory Division ---\n# --- Line 32: Execution & Theory Division ---\n# --- Line 33: Execution & Theory Division ---\n# --- Line 34: Execution & Theory Division ---\n# --- Line 35: Execution & Theory Division ---\n# --- Line 36: Execution & Theory Division ---\n# --- Line 37: Execution & Theory Division ---\n# --- Line 38: Execution & Theory Division ---\n# --- Line 39: Execution & Theory Division ---\n# --- Line 40: Execution & Theory Division ---\n# --- Line 41: Execution & Theory Division ---\n# --- Line 42: Execution & Theory Division ---\n# --- Line 43: Execution & Theory Division ---\n# --- Line 44: Execution & Theory Division ---\n# --- Line 45: Execution & Theory Division ---\n# --- Line 46: Execution & Theory Division ---\n# --- Line 47: Execution & Theory Division ---\n# --- Line 48: Execution & Theory Division ---\n# --- Line 49: Execution & Theory Division ---\n# --- Line 50: Execution & Theory Division ---\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Fuzzy membership functions map crisp inputs to degrees of belonging\n# between 0 and 1, enabling reasoning with imprecise data. Common shapes\n# include triangular, trapezoidal, Gaussian, and sigmoid, each defined by a\n# few parameters that control the width and center of the fuzzy set. The\n# choice of shape affects smoothness, computational cost, and\n# interpretability. Membership values are combined via fuzzy operators (AND,\n# OR) and aggregated to produce fuzzy outputs, which are then defuzzified to\n# crisp decisions. Proper tuning of parameters is essential for accurate\n# modeling of real-world phenomena.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'fuzzy_membership.py'}, 'subject': 'AISC', 'lab_serial': 9, 'lab_label': 'AISC Exp 09', 'output_url': None}, {'id': 10, 'slug': 'fuzzy-control-system-simulation', 'title': 'Fuzzy Control System Simulation (Fan Speed Controller)', 'language': 'python', 'aliases': ['fuzzy control', 'fuzzy controller', 'mamdani', 'temperature fan controller', 'fuzzy simulation'], 'description': 'Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.', 'aim': 'To write a program to simulate a fuzzy logic control system for temperature-dependent fan speed control.', 'theory': 'Fuzzy control systems use linguistic variables and membership functions to map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form, combining antecedents with AND/OR operators to produce fuzzy outputs. Defuzzification (e.g., centroid) converts the aggregated fuzzy output back to a crisp control action. The system handles uncertainty by allowing partial membership, enabling smoother transitions than binary logic.', 'algorithm': ['Define input linguistic variable (Temperature: Cold, Warm, Hot).', 'Define output linguistic variable (Fan Speed: Slow, Medium, Fast).', 'Define rule base: (Cold -> Slow), (Warm -> Medium), (Hot -> Fast).', 'Obtain crisp input temperature value.', 'Perform fuzzification, evaluate active rule firing strengths.', 'Defuzzify aggregated fuzzy region using centroid calculation and output crisp speed.'], 'files': [{'path': 'fuzzy_control_system.py', 'source': 'fuzzy_control_system.py', 'role': 'source', 'content': 'import sys\nimport numpy as np\n\ndef triangular(x, a, b, c):\n    if x <= a or x >= c:\n        return 0.0\n    if a < x <= b:\n        return (x - a) / (b - a)\n    return (c - x) / (c - b)\n\ndef simulate_fan_controller(temp: float) -> float:\n    # 1. Fuzzification\n    u_cold = triangular(temp, 0, 0, 20) if temp <= 20 else 0.0\n    u_warm = triangular(temp, 10, 20, 30)\n    u_hot = triangular(temp, 20, 40, 40) if temp >= 20 else 0.0\n\n    print(f"Fuzzified Degrees: Cold={u_cold:.2f}, Warm={u_warm:.2f}, Hot={u_hot:.2f}")\n\n    # 2. Rule evaluation (Mamdani minimum implication)\n    w_slow = u_cold\n    w_medium = u_warm\n    w_fast = u_hot\n\n    # 3. Defuzzification via Weighted Average Centroid\n    slow_center = 25.0\n    medium_center = 50.0\n    fast_center = 85.0\n\n    numerator = (w_slow * slow_center) + (w_medium * medium_center) + (w_fast * fast_center)\n    denominator = w_slow + w_medium + w_fast\n\n    if denominator == 0:\n        return 0.0\n    return numerator / denominator\n\nif __name__ == "__main__":\n    print("=" * 60)\n    print(" LabX Exp 10: Fuzzy Control System (Fan Speed Controller)")\n    print("=" * 60)\n\n    # Allow custom CLI argument or interactive input\n    if len(sys.argv) > 1:\n        try:\n            temp = float(sys.argv[1])\n        except ValueError:\n            temp = 28.0\n    else:\n        temp = 28.0\n\n    print(f"Input Room Temperature: {temp:.1f} deg C")\n    fan_speed = simulate_fan_controller(temp)\n    print(f"Computed Fan Speed    : {fan_speed:.2f} %")\n    print("=" * 60)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Fuzzy control systems use linguistic variables and membership functions to\n# map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form,\n# combining antecedents with AND/OR operators to produce fuzzy outputs.\n# Defuzzification (e.g., centroid) converts the aggregated fuzzy output back\n# to a crisp control action. The system handles uncertainty by allowing\n# partial membership, enabling smoother transitions than binary logic.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'fuzzy_control_system.py'}, 'subject': 'AISC', 'lab_serial': 10, 'lab_label': 'AISC Exp 10', 'output_url': None}, {'id': 11, 'slug': 'genetic-algorithm-simulated-annealing', 'title': 'Optimization using Genetic Algorithm & Simulated Annealing', 'language': 'python', 'aliases': ['genetic algorithm', 'simulated annealing', 'optimization', 'metaheuristic', 'ga'], 'description': 'Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.', 'aim': 'To implement Genetic Algorithm and Simulated Annealing metaheuristics for continuous optimization.', 'theory': 'Genetic algorithms mimic biological evolution: a population of candidate solutions is evolved through selection, crossover, and mutation to optimize a fitness function. Simulated annealing mimics physical annealing: a single solution is iteratively perturbed and accepted with a probability that decreases with temperature, allowing escape from local optima. Both methods rely on stochastic search and balance exploration with exploitation. Key parameters: population size, crossover/mutation rates for GA; cooling schedule and acceptance probability for SA.', 'algorithm': ['Initialize population of candidate solution individuals.', 'Evaluate objective fitness for every individual.', 'Select fittest individuals as parents for mating pool.', 'Perform crossover to produce offspring candidates.', 'Apply mutation with mutation probability.', 'Replace low-fitness individuals and iterate until convergence.'], 'files': [{'path': 'genetic_algorithm.py', 'source': 'genetic_algorithm.py', 'role': 'source', 'content': 'import random\nimport math\n\ndef fitness(x):\n    # Sphere function: global minimum at x = 0\n    return x ** 2\n\ndef run_genetic_algorithm(pop_size=20, generations=50, mutation_rate=0.1):\n    population = [random.uniform(-10, 10) for _ in range(pop_size)]\n\n    for gen in range(generations):\n        population.sort(key=fitness)\n        parents = population[:2]\n\n        # Crossover\n        child = (parents[0] + parents[1]) / 2.0\n\n        # Mutation\n        if random.random() < mutation_rate:\n            child += random.uniform(-1.0, 1.0)\n        child = max(-10.0, min(10.0, child))\n\n        population[-1] = child\n\n    best = min(population, key=fitness)\n    return best, fitness(best)\n\ndef run_simulated_annealing(initial_temp=100.0, cooling_rate=0.95, iterations=100):\n    current = random.uniform(-10, 10)\n    current_cost = fitness(current)\n    temp = initial_temp\n\n    for _ in range(iterations):\n        neighbor = current + random.uniform(-1.0, 1.0)\n        neighbor_cost = fitness(neighbor)\n        delta = neighbor_cost - current_cost\n\n        if delta < 0 or random.random() < math.exp(-delta / max(temp, 1e-6)):\n            current = neighbor\n            current_cost = neighbor_cost\n\n        temp *= cooling_rate\n\n    return current, current_cost\n\nif __name__ == "__main__":\n    print("=" * 60)\n    print(" LabX Exp 11: Genetic Algorithm & Simulated Annealing")\n    print("=" * 60)\n\n    ga_x, ga_fit = run_genetic_algorithm()\n    print(f"Genetic Algorithm Result       : x = {ga_x:.6f}, f(x) = {ga_fit:.6f}")\n\n    sa_x, sa_fit = run_simulated_annealing()\n    print(f"Simulated Annealing Result     : x = {sa_x:.6f}, f(x) = {sa_fit:.6f}")\n    print("=" * 60)\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# Genetic algorithms mimic biological evolution: a population of candidate\n# solutions is evolved through selection, crossover, and mutation to\n# optimize a fitness function. Simulated annealing mimics physical\n# annealing: a single solution is iteratively perturbed and accepted with a\n# probability that decreases with temperature, allowing escape from local\n# optima. Both methods rely on stochastic search and balance exploration\n# with exploitation. Key parameters: population size, crossover/mutation\n# rates for GA; cooling schedule and acceptance probability for SA.\n# ============================================================================\n'}], 'run': {'kind': 'python', 'entry': 'genetic_algorithm.py'}, 'subject': 'AISC', 'lab_serial': 11, 'lab_label': 'AISC Exp 11', 'output_url': None}, {'id': 12, 'slug': 'n8n-ai-agent-automation', 'title': 'AI Agent for Automation using n8n Workflow Architecture', 'language': 'python', 'aliases': ['n8n', 'ai automation', 'agent workflow', 'n8n agent', 'automation agent'], 'description': 'AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.', 'aim': 'To create an AI agent for automation using node-based workflow tools like n8n.', 'theory': 'n8n is a workflow automation tool that uses nodes to connect services via APIs. An AI agent can be built by creating a node that sends user input to an LLM (e.g., OpenAI) and processes the response. The workflow then routes the LLM output to subsequent nodes that perform actions like sending emails, updating databases, or triggering other APIs. By chaining these nodes, the agent can interpret natural language commands and execute complex automation tasks.', 'algorithm': ['Capture user trigger via incoming Webhook / Chat node.', 'Forward prompt to LLM agent node configured with system prompt and available tools.', 'Parse model response into target action intent and parameter payload.', 'Conditionally branch execution through node routing connectors.', 'Execute automated external service operations and return status to caller.'], 'files': [{'path': 'n8n_agent_simulator.py', 'source': 'n8n_agent_simulator.py', 'role': 'source', 'content': 'import json\nimport time\n\nclass N8nNode:\n    def __init__(self, name: str, node_type: str):\n        self.name = name\n        self.node_type = node_type\n\n    def execute(self, payload: dict) -> dict:\n        print(f"  [Node: {self.name} ({self.node_type})] Executing...")\n        time.sleep(0.1)\n        return payload\n\nclass N8nWorkflowAgent:\n    def __init__(self):\n        self.nodes = {\n            "webhook": N8nNode("Webhook Trigger", "n8n-nodes-base.webhook"),\n            "llm": N8nNode("AI Agent LLM Parser", "@n8n/n8n-nodes-langchain.agent"),\n            "email": N8nNode("Send Email Notification", "n8n-nodes-base.emailSend"),\n            "database": N8nNode("PostgreSQL Logger", "n8n-nodes-base.postgres")\n        }\n\n    def process_command(self, user_command: str):\n        print(f"\\nProcessing Inbound Task: \\"{user_command}\\"")\n        print("-" * 50)\n\n        # 1. Trigger\n        data = self.nodes["webhook"].execute({"raw_input": user_command, "timestamp": time.time()})\n\n        # 2. LLM Intent Extraction\n        if "email" in user_command.lower() or "alert" in user_command.lower():\n            intent = "SEND_EMAIL"\n            params = {"recipient": "admin@college.edu", "subject": "Automated Alert", "body": user_command}\n        else:\n            intent = "DATABASE_LOG"\n            params = {"table": "system_events", "record": user_command}\n\n        llm_data = self.nodes["llm"].execute({"intent": intent, "params": params})\n\n        # 3. Dynamic Node Routing\n        if intent == "SEND_EMAIL":\n            self.nodes["email"].execute(llm_data["params"])\n            print("  --> Email successfully dispatched via n8n worker node.")\n        else:\n            self.nodes["database"].execute(llm_data["params"])\n            print("  --> Record committed to database via n8n SQL node.")\n\n        print("-" * 50)\n        print("[SUCCESS] n8n AI Agent Workflow Completed!")\n\ndef main():\n    print("=" * 60)\n    print(" LabX Exp 12: AI Agent for Automation using n8n")\n    print("=" * 60)\n\n    workflow = N8nWorkflowAgent()\n    workflow.process_command("Send urgent email alert about lab attendance drop")\n    workflow.process_command("Log daily laboratory usage telemetry")\n    print("=" * 60)\n\nif __name__ == "__main__":\n    main()\n\n# ============================================================================\n# EXPERIMENT THEORY (from AISC Laboratory Submission):\n# ============================================================================\n# n8n is a workflow automation tool that uses nodes to connect services via\n# APIs. An AI agent can be built by creating a node that sends user input to\n# an LLM (e.g., OpenAI) and processes the response. The workflow then routes\n# the LLM output to subsequent nodes that perform actions like sending\n# emails, updating databases, or triggering other APIs. By chaining these\n# nodes, the agent can interpret natural language commands and execute\n# complex automation tasks.\n# ============================================================================\n'}, {'path': 'n8n_workflow.json', 'source': 'n8n_workflow.json', 'role': 'config', 'content': '{\n  "name": "LabX AI Agent Automation",\n  "nodes": [\n    {\n      "parameters": {"path": "labx-webhook"},\n      "name": "Webhook",\n      "type": "n8n-nodes-base.webhook",\n      "position": [250, 300]\n    },\n    {\n      "parameters": {"model": "gpt-4o"},\n      "name": "AI Agent",\n      "type": "@n8n/n8n-nodes-langchain.agent",\n      "position": [450, 300]\n    },\n    {\n      "parameters": {"toEmail": "admin@college.edu"},\n      "name": "Email",\n      "type": "n8n-nodes-base.emailSend",\n      "position": [700, 200]\n    }\n  ]\n}\n'}], 'run': {'kind': 'python', 'entry': 'n8n_agent_simulator.py'}, 'subject': 'AISC', 'lab_serial': 12, 'lab_label': 'AISC Exp 12', 'output_url': None}, {'id': 13, 'slug': 'keil-uvision-flash-magic-setup', 'subject': 'ES_RTOS', 'title': 'Installation and Verification of Keil uVision & Flash Magic Toolchains', 'language': 'c', 'aliases': ['keil', 'flash magic', 'arm7 setup', 'keil uvision', 'lpc2148 setup'], 'description': 'ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.', 'aim': 'Installation of Keil uVision IDE and Flash Magic ISP flashing utility, and verifying ARM7 microcontroller project setup.', 'theory': 'Keil uVision is an integrated development environment (IDE) that provides code editing, compilation, simulation, and debugging for ARM-based microcontrollers like the LPC2148. Flash Magic is a dedicated In-System Programming (ISP) tool used to burn compiled Intel HEX binaries into the LPC2148 on-chip flash memory via UART serial interface. The toolchain workflow requires configuring the LPC2148 device database, selecting the ARM target oscillator frequency (12.0 MHz), generating a HEX binary via Armcc / Armclang, and flashing over COM port with ISP handshaking.', 'algorithm': ['Download Keil uVision and Flash Magic installers from official vendor repositories.', 'Install Keil uVision, set toolchain path, and add LPC2148 device database support.', 'Install Flash Magic, configure COM port baud rate (9600 to 57600), device LPC2148, and oscillator frequency (12.0 MHz).', 'Create a target test project in Keil uVision, select LPC2148, and include startup assembly code (Startup.s).', 'Compile and generate Intel HEX binary (test_project.hex), and verify target connection via Flash Magic ISP handshake.'], 'files': [{'path': 'verify_keil_setup.c', 'source': 'verify_keil_setup.c', 'role': 'source', 'content': '/*\n * Experiment 13: Installation & Verification of Keil uVision & Flash Magic\n * Target: NXP LPC2148 ARM7TDMI-S Microcontroller\n */\n\n#include <LPC214x.h>\n\nvoid delay_ms(unsigned int ms) {\n    unsigned int i, j;\n    for (i = 0; i < ms; i++) {\n        for (j = 0; j < 6000; j++) {\n            #ifdef __GNUC__\n            __asm__("nop");\n            #endif\n        }\n    }\n}\n\nvoid System_Init(void) {\n    // Configure PLL0 for 60 MHz operation with 12 MHz crystal\n    PLL0CON = 0x01;             // Enable PLL0\n    PLL0CFG = 0x24;             // M=5, P=2 (CCLK = 60MHz)\n    PLL0FEED = 0xAA;\n    PLL0FEED = 0x55;\n    while (!(PLL0STAT & (1 << 10))); // Wait for PLL lock\n    PLL0CON = 0x03;             // Connect PLL0\n    PLL0FEED = 0xAA;\n    PLL0FEED = 0x55;\n    VPBDIV = 0x02;              // PCLK = CCLK / 2 = 30 MHz\n}\n\nint main(void) {\n    System_Init();\n\n    // Configure P0.10 as GPIO Output (Status Indicator)\n    PINSEL0 &= ~(3U << 20);\n    IO0DIR |= (1U << 10);\n\n    while (1) {\n        IO0SET = (1U << 10);    // LED ON: Keil Toolchain Alive\n        delay_ms(250);\n        IO0CLR = (1U << 10);    // LED OFF\n        delay_ms(250);\n    }\n    return 0;\n}\n\n\n\n/* --- Line 50: Execution & Theory Division --- */\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nKeil uVision is an integrated development environment (IDE) that provides\ncode editing, compilation, simulation, and debugging for ARM-based\nmicrocontrollers like the LPC2148. Flash Magic is a dedicated In-System\nProgramming (ISP) tool used to burn compiled Intel HEX binaries into the\nLPC2148 on-chip flash memory via UART serial interface. The toolchain\nworkflow requires configuring the LPC2148 device database, selecting the\nARM target oscillator frequency (12.0 MHz), generating a HEX binary via\nArmcc / Armclang, and flashing over COM port with ISP handshaking.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'verify_keil_setup.c', 'hardware': 'NXP LPC2148 (ARM7TDMI-S)'}, 'lab_serial': 1, 'lab_label': 'ERTOS Exp 1', 'output_url': 'outputs/ertos_exp01_output.pdf'}, {'id': 14, 'slug': 'lpc2148-led-interfacing', 'subject': 'ES_RTOS', 'title': 'Interfacing of LED with LPC2148 Microcontroller', 'language': 'c', 'aliases': ['led interfacing', 'lpc2148 led', 'gpio led', 'blinking led', 'led counter'], 'description': 'General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.', 'aim': 'Interfacing of LED with an embedded core (LPC 2148)', 'theory': 'The LPC2148 is an ARM7TDMI-S based 32-bit microcontroller with two 32-bit general-purpose I/O ports (Port 0 and Port 1). GPIO pins are controlled by registers: PINSEL (Pin Function Select), IOxDIR (Direction register: 1 for Output, 0 for Input), IOxSET (Set pin high), and IOxCLR (Clear pin low). An LED connected in active-high or active-low configuration is toggled with software delay loops. In this experiment, Port 0 pins (P0.10 - P0.17) drive an 8-LED bar display, demonstrating single-pin blinking, alternating blinking, and binary counter sequences.', 'algorithm': ['Configure PINSEL0 to set P0.10 to P0.17 as standard GPIO pins.', 'Configure IO0DIR to set pins P0.10 to P0.17 as outputs (IO0DIR |= 0x000FF000).', 'Turn off all LEDs initially using IO0CLR = 0x000FF000.', 'In a continuous loop, set IO0SET to turn LEDs ON, call delay(300), and set IO0CLR to turn LEDs OFF.', 'Implement alternating and binary counter patterns on the LED array.'], 'files': [{'path': 'lpc2148_led.c', 'source': 'lpc2148_led.c', 'role': 'source', 'content': '/*\n * Experiment 14: Interfacing of LED with Embedded Core (LPC 2148)\n * Demonstrates Port 0 GPIO Pin Configuration, Set, Clear, and Patterns\n */\n\n#include <LPC214x.h>\n\n#define LED_PINS (0xFF << 10)   // P0.10 to P0.17 for 8 LEDs\n\nvoid delay(unsigned int count) {\n    unsigned int i, j;\n    for (i = 0; i < count; i++) {\n        for (j = 0; j < 6000; j++) {\n            #ifdef __GNUC__\n            __asm__("nop");\n            #endif\n        }\n    }\n}\n\nvoid led_counter(void) {\n    unsigned int count;\n    for (count = 0; count < 256; count++) {\n        IO0CLR = LED_PINS;\n        IO0SET = (count << 10) & LED_PINS;\n        delay(100);\n    }\n}\n\nint main(void) {\n    // Select GPIO function for P0.10 - P0.17\n    PINSEL0 &= ~0xFFFF0000;\n\n    // Configure P0.10 - P0.17 as output\n    IO0DIR |= LED_PINS;\n\n    // Initially turn off all LEDs\n    IO0CLR = LED_PINS;\n\n    while (1) {\n        // Pattern 1: All ON / All OFF\n        IO0SET = LED_PINS;\n        delay(300);\n        IO0CLR = LED_PINS;\n        delay(300);\n\n        // Pattern 2: Binary Ripple Counter\n        led_counter();\n    }\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nThe LPC2148 is an ARM7TDMI-S based 32-bit microcontroller with two 32-bit\ngeneral-purpose I/O ports (Port 0 and Port 1). GPIO pins are controlled by\nregisters: PINSEL (Pin Function Select), IOxDIR (Direction register: 1 for\nOutput, 0 for Input), IOxSET (Set pin high), and IOxCLR (Clear pin low).\nAn LED connected in active-high or active-low configuration is toggled\nwith software delay loops. In this experiment, Port 0 pins (P0.10 - P0.17)\ndrive an 8-LED bar display, demonstrating single-pin blinking, alternating\nblinking, and binary counter sequences.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'lpc2148_led.c', 'hardware': 'NXP LPC2148 (ARM7TDMI-S)'}, 'lab_serial': 2, 'lab_label': 'ERTOS Exp 2', 'output_url': 'outputs/ertos_exp02_output.pdf'}, {'id': 15, 'slug': 'lpc2148-lcd-interfacing', 'subject': 'ES_RTOS', 'title': 'Interfacing 16x2 Alphanumeric LCD with LPC2148', 'language': 'c', 'aliases': ['lcd interfacing', 'lpc2148 lcd', '16x2 lcd', 'hd44780', 'lcd display'], 'description': '8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.', 'aim': 'Interfacing of LCD with an embedded core (LPC 2148)', 'theory': 'A 16x2 alphanumeric LCD display interfaces with the LPC2148 using 8 data lines (D0-D7) and 3 control lines: RS (Register Select - 0 for command, 1 for data), RW (Read/Write - grounded for write), and EN (Enable - high-to-low pulse to latch data). Commands initialize display mode (0x38 for 8-bit, 2-line mode), display ON cursor OFF (0x0C), clear screen (0x01), and set DDRAM address (0x80 line 1, 0xC0 line 2). The LPC2148 drives the LCD by asserting RS, placing data on Port 0, and pulsing EN with sufficient setup and hold time.', 'algorithm': ['Connect LCD data pins D0-D7 to P0.0-P0.7 and control pins RS, RW, EN to P0.8, P0.9, P0.10.', 'Configure P0.0 through P0.10 as GPIO outputs in PINSEL0 and IO0DIR.', 'Define LCD_Command function to latch command bytes (RS=0, RW=0, pulse EN).', 'Define LCD_Data function to latch character bytes (RS=1, RW=0, pulse EN).', 'Initialize LCD with commands 0x38 (8-bit mode), 0x0C (display ON), 0x06 (auto-increment), and 0x01 (clear screen).', 'Write custom strings to Line 1 and Line 2.'], 'files': [{'path': 'lpc2148_lcd.c', 'source': 'lpc2148_lcd.c', 'role': 'source', 'content': '/*\n * Experiment 15: Interfacing 16x2 Alphanumeric LCD with LPC2148\n * 8-Bit Interface: Data on P0.0-P0.7, Control on P0.8(RS), P0.9(RW), P0.10(EN)\n */\n\n#include <LPC214x.h>\n\n#define LCD_DATA_PINS  0x000000FF  // P0.0 - P0.7\n#define RS_PIN         (1U << 8)   // P0.8\n#define RW_PIN         (1U << 9)   // P0.9\n#define EN_PIN         (1U << 10)  // P0.10\n\nvoid delay_lcd(unsigned int count) {\n    unsigned int i, j;\n    for (i = 0; i < count; i++)\n        for (j = 0; j < 3000; j++);\n}\n\nvoid LCD_Command(unsigned char cmd) {\n    IO0CLR = LCD_DATA_PINS | RS_PIN | RW_PIN;\n    IO0SET = (cmd & 0xFF);\n    IO0SET = EN_PIN;\n    delay_lcd(2);\n    IO0CLR = EN_PIN;\n    delay_lcd(5);\n}\n\nvoid LCD_Data(unsigned char data_byte) {\n    IO0CLR = LCD_DATA_PINS | RW_PIN;\n    IO0SET = RS_PIN | (data_byte & 0xFF);\n    IO0SET = EN_PIN;\n    delay_lcd(2);\n    IO0CLR = EN_PIN;\n    delay_lcd(5);\n}\n\nvoid LCD_String(const char *str) {\n    while (*str) {\n        LCD_Data((unsigned char)*str++);\n    }\n}\n\nvoid LCD_Init(void) {\n    PINSEL0 &= ~0x001FFFFF;      // Configure P0.0 - P0.10 as GPIO\n    IO0DIR |= (LCD_DATA_PINS | RS_PIN | RW_PIN | EN_PIN);\n\n    LCD_Command(0x38);           // 8-bit mode, 2 lines, 5x7 dots\n    LCD_Command(0x0C);           // Display ON, Cursor OFF\n    LCD_Command(0x06);           // Increment cursor\n    LCD_Command(0x01);           // Clear display screen\n    delay_lcd(10);\n}\n\nint main(void) {\n    LCD_Init();\n    LCD_Command(0x80);           // Move cursor to Line 1\n    LCD_String("LabX Embedded C");\n    LCD_Command(0xC0);           // Move cursor to Line 2\n    LCD_String("LPC2148 LCD OK");\n\n    while (1) {\n        // Static message display\n    }\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nA 16x2 alphanumeric LCD display interfaces with the LPC2148 using 8 data\nlines (D0-D7) and 3 control lines: RS (Register Select - 0 for command, 1\nfor data), RW (Read/Write - grounded for write), and EN (Enable -\nhigh-to-low pulse to latch data). Commands initialize display mode (0x38\nfor 8-bit, 2-line mode), display ON cursor OFF (0x0C), clear screen\n(0x01), and set DDRAM address (0x80 line 1, 0xC0 line 2). The LPC2148\ndrives the LCD by asserting RS, placing data on Port 0, and pulsing EN\nwith sufficient setup and hold time.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'lpc2148_lcd.c', 'hardware': 'NXP LPC2148 (ARM7TDMI-S)'}, 'lab_serial': 3, 'lab_label': 'ERTOS Exp 3', 'output_url': 'outputs/ertos_exp03_output.pdf'}, {'id': 16, 'slug': 'lpc2148-uart-serial', 'subject': 'ES_RTOS', 'title': 'Serial Communication using UART0 on LPC2148', 'language': 'c', 'aliases': ['uart', 'serial communication', 'lpc2148 uart', 'baud rate', 'uart0'], 'description': 'Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.', 'aim': 'Serial communication between controller boards or any other device (UART on LPC 2148)', 'theory': 'LPC2148 features two asynchronous serial ports (UART0 and UART1). UART communication requires setting the baud rate generator using U0LCR (Line Control Register, DLAB=1), U0DLL, and U0DLM divider latches based on PCLK (Peripheral Clock). Data transmission occurs by polling the Transmit Holding Register Empty (THRE) flag in U0LSR and writing bytes to U0THR. Data reception polls the Receiver Data Ready (RDR) flag and reads from U0RBR. Setting word length to 8 bits, 1 stop bit, and no parity establishes standard 9600-8-N-1 serial framing.', 'algorithm': ['Configure P0.0 as TXD0 and P0.1 as RXD0 using PINSEL0 (PINSEL0 |= 0x00000005).', 'Enable Divisor Latch Access Bit (DLAB = 1) in U0LCR.', 'Set baud rate divisor latches (U0DLL = 97, U0DLM = 0 for 9600 baud rate at PCLK=15MHz).', 'Clear DLAB bit and set 8-bit character length with 1 stop bit (U0LCR = 0x03).', 'Define UART0_SendChar and UART0_SendString functions by polling the THRE flag in U0LSR.', 'Define UART0_ReceiveChar by polling the RDR flag in U0LSR.', 'Send welcome message and echo back incoming serial keystrokes.'], 'files': [{'path': 'lpc2148_uart.c', 'source': 'lpc2148_uart.c', 'role': 'source', 'content': '/*\n * Experiment 16: Serial Communication between Controller Boards (UART0 on LPC2148)\n * Configures 9600 Baud, 8 Data Bits, 1 Stop Bit, No Parity (9600-8-N-1)\n */\n\n#include <LPC214x.h>\n\nvoid UART0_Init(void) {\n    // Configure P0.0 as TXD0, P0.1 as RXD0\n    PINSEL0 &= ~0x0000000F;\n    PINSEL0 |= 0x00000005;\n\n    // Enable Divisor Latch Access Bit (DLAB = 1)\n    U0LCR = 0x83;\n\n    // Set Baud Rate to 9600 for PCLK = 15 MHz (15000000 / (16 * 9600) = 97.65)\n    U0DLM = 0x00;\n    U0DLL = 97;\n\n    // Disable DLAB and set 8-bit word length\n    U0LCR = 0x03;\n\n    // Enable and reset FIFO buffers\n    U0FCR = 0x07;\n}\n\nvoid UART0_SendChar(char ch) {\n    // Wait until Transmit Holding Register is Empty (THRE = bit 5)\n    while (!(U0LSR & 0x20));\n    U0THR = ch;\n}\n\nchar UART0_ReceiveChar(void) {\n    // Wait until Receiver Data Ready (RDR = bit 0)\n    while (!(U0LSR & 0x01));\n    return (char)U0RBR;\n}\n\nvoid UART0_SendString(const char *str) {\n    while (*str) {\n        UART0_SendChar(*str++);\n    }\n}\n\nint main(void) {\n    UART0_Init();\n    UART0_SendString("\\r\\n==========================================\\r\\n");\n    UART0_SendString(" LabX Remote: LPC2148 UART0 Communication\\r\\n");\n    UART0_SendString(" Serial Port Initialized at 9600 Baud (8-N-1)\\r\\n");\n    UART0_SendString("==========================================\\r\\n");\n    UART0_SendString("Type characters in terminal to echo back:\\r\\n");\n\n    while (1) {\n        char ch = UART0_ReceiveChar();\n        UART0_SendChar(ch);     // Echo back received character\n        if (ch == \'\\r\') {\n            UART0_SendChar(\'\\n\');\n        }\n    }\n    return 0;\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nLPC2148 features two asynchronous serial ports (UART0 and UART1). UART\ncommunication requires setting the baud rate generator using U0LCR (Line\nControl Register, DLAB=1), U0DLL, and U0DLM divider latches based on PCLK\n(Peripheral Clock). Data transmission occurs by polling the Transmit\nHolding Register Empty (THRE) flag in U0LSR and writing bytes to U0THR.\nData reception polls the Receiver Data Ready (RDR) flag and reads from\nU0RBR. Setting word length to 8 bits, 1 stop bit, and no parity\nestablishes standard 9600-8-N-1 serial framing.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'lpc2148_uart.c', 'hardware': 'NXP LPC2148 (ARM7TDMI-S)'}, 'lab_serial': 4, 'lab_label': 'ERTOS Exp 04', 'output_url': 'outputs/ertos_exp04_output.pdf'}, {'id': 17, 'slug': 'lpc2148-power-management', 'subject': 'ES_RTOS', 'title': 'Power Management & Low-Power Modes in LPC2148', 'language': 'c', 'aliases': ['power management', 'lpc2148 power', 'idle mode', 'power down', 'eint0'], 'description': 'LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.', 'aim': 'To implement power management techniques in the LPC2148 embedded controller by configuring its power saving modes to reduce power consumption.', 'theory': 'To implement power management techniques in the LPC2148 embedded controller by configuring its power-saving modes to reduce power consumption. Power management in the LPC2148 is controlled via the PCON (Power Control) and PCONP (Power Control for Peripherals) registers. LPC2148 supports Idle Mode (PCON=0x01) where the CPU clock stops while peripherals continue running, and Power Down Mode (PCON=0x02) where both CPU and oscillator are halted. An external interrupt (EINT0 on P0.16) is configured via the Vectored Interrupt Controller (VIC) to wake the microcontroller from low-power state, toggle a status LED, and resume operation.', 'algorithm': ['Initiate the program and initialize LPC2148 system clocks.', 'Configure GPIO P0.10 as an output for status LED indication.', 'Configure P0.16 as External Interrupt 0 (EINT0) in PINSEL1.', 'Configure EINT0 as edge-sensitive, falling edge trigger using EXTMODE and EXTPOLAR.', 'Assign eint0_isr to VICVectAddr0, enable slot in VICVectCntl0, and unmask interrupt in VICIntEnable.', 'Enter low-power Idle mode by writing 0x01 to PCON.', 'On interrupt trigger, ISR sets wakeup_flag and toggles LED before returning to sleep.'], 'files': [{'path': 'lpc2148_power.c', 'source': 'lpc2148_power.c', 'role': 'source', 'content': '#include <LPC214x.h>\n\n#define LED       (1U << 10)   // P0.10\n#define EINT0_PIN (1U << 16)   // P0.16\n\nvolatile unsigned int wakeup_flag = 0;\n\n/* External Interrupt 0 service routine */\nvoid eint0_isr(void) __irq\n{\n    EXTINT = 0x01;             // Clear EINT0 interrupt flag\n    wakeup_flag = 1;\n\n    VICVectAddr = 0x00;        // End of interrupt\n}\n\nvoid eint0_init(void)\n{\n    /* Configure P0.16 as EINT0 */\n    PINSEL1 &= ~(3U << 0);\n    PINSEL1 |=  (1U << 0);\n\n    /* Configure EINT0 as edge-sensitive, falling edge */\n    EXTMODE |= 0x01;\n    EXTPOLAR &= ~0x01;\n    EXTINT = 0x01;\n\n    /* Configure VIC for EINT0 */\n    VICIntSelect &= ~(1U << 14);\n    VICVectAddr0 = (unsigned long)eint0_isr;\n    VICVectCntl0 = 0x20 | 14;\n    VICIntEnable |= (1U << 14);\n}\n\nint main(void)\n{\n    /* Configure P0.10 as GPIO output */\n    PINSEL0 &= ~(3U << 20);\n    IO0DIR |= LED;\n    IO0CLR = LED;\n\n    eint0_init();\n\n    while (1)\n    {\n        if (wakeup_flag)\n        {\n            wakeup_flag = 0;\n            IO0PIN ^= LED;     // Toggle LED after wake-up\n        }\n\n        /* Enter Idle Mode */\n        PCON = 0x01;\n    }\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nTo implement power management techniques in the LPC2148 embedded\ncontroller by configuring its power-saving modes to reduce power\nconsumption. Power management in the LPC2148 is controlled via the PCON\n(Power Control) and PCONP (Power Control for Peripherals) registers.\nLPC2148 supports Idle Mode (PCON=0x01) where the CPU clock stops while\nperipherals continue running, and Power Down Mode (PCON=0x02) where both\nCPU and oscillator are halted. An external interrupt (EINT0 on P0.16) is\nconfigured via the Vectored Interrupt Controller (VIC) to wake the\nmicrocontroller from low-power state, toggle a status LED, and resume\noperation.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'lpc2148_power.c', 'hardware': 'NXP LPC2148 (ARM7TDMI-S)'}, 'lab_serial': 5, 'lab_label': 'ERTOS Exp 5', 'output_url': 'outputs/ertos_exp05_output.pdf'}, {'id': 18, 'slug': 'freertos-semaphores-synchronization', 'subject': 'ES_RTOS', 'title': 'Task Synchronization using Binary and Counting Semaphores in FreeRTOS', 'language': 'cpp', 'aliases': ['freertos semaphores', 'binary semaphore', 'counting semaphore', 'task sync', 'freertos'], 'description': 'Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.', 'aim': 'To illustrate the use of Binary Semaphore and Counting Semaphore for Task Synchronization using FreeRTOS', 'theory': 'FreeRTOS is a lightweight open source Real time Operating system (RTOS) made for use in embedded systems. It helps manage multiple tasks schedules them properly allows tasks to work together smoothly and share resources without conflict. Semaphores are synchronization mechanisms used to coordinate tasks. A Binary Semaphore has a maximum count of 1, functioning similarly to a mutex flag to signal events between tasks or ISRs using xSemaphoreCreateBinary, xSemaphoreTake, and xSemaphoreGive. A Counting Semaphore has a count >= 1 (xSemaphoreCreateCounting), tracking multiple available units of a shared resource or counting events. When tasks take the semaphore, the count decrements; when tasks release the resource, the count increments.', 'algorithm': ['Create a binary semaphore using xSemaphoreCreateBinary and a counting semaphore using xSemaphoreCreateCounting.', 'Initialize the counting semaphore with a count (e.g. 3).', 'Use xSemaphoreTake to acquire the semaphore in the consumer/worker tasks.', 'Use xSemaphoreGive to release the semaphore in the producer/signaling task.', 'Observe task synchronization and shared resource access coordination over serial telemetry.'], 'files': [{'path': 'freertos_semaphores.ino', 'source': 'freertos_semaphores.ino', 'role': 'source', 'content': '/*\n * Experiment 18: Binary and Counting Semaphores for Task Synchronization in FreeRTOS\n * Demonstrates xSemaphoreCreateBinary and xSemaphoreCreateCounting on Arduino / AVR\n */\n\n#include <Arduino_FreeRTOS.h>\n#include <semphr.h>\n\nSemaphoreHandle_t xBinarySemaphore;\nSemaphoreHandle_t xCountingSemaphore;\n\nvoid TaskProducer(void *pvParameters) {\n    (void) pvParameters;\n    int eventCount = 0;\n    for (;;) {\n        vTaskDelay(pdMS_TO_TICKS(1500));\n        eventCount++;\n        Serial.print("[Producer] Signaling Binary Event #");\n        Serial.println(eventCount);\n        xSemaphoreGive(xBinarySemaphore);\n\n        // Also give counting token if space allows\n        xSemaphoreGive(xCountingSemaphore);\n    }\n}\n\nvoid TaskBinaryConsumer(void *pvParameters) {\n    (void) pvParameters;\n    for (;;) {\n        if (xSemaphoreTake(xBinarySemaphore, portMAX_DELAY) == pdTRUE) {\n            Serial.println("  --> [Binary Consumer] Acquired semaphore! Synchronized task executed.");\n        }\n    }\n}\n\nvoid TaskCountingWorker(void *pvParameters) {\n    (void) pvParameters;\n    for (;;) {\n        if (xSemaphoreTake(xCountingSemaphore, pdMS_TO_TICKS(3000)) == pdTRUE) {\n            Serial.println("  --> [Counting Worker] Shared resource accessed (Token acquired).");\n            vTaskDelay(pdMS_TO_TICKS(400));\n        } else {\n            Serial.println("  --> [Counting Worker] Resource wait timeout.");\n        }\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println("=== FreeRTOS Binary & Counting Semaphore Demo ===");\n\n    xBinarySemaphore = xSemaphoreCreateBinary();\n    xCountingSemaphore = xSemaphoreCreateCounting(3, 0);\n\n    if (xBinarySemaphore != NULL && xCountingSemaphore != NULL) {\n        xTaskCreate(TaskProducer, "Producer", 128, NULL, 2, NULL);\n        xTaskCreate(TaskBinaryConsumer, "BinConsumer", 128, NULL, 1, NULL);\n        xTaskCreate(TaskCountingWorker, "CountWorker", 128, NULL, 1, NULL);\n    }\n}\n\nvoid loop() {\n    // Empty: FreeRTOS scheduler manages execution\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nFreeRTOS is a lightweight open source Real time Operating system (RTOS)\nmade for use in embedded systems. It helps manage multiple tasks schedules\nthem properly allows tasks to work together smoothly and share resources\nwithout conflict. Semaphores are synchronization mechanisms used to\ncoordinate tasks. A Binary Semaphore has a maximum count of 1, functioning\nsimilarly to a mutex flag to signal events between tasks or ISRs using\nxSemaphoreCreateBinary, xSemaphoreTake, and xSemaphoreGive. A Counting\nSemaphore has a count >= 1 (xSemaphoreCreateCounting), tracking multiple\navailable units of a shared resource or counting events. When tasks take\nthe semaphore, the count decrements; when tasks release the resource, the\ncount increments.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'freertos_semaphores.ino', 'hardware': 'Arduino UNO (ATmega328P) / FreeRTOS'}, 'lab_serial': 6, 'lab_label': 'ERTOS Exp 06', 'output_url': 'outputs/ertos_exp06_output.pdf'}, {'id': 19, 'slug': 'freertos-arduino-porting', 'subject': 'ES_RTOS', 'title': 'Porting FreeRTOS to Arduino Development Board & Task Scheduling', 'language': 'cpp', 'aliases': ['porting freertos', 'arduino rtos', 'freertos porting', 'task scheduling', 'freertos uno'], 'description': 'Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.', 'aim': 'To port FreeRTOS to an Arduino UNO or STM32 development board and create multiple tasks to understand task scheduling and multitasking in a Real Time Operating System (RTOS)', 'theory': 'FreeRTOS is a lightweight real-time operating system designed for embedded systems with constrained memory footprint. Porting FreeRTOS to the ATmega328P microcontroller on the Arduino UNO board allows developers to run preemptive priority-based multitasking on an 8-bit platform. The FreeRTOS kernel replaces the traditional single-threaded loop() construct with independent task routines, each possessing its own stack, priority, and state machine. Tasks yield control cooperatively using vTaskDelay(), allowing the scheduler to context-switch to ready tasks.', 'algorithm': ['Include Arduino_FreeRTOS header and configure system tick timer.', 'Define task prototypes TaskBlink1 (fast blink, 250ms) and TaskBlink2 (slow blink, 1000ms).', 'In setup(), initialize hardware serial and create Task 1 and Task 2 using xTaskCreate.', 'In each task loop, execute GPIO toggling and yield using vTaskDelay(pdMS_TO_TICKS(duration)).', 'Start the scheduler and monitor concurrent multitasking on the serial console.'], 'files': [{'path': 'freertos_porting.ino', 'source': 'freertos_porting.ino', 'role': 'source', 'content': '/*\n * Experiment 19: Porting FreeRTOS to Arduino UNO (ATmega328P) Development Board\n * Demonstrates Kernel Porting, Preemptive Task Scheduling & vTaskDelay()\n */\n\n#include <Arduino_FreeRTOS.h>\n\n#define LED_PIN_1 12\n#define LED_PIN_2 13\n\nvoid TaskBlink1(void *pvParameters) {\n    (void) pvParameters;\n    pinMode(LED_PIN_1, OUTPUT);\n    for (;;) {\n        digitalWrite(LED_PIN_1, HIGH);\n        vTaskDelay(pdMS_TO_TICKS(250));\n        digitalWrite(LED_PIN_1, LOW);\n        vTaskDelay(pdMS_TO_TICKS(250));\n        Serial.println("[Task 1] Fast Blink (250ms) - Priority 1");\n    }\n}\n\nvoid TaskBlink2(void *pvParameters) {\n    (void) pvParameters;\n    pinMode(LED_PIN_2, OUTPUT);\n    for (;;) {\n        digitalWrite(LED_PIN_2, HIGH);\n        vTaskDelay(pdMS_TO_TICKS(1000));\n        digitalWrite(LED_PIN_2, LOW);\n        vTaskDelay(pdMS_TO_TICKS(1000));\n        Serial.println("[Task 2] Slow Heartbeat (1000ms) - Priority 1");\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println("=== FreeRTOS Arduino Porting & Multitasking Initialized ===");\n\n    xTaskCreate(TaskBlink1, "FastBlink", 128, NULL, 1, NULL);\n    xTaskCreate(TaskBlink2, "SlowBlink", 128, NULL, 1, NULL);\n}\n\nvoid loop() {\n    // Arduino loop stays empty; RTOS scheduler handles tasks\n}\n\n\n\n/* --- Line 50: Execution & Theory Division --- */\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nFreeRTOS is a lightweight real-time operating system designed for embedded\nsystems with constrained memory footprint. Porting FreeRTOS to the\nATmega328P microcontroller on the Arduino UNO board allows developers to\nrun preemptive priority-based multitasking on an 8-bit platform. The\nFreeRTOS kernel replaces the traditional single-threaded loop() construct\nwith independent task routines, each possessing its own stack, priority,\nand state machine. Tasks yield control cooperatively using vTaskDelay(),\nallowing the scheduler to context-switch to ready tasks.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'freertos_porting.ino', 'hardware': 'Arduino UNO (ATmega328P) / FreeRTOS'}, 'lab_serial': 7, 'lab_label': 'ERTOS Exp 07', 'output_url': 'outputs/ertos_exp07_output.pdf'}, {'id': 20, 'slug': 'freertos-multiple-tasks-creation', 'subject': 'ES_RTOS', 'title': 'Creating Multiple Tasks in FreeRTOS with Priority Preemption', 'language': 'cpp', 'aliases': ['multiple tasks', 'freertos tasks', 'priority preemption', 'rtos multitasking'], 'description': 'Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.', 'aim': 'To create Multiple Task using free RTOS On an Arduino UNO and understanding the multitasking capabilities of RTOS', 'theory': 'Multitasking in FreeRTOS enables the concurrent execution of multiple independent operational threads on a single core microcontroller. The FreeRTOS preemptive scheduler enforces priority-based task switching, ensuring that the highest priority ready task always gains execution control. In this experiment, three distinct tasks (Sensor Reading Task, Display/Telemetry Task, and Heartbeat Monitor Task) are instantiated with varying priorities to demonstrate how priority inversion is avoided and how tasks cleanly share CPU cycles.', 'algorithm': ['Include Arduino_FreeRTOS library.', 'Define TaskSensorRead (priority 2), TaskDisplay (priority 1), and TaskHeartbeat (priority 1).', 'Allocate individual stack depths and task parameters for each task.', 'Create the three tasks in setup() using xTaskCreate.', 'Use vTaskDelayUntil or vTaskDelay for deterministic periodic execution.', 'Observe concurrent execution output on Arduino Serial Monitor.'], 'files': [{'path': 'freertos_multitask.ino', 'source': 'freertos_multitask.ino', 'role': 'source', 'content': '/*\n * Experiment 20: Creating Multiple Tasks using FreeRTOS on Arduino UNO\n * Demonstrates Priority-Based Preemption and Task State Transitions\n */\n\n#include <Arduino_FreeRTOS.h>\n\nvoid TaskHighPriority(void *pvParameters) {\n    (void) pvParameters;\n    for (;;) {\n        Serial.println(">>> [HIGH PRIORITY TASK - 3] Critical execution cycle started.");\n        vTaskDelay(pdMS_TO_TICKS(2000));\n    }\n}\n\nvoid TaskMediumPriority(void *pvParameters) {\n    (void) pvParameters;\n    int reading = 0;\n    for (;;) {\n        reading = analogRead(A0);\n        Serial.print("  [MED PRIORITY TASK - 2] Telemetry Sensor A0: ");\n        Serial.println(reading);\n        vTaskDelay(pdMS_TO_TICKS(1000));\n    }\n}\n\nvoid TaskLowPriority(void *pvParameters) {\n    (void) pvParameters;\n    unsigned long count = 0;\n    for (;;) {\n        count++;\n        Serial.print("    [LOW PRIORITY TASK - 1] Background heartbeat tick: ");\n        Serial.println(count);\n        vTaskDelay(pdMS_TO_TICKS(500));\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println("=== FreeRTOS Multiple Tasks & Preemption Demonstration ===");\n\n    xTaskCreate(TaskLowPriority,    "LowTask",  128, NULL, 1, NULL);\n    xTaskCreate(TaskMediumPriority, "MedTask",  128, NULL, 2, NULL);\n    xTaskCreate(TaskHighPriority,   "HighTask", 128, NULL, 3, NULL);\n}\n\nvoid loop() {\n    // Managed by RTOS\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nMultitasking in FreeRTOS enables the concurrent execution of multiple\nindependent operational threads on a single core microcontroller. The\nFreeRTOS preemptive scheduler enforces priority-based task switching,\nensuring that the highest priority ready task always gains execution\ncontrol. In this experiment, three distinct tasks (Sensor Reading Task,\nDisplay/Telemetry Task, and Heartbeat Monitor Task) are instantiated with\nvarying priorities to demonstrate how priority inversion is avoided and\nhow tasks cleanly share CPU cycles.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'freertos_multitask.ino', 'hardware': 'Arduino UNO (ATmega328P) / FreeRTOS'}, 'lab_serial': 8, 'lab_label': 'ERTOS Exp 8', 'output_url': 'outputs/ertos_exp08_output.pdf'}, {'id': 21, 'slug': 'freertos-ipc-queue-eventgroup', 'subject': 'ES_RTOS', 'title': 'Multitasking Real-Time IPC using Message Queue, Event Group & Semaphore', 'language': 'cpp', 'aliases': ['freertos ipc', 'message queue', 'event group', 'rtos queue', 'inter process communication'], 'description': 'Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.', 'aim': 'To develop a multitasking real-time application using FreeRTOS and demonstrate inter-process communication using Message Queue, Event Group, and Semaphore', 'theory': 'Inter-Process Communication (IPC) is a vital RTOS mechanism that allows asynchronously executing tasks to safely exchange data and synchronization events without memory corruption or race conditions. FreeRTOS provides Message Queues (xQueueCreate, xQueueSend, xQueueReceive) for thread-safe FIFO passing of data packets, Event Groups (xEventGroupCreate, xEventGroupSetBits, xEventGroupWaitBits) for compound multi-task flag synchronization, and Semaphores/Mutexes for mutually exclusive hardware bus access. In this experiment, a producer task sends data packets through a queue while an event group signals synchronization milestones.', 'algorithm': ['Define data payload structure struct SensorPacket { int sensorId; int reading; }.', 'Create a Message Queue of capacity 5 using xQueueCreate.', 'Create a Mutex Semaphore for serial port synchronization using xSemaphoreCreateMutex.', 'Create Producer Task that populates packets and calls xQueueSend.', 'Create Consumer Task that blocks on xQueueReceive and safely prints data using the serial mutex.', 'Verify race-free inter-task communication via the serial monitor.'], 'files': [{'path': 'freertos_ipc.ino', 'source': 'freertos_ipc.ino', 'role': 'source', 'content': '/*\n * Experiment 21: Real-Time Application IPC in FreeRTOS\n * Demonstrates Message Queues, Mutexes, and Event Groups for Inter-Task Messaging\n */\n\n#include <Arduino_FreeRTOS.h>\n#include <queue.h>\n#include <semphr.h>\n\nstruct SensorPacket {\n    int sensorId;\n    int reading;\n};\n\nQueueHandle_t xSensorQueue;\nSemaphoreHandle_t xSerialMutex;\n\nvoid TaskProducer(void *pvParameters) {\n    (void) pvParameters;\n    struct SensorPacket packet;\n    int counter = 0;\n    for (;;) {\n        counter++;\n        packet.sensorId = 101;\n        packet.reading = 50 + (counter % 30);\n\n        if (xQueueSend(xSensorQueue, &packet, pdMS_TO_TICKS(100)) == pdPASS) {\n            if (xSemaphoreTake(xSerialMutex, portMAX_DELAY) == pdTRUE) {\n                Serial.print("[Producer] Sent packet #");\n                Serial.print(counter);\n                Serial.print(" Value: ");\n                Serial.println(packet.reading);\n                xSemaphoreGive(xSerialMutex);\n            }\n        }\n        vTaskDelay(pdMS_TO_TICKS(800));\n    }\n}\n\nvoid TaskConsumer(void *pvParameters) {\n    (void) pvParameters;\n    struct SensorPacket received;\n    for (;;) {\n        if (xQueueReceive(xSensorQueue, &received, portMAX_DELAY) == pdPASS) {\n            if (xSemaphoreTake(xSerialMutex, portMAX_DELAY) == pdTRUE) {\n                Serial.print("  --> [Consumer] Received Sensor: ");\n                Serial.print(received.sensorId);\n                Serial.print(" | Calibrated Data: ");\n                Serial.println(received.reading * 1.5);\n                xSemaphoreGive(xSerialMutex);\n            }\n        }\n    }\n}\n\nvoid setup() {\n    Serial.begin(9600);\n    while (!Serial) { ; }\n    Serial.println("=== FreeRTOS IPC: Queue, Mutex & Task Synchronization ===");\n\n    xSensorQueue = xQueueCreate(5, sizeof(struct SensorPacket));\n    xSerialMutex = xSemaphoreCreateMutex();\n\n    if (xSensorQueue != NULL && xSerialMutex != NULL) {\n        xTaskCreate(TaskProducer, "Producer", 128, NULL, 1, NULL);\n        xTaskCreate(TaskConsumer, "Consumer", 128, NULL, 1, NULL);\n    }\n}\n\nvoid loop() {\n    // RTOS Managed\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nInter-Process Communication (IPC) is a vital RTOS mechanism that allows\nasynchronously executing tasks to safely exchange data and synchronization\nevents without memory corruption or race conditions. FreeRTOS provides\nMessage Queues (xQueueCreate, xQueueSend, xQueueReceive) for thread-safe\nFIFO passing of data packets, Event Groups (xEventGroupCreate,\nxEventGroupSetBits, xEventGroupWaitBits) for compound multi-task flag\nsynchronization, and Semaphores/Mutexes for mutually exclusive hardware\nbus access. In this experiment, a producer task sends data packets through\na queue while an event group signals synchronization milestones.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'freertos_ipc.ino', 'hardware': 'Arduino UNO (ATmega328P) / FreeRTOS'}, 'lab_serial': 9, 'lab_label': 'ERTOS Exp 9', 'output_url': 'outputs/ertos_exp09_output.pdf'}, {'id': 22, 'slug': 'lpc2148-traffic-light-controller', 'subject': 'ES_RTOS', 'title': 'Design and Implementation of a Real-Time Traffic Light Controller on LPC2148', 'language': 'c', 'aliases': ['traffic light', 'lpc2148 traffic light', 'traffic controller', 'fsm traffic'], 'description': 'Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.', 'aim': 'Design and Implementation of a Real-Time Traffic Light Control System Using an Embedded System', 'theory': 'A traffic light control system is a type of embedded application that helps manage how cars move through intersections. It uses red, yellow, and green lights in a certain order to keep traffic moving safely and prevent accidents. A real-time traffic light control system was created using the LPC2148 embedded controller. GPIO pins were configured as outputs to control the red, yellow, and green LEDs, and a programmed sequence was executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.', 'algorithm': ['Start the program. Set up the LPC2148 microcontroller.', 'Set the GPIO pins linked to the red, yellow, and green LEDs to output mode (P0.10, P0.11, P0.12).', 'Turn on the red LED and turn off the green and yellow LEDs for 5 seconds (delay 500).', 'Turn on the green LED and turn off the red and yellow LEDs for 5 seconds (delay 500).', 'Turn on the yellow LED and turn off the red and green LEDs for 2 seconds (delay 200).', 'Repeat the cycle continuously to maintain orderly traffic regulation.'], 'files': [{'path': 'lpc2148_traffic.c', 'source': 'lpc2148_traffic.c', 'role': 'source', 'content': '#include <LPC214x.h>\n\n#define RED     (1U << 10)  // P0.10\n#define YELLOW  (1U << 11)  // P0.11\n#define GREEN   (1U << 12)  // P0.12\n\n#define ALL_LEDS (RED | YELLOW | GREEN)\n\nvoid delay(unsigned int count)\n{\n    unsigned int i, j;\n\n    for (i = 0; i < count; i++)\n        for (j = 0; j < 6000; j++);\n}\n\nvoid traffic_light(unsigned int signal)\n{\n    IO0CLR = ALL_LEDS;  // Turn OFF all LEDs\n    IO0SET = signal;    // Turn ON selected LED\n}\n\nint main(void)\n{\n    // Select GPIO function for P0.10, P0.11 and P0.12\n    PINSEL0 &= ~((3U << 20) |\n                 (3U << 22) |\n                 (3U << 24));\n\n    // Configure LED pins as outputs\n    IO0DIR |= ALL_LEDS;\n\n    // Initially turn OFF all LEDs\n    IO0CLR = ALL_LEDS;\n\n    while (1)\n    {\n        // RED: Stop\n        traffic_light(RED);\n        delay(500);\n\n        // GREEN: Go\n        traffic_light(GREEN);\n        delay(500);\n\n        // YELLOW: Caution\n        traffic_light(YELLOW);\n        delay(200);\n    }\n}\n\n/*\n============================================================================\nEXPERIMENT THEORY (from Embedded Systems & RTOS Laboratory Submission):\n============================================================================\nA traffic light control system is a type of embedded application that\nhelps manage how cars move through intersections. It uses red, yellow, and\ngreen lights in a certain order to keep traffic moving safely and prevent\naccidents. A real-time traffic light control system was created using the\nLPC2148 embedded controller. GPIO pins were configured as outputs to\ncontrol the red, yellow, and green LEDs, and a programmed sequence was\nexecuted using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.\n============================================================================\n*/\n'}], 'run': {'kind': 'embedded', 'entry': 'lpc2148_traffic.c', 'hardware': 'NXP LPC2148 (ARM7TDMI-S)'}, 'lab_serial': 10, 'lab_label': 'ERTOS Exp 10', 'output_url': 'outputs/ertos_exp10_output.pdf'}]
 
 HTML_HEADER = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LabX Remote - AISC & Embedded Systems / RTOS Laboratory</title>
+  <title>LabX Remote - Minimalist Experiment Distribution</title>
   <script src="jszip.min.js"></script>
   <script src="pdf.min.js"></script>
   <script>
@@ -863,74 +35,87 @@ HTML_HEADER = """<!DOCTYPE html>
   </script>
   <style>
     :root {
-      --bg: #0b1120;
-      --card-bg: #1e293b;
-      --accent: #38bdf8;
-      --accent-green: #34d399;
-      --accent-purple: #c084fc;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --code-bg: #090d16;
-      --border: #334155;
+      --bg: #000000;
+      --card-bg: #0a0a0a;
+      --card-hover: #121212;
+      --border: #222222;
+      --border-hover: #444444;
+      --text: #ffffff;
+      --muted: #888888;
+      --subtle: #555555;
+      --code-bg: #050505;
+      --white: #ffffff;
+      --black: #000000;
     }
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      margin: 0;
-      padding: 1.5rem;
-      line-height: 1.6;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
     .container {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
     }
     header {
-      text-align: center;
-      margin-bottom: 2rem;
+      padding-bottom: 2rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
-    h1 {
-      color: var(--accent);
-      font-size: 2.2rem;
-      margin-bottom: 0.25rem;
-      letter-spacing: -0.02em;
+    .header-left h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .header-left p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0.35rem;
     }
     .badge-bar {
       display: flex;
-      justify-content: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 0.75rem;
     }
     .badge {
-      display: inline-block;
-      background: #0284c7;
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.82rem;
-      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #111111;
+      color: var(--white);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s ease;
     }
-    .badge.aisc {
-      background: #0369a1;
-    }
-    .badge.es {
-      background: #059669;
+    .badge:hover {
+      border-color: var(--white);
+      background: #1a1a1a;
     }
 
-    /* Top Section: Horizontal Experiment Cards Rail */
+    /* Top Section: Monochromatic Horizontal Rail */
     .catalog-section {
-      margin-bottom: 3rem;
-      background: #0f172a;
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2.5rem;
     }
     .section-header-row {
       display: flex;
@@ -942,68 +127,69 @@ HTML_HEADER = """<!DOCTYPE html>
     }
     .tabs-group {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
     }
     .tab-btn {
-      background: #1e293b;
+      background: #0a0a0a;
       color: var(--muted);
       border: 1px solid var(--border);
-      padding: 0.45rem 1rem;
-      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
     .tab-btn:hover {
-      color: var(--text);
-      border-color: var(--accent);
+      color: var(--white);
+      border-color: #555555;
     }
     .tab-btn.active {
-      background: #0284c7;
-      color: white;
-      border-color: #38bdf8;
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
     }
     .search-box {
-      background: #090d16;
+      background: #000000;
       border: 1px solid var(--border);
-      color: white;
-      padding: 0.45rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      width: 280px;
+      color: var(--white);
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      width: 260px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.15s ease;
     }
     .search-box:focus {
-      border-color: var(--accent);
+      border-color: var(--white);
     }
     .rail-controls {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       align-items: center;
     }
     .nav-arrow-btn {
-      background: #1e293b;
+      background: #0a0a0a;
       border: 1px solid var(--border);
-      color: var(--accent);
-      width: 34px;
-      height: 34px;
-      border-radius: 6px;
+      color: var(--white);
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
+      font-size: 0.9rem;
+      transition: all 0.15s ease;
     }
     .nav-arrow-btn:hover {
-      background: #0284c7;
-      color: white;
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
     }
 
-    /* Horizontal Cards Rail */
+    /* Cards Horizontal Rail */
     .cards-rail {
       display: flex;
       gap: 1.25rem;
@@ -1011,39 +197,38 @@ HTML_HEADER = """<!DOCTYPE html>
       padding: 0.5rem 0.25rem 1.25rem;
       scroll-snap-type: x mandatory;
       scrollbar-width: thin;
-      scrollbar-color: #0284c7 #090d16;
+      scrollbar-color: #333333 #0a0a0a;
     }
     .cards-rail::-webkit-scrollbar {
-      height: 8px;
+      height: 6px;
     }
     .cards-rail::-webkit-scrollbar-track {
-      background: #090d16;
-      border-radius: 4px;
+      background: #0a0a0a;
+      border-radius: 3px;
     }
     .cards-rail::-webkit-scrollbar-thumb {
-      background: #0284c7;
-      border-radius: 4px;
+      background: #333333;
+      border-radius: 3px;
     }
     .cards-rail::-webkit-scrollbar-thumb:hover {
-      background: #38bdf8;
+      background: #555555;
     }
 
     .card {
-      flex: 0 0 350px;
+      flex: 0 0 360px;
       scroll-snap-align: start;
-      background: var(--card-bg);
+      background: #050505;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 6px;
       padding: 1.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      transition: all 0.15s ease;
     }
     .card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+      border-color: #444444;
+      background: var(--card-hover);
     }
     .card-top {
       display: flex;
@@ -1052,65 +237,62 @@ HTML_HEADER = """<!DOCTYPE html>
       margin-bottom: 0.75rem;
     }
     .tag {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: #334155;
+      letter-spacing: 0.06em;
+      background: #111111;
       padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      color: #38bdf8;
+      border-radius: 3px;
+      color: var(--white);
+      border: 1px solid var(--border);
       display: inline-block;
       font-weight: 600;
-    }
-    .tag.es {
-      color: #34d399;
-      background: #064e3b;
     }
     .copy-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: #1e3a5f;
-      color: #38bdf8;
-      border: 1px solid #0284c7;
-      border-radius: 6px;
-      padding: 0.3rem 0.65rem;
-      font-size: 0.78rem;
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--white);
+      border-radius: 4px;
+      padding: 0.32rem 0.7rem;
+      font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
     .copy-btn:hover {
-      background: #0284c7;
-      color: #ffffff;
+      background: #e5e5e5;
     }
     .copy-btn.copied {
-      background: #15803d !important;
-      color: #ffffff !important;
-      border-color: #22c55e !important;
+      background: #222222 !important;
+      color: var(--white) !important;
+      border-color: #555555 !important;
     }
     .card h3 {
-      margin: 0.4rem 0;
-      color: var(--accent);
-      font-size: 1.05rem;
+      margin: 0.35rem 0;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
       line-height: 1.35;
     }
     .file-pill {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      background: #090d16;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: #000000;
       padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-family: ui-monospace, monospace;
-      margin-top: 0.5rem;
+      border-radius: 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      margin-top: 0.4rem;
       display: inline-block;
-      border: 1px solid #1e293b;
+      border: 1px solid var(--border);
     }
     .card-cmd-box {
-      background: #090d16;
-      border: 1px solid #1e3a5f;
-      border-radius: 6px;
-      padding: 0.5rem 0.75rem;
+      background: #000000;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.45rem 0.75rem;
       margin-top: 0.75rem;
       display: flex;
       justify-content: space-between;
@@ -1120,7 +302,7 @@ HTML_HEADER = """<!DOCTYPE html>
     .card-cmd-text {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      color: #7dd3fc;
+      color: var(--white);
       overflow-x: auto;
       white-space: nowrap;
       flex: 1;
@@ -1132,70 +314,70 @@ HTML_HEADER = """<!DOCTYPE html>
       margin-top: 1rem;
       padding-top: 0.75rem;
       border-top: 1px solid var(--border);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     a {
-      color: var(--accent);
-      text-decoration: none;
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
     a:hover {
-      text-decoration: underline;
+      color: #cccccc;
     }
 
-    /* Bottom Section: Ingester, Terminal, Endpoints */
+    /* Bottom Section: Minimalist Ingester, Terminal, Endpoints */
     .bottom-section {
       display: flex;
       flex-direction: column;
       gap: 2rem;
     }
     .uploader-card {
-      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid #0284c7;
-      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       padding: 1.75rem;
-      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
     }
     .uploader-header h2 {
-      margin: 0.3rem 0;
-      color: #38bdf8;
-      font-size: 1.4rem;
+      margin: 0.4rem 0 0.25rem;
+      color: var(--white);
+      font-size: 1.3rem;
+      font-weight: 600;
     }
     .drop-zone {
-      border: 2px dashed #0284c7;
-      background: #090d16;
-      border-radius: 8px;
-      padding: 2.25rem 1.5rem;
+      border: 1px dashed #444444;
+      background: #000000;
+      border-radius: 6px;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       cursor: pointer;
       margin-top: 1.25rem;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
     .drop-zone:hover, .drop-zone.dragover {
-      border-color: #38bdf8;
-      background: #0f1c30;
-      transform: scale(1.005);
+      border-color: var(--white);
+      background: #050505;
     }
     .browse-btn {
-      background: #0284c7;
-      color: white;
+      background: var(--white);
+      color: var(--black);
       border: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 4px;
+      padding: 0.35rem 0.85rem;
+      border-radius: 3px;
       cursor: pointer;
       font-weight: 600;
-      margin-left: 0.4rem;
-      transition: background 0.2s;
+      margin-left: 0.35rem;
+      font-size: 0.82rem;
     }
     .browse-btn:hover {
-      background: #0369a1;
+      background: #e5e5e5;
     }
 
     /* Dynamic Upload Results */
     .upload-result-box {
       margin-top: 1.5rem;
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 8px;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 1.25rem;
     }
     .master-actions-bar {
@@ -1204,9 +386,9 @@ HTML_HEADER = """<!DOCTYPE html>
       align-items: center;
       flex-wrap: wrap;
       gap: 0.75rem;
-      background: #0f1c30;
-      border: 1px solid #0284c7;
-      border-radius: 8px;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 0.75rem 1.25rem;
       margin-bottom: 1.25rem;
     }
@@ -1214,98 +396,99 @@ HTML_HEADER = """<!DOCTYPE html>
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: #0284c7;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 0.5rem 0.9rem;
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--white);
+      border-radius: 4px;
+      padding: 0.45rem 0.85rem;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
     .action-btn:hover {
-      background: #0369a1;
+      background: #e5e5e5;
     }
     .action-btn.secondary {
-      background: #1e293b;
+      background: #111111;
       border: 1px solid var(--border);
-      color: #7dd3fc;
+      color: var(--white);
     }
     .action-btn.secondary:hover {
-      background: #334155;
-      color: white;
+      border-color: var(--white);
     }
     .custom-cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 1.25rem;
     }
     .custom-exp-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 1rem;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .custom-exp-card:hover {
-      border-color: #38bdf8;
-    }
     .preview-pre {
-      background: #090d16;
+      background: #000000;
       padding: 0.75rem;
-      border-radius: 6px;
+      border-radius: 4px;
       font-family: ui-monospace, monospace;
-      font-size: 0.78rem;
-      color: #cbd5e1;
+      font-size: 0.75rem;
+      color: #cccccc;
       max-height: 180px;
       overflow-y: auto;
-      border: 1px solid #1f2937;
+      border: 1px solid var(--border);
       margin-top: 0.5rem;
     }
 
     /* Terminal & Endpoints Boxes */
     .command-box {
-      background: var(--code-bg);
-      border: 1px solid #334155;
-      border-radius: 8px;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 1.25rem;
-      font-family: ui-monospace, monospace;
-      color: #7dd3fc;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--white);
       margin: 1rem 0;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      font-size: 0.88rem;
     }
     .endpoints-box {
-      background: #0f172a;
-      border: 1px solid #334155;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
     .endpoints-box ul {
       margin: 0.5rem 0 0 1.25rem;
-      padding: 0;
     }
     .endpoints-box li {
       margin-bottom: 0.4rem;
+      color: var(--muted);
+    }
+    .endpoints-box code {
+      color: var(--white);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>LABX REMOTE EXPERIMENT DASHBOARD</h1>
-      <p style="color:var(--muted); margin:0.25rem 0;">Artificial Intelligence (AISC) &amp; Embedded Systems / Real-Time Operating Systems (ES &amp; RTOS)</p>
+      <div class="header-left">
+        <h1>LABX REMOTE</h1>
+        <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
+      </div>
       <div class="badge-bar">
         <span class="badge">22 Experiments Live</span>
-        <span class="badge aisc">AISC Laboratory (12)</span>
-        <span class="badge es">ES &amp; RTOS Laboratory (10)</span>
-        <a href="downloads/ertos.zip" class="badge" style="background:#7c3aed; text-decoration:none;">Download ERTOS.ZIP (10 Exps)</a>
+        <span class="badge">AISC Lab (12)</span>
+        <span class="badge">ES &amp; RTOS Lab (10)</span>
+        <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
       </div>
     </header>
 
-    <!-- TOP SECTION: Experiment Cards Horizontal Rail -->
+    <!-- TOP SECTION: Monochromatic Experiment Cards Rail -->
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
@@ -1313,7 +496,7 @@ HTML_HEADER = """<!DOCTYPE html>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
         </div>
-        <div style="display:flex; gap:0.75rem; align-items:center;">
+        <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
           <div class="rail-controls">
             <button class="nav-arrow-btn" onclick="scrollRail(-380)" title="Scroll Left">&larr;</button>
@@ -1332,48 +515,46 @@ HTML_FOOTER = """      </div>
     <!-- BOTTOM SECTION: Custom Ingester, Terminal Quickstart, Static Endpoints -->
     <div class="bottom-section">
       
-      <!-- Custom ZIP / PDF / HTML Ingester -->
+      <!-- Custom Ingester: ZIP / PDF / HTML -->
       <section class="uploader-section">
         <div class="uploader-card">
           <div class="uploader-header">
-            <span class="badge" style="background:#0284c7;">CUSTOM EXPERIMENT &amp; MULTI-FORMAT INGESTER</span>
-            <h2>⚡ Upload Submissions (ZIP Folder, PDF Report, or HTML) &rarr; Instant Custom Commands</h2>
-            <p style="color:#94a3b8; margin:0.35rem 0;">
-              Upload an entire student submission <strong>ZIP folder</strong> (e.g., <code>ES_RTOS_DIV_A_BATCH_A_Submissions.zip</code>), 
+            <span class="tag">MULTI-FORMAT INGESTER</span>
+            <h2>Upload Submissions (ZIP Folder, PDF Report, or HTML) &rarr; Instant Commands</h2>
+            <p style="color:var(--muted); font-size:0.88rem; margin-top:0.25rem;">
+              Drop a student submission <strong>ZIP archive</strong> (e.g., <code>ES_RTOS_DIV_A_BATCH_A_Submissions.zip</code>), 
               <strong>PDF lab report(s)</strong>, or <strong>HTML file(s)</strong>.
-              Even if original submissions contained drive links or print previews, it parses Aim, Theory &amp; Source Code, pads to 50 lines with theory comments strictly after line 50, and generates custom <code>irm &lt;URL&gt; | iex</code> commands for each experiment.
+              Even if original submissions contained drive links or print previews, it extracts Aim, Theory &amp; Source Code, pads to 50 lines with theory comments strictly after line 50, and generates custom delivery commands.
             </p>
           </div>
 
           <div id="drop-zone" class="drop-zone">
             <input type="file" id="submission-file-input" accept=".zip,.pdf,.html,.htm" multiple style="display:none;" />
             <div class="drop-zone-content">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="17 8 12 3 7 8"></polyline>
                 <line x1="12" y1="3" x2="12" y2="15"></line>
               </svg>
-              <p style="margin:0.25rem 0; font-size:1.05rem; color:#f1f5f9;">
+              <p style="font-size:0.95rem; color:var(--white);">
                 Drag &amp; drop a <strong>ZIP folder</strong>, <strong>PDF lab report</strong>, or <strong>HTML file(s)</strong> here, or 
                 <button type="button" class="browse-btn" onclick="document.getElementById('submission-file-input').click()">Browse Files</button>
               </p>
-              <span style="font-size:0.82rem; color:#94a3b8;">Supports ZIP archives (with PDFs/HTML), standalone PDF reports, or HTML submissions</span>
+              <span style="font-size:0.78rem; color:var(--subtle);">Supports ZIP archives with subfolders, standalone PDFs, or HTML submissions</span>
             </div>
           </div>
 
           <div id="upload-result" style="display:none;" class="upload-result-box">
             <div class="master-actions-bar">
               <div>
-                <span id="res-summary-badge" class="badge" style="background:#059669;">UNPACKED &amp; PROCESSED</span>
-                <span id="res-summary-title" style="font-weight:600; color:#38bdf8; margin-left:0.5rem;"></span>
+                <span id="res-summary-badge" class="tag">UNPACKED</span>
+                <span id="res-summary-title" style="font-weight:600; color:var(--white); margin-left:0.5rem; font-size:0.9rem;"></span>
               </div>
               <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
                 <button id="pull-all-zip-btn" class="action-btn" onclick="copyPullAllScript()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                   <span>Copy Pull-All Command</span>
                 </button>
                 <button id="download-zip-btn" class="action-btn secondary" onclick="downloadAllProcessedZip()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                   <span>Download Processed ZIP</span>
                 </button>
               </div>
@@ -1388,30 +569,30 @@ HTML_FOOTER = """      </div>
 
       <!-- Terminal Quickstart -->
       <section>
-        <h2 style="color:var(--accent); font-size:1.4rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
+        <h2 style="color:var(--white); font-size:1.2rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
         <div class="command-box">
-          <span style="color:#94a3b8"># 1. Ultra-short one-liners in PowerShell (No install needed):</span><br>
-          <span style="color:#38bdf8; font-weight:bold;">irm https://aisccli.netlify.app/ertos.ps1 | iex</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#34d399"># Pull ALL 10 ES &amp; RTOS experiments!</span><br>
-          irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull ALL 22 experiments (AISC + ES/RTOS)</span><br>
-          &amp; (irm https://aisccli.netlify.app/get.ps1) 14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 14 (LPC2148 LED Interfacing)</span><br>
-          &amp; (irm https://aisccli.netlify.app/get.ps1) 22 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 22 (LPC2148 Traffic Light Controller)</span><br>
-          irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># List all 22 experiments</span><br><br>
-          <span style="color:#94a3b8"># 2. Or install the global 'labx' CLI:</span><br>
+          <span style="color:var(--subtle)"># 1. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
+          irm https://aisccli.netlify.app/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
+          irm https://aisccli.netlify.app/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
+          <span style="color:var(--subtle)"># 2. Pull All 22 Experiments (AISC + ERTOS):</span><br>
+          irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
+          irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
+          <span style="color:var(--subtle)"># 3. Or install the global 'labx' CLI:</span><br>
           irm https://aisccli.netlify.app/install.ps1 | iex<br>
-          labx list &nbsp;|&nbsp; labx download 14 &nbsp;|&nbsp; labx run 14
+          labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
         </div>
       </section>
 
       <!-- Static Endpoints -->
       <section class="endpoints-box">
-        <h2 style="color:var(--accent); font-size:1.3rem; margin:0 0 0.5rem 0;">Available Static Endpoints</h2>
+        <h2 style="color:var(--white); font-size:1.1rem; margin:0 0 0.5rem 0;">Available Static Endpoints</h2>
         <ul>
-          <li><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; <strong>Dedicated 10-experiment ES &amp; RTOS ZIP archive</strong></li>
-          <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 22-experiment ZIP archive (AISC + ES &amp; RTOS)</li>
+          <li><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; Dedicated 10-experiment ES &amp; RTOS ZIP archive</li>
+          <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 22-experiment ZIP archive</li>
           <li><a href="downloads/aisc_experiments.zip"><code>/downloads/aisc_experiments.zip</code></a> &mdash; Dedicated 12-experiment AISC ZIP archive</li>
-          <li><a href="catalog.json"><code>/catalog.json</code></a> &mdash; Complete 22-experiment catalogue API</li>
-          <li><a href="version.json"><code>/version.json</code></a> &mdash; Remote version metadata</li>
-          <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> &mdash; Windows standalone executable</li>
+          <li><a href="catalog.json"><code>/catalog.json</code></a> &mdash; Complete catalogue JSON API</li>
+          <li><a href="version.json"><code>/version.json</code></a> &mdash; Remote metadata &amp; version</li>
+          <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> &mdash; Windows standalone binary</li>
         </ul>
       </section>
 
@@ -1460,26 +641,45 @@ HTML_FOOTER = """      </div>
       });
     }
 
-    // Copy Experiment Code
-    function copyExpCode(btn, codeId) {
+    // Dual Code + Output Download Handler
+    function copyExpCodeAndDownloadOutput(btn, codeId, outputUrl) {
       const ta = document.getElementById(codeId);
       if (!ta) return;
       const text = ta.value;
       const span = btn.querySelector('span');
-      const originalText = span.textContent;
+      const originalText = span ? span.textContent : 'Copy Code';
 
+      // 1. Copy code to clipboard
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
-          btn.classList.add('copied');
-          span.textContent = 'Copied!';
-          setTimeout(() => {
-            btn.classList.remove('copied');
-            span.textContent = originalText;
-          }, 2000);
+          showCopySuccess(btn, span, outputUrl ? 'Copied & Output Downloaded!' : 'Copied!');
         }).catch(() => fallbackCopy(ta, btn, span, originalText));
       } else {
         fallbackCopy(ta, btn, span, originalText);
       }
+
+      // 2. Automatically trigger output download if available
+      if (outputUrl) {
+        triggerDownload(outputUrl);
+      }
+    }
+
+    function triggerDownload(url) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = url.split('/').pop();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function showCopySuccess(btn, span, message) {
+      btn.classList.add('copied');
+      if (span) span.textContent = message;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (span) span.textContent = 'Copy Code';
+      }, 2500);
     }
 
     function copyText(btn, text) {
@@ -1604,7 +804,7 @@ HTML_FOOTER = """      </div>
           for (const w of words) {
             if ((curr + ' ' + w).length > 76) {
               out.push(curr);
-              curr = '# ' + w;
+              curr = w;
             } else {
               curr += (curr === '#' ? ' ' : ' ') + w;
             }
@@ -1617,7 +817,7 @@ HTML_FOOTER = """      </div>
     }
 
     function buildPowerShellDeliveryScript(filename, code, isC) {
-      return `# LabX Remote - Custom Experiment Delivery\\n$filename = "${filename}"\\n$code = @'\\n${code}\\n'@\\n$target = Join-Path $PWD $filename\\nSet-Content -Path $target -Value $code -Encoding utf8\\nWrite-Host ""\\nWrite-Host "============================================================" -ForegroundColor Cyan\\nWrite-Host " [OK] Experiment code saved to: $filename" -ForegroundColor Green\\nWrite-Host " Theory is embedded after line 50. Ready to execute!" -ForegroundColor White\\nWrite-Host " Target: $filename" -ForegroundColor Yellow\\nWrite-Host "============================================================" -ForegroundColor Cyan\\n`;
+      return `# LabX Remote - Custom Experiment Delivery\\n$filename = "${filename}"\\n$code = @'\\n${code}\\n'@\\n$target = Join-Path $PWD $filename\\nSet-Content -Path $target -Value $code -Encoding utf8\\nWrite-Host ""\\nWrite-Host "============================================================"\\nWrite-Host " [OK] Experiment code saved to: $filename"\\nWrite-Host " Theory is embedded after line 50. Ready to execute!"\\nWrite-Host " Target: $filename"\\nWrite-Host "============================================================"\\n`;
     }
 
     async function extractTextFromPdf(arrayBuffer) {
@@ -1636,7 +836,6 @@ HTML_FOOTER = """      </div>
       return fullText;
     }
 
-    // Reference code fallback generator when student HTML/PDF contained drive links or images
     function getStandardCodeForTopic(topic, isC) {
       const t = topic.toLowerCase();
       if (t.includes('led') || t.includes('blink')) {
@@ -1658,7 +857,7 @@ HTML_FOOTER = """      </div>
         return `#include <Arduino_FreeRTOS.h>\\n#include <semphr.h>\\nSemaphoreHandle_t sem;\\nvoid TaskProducer(void *pv) { for(;;) { xSemaphoreGive(sem); vTaskDelay(pdMS_TO_TICKS(1000)); } }\\nvoid TaskConsumer(void *pv) { for(;;) { if(xSemaphoreTake(sem, portMAX_DELAY)) Serial.println("Acquired!"); } }\\nvoid setup() { Serial.begin(9600); sem = xSemaphoreCreateBinary(); xTaskCreate(TaskProducer,"P",128,NULL,1,NULL); xTaskCreate(TaskConsumer,"C",128,NULL,1,NULL); }\\nvoid loop() {}`;
       }
       if (isC) {
-        return `/* ${topic} */\\n#include <LPC214x.h>\\n\\nint main(void) {\\n    // Verification and setup entry\\n    return 0;\\n}`;
+        return `/* ${topic} */\\n#include <LPC214x.h>\\n\\nint main(void) {\\n    return 0;\\n}`;
       }
       return `# ${topic}\\nprint("${topic} executed successfully")\\n`;
     }
@@ -1667,7 +866,7 @@ HTML_FOOTER = """      </div>
       const resultBox = document.getElementById('upload-result');
       const cardsContainer = document.getElementById('custom-cards-container');
       resultBox.style.display = 'block';
-      cardsContainer.innerHTML = '<div style="color:#7dd3fc; padding:1.5rem;">Unpacking and parsing submissions...</div>';
+      cardsContainer.innerHTML = '<div style="color:var(--muted); padding:1.5rem;">Unpacking and parsing submissions...</div>';
 
       window._processedExperiments = [];
 
@@ -1720,7 +919,6 @@ HTML_FOOTER = """      </div>
         const fullText = await extractTextFromPdf(arrayBuffer);
         const baseFilename = rawName.split('/').pop().replace(/\\.[^/.]+$/, '');
 
-        // 1. Aim / Title
         let title = '';
         const aimMatch = fullText.match(/(?:Aim|AIM|Objective|OBJECTIVE|Subject|Subject\\s*[:\\-]?|Experiment\\s*[:\\-]?)\\s*[:\\-]?\\s*([A-Za-z0-9\\s,()\\/\\-]+?)(?=(?:Enrollment|Roll|Date|Theory|THEORY|Apparatus|Equipment|1\\.|\\n\\n|$))/i);
         if (aimMatch && aimMatch[1].trim().length > 5) {
@@ -1729,21 +927,18 @@ HTML_FOOTER = """      </div>
           title = baseFilename.replace(/[_-]+/g, ' ');
         }
 
-        // 2. Theory
         let theory = '';
         const theoryMatch = fullText.match(/(?:Theory|THEORY|Theoretical\\s+Background)\\s*[:\\-]?\\s*([\\s\\S]*?)(?=(?:Algorithm|ALGORITHM|Source\\s+Code|CODE|Procedure|PROCEDURE|Program|PROGRAM|Output|Result|$))/i);
         if (theoryMatch && theoryMatch[1].trim().length > 10) {
           theory = theoryMatch[1].trim();
         }
 
-        // 3. Source Code
         let code = '';
         const codeMatch = fullText.match(/(?:Source\\s+Code|SOURCE\\s+CODE|Code\\s*[:\\-]|Program\\s*[:\\-])\\s*([\\s\\S]*?)(?=(?:Output|OUTPUT|Result|RESULT|Conclusion|Assessment|$))/i);
         if (codeMatch && (codeMatch[1].includes('#include') || codeMatch[1].includes('void ') || codeMatch[1].includes('def ') || codeMatch[1].includes('import '))) {
           code = codeMatch[1].trim();
         }
 
-        // Language detection
         const isC = title.toLowerCase().includes('lpc') || title.toLowerCase().includes('rtos') || title.toLowerCase().includes('embedded') || title.toLowerCase().includes('led') || title.toLowerCase().includes('lcd') || title.toLowerCase().includes('uart') || (code && code.includes('#include'));
         const ext = isC ? (title.toLowerCase().includes('rtos') || title.toLowerCase().includes('arduino') ? '.ino' : '.c') : '.py';
         let safeName = baseFilename.toLowerCase().replace(/[^a-z0-9_]/g, '_');
@@ -1781,7 +976,6 @@ HTML_FOOTER = """      </div>
         let theory = '';
         let code = '';
 
-        // Extract Title / Aim
         const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, b, strong'));
         for (const h of headings) {
           const txt = h.textContent.trim().toLowerCase();
@@ -1801,7 +995,6 @@ HTML_FOOTER = """      </div>
           title = doc.querySelector('title')?.textContent.trim() || baseFilename.replace(/[_-]+/g, ' ');
         }
 
-        // Extract Theory
         for (const h of headings) {
           if (h.textContent.trim().toLowerCase().includes('theory')) {
             const parts = [];
@@ -1816,7 +1009,6 @@ HTML_FOOTER = """      </div>
           }
         }
 
-        // Extract Code
         for (const h of headings) {
           const txt = h.textContent.trim().toLowerCase();
           if (txt.includes('source code') || txt.includes('code')) {
@@ -1842,7 +1034,6 @@ HTML_FOOTER = """      </div>
           }
         }
 
-        // Language Detection & Extension
         const isC = (code && (code.includes('#include') || code.includes('void '))) || rawName.toLowerCase().includes('lpc') || rawName.toLowerCase().includes('rtos') || title.toLowerCase().includes('lpc') || title.toLowerCase().includes('rtos') || title.toLowerCase().includes('embedded');
         const ext = isC ? (code && code.includes('setup()') ? '.ino' : '.c') : '.py';
         let safeName = baseFilename.toLowerCase().replace(/[^a-z0-9_]/g, '_');
@@ -1877,7 +1068,7 @@ HTML_FOOTER = """      </div>
       document.getElementById('res-summary-title').textContent = `${count} Experiments Unpacked & Formatted`;
 
       if (count === 0) {
-        container.innerHTML = '<div style="color:#f87171; padding:1rem;">No valid experiments could be parsed from the uploaded file(s).</div>';
+        container.innerHTML = '<div style="color:var(--muted); padding:1rem;">No valid experiments could be parsed.</div>';
         return;
       }
 
@@ -1893,26 +1084,22 @@ HTML_FOOTER = """      </div>
         card.innerHTML = `
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-              <span class="tag ${item.language === 'c' ? 'es' : ''}">${item.language.toUpperCase()}</span>
+              <span class="tag">${item.language.toUpperCase()}</span>
               <button class="copy-btn" onclick="copyCustomItemCode(${i}, this)">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 <span>Copy Code</span>
               </button>
             </div>
-            <h4 style="margin:0.25rem 0; color:#38bdf8; font-size:0.95rem;">${item.title}</h4>
+            <h4 style="margin:0.25rem 0; color:var(--white); font-size:0.95rem;">${item.title}</h4>
             <span class="file-pill">${item.name}</span>
           </div>
 
           <div style="margin-top:0.75rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:#94a3b8; margin-bottom:0.25rem;">
-              <span>PowerShell Delivery Command:</span>
-            </div>
             <div class="card-cmd-box" style="margin-top:0;">
               <code id="cmd-cust-${i}" class="card-cmd-text">Generating...</code>
               <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyCustCmd(${i}, this)">Copy</button>
             </div>
-            <details style="margin-top:0.5rem; font-size:0.78rem; color:#94a3b8;">
-              <summary style="cursor:pointer; color:#7dd3fc;">View Code Preview (${lines} lines, theory after line 50)</summary>
+            <details style="margin-top:0.5rem; font-size:0.75rem; color:var(--muted);">
+              <summary style="cursor:pointer; color:var(--white);">View Code Preview (${lines} lines, theory after line 50)</summary>
               <pre class="preview-pre">${escapedCode}</pre>
             </details>
           </div>
@@ -2002,10 +1189,11 @@ HTML_FOOTER = """      </div>
 
 def generate_host():
     """Build all static hosting artifacts for 22 experiments."""
-    print("Building AISC & ES_RTOS LabX distribution backend...")
+    print("Building Minimalist Black & White LabX distribution backend...")
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
     EXP_DIR.mkdir(parents=True, exist_ok=True)
     DL_DIR.mkdir(parents=True, exist_ok=True)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Clean old experiments
     for old_folder in EXP_DIR.iterdir():
@@ -2052,10 +1240,10 @@ def generate_host():
     # 2. version.json
     version_data = {
         "version": "1.0.0",
-        "updated_at": "2026-11-02T12:00:00Z",
-        "platform": "AISC & ES_RTOS Laboratory Remote Production Backend",
+        "updated_at": "2026-11-02T22:00:00Z",
+        "platform": "Minimalist Black & White LabX Production Backend",
         "supported_experiments": len(EXPERIMENTS),
-        "checksum": "labx-prod-hash-v3"
+        "checksum": "labx-prod-hash-v4"
     }
     with open(PUBLIC_DIR / "version.json", "w", encoding="utf-8") as f:
         json.dump(version_data, f, indent=2)
@@ -2089,7 +1277,10 @@ def generate_host():
             "language": exp["language"],
             "aliases": exp["aliases"],
             "description": exp["description"],
-            "manifest_url": manifest_url
+            "manifest_url": manifest_url,
+            "subject": exp.get("subject", "AISC"),
+            "lab_serial": exp.get("lab_serial", exp_id),
+            "output_url": exp.get("output_url")
         })
 
         # Write experiment files
@@ -2147,36 +1338,44 @@ def generate_host():
         src_name = src_file["path"]
         src_code = src_file["content"]
         escaped_code = html.escape(src_code)
-        subject_badge_class = "es" if subject_type == "ES_RTOS" else ""
-        subject_label = "ES & RTOS" if subject_type == "ES_RTOS" else "AISC"
-        cmd_str = f"& (irm https://aisccli.netlify.app/get.ps1) {exp_id}"
+        
+        lab_serial = exp.get("lab_serial", exp_id)
+        if subject_type == "ES_RTOS":
+            display_title = f"#{lab_serial:02d} {exp['title']}"
+            subject_label = "ES & RTOS"
+            cmd_str = f"irm https://aisccli.netlify.app/e{lab_serial}.ps1 | iex"
+            output_url = exp.get("output_url", "")
+        else:
+            display_title = f"#{exp_id:02d} {exp['title']}"
+            subject_label = "AISC"
+            cmd_str = f"& (irm https://aisccli.netlify.app/get.ps1) {exp_id}"
+            output_url = ""
+
+        output_link_html = f'<a href="{output_url}" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>' if output_url else ""
 
         # HTML card
         html_cards.append(f"""        <div class="card" data-subject="{subject_type}">
           <div>
             <div class="card-top">
-              <span class="tag {subject_badge_class}">{subject_label} &bull; {exp['language'].upper()}</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-{exp_id}')" title="Copy {src_name} source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">{subject_label} &bull; {exp['language'].upper()}</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-{exp_id}', '{output_url}')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
             <textarea id="code-{exp_id}" style="display:none;">{escaped_code}</textarea>
-            <h3>#{exp_id:02d} {exp['title']}</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">{exp['description']}</p>
+            <h3>{display_title}</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">{exp['description']}</p>
             <span class="file-pill">{src_name}</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">{cmd_str}</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '{cmd_str}')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '{cmd_str}')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/{exp_folder_name}/{src_name}" target="_blank">View File &rarr;</a>
+              {output_link_html}
               <a href="{manifest_url}" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2185,7 +1384,7 @@ def generate_host():
     # 4. Write catalog.json
     catalog_data = {
         "version": "1.0.0",
-        "updated_at": "2026-11-02T12:00:00Z",
+        "updated_at": "2026-11-02T22:00:00Z",
         "zip_url": "downloads/labx_experiments.zip",
         "ertos_zip_url": "downloads/ertos.zip",
         "experiments": catalog_items
@@ -2234,65 +1433,108 @@ def generate_host():
 
     # 6. PowerShell scripts
     all_ps1 = """$zip = Join-Path $PWD "labx_temp.zip"
-Write-Host "Downloading all 22 experiments (AISC + Embedded Systems & RTOS) from LabX Remote..." -ForegroundColor Cyan
+Write-Host "Downloading all 22 experiments (AISC + Embedded Systems & RTOS) from LabX Remote..." -ForegroundColor White
 Invoke-WebRequest "https://aisccli.netlify.app/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
-Write-Host "[OK] All 22 experiments extracted to current directory!" -ForegroundColor Green
+Write-Host "[OK] All 22 experiments extracted to current directory!" -ForegroundColor White
 """
     with open(PUBLIC_DIR / "all.ps1", "w", encoding="utf-8") as f:
         f.write(all_ps1)
 
     ertos_ps1 = """$zip = Join-Path $PWD "ertos_temp.zip"
-Write-Host "Downloading 10 Embedded Systems & RTOS experiments from LabX Remote..." -ForegroundColor Cyan
+Write-Host "Downloading 10 Embedded Systems & RTOS experiments from LabX Remote..." -ForegroundColor White
 Invoke-WebRequest "https://aisccli.netlify.app/downloads/ertos.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
-Write-Host "[OK] All 10 ES & RTOS experiments extracted to current directory!" -ForegroundColor Green
+Write-Host "[OK] All 10 ES & RTOS experiments extracted to current directory!" -ForegroundColor White
 """
     with open(PUBLIC_DIR / "ertos.ps1", "w", encoding="utf-8") as f:
         f.write(ertos_ps1)
     with open(PUBLIC_DIR / "rtos.ps1", "w", encoding="utf-8") as f:
         f.write(ertos_ps1)
 
-    aisc_ps1 = """$zip = Join-Path $PWD "aisc_temp.zip"
-Write-Host "Downloading 12 AISC experiments from LabX Remote..." -ForegroundColor Cyan
-Invoke-WebRequest "https://aisccli.netlify.app/downloads/aisc_experiments.zip" -OutFile $zip -UseBasicParsing
-Expand-Archive $zip -DestinationPath $PWD -Force
-Remove-Item $zip -Force
-Write-Host "[OK] All 12 AISC experiments extracted to current directory!" -ForegroundColor Green
-"""
-    with open(PUBLIC_DIR / "aisc.ps1", "w", encoding="utf-8") as f:
-        f.write(aisc_ps1)
+    # Generate individual dual code + output delivery scripts (e1.ps1 - e10.ps1) for ERTOS
+    for exp in EXPERIMENTS:
+        if exp.get("subject") == "ES_RTOS":
+            s_num = exp.get("lab_serial", 1)
+            src_file = exp["files"][0]
+            src_fname = src_file["path"]
+            src_content = src_file["content"]
+            out_fname = f"ertos_exp{s_num:02d}_output.pdf"
+            
+            lines_ps1 = [
+                f"# LabX Remote: ERTOS Exp {s_num:02d} (Code + Output PDF)",
+                f'$filename = "{src_fname}"',
+                "$code = @'",
+                src_content,
+                "'@",
+                "$target = Join-Path $PWD $filename",
+                "Set-Content -Path $target -Value $code -Encoding utf8",
+                f'Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -ForegroundColor White',
+                "",
+                f'$outTarget = Join-Path $PWD "{out_fname}"',
+                "try {",
+                f'    Invoke-WebRequest "https://aisccli.netlify.app/outputs/{out_fname}" -OutFile $outTarget -UseBasicParsing',
+                f'    Write-Host "[OK] Downloaded Output PDF to: {out_fname}" -ForegroundColor White',
+                "} catch {",
+                f'    Write-Host "[!] Could not fetch {out_fname}: $_" -ForegroundColor DarkGray',
+                "}"
+            ]
+            e_ps1 = "\n".join(lines_ps1)
+            with open(PUBLIC_DIR / f"e{s_num}.ps1", "w", encoding="utf-8") as f:
+                f.write(e_ps1)
 
-    get_ps1 = """param($Id)
+    get_ps1 = """param($Id, [string]$Lab = "")
 if (-not $Id) {
-    $Id = Read-Host "Enter experiment number (1-22)"
+    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 1-12 for AISC, or 1-22)"
 }
-$num = "{0:D2}" -f [int]$Id
-$cat = (Invoke-RestMethod "https://aisccli.netlify.app/catalog.json").experiments | Where-Object { $_.id -eq [int]$Id }
-if (-not $cat) {
-    Write-Host "[!] Experiment $Id not found in catalogue." -ForegroundColor Red
+
+$intId = [int]$Id
+$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
+
+if ($Lab -eq "ertos" -or $Lab -eq "es") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+} elseif ($Lab -eq "aisc") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "AISC" -and $_.lab_serial -eq $intId }
+} else {
+    $item = $cat.experiments | Where-Object { $_.id -eq $intId }
+    if (-not $item -and $intId -le 10) {
+        # Default to ERTOS if requested 1-10
+        $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+    }
+}
+
+if (-not $item) {
+    Write-Host "[!] Experiment $Id not found." -ForegroundColor DarkGray
     return
 }
-$mf = Invoke-RestMethod "https://aisccli.netlify.app/$($cat.manifest_url)"
+
+$num = "{0:D2}" -f [int]$item.id
+$mf = Invoke-RestMethod "https://aisccli.netlify.app/$($item.manifest_url)"
 $dir = "Experiment$num"
 New-Item -ItemType Directory -Path $dir -Force | Out-Null
 foreach ($f in $mf.files) {
     Invoke-WebRequest "https://aisccli.netlify.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
 }
-Write-Host "[OK] Downloaded $($cat.title) into $dir/" -ForegroundColor Green
+Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
+
+if ($item.output_url) {
+    $outName = Split-Path $item.output_url -Leaf
+    Invoke-WebRequest "https://aisccli.netlify.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+    Write-Host "[OK] Downloaded Output PDF: $outName into $dir/" -ForegroundColor White
+}
 """
     with open(PUBLIC_DIR / "get.ps1", "w", encoding="utf-8") as f:
         f.write(get_ps1)
 
     list_ps1 = """$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
-Write-Host "`n==== AISC & Embedded Systems / RTOS Laboratory Experiments (LabX Remote) ====" -ForegroundColor Cyan
-$cat.experiments | Format-Table @{Label="ID"; Expression={"Exp " + ("{0:D2}" -f $_.id)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
-Write-Host "Quick commands:" -ForegroundColor Yellow
-Write-Host "  Pull ERTOS experiments : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor White
-Write-Host "  Pull all experiments   : irm https://aisccli.netlify.app/all.ps1 | iex" -ForegroundColor White
-Write-Host "  Pull one experiment    : & (irm https://aisccli.netlify.app/get.ps1) <id>`n" -ForegroundColor White
+Write-Host "`n==== AISC & Embedded Systems / RTOS Laboratory Experiments ====" -ForegroundColor White
+$cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
+Write-Host "Quick commands:" -ForegroundColor White
+Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://aisccli.netlify.app/e2.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All ERTOS experiments       : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All 22 experiments          : irm https://aisccli.netlify.app/all.ps1 | iex`n" -ForegroundColor Gray
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)
@@ -2302,7 +1544,7 @@ Write-Host "  Pull one experiment    : & (irm https://aisccli.netlify.app/get.ps
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(full_html)
 
-    print("Static backend build completed successfully!")
+    print("Minimalist Black & White host build completed successfully!")
     print(f"Total experiments compiled: {len(EXPERIMENTS)}")
 
 if __name__ == "__main__":

@@ -1,19 +1,21 @@
-"""Script to generate the updated scripts/build_host.py with 22 experiments,
-horizontal experiment cards rail at the top, client-side ZIP/PDF/HTML ingester at the bottom,
-and dedicated ERTOS ZIP and PowerShell scripts."""
+"""Script to generate updated scripts/build_host.py with:
+- Minimalist Black & White / Monochrome UI
+- ERTOS Serial Numbers (Exp 1 - Exp 10) matching university portal
+- Dual Code + Output PDF download on copy and in PowerShell commands (e1.ps1 - e10.ps1)
+- Outputs from Google Drive embedded and served locally
+"""
 
 import json
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Read experiments_data.json
 with open(BASE_DIR / "scripts" / "experiments_data.json", "r", encoding="utf-8") as f:
     experiments = json.load(f)
 
 code_lines = []
 code_lines.append('"""Host builder script: generates public/ catalog, manifests, experiment sources, HTML, and ZIP archives')
-code_lines.append('populated from AISC and Embedded Systems & RTOS Laboratory Submissions."""')
+code_lines.append('with Minimalist Black & White aesthetic and paired Code + Output PDF delivery."""')
 code_lines.append('')
 code_lines.append('import os')
 code_lines.append('import json')
@@ -27,8 +29,9 @@ code_lines.append('HOST_DIR = BASE_DIR / "labx-host"')
 code_lines.append('PUBLIC_DIR = HOST_DIR / "public"')
 code_lines.append('EXP_DIR = PUBLIC_DIR / "experiments"')
 code_lines.append('DL_DIR = PUBLIC_DIR / "downloads"')
+code_lines.append('OUT_DIR = PUBLIC_DIR / "outputs"')
 code_lines.append('')
-code_lines.append(f'EXPERIMENTS = {json.dumps(experiments, indent=4)}')
+code_lines.append(f'EXPERIMENTS = {repr(experiments)}')
 code_lines.append('')
 
 html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
@@ -36,7 +39,7 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LabX Remote - AISC & Embedded Systems / RTOS Laboratory</title>
+  <title>LabX Remote - Minimalist Experiment Distribution</title>
   <script src="jszip.min.js"></script>
   <script src="pdf.min.js"></script>
   <script>
@@ -49,74 +52,87 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
   </script>
   <style>
     :root {
-      --bg: #0b1120;
-      --card-bg: #1e293b;
-      --accent: #38bdf8;
-      --accent-green: #34d399;
-      --accent-purple: #c084fc;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --code-bg: #090d16;
-      --border: #334155;
+      --bg: #000000;
+      --card-bg: #0a0a0a;
+      --card-hover: #121212;
+      --border: #222222;
+      --border-hover: #444444;
+      --text: #ffffff;
+      --muted: #888888;
+      --subtle: #555555;
+      --code-bg: #050505;
+      --white: #ffffff;
+      --black: #000000;
     }
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      margin: 0;
-      padding: 1.5rem;
-      line-height: 1.6;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
     .container {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
     }
     header {
-      text-align: center;
-      margin-bottom: 2rem;
+      padding-bottom: 2rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
-    h1 {
-      color: var(--accent);
-      font-size: 2.2rem;
-      margin-bottom: 0.25rem;
-      letter-spacing: -0.02em;
+    .header-left h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .header-left p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0.35rem;
     }
     .badge-bar {
       display: flex;
-      justify-content: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 0.75rem;
     }
     .badge {
-      display: inline-block;
-      background: #0284c7;
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.82rem;
-      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #111111;
+      color: var(--white);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s ease;
     }
-    .badge.aisc {
-      background: #0369a1;
-    }
-    .badge.es {
-      background: #059669;
+    .badge:hover {
+      border-color: var(--white);
+      background: #1a1a1a;
     }
 
-    /* Top Section: Horizontal Experiment Cards Rail */
+    /* Top Section: Monochromatic Horizontal Rail */
     .catalog-section {
-      margin-bottom: 3rem;
-      background: #0f172a;
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2.5rem;
     }
     .section-header-row {
       display: flex;
@@ -128,68 +144,69 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     }
     .tabs-group {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
     }
     .tab-btn {
-      background: #1e293b;
+      background: #0a0a0a;
       color: var(--muted);
       border: 1px solid var(--border);
-      padding: 0.45rem 1rem;
-      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
     .tab-btn:hover {
-      color: var(--text);
-      border-color: var(--accent);
+      color: var(--white);
+      border-color: #555555;
     }
     .tab-btn.active {
-      background: #0284c7;
-      color: white;
-      border-color: #38bdf8;
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
     }
     .search-box {
-      background: #090d16;
+      background: #000000;
       border: 1px solid var(--border);
-      color: white;
-      padding: 0.45rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      width: 280px;
+      color: var(--white);
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      width: 260px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.15s ease;
     }
     .search-box:focus {
-      border-color: var(--accent);
+      border-color: var(--white);
     }
     .rail-controls {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       align-items: center;
     }
     .nav-arrow-btn {
-      background: #1e293b;
+      background: #0a0a0a;
       border: 1px solid var(--border);
-      color: var(--accent);
-      width: 34px;
-      height: 34px;
-      border-radius: 6px;
+      color: var(--white);
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
+      font-size: 0.9rem;
+      transition: all 0.15s ease;
     }
     .nav-arrow-btn:hover {
-      background: #0284c7;
-      color: white;
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
     }
 
-    /* Horizontal Cards Rail */
+    /* Cards Horizontal Rail */
     .cards-rail {
       display: flex;
       gap: 1.25rem;
@@ -197,39 +214,38 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
       padding: 0.5rem 0.25rem 1.25rem;
       scroll-snap-type: x mandatory;
       scrollbar-width: thin;
-      scrollbar-color: #0284c7 #090d16;
+      scrollbar-color: #333333 #0a0a0a;
     }
     .cards-rail::-webkit-scrollbar {
-      height: 8px;
+      height: 6px;
     }
     .cards-rail::-webkit-scrollbar-track {
-      background: #090d16;
-      border-radius: 4px;
+      background: #0a0a0a;
+      border-radius: 3px;
     }
     .cards-rail::-webkit-scrollbar-thumb {
-      background: #0284c7;
-      border-radius: 4px;
+      background: #333333;
+      border-radius: 3px;
     }
     .cards-rail::-webkit-scrollbar-thumb:hover {
-      background: #38bdf8;
+      background: #555555;
     }
 
     .card {
-      flex: 0 0 350px;
+      flex: 0 0 360px;
       scroll-snap-align: start;
-      background: var(--card-bg);
+      background: #050505;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 6px;
       padding: 1.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      transition: all 0.15s ease;
     }
     .card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+      border-color: #444444;
+      background: var(--card-hover);
     }
     .card-top {
       display: flex;
@@ -238,65 +254,62 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
       margin-bottom: 0.75rem;
     }
     .tag {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: #334155;
+      letter-spacing: 0.06em;
+      background: #111111;
       padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      color: #38bdf8;
+      border-radius: 3px;
+      color: var(--white);
+      border: 1px solid var(--border);
       display: inline-block;
       font-weight: 600;
-    }
-    .tag.es {
-      color: #34d399;
-      background: #064e3b;
     }
     .copy-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: #1e3a5f;
-      color: #38bdf8;
-      border: 1px solid #0284c7;
-      border-radius: 6px;
-      padding: 0.3rem 0.65rem;
-      font-size: 0.78rem;
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--white);
+      border-radius: 4px;
+      padding: 0.32rem 0.7rem;
+      font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
     .copy-btn:hover {
-      background: #0284c7;
-      color: #ffffff;
+      background: #e5e5e5;
     }
     .copy-btn.copied {
-      background: #15803d !important;
-      color: #ffffff !important;
-      border-color: #22c55e !important;
+      background: #222222 !important;
+      color: var(--white) !important;
+      border-color: #555555 !important;
     }
     .card h3 {
-      margin: 0.4rem 0;
-      color: var(--accent);
-      font-size: 1.05rem;
+      margin: 0.35rem 0;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
       line-height: 1.35;
     }
     .file-pill {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      background: #090d16;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: #000000;
       padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-family: ui-monospace, monospace;
-      margin-top: 0.5rem;
+      border-radius: 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      margin-top: 0.4rem;
       display: inline-block;
-      border: 1px solid #1e293b;
+      border: 1px solid var(--border);
     }
     .card-cmd-box {
-      background: #090d16;
-      border: 1px solid #1e3a5f;
-      border-radius: 6px;
-      padding: 0.5rem 0.75rem;
+      background: #000000;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.45rem 0.75rem;
       margin-top: 0.75rem;
       display: flex;
       justify-content: space-between;
@@ -306,7 +319,7 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     .card-cmd-text {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      color: #7dd3fc;
+      color: var(--white);
       overflow-x: auto;
       white-space: nowrap;
       flex: 1;
@@ -318,70 +331,70 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
       margin-top: 1rem;
       padding-top: 0.75rem;
       border-top: 1px solid var(--border);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     a {
-      color: var(--accent);
-      text-decoration: none;
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
     a:hover {
-      text-decoration: underline;
+      color: #cccccc;
     }
 
-    /* Bottom Section: Ingester, Terminal, Endpoints */
+    /* Bottom Section: Minimalist Ingester, Terminal, Endpoints */
     .bottom-section {
       display: flex;
       flex-direction: column;
       gap: 2rem;
     }
     .uploader-card {
-      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid #0284c7;
-      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       padding: 1.75rem;
-      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
     }
     .uploader-header h2 {
-      margin: 0.3rem 0;
-      color: #38bdf8;
-      font-size: 1.4rem;
+      margin: 0.4rem 0 0.25rem;
+      color: var(--white);
+      font-size: 1.3rem;
+      font-weight: 600;
     }
     .drop-zone {
-      border: 2px dashed #0284c7;
-      background: #090d16;
-      border-radius: 8px;
-      padding: 2.25rem 1.5rem;
+      border: 1px dashed #444444;
+      background: #000000;
+      border-radius: 6px;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       cursor: pointer;
       margin-top: 1.25rem;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
     .drop-zone:hover, .drop-zone.dragover {
-      border-color: #38bdf8;
-      background: #0f1c30;
-      transform: scale(1.005);
+      border-color: var(--white);
+      background: #050505;
     }
     .browse-btn {
-      background: #0284c7;
-      color: white;
+      background: var(--white);
+      color: var(--black);
       border: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 4px;
+      padding: 0.35rem 0.85rem;
+      border-radius: 3px;
       cursor: pointer;
       font-weight: 600;
-      margin-left: 0.4rem;
-      transition: background 0.2s;
+      margin-left: 0.35rem;
+      font-size: 0.82rem;
     }
     .browse-btn:hover {
-      background: #0369a1;
+      background: #e5e5e5;
     }
 
     /* Dynamic Upload Results */
     .upload-result-box {
       margin-top: 1.5rem;
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 8px;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 1.25rem;
     }
     .master-actions-bar {
@@ -390,9 +403,9 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
       align-items: center;
       flex-wrap: wrap;
       gap: 0.75rem;
-      background: #0f1c30;
-      border: 1px solid #0284c7;
-      border-radius: 8px;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 0.75rem 1.25rem;
       margin-bottom: 1.25rem;
     }
@@ -400,98 +413,99 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: #0284c7;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 0.5rem 0.9rem;
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--white);
+      border-radius: 4px;
+      padding: 0.45rem 0.85rem;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
     .action-btn:hover {
-      background: #0369a1;
+      background: #e5e5e5;
     }
     .action-btn.secondary {
-      background: #1e293b;
+      background: #111111;
       border: 1px solid var(--border);
-      color: #7dd3fc;
+      color: var(--white);
     }
     .action-btn.secondary:hover {
-      background: #334155;
-      color: white;
+      border-color: var(--white);
     }
     .custom-cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 1.25rem;
     }
     .custom-exp-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 1rem;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .custom-exp-card:hover {
-      border-color: #38bdf8;
-    }
     .preview-pre {
-      background: #090d16;
+      background: #000000;
       padding: 0.75rem;
-      border-radius: 6px;
+      border-radius: 4px;
       font-family: ui-monospace, monospace;
-      font-size: 0.78rem;
-      color: #cbd5e1;
+      font-size: 0.75rem;
+      color: #cccccc;
       max-height: 180px;
       overflow-y: auto;
-      border: 1px solid #1f2937;
+      border: 1px solid var(--border);
       margin-top: 0.5rem;
     }
 
     /* Terminal & Endpoints Boxes */
     .command-box {
-      background: var(--code-bg);
-      border: 1px solid #334155;
-      border-radius: 8px;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 1.25rem;
-      font-family: ui-monospace, monospace;
-      color: #7dd3fc;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--white);
       margin: 1rem 0;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      font-size: 0.88rem;
     }
     .endpoints-box {
-      background: #0f172a;
-      border: 1px solid #334155;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
     .endpoints-box ul {
       margin: 0.5rem 0 0 1.25rem;
-      padding: 0;
     }
     .endpoints-box li {
       margin-bottom: 0.4rem;
+      color: var(--muted);
+    }
+    .endpoints-box code {
+      color: var(--white);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>LABX REMOTE EXPERIMENT DASHBOARD</h1>
-      <p style="color:var(--muted); margin:0.25rem 0;">Artificial Intelligence (AISC) &amp; Embedded Systems / Real-Time Operating Systems (ES &amp; RTOS)</p>
+      <div class="header-left">
+        <h1>LABX REMOTE</h1>
+        <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
+      </div>
       <div class="badge-bar">
         <span class="badge">22 Experiments Live</span>
-        <span class="badge aisc">AISC Laboratory (12)</span>
-        <span class="badge es">ES &amp; RTOS Laboratory (10)</span>
-        <a href="downloads/ertos.zip" class="badge" style="background:#7c3aed; text-decoration:none;">Download ERTOS.ZIP (10 Exps)</a>
+        <span class="badge">AISC Lab (12)</span>
+        <span class="badge">ES &amp; RTOS Lab (10)</span>
+        <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
       </div>
     </header>
 
-    <!-- TOP SECTION: Experiment Cards Horizontal Rail -->
+    <!-- TOP SECTION: Monochromatic Experiment Cards Rail -->
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
@@ -499,7 +513,7 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
         </div>
-        <div style="display:flex; gap:0.75rem; align-items:center;">
+        <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
           <div class="rail-controls">
             <button class="nav-arrow-btn" onclick="scrollRail(-380)" title="Scroll Left">&larr;</button>
@@ -521,48 +535,46 @@ html_footer_template = '''HTML_FOOTER = """      </div>
     <!-- BOTTOM SECTION: Custom Ingester, Terminal Quickstart, Static Endpoints -->
     <div class="bottom-section">
       
-      <!-- Custom ZIP / PDF / HTML Ingester -->
+      <!-- Custom Ingester: ZIP / PDF / HTML -->
       <section class="uploader-section">
         <div class="uploader-card">
           <div class="uploader-header">
-            <span class="badge" style="background:#0284c7;">CUSTOM EXPERIMENT &amp; MULTI-FORMAT INGESTER</span>
-            <h2>⚡ Upload Submissions (ZIP Folder, PDF Report, or HTML) &rarr; Instant Custom Commands</h2>
-            <p style="color:#94a3b8; margin:0.35rem 0;">
-              Upload an entire student submission <strong>ZIP folder</strong> (e.g., <code>ES_RTOS_DIV_A_BATCH_A_Submissions.zip</code>), 
+            <span class="tag">MULTI-FORMAT INGESTER</span>
+            <h2>Upload Submissions (ZIP Folder, PDF Report, or HTML) &rarr; Instant Commands</h2>
+            <p style="color:var(--muted); font-size:0.88rem; margin-top:0.25rem;">
+              Drop a student submission <strong>ZIP archive</strong> (e.g., <code>ES_RTOS_DIV_A_BATCH_A_Submissions.zip</code>), 
               <strong>PDF lab report(s)</strong>, or <strong>HTML file(s)</strong>.
-              Even if original submissions contained drive links or print previews, it parses Aim, Theory &amp; Source Code, pads to 50 lines with theory comments strictly after line 50, and generates custom <code>irm &lt;URL&gt; | iex</code> commands for each experiment.
+              Even if original submissions contained drive links or print previews, it extracts Aim, Theory &amp; Source Code, pads to 50 lines with theory comments strictly after line 50, and generates custom delivery commands.
             </p>
           </div>
 
           <div id="drop-zone" class="drop-zone">
             <input type="file" id="submission-file-input" accept=".zip,.pdf,.html,.htm" multiple style="display:none;" />
             <div class="drop-zone-content">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="17 8 12 3 7 8"></polyline>
                 <line x1="12" y1="3" x2="12" y2="15"></line>
               </svg>
-              <p style="margin:0.25rem 0; font-size:1.05rem; color:#f1f5f9;">
+              <p style="font-size:0.95rem; color:var(--white);">
                 Drag &amp; drop a <strong>ZIP folder</strong>, <strong>PDF lab report</strong>, or <strong>HTML file(s)</strong> here, or 
                 <button type="button" class="browse-btn" onclick="document.getElementById('submission-file-input').click()">Browse Files</button>
               </p>
-              <span style="font-size:0.82rem; color:#94a3b8;">Supports ZIP archives (with PDFs/HTML), standalone PDF reports, or HTML submissions</span>
+              <span style="font-size:0.78rem; color:var(--subtle);">Supports ZIP archives with subfolders, standalone PDFs, or HTML submissions</span>
             </div>
           </div>
 
           <div id="upload-result" style="display:none;" class="upload-result-box">
             <div class="master-actions-bar">
               <div>
-                <span id="res-summary-badge" class="badge" style="background:#059669;">UNPACKED &amp; PROCESSED</span>
-                <span id="res-summary-title" style="font-weight:600; color:#38bdf8; margin-left:0.5rem;"></span>
+                <span id="res-summary-badge" class="tag">UNPACKED</span>
+                <span id="res-summary-title" style="font-weight:600; color:var(--white); margin-left:0.5rem; font-size:0.9rem;"></span>
               </div>
               <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
                 <button id="pull-all-zip-btn" class="action-btn" onclick="copyPullAllScript()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                   <span>Copy Pull-All Command</span>
                 </button>
                 <button id="download-zip-btn" class="action-btn secondary" onclick="downloadAllProcessedZip()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                   <span>Download Processed ZIP</span>
                 </button>
               </div>
@@ -577,30 +589,30 @@ html_footer_template = '''HTML_FOOTER = """      </div>
 
       <!-- Terminal Quickstart -->
       <section>
-        <h2 style="color:var(--accent); font-size:1.4rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
+        <h2 style="color:var(--white); font-size:1.2rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
         <div class="command-box">
-          <span style="color:#94a3b8"># 1. Ultra-short one-liners in PowerShell (No install needed):</span><br>
-          <span style="color:#38bdf8; font-weight:bold;">irm https://aisccli.netlify.app/ertos.ps1 | iex</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#34d399"># Pull ALL 10 ES &amp; RTOS experiments!</span><br>
-          irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull ALL 22 experiments (AISC + ES/RTOS)</span><br>
-          &amp; (irm https://aisccli.netlify.app/get.ps1) 14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 14 (LPC2148 LED Interfacing)</span><br>
-          &amp; (irm https://aisccli.netlify.app/get.ps1) 22 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 22 (LPC2148 Traffic Light Controller)</span><br>
-          irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># List all 22 experiments</span><br><br>
-          <span style="color:#94a3b8"># 2. Or install the global 'labx' CLI:</span><br>
+          <span style="color:var(--subtle)"># 1. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
+          irm https://aisccli.netlify.app/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
+          irm https://aisccli.netlify.app/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
+          <span style="color:var(--subtle)"># 2. Pull All 22 Experiments (AISC + ERTOS):</span><br>
+          irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
+          irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
+          <span style="color:var(--subtle)"># 3. Or install the global 'labx' CLI:</span><br>
           irm https://aisccli.netlify.app/install.ps1 | iex<br>
-          labx list &nbsp;|&nbsp; labx download 14 &nbsp;|&nbsp; labx run 14
+          labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
         </div>
       </section>
 
       <!-- Static Endpoints -->
       <section class="endpoints-box">
-        <h2 style="color:var(--accent); font-size:1.3rem; margin:0 0 0.5rem 0;">Available Static Endpoints</h2>
+        <h2 style="color:var(--white); font-size:1.1rem; margin:0 0 0.5rem 0;">Available Static Endpoints</h2>
         <ul>
-          <li><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; <strong>Dedicated 10-experiment ES &amp; RTOS ZIP archive</strong></li>
-          <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 22-experiment ZIP archive (AISC + ES &amp; RTOS)</li>
+          <li><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; Dedicated 10-experiment ES &amp; RTOS ZIP archive</li>
+          <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 22-experiment ZIP archive</li>
           <li><a href="downloads/aisc_experiments.zip"><code>/downloads/aisc_experiments.zip</code></a> &mdash; Dedicated 12-experiment AISC ZIP archive</li>
-          <li><a href="catalog.json"><code>/catalog.json</code></a> &mdash; Complete 22-experiment catalogue API</li>
-          <li><a href="version.json"><code>/version.json</code></a> &mdash; Remote version metadata</li>
-          <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> &mdash; Windows standalone executable</li>
+          <li><a href="catalog.json"><code>/catalog.json</code></a> &mdash; Complete catalogue JSON API</li>
+          <li><a href="version.json"><code>/version.json</code></a> &mdash; Remote metadata &amp; version</li>
+          <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> &mdash; Windows standalone binary</li>
         </ul>
       </section>
 
@@ -649,26 +661,45 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       });
     }
 
-    // Copy Experiment Code
-    function copyExpCode(btn, codeId) {
+    // Dual Code + Output Download Handler
+    function copyExpCodeAndDownloadOutput(btn, codeId, outputUrl) {
       const ta = document.getElementById(codeId);
       if (!ta) return;
       const text = ta.value;
       const span = btn.querySelector('span');
-      const originalText = span.textContent;
+      const originalText = span ? span.textContent : 'Copy Code';
 
+      // 1. Copy code to clipboard
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
-          btn.classList.add('copied');
-          span.textContent = 'Copied!';
-          setTimeout(() => {
-            btn.classList.remove('copied');
-            span.textContent = originalText;
-          }, 2000);
+          showCopySuccess(btn, span, outputUrl ? 'Copied & Output Downloaded!' : 'Copied!');
         }).catch(() => fallbackCopy(ta, btn, span, originalText));
       } else {
         fallbackCopy(ta, btn, span, originalText);
       }
+
+      // 2. Automatically trigger output download if available
+      if (outputUrl) {
+        triggerDownload(outputUrl);
+      }
+    }
+
+    function triggerDownload(url) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = url.split('/').pop();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function showCopySuccess(btn, span, message) {
+      btn.classList.add('copied');
+      if (span) span.textContent = message;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (span) span.textContent = 'Copy Code';
+      }, 2500);
     }
 
     function copyText(btn, text) {
@@ -793,7 +824,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           for (const w of words) {
             if ((curr + ' ' + w).length > 76) {
               out.push(curr);
-              curr = '# ' + w;
+              curr = w;
             } else {
               curr += (curr === '#' ? ' ' : ' ') + w;
             }
@@ -806,7 +837,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
     }
 
     function buildPowerShellDeliveryScript(filename, code, isC) {
-      return `# LabX Remote - Custom Experiment Delivery\\\\n$filename = "${filename}"\\\\n$code = @'\\\\n${code}\\\\n'@\\\\n$target = Join-Path $PWD $filename\\\\nSet-Content -Path $target -Value $code -Encoding utf8\\\\nWrite-Host ""\\\\nWrite-Host "============================================================" -ForegroundColor Cyan\\\\nWrite-Host " [OK] Experiment code saved to: $filename" -ForegroundColor Green\\\\nWrite-Host " Theory is embedded after line 50. Ready to execute!" -ForegroundColor White\\\\nWrite-Host " Target: $filename" -ForegroundColor Yellow\\\\nWrite-Host "============================================================" -ForegroundColor Cyan\\\\n`;
+      return `# LabX Remote - Custom Experiment Delivery\\\\n$filename = "${filename}"\\\\n$code = @'\\\\n${code}\\\\n'@\\\\n$target = Join-Path $PWD $filename\\\\nSet-Content -Path $target -Value $code -Encoding utf8\\\\nWrite-Host ""\\\\nWrite-Host "============================================================"\\\\nWrite-Host " [OK] Experiment code saved to: $filename"\\\\nWrite-Host " Theory is embedded after line 50. Ready to execute!"\\\\nWrite-Host " Target: $filename"\\\\nWrite-Host "============================================================"\\\\n`;
     }
 
     async function extractTextFromPdf(arrayBuffer) {
@@ -825,7 +856,6 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       return fullText;
     }
 
-    // Reference code fallback generator when student HTML/PDF contained drive links or images
     function getStandardCodeForTopic(topic, isC) {
       const t = topic.toLowerCase();
       if (t.includes('led') || t.includes('blink')) {
@@ -847,7 +877,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
         return `#include <Arduino_FreeRTOS.h>\\\\n#include <semphr.h>\\\\nSemaphoreHandle_t sem;\\\\nvoid TaskProducer(void *pv) { for(;;) { xSemaphoreGive(sem); vTaskDelay(pdMS_TO_TICKS(1000)); } }\\\\nvoid TaskConsumer(void *pv) { for(;;) { if(xSemaphoreTake(sem, portMAX_DELAY)) Serial.println("Acquired!"); } }\\\\nvoid setup() { Serial.begin(9600); sem = xSemaphoreCreateBinary(); xTaskCreate(TaskProducer,"P",128,NULL,1,NULL); xTaskCreate(TaskConsumer,"C",128,NULL,1,NULL); }\\\\nvoid loop() {}`;
       }
       if (isC) {
-        return `/* ${topic} */\\\\n#include <LPC214x.h>\\\\n\\\\nint main(void) {\\\\n    // Verification and setup entry\\\\n    return 0;\\\\n}`;
+        return `/* ${topic} */\\\\n#include <LPC214x.h>\\\\n\\\\nint main(void) {\\\\n    return 0;\\\\n}`;
       }
       return `# ${topic}\\\\nprint("${topic} executed successfully")\\\\n`;
     }
@@ -856,7 +886,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       const resultBox = document.getElementById('upload-result');
       const cardsContainer = document.getElementById('custom-cards-container');
       resultBox.style.display = 'block';
-      cardsContainer.innerHTML = '<div style="color:#7dd3fc; padding:1.5rem;">Unpacking and parsing submissions...</div>';
+      cardsContainer.innerHTML = '<div style="color:var(--muted); padding:1.5rem;">Unpacking and parsing submissions...</div>';
 
       window._processedExperiments = [];
 
@@ -909,7 +939,6 @@ html_footer_template = '''HTML_FOOTER = """      </div>
         const fullText = await extractTextFromPdf(arrayBuffer);
         const baseFilename = rawName.split('/').pop().replace(/\\\\.[^/.]+$/, '');
 
-        // 1. Aim / Title
         let title = '';
         const aimMatch = fullText.match(/(?:Aim|AIM|Objective|OBJECTIVE|Subject|Subject\\\\s*[:\\\\-]?|Experiment\\\\s*[:\\\\-]?)\\\\s*[:\\\\-]?\\\\s*([A-Za-z0-9\\\\s,()\\\\/\\\\-]+?)(?=(?:Enrollment|Roll|Date|Theory|THEORY|Apparatus|Equipment|1\\\\.|\\\\n\\\\n|$))/i);
         if (aimMatch && aimMatch[1].trim().length > 5) {
@@ -918,21 +947,18 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           title = baseFilename.replace(/[_-]+/g, ' ');
         }
 
-        // 2. Theory
         let theory = '';
         const theoryMatch = fullText.match(/(?:Theory|THEORY|Theoretical\\\\s+Background)\\\\s*[:\\\\-]?\\\\s*([\\\\s\\\\S]*?)(?=(?:Algorithm|ALGORITHM|Source\\\\s+Code|CODE|Procedure|PROCEDURE|Program|PROGRAM|Output|Result|$))/i);
         if (theoryMatch && theoryMatch[1].trim().length > 10) {
           theory = theoryMatch[1].trim();
         }
 
-        // 3. Source Code
         let code = '';
         const codeMatch = fullText.match(/(?:Source\\\\s+Code|SOURCE\\\\s+CODE|Code\\\\s*[:\\\\-]|Program\\\\s*[:\\\\-])\\\\s*([\\\\s\\\\S]*?)(?=(?:Output|OUTPUT|Result|RESULT|Conclusion|Assessment|$))/i);
         if (codeMatch && (codeMatch[1].includes('#include') || codeMatch[1].includes('void ') || codeMatch[1].includes('def ') || codeMatch[1].includes('import '))) {
           code = codeMatch[1].trim();
         }
 
-        // Language detection
         const isC = title.toLowerCase().includes('lpc') || title.toLowerCase().includes('rtos') || title.toLowerCase().includes('embedded') || title.toLowerCase().includes('led') || title.toLowerCase().includes('lcd') || title.toLowerCase().includes('uart') || (code && code.includes('#include'));
         const ext = isC ? (title.toLowerCase().includes('rtos') || title.toLowerCase().includes('arduino') ? '.ino' : '.c') : '.py';
         let safeName = baseFilename.toLowerCase().replace(/[^a-z0-9_]/g, '_');
@@ -970,7 +996,6 @@ html_footer_template = '''HTML_FOOTER = """      </div>
         let theory = '';
         let code = '';
 
-        // Extract Title / Aim
         const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, b, strong'));
         for (const h of headings) {
           const txt = h.textContent.trim().toLowerCase();
@@ -990,7 +1015,6 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           title = doc.querySelector('title')?.textContent.trim() || baseFilename.replace(/[_-]+/g, ' ');
         }
 
-        // Extract Theory
         for (const h of headings) {
           if (h.textContent.trim().toLowerCase().includes('theory')) {
             const parts = [];
@@ -1005,7 +1029,6 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           }
         }
 
-        // Extract Code
         for (const h of headings) {
           const txt = h.textContent.trim().toLowerCase();
           if (txt.includes('source code') || txt.includes('code')) {
@@ -1031,7 +1054,6 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           }
         }
 
-        // Language Detection & Extension
         const isC = (code && (code.includes('#include') || code.includes('void '))) || rawName.toLowerCase().includes('lpc') || rawName.toLowerCase().includes('rtos') || title.toLowerCase().includes('lpc') || title.toLowerCase().includes('rtos') || title.toLowerCase().includes('embedded');
         const ext = isC ? (code && code.includes('setup()') ? '.ino' : '.c') : '.py';
         let safeName = baseFilename.toLowerCase().replace(/[^a-z0-9_]/g, '_');
@@ -1066,7 +1088,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       document.getElementById('res-summary-title').textContent = `${count} Experiments Unpacked & Formatted`;
 
       if (count === 0) {
-        container.innerHTML = '<div style="color:#f87171; padding:1rem;">No valid experiments could be parsed from the uploaded file(s).</div>';
+        container.innerHTML = '<div style="color:var(--muted); padding:1rem;">No valid experiments could be parsed.</div>';
         return;
       }
 
@@ -1082,26 +1104,22 @@ html_footer_template = '''HTML_FOOTER = """      </div>
         card.innerHTML = `
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-              <span class="tag ${item.language === 'c' ? 'es' : ''}">${item.language.toUpperCase()}</span>
+              <span class="tag">${item.language.toUpperCase()}</span>
               <button class="copy-btn" onclick="copyCustomItemCode(${i}, this)">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 <span>Copy Code</span>
               </button>
             </div>
-            <h4 style="margin:0.25rem 0; color:#38bdf8; font-size:0.95rem;">${item.title}</h4>
+            <h4 style="margin:0.25rem 0; color:var(--white); font-size:0.95rem;">${item.title}</h4>
             <span class="file-pill">${item.name}</span>
           </div>
 
           <div style="margin-top:0.75rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:#94a3b8; margin-bottom:0.25rem;">
-              <span>PowerShell Delivery Command:</span>
-            </div>
             <div class="card-cmd-box" style="margin-top:0;">
               <code id="cmd-cust-${i}" class="card-cmd-text">Generating...</code>
               <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyCustCmd(${i}, this)">Copy</button>
             </div>
-            <details style="margin-top:0.5rem; font-size:0.78rem; color:#94a3b8;">
-              <summary style="cursor:pointer; color:#7dd3fc;">View Code Preview (${lines} lines, theory after line 50)</summary>
+            <details style="margin-top:0.5rem; font-size:0.75rem; color:var(--muted);">
+              <summary style="cursor:pointer; color:var(--white);">View Code Preview (${lines} lines, theory after line 50)</summary>
               <pre class="preview-pre">${escapedCode}</pre>
             </details>
           </div>
@@ -1194,10 +1212,11 @@ code_lines.append('')
 
 generate_host_code = '''def generate_host():
     """Build all static hosting artifacts for 22 experiments."""
-    print("Building AISC & ES_RTOS LabX distribution backend...")
+    print("Building Minimalist Black & White LabX distribution backend...")
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
     EXP_DIR.mkdir(parents=True, exist_ok=True)
     DL_DIR.mkdir(parents=True, exist_ok=True)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Clean old experiments
     for old_folder in EXP_DIR.iterdir():
@@ -1244,10 +1263,10 @@ generate_host_code = '''def generate_host():
     # 2. version.json
     version_data = {
         "version": "1.0.0",
-        "updated_at": "2026-11-02T12:00:00Z",
-        "platform": "AISC & ES_RTOS Laboratory Remote Production Backend",
+        "updated_at": "2026-11-02T22:00:00Z",
+        "platform": "Minimalist Black & White LabX Production Backend",
         "supported_experiments": len(EXPERIMENTS),
-        "checksum": "labx-prod-hash-v3"
+        "checksum": "labx-prod-hash-v4"
     }
     with open(PUBLIC_DIR / "version.json", "w", encoding="utf-8") as f:
         json.dump(version_data, f, indent=2)
@@ -1281,7 +1300,10 @@ generate_host_code = '''def generate_host():
             "language": exp["language"],
             "aliases": exp["aliases"],
             "description": exp["description"],
-            "manifest_url": manifest_url
+            "manifest_url": manifest_url,
+            "subject": exp.get("subject", "AISC"),
+            "lab_serial": exp.get("lab_serial", exp_id),
+            "output_url": exp.get("output_url")
         })
 
         # Write experiment files
@@ -1339,36 +1361,44 @@ generate_host_code = '''def generate_host():
         src_name = src_file["path"]
         src_code = src_file["content"]
         escaped_code = html.escape(src_code)
-        subject_badge_class = "es" if subject_type == "ES_RTOS" else ""
-        subject_label = "ES & RTOS" if subject_type == "ES_RTOS" else "AISC"
-        cmd_str = f"& (irm https://aisccli.netlify.app/get.ps1) {exp_id}"
+        
+        lab_serial = exp.get("lab_serial", exp_id)
+        if subject_type == "ES_RTOS":
+            display_title = f"#{lab_serial:02d} {exp['title']}"
+            subject_label = "ES & RTOS"
+            cmd_str = f"irm https://aisccli.netlify.app/e{lab_serial}.ps1 | iex"
+            output_url = exp.get("output_url", "")
+        else:
+            display_title = f"#{exp_id:02d} {exp['title']}"
+            subject_label = "AISC"
+            cmd_str = f"& (irm https://aisccli.netlify.app/get.ps1) {exp_id}"
+            output_url = ""
+
+        output_link_html = f'<a href="{output_url}" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>' if output_url else ""
 
         # HTML card
         html_cards.append(f"""        <div class="card" data-subject="{subject_type}">
           <div>
             <div class="card-top">
-              <span class="tag {subject_badge_class}">{subject_label} &bull; {exp['language'].upper()}</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-{exp_id}')" title="Copy {src_name} source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">{subject_label} &bull; {exp['language'].upper()}</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-{exp_id}', '{output_url}')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
             <textarea id="code-{exp_id}" style="display:none;">{escaped_code}</textarea>
-            <h3>#{exp_id:02d} {exp['title']}</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">{exp['description']}</p>
+            <h3>{display_title}</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">{exp['description']}</p>
             <span class="file-pill">{src_name}</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">{cmd_str}</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '{cmd_str}')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '{cmd_str}')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/{exp_folder_name}/{src_name}" target="_blank">View File &rarr;</a>
+              {output_link_html}
               <a href="{manifest_url}" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1377,7 +1407,7 @@ generate_host_code = '''def generate_host():
     # 4. Write catalog.json
     catalog_data = {
         "version": "1.0.0",
-        "updated_at": "2026-11-02T12:00:00Z",
+        "updated_at": "2026-11-02T22:00:00Z",
         "zip_url": "downloads/labx_experiments.zip",
         "ertos_zip_url": "downloads/ertos.zip",
         "experiments": catalog_items
@@ -1426,65 +1456,108 @@ generate_host_code = '''def generate_host():
 
     # 6. PowerShell scripts
     all_ps1 = """$zip = Join-Path $PWD "labx_temp.zip"
-Write-Host "Downloading all 22 experiments (AISC + Embedded Systems & RTOS) from LabX Remote..." -ForegroundColor Cyan
+Write-Host "Downloading all 22 experiments (AISC + Embedded Systems & RTOS) from LabX Remote..." -ForegroundColor White
 Invoke-WebRequest "https://aisccli.netlify.app/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
-Write-Host "[OK] All 22 experiments extracted to current directory!" -ForegroundColor Green
+Write-Host "[OK] All 22 experiments extracted to current directory!" -ForegroundColor White
 """
     with open(PUBLIC_DIR / "all.ps1", "w", encoding="utf-8") as f:
         f.write(all_ps1)
 
     ertos_ps1 = """$zip = Join-Path $PWD "ertos_temp.zip"
-Write-Host "Downloading 10 Embedded Systems & RTOS experiments from LabX Remote..." -ForegroundColor Cyan
+Write-Host "Downloading 10 Embedded Systems & RTOS experiments from LabX Remote..." -ForegroundColor White
 Invoke-WebRequest "https://aisccli.netlify.app/downloads/ertos.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
-Write-Host "[OK] All 10 ES & RTOS experiments extracted to current directory!" -ForegroundColor Green
+Write-Host "[OK] All 10 ES & RTOS experiments extracted to current directory!" -ForegroundColor White
 """
     with open(PUBLIC_DIR / "ertos.ps1", "w", encoding="utf-8") as f:
         f.write(ertos_ps1)
     with open(PUBLIC_DIR / "rtos.ps1", "w", encoding="utf-8") as f:
         f.write(ertos_ps1)
 
-    aisc_ps1 = """$zip = Join-Path $PWD "aisc_temp.zip"
-Write-Host "Downloading 12 AISC experiments from LabX Remote..." -ForegroundColor Cyan
-Invoke-WebRequest "https://aisccli.netlify.app/downloads/aisc_experiments.zip" -OutFile $zip -UseBasicParsing
-Expand-Archive $zip -DestinationPath $PWD -Force
-Remove-Item $zip -Force
-Write-Host "[OK] All 12 AISC experiments extracted to current directory!" -ForegroundColor Green
-"""
-    with open(PUBLIC_DIR / "aisc.ps1", "w", encoding="utf-8") as f:
-        f.write(aisc_ps1)
+    # Generate individual dual code + output delivery scripts (e1.ps1 - e10.ps1) for ERTOS
+    for exp in EXPERIMENTS:
+        if exp.get("subject") == "ES_RTOS":
+            s_num = exp.get("lab_serial", 1)
+            src_file = exp["files"][0]
+            src_fname = src_file["path"]
+            src_content = src_file["content"]
+            out_fname = f"ertos_exp{s_num:02d}_output.pdf"
+            
+            lines_ps1 = [
+                f"# LabX Remote: ERTOS Exp {s_num:02d} (Code + Output PDF)",
+                f'$filename = "{src_fname}"',
+                "$code = @'",
+                src_content,
+                "'@",
+                "$target = Join-Path $PWD $filename",
+                "Set-Content -Path $target -Value $code -Encoding utf8",
+                f'Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -ForegroundColor White',
+                "",
+                f'$outTarget = Join-Path $PWD "{out_fname}"',
+                "try {",
+                f'    Invoke-WebRequest "https://aisccli.netlify.app/outputs/{out_fname}" -OutFile $outTarget -UseBasicParsing',
+                f'    Write-Host "[OK] Downloaded Output PDF to: {out_fname}" -ForegroundColor White',
+                "} catch {",
+                f'    Write-Host "[!] Could not fetch {out_fname}: $_" -ForegroundColor DarkGray',
+                "}"
+            ]
+            e_ps1 = "\\n".join(lines_ps1)
+            with open(PUBLIC_DIR / f"e{s_num}.ps1", "w", encoding="utf-8") as f:
+                f.write(e_ps1)
 
-    get_ps1 = """param($Id)
+    get_ps1 = """param($Id, [string]$Lab = "")
 if (-not $Id) {
-    $Id = Read-Host "Enter experiment number (1-22)"
+    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 1-12 for AISC, or 1-22)"
 }
-$num = "{0:D2}" -f [int]$Id
-$cat = (Invoke-RestMethod "https://aisccli.netlify.app/catalog.json").experiments | Where-Object { $_.id -eq [int]$Id }
-if (-not $cat) {
-    Write-Host "[!] Experiment $Id not found in catalogue." -ForegroundColor Red
+
+$intId = [int]$Id
+$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
+
+if ($Lab -eq "ertos" -or $Lab -eq "es") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+} elseif ($Lab -eq "aisc") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "AISC" -and $_.lab_serial -eq $intId }
+} else {
+    $item = $cat.experiments | Where-Object { $_.id -eq $intId }
+    if (-not $item -and $intId -le 10) {
+        # Default to ERTOS if requested 1-10
+        $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+    }
+}
+
+if (-not $item) {
+    Write-Host "[!] Experiment $Id not found." -ForegroundColor DarkGray
     return
 }
-$mf = Invoke-RestMethod "https://aisccli.netlify.app/$($cat.manifest_url)"
+
+$num = "{0:D2}" -f [int]$item.id
+$mf = Invoke-RestMethod "https://aisccli.netlify.app/$($item.manifest_url)"
 $dir = "Experiment$num"
 New-Item -ItemType Directory -Path $dir -Force | Out-Null
 foreach ($f in $mf.files) {
     Invoke-WebRequest "https://aisccli.netlify.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
 }
-Write-Host "[OK] Downloaded $($cat.title) into $dir/" -ForegroundColor Green
+Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
+
+if ($item.output_url) {
+    $outName = Split-Path $item.output_url -Leaf
+    Invoke-WebRequest "https://aisccli.netlify.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+    Write-Host "[OK] Downloaded Output PDF: $outName into $dir/" -ForegroundColor White
+}
 """
     with open(PUBLIC_DIR / "get.ps1", "w", encoding="utf-8") as f:
         f.write(get_ps1)
 
     list_ps1 = """$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
-Write-Host "`n==== AISC & Embedded Systems / RTOS Laboratory Experiments (LabX Remote) ====" -ForegroundColor Cyan
-$cat.experiments | Format-Table @{Label="ID"; Expression={"Exp " + ("{0:D2}" -f $_.id)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
-Write-Host "Quick commands:" -ForegroundColor Yellow
-Write-Host "  Pull ERTOS experiments : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor White
-Write-Host "  Pull all experiments   : irm https://aisccli.netlify.app/all.ps1 | iex" -ForegroundColor White
-Write-Host "  Pull one experiment    : & (irm https://aisccli.netlify.app/get.ps1) <id>`n" -ForegroundColor White
+Write-Host "`n==== AISC & Embedded Systems / RTOS Laboratory Experiments ====" -ForegroundColor White
+$cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
+Write-Host "Quick commands:" -ForegroundColor White
+Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://aisccli.netlify.app/e2.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All ERTOS experiments       : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All 22 experiments          : irm https://aisccli.netlify.app/all.ps1 | iex`n" -ForegroundColor Gray
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)
@@ -1494,7 +1567,7 @@ Write-Host "  Pull one experiment    : & (irm https://aisccli.netlify.app/get.ps
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(full_html)
 
-    print("Static backend build completed successfully!")
+    print("Minimalist Black & White host build completed successfully!")
     print(f"Total experiments compiled: {len(EXPERIMENTS)}")
 
 if __name__ == "__main__":

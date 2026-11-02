@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LabX Remote - AISC & Embedded Systems / RTOS Laboratory</title>
+  <title>LabX Remote - Minimalist Experiment Distribution</title>
   <script src="jszip.min.js"></script>
   <script src="pdf.min.js"></script>
   <script>
@@ -16,74 +16,87 @@
   </script>
   <style>
     :root {
-      --bg: #0b1120;
-      --card-bg: #1e293b;
-      --accent: #38bdf8;
-      --accent-green: #34d399;
-      --accent-purple: #c084fc;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --code-bg: #090d16;
-      --border: #334155;
+      --bg: #000000;
+      --card-bg: #0a0a0a;
+      --card-hover: #121212;
+      --border: #222222;
+      --border-hover: #444444;
+      --text: #ffffff;
+      --muted: #888888;
+      --subtle: #555555;
+      --code-bg: #050505;
+      --white: #ffffff;
+      --black: #000000;
     }
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      margin: 0;
-      padding: 1.5rem;
-      line-height: 1.6;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
     .container {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
     }
     header {
-      text-align: center;
-      margin-bottom: 2rem;
+      padding-bottom: 2rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
-    h1 {
-      color: var(--accent);
-      font-size: 2.2rem;
-      margin-bottom: 0.25rem;
-      letter-spacing: -0.02em;
+    .header-left h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .header-left p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0.35rem;
     }
     .badge-bar {
       display: flex;
-      justify-content: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 0.75rem;
     }
     .badge {
-      display: inline-block;
-      background: #0284c7;
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.82rem;
-      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #111111;
+      color: var(--white);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s ease;
     }
-    .badge.aisc {
-      background: #0369a1;
-    }
-    .badge.es {
-      background: #059669;
+    .badge:hover {
+      border-color: var(--white);
+      background: #1a1a1a;
     }
 
-    /* Top Section: Horizontal Experiment Cards Rail */
+    /* Top Section: Monochromatic Horizontal Rail */
     .catalog-section {
-      margin-bottom: 3rem;
-      background: #0f172a;
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2.5rem;
     }
     .section-header-row {
       display: flex;
@@ -95,68 +108,69 @@
     }
     .tabs-group {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
     }
     .tab-btn {
-      background: #1e293b;
+      background: #0a0a0a;
       color: var(--muted);
       border: 1px solid var(--border);
-      padding: 0.45rem 1rem;
-      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
     .tab-btn:hover {
-      color: var(--text);
-      border-color: var(--accent);
+      color: var(--white);
+      border-color: #555555;
     }
     .tab-btn.active {
-      background: #0284c7;
-      color: white;
-      border-color: #38bdf8;
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
     }
     .search-box {
-      background: #090d16;
+      background: #000000;
       border: 1px solid var(--border);
-      color: white;
-      padding: 0.45rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      width: 280px;
+      color: var(--white);
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      width: 260px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.15s ease;
     }
     .search-box:focus {
-      border-color: var(--accent);
+      border-color: var(--white);
     }
     .rail-controls {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       align-items: center;
     }
     .nav-arrow-btn {
-      background: #1e293b;
+      background: #0a0a0a;
       border: 1px solid var(--border);
-      color: var(--accent);
-      width: 34px;
-      height: 34px;
-      border-radius: 6px;
+      color: var(--white);
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
+      font-size: 0.9rem;
+      transition: all 0.15s ease;
     }
     .nav-arrow-btn:hover {
-      background: #0284c7;
-      color: white;
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
     }
 
-    /* Horizontal Cards Rail */
+    /* Cards Horizontal Rail */
     .cards-rail {
       display: flex;
       gap: 1.25rem;
@@ -164,39 +178,38 @@
       padding: 0.5rem 0.25rem 1.25rem;
       scroll-snap-type: x mandatory;
       scrollbar-width: thin;
-      scrollbar-color: #0284c7 #090d16;
+      scrollbar-color: #333333 #0a0a0a;
     }
     .cards-rail::-webkit-scrollbar {
-      height: 8px;
+      height: 6px;
     }
     .cards-rail::-webkit-scrollbar-track {
-      background: #090d16;
-      border-radius: 4px;
+      background: #0a0a0a;
+      border-radius: 3px;
     }
     .cards-rail::-webkit-scrollbar-thumb {
-      background: #0284c7;
-      border-radius: 4px;
+      background: #333333;
+      border-radius: 3px;
     }
     .cards-rail::-webkit-scrollbar-thumb:hover {
-      background: #38bdf8;
+      background: #555555;
     }
 
     .card {
-      flex: 0 0 350px;
+      flex: 0 0 360px;
       scroll-snap-align: start;
-      background: var(--card-bg);
+      background: #050505;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 6px;
       padding: 1.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      transition: all 0.15s ease;
     }
     .card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+      border-color: #444444;
+      background: var(--card-hover);
     }
     .card-top {
       display: flex;
@@ -205,65 +218,62 @@
       margin-bottom: 0.75rem;
     }
     .tag {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: #334155;
+      letter-spacing: 0.06em;
+      background: #111111;
       padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      color: #38bdf8;
+      border-radius: 3px;
+      color: var(--white);
+      border: 1px solid var(--border);
       display: inline-block;
       font-weight: 600;
-    }
-    .tag.es {
-      color: #34d399;
-      background: #064e3b;
     }
     .copy-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: #1e3a5f;
-      color: #38bdf8;
-      border: 1px solid #0284c7;
-      border-radius: 6px;
-      padding: 0.3rem 0.65rem;
-      font-size: 0.78rem;
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--white);
+      border-radius: 4px;
+      padding: 0.32rem 0.7rem;
+      font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
     .copy-btn:hover {
-      background: #0284c7;
-      color: #ffffff;
+      background: #e5e5e5;
     }
     .copy-btn.copied {
-      background: #15803d !important;
-      color: #ffffff !important;
-      border-color: #22c55e !important;
+      background: #222222 !important;
+      color: var(--white) !important;
+      border-color: #555555 !important;
     }
     .card h3 {
-      margin: 0.4rem 0;
-      color: var(--accent);
-      font-size: 1.05rem;
+      margin: 0.35rem 0;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
       line-height: 1.35;
     }
     .file-pill {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      background: #090d16;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: #000000;
       padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-family: ui-monospace, monospace;
-      margin-top: 0.5rem;
+      border-radius: 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      margin-top: 0.4rem;
       display: inline-block;
-      border: 1px solid #1e293b;
+      border: 1px solid var(--border);
     }
     .card-cmd-box {
-      background: #090d16;
-      border: 1px solid #1e3a5f;
-      border-radius: 6px;
-      padding: 0.5rem 0.75rem;
+      background: #000000;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.45rem 0.75rem;
       margin-top: 0.75rem;
       display: flex;
       justify-content: space-between;
@@ -273,7 +283,7 @@
     .card-cmd-text {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      color: #7dd3fc;
+      color: var(--white);
       overflow-x: auto;
       white-space: nowrap;
       flex: 1;
@@ -285,70 +295,70 @@
       margin-top: 1rem;
       padding-top: 0.75rem;
       border-top: 1px solid var(--border);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     a {
-      color: var(--accent);
-      text-decoration: none;
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
     a:hover {
-      text-decoration: underline;
+      color: #cccccc;
     }
 
-    /* Bottom Section: Ingester, Terminal, Endpoints */
+    /* Bottom Section: Minimalist Ingester, Terminal, Endpoints */
     .bottom-section {
       display: flex;
       flex-direction: column;
       gap: 2rem;
     }
     .uploader-card {
-      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid #0284c7;
-      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       padding: 1.75rem;
-      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.15);
     }
     .uploader-header h2 {
-      margin: 0.3rem 0;
-      color: #38bdf8;
-      font-size: 1.4rem;
+      margin: 0.4rem 0 0.25rem;
+      color: var(--white);
+      font-size: 1.3rem;
+      font-weight: 600;
     }
     .drop-zone {
-      border: 2px dashed #0284c7;
-      background: #090d16;
-      border-radius: 8px;
-      padding: 2.25rem 1.5rem;
+      border: 1px dashed #444444;
+      background: #000000;
+      border-radius: 6px;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       cursor: pointer;
       margin-top: 1.25rem;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
     .drop-zone:hover, .drop-zone.dragover {
-      border-color: #38bdf8;
-      background: #0f1c30;
-      transform: scale(1.005);
+      border-color: var(--white);
+      background: #050505;
     }
     .browse-btn {
-      background: #0284c7;
-      color: white;
+      background: var(--white);
+      color: var(--black);
       border: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 4px;
+      padding: 0.35rem 0.85rem;
+      border-radius: 3px;
       cursor: pointer;
       font-weight: 600;
-      margin-left: 0.4rem;
-      transition: background 0.2s;
+      margin-left: 0.35rem;
+      font-size: 0.82rem;
     }
     .browse-btn:hover {
-      background: #0369a1;
+      background: #e5e5e5;
     }
 
     /* Dynamic Upload Results */
     .upload-result-box {
       margin-top: 1.5rem;
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 8px;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 1.25rem;
     }
     .master-actions-bar {
@@ -357,9 +367,9 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 0.75rem;
-      background: #0f1c30;
-      border: 1px solid #0284c7;
-      border-radius: 8px;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 0.75rem 1.25rem;
       margin-bottom: 1.25rem;
     }
@@ -367,98 +377,99 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: #0284c7;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 0.5rem 0.9rem;
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--white);
+      border-radius: 4px;
+      padding: 0.45rem 0.85rem;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
     .action-btn:hover {
-      background: #0369a1;
+      background: #e5e5e5;
     }
     .action-btn.secondary {
-      background: #1e293b;
+      background: #111111;
       border: 1px solid var(--border);
-      color: #7dd3fc;
+      color: var(--white);
     }
     .action-btn.secondary:hover {
-      background: #334155;
-      color: white;
+      border-color: var(--white);
     }
     .custom-cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 1.25rem;
     }
     .custom-exp-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 1rem;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .custom-exp-card:hover {
-      border-color: #38bdf8;
-    }
     .preview-pre {
-      background: #090d16;
+      background: #000000;
       padding: 0.75rem;
-      border-radius: 6px;
+      border-radius: 4px;
       font-family: ui-monospace, monospace;
-      font-size: 0.78rem;
-      color: #cbd5e1;
+      font-size: 0.75rem;
+      color: #cccccc;
       max-height: 180px;
       overflow-y: auto;
-      border: 1px solid #1f2937;
+      border: 1px solid var(--border);
       margin-top: 0.5rem;
     }
 
     /* Terminal & Endpoints Boxes */
     .command-box {
-      background: var(--code-bg);
-      border: 1px solid #334155;
-      border-radius: 8px;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 1.25rem;
-      font-family: ui-monospace, monospace;
-      color: #7dd3fc;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--white);
       margin: 1rem 0;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      font-size: 0.88rem;
     }
     .endpoints-box {
-      background: #0f172a;
-      border: 1px solid #334155;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
     .endpoints-box ul {
       margin: 0.5rem 0 0 1.25rem;
-      padding: 0;
     }
     .endpoints-box li {
       margin-bottom: 0.4rem;
+      color: var(--muted);
+    }
+    .endpoints-box code {
+      color: var(--white);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>LABX REMOTE EXPERIMENT DASHBOARD</h1>
-      <p style="color:var(--muted); margin:0.25rem 0;">Artificial Intelligence (AISC) &amp; Embedded Systems / Real-Time Operating Systems (ES &amp; RTOS)</p>
+      <div class="header-left">
+        <h1>LABX REMOTE</h1>
+        <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
+      </div>
       <div class="badge-bar">
         <span class="badge">22 Experiments Live</span>
-        <span class="badge aisc">AISC Laboratory (12)</span>
-        <span class="badge es">ES &amp; RTOS Laboratory (10)</span>
-        <a href="downloads/ertos.zip" class="badge" style="background:#7c3aed; text-decoration:none;">Download ERTOS.ZIP (10 Exps)</a>
+        <span class="badge">AISC Lab (12)</span>
+        <span class="badge">ES &amp; RTOS Lab (10)</span>
+        <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
       </div>
     </header>
 
-    <!-- TOP SECTION: Experiment Cards Horizontal Rail -->
+    <!-- TOP SECTION: Monochromatic Experiment Cards Rail -->
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
@@ -466,7 +477,7 @@
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
         </div>
-        <div style="display:flex; gap:0.75rem; align-items:center;">
+        <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
           <div class="rail-controls">
             <button class="nav-arrow-btn" onclick="scrollRail(-380)" title="Scroll Left">&larr;</button>
@@ -479,12 +490,8 @@
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-1')" title="Copy agent_case_study.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-1', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -562,17 +569,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#01 Case Study on AI Agents & PEAS Properties</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.</p>
             <span class="file-pill">agent_case_study.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 1</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 1')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 1')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/01/agent_case_study.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/01/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -580,12 +588,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-2')" title="Copy a_star_15_puzzle.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-2', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -679,17 +683,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#02 Informed Search - A* Algorithm for 15-Puzzle Problem</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.</p>
             <span class="file-pill">a_star_15_puzzle.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 2</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 2')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 2')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/02/a_star_15_puzzle.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/02/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -697,12 +702,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-3')" title="Copy dfid_search.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-3', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -773,17 +774,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#03 Uninformed Search - Depth First Iterative Deepening (DFID)</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.</p>
             <span class="file-pill">dfid_search.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 3</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 3')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 3')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/03/dfid_search.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/03/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -791,12 +793,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-4')" title="Copy alpha_beta_pruning.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-4', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -867,17 +865,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#04 Implementation of Alpha-Beta Pruning Algorithm</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.</p>
             <span class="file-pill">alpha_beta_pruning.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 4</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 4')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 4')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/04/alpha_beta_pruning.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/04/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -885,12 +884,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-5')" title="Copy perceptron_slp.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-5', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -974,17 +969,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#05 Single Layer Perceptron (SLP) for Binary Classification</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.</p>
             <span class="file-pill">perceptron_slp.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 5</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 5')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 5')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/05/perceptron_slp.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/05/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -992,12 +988,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-6')" title="Copy mlp_neural_network.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-6', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1082,17 +1074,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#06 Supervised Learning using Multi-Layer Perceptron (MLP)</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.</p>
             <span class="file-pill">mlp_neural_network.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 6</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 6')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 6')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/06/mlp_neural_network.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/06/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1100,12 +1093,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-7')" title="Copy kmeans_clustering.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-7', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1172,17 +1161,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#07 Unsupervised Learning using K-Means Clustering</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.</p>
             <span class="file-pill">kmeans_clustering.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 7</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 7')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 7')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/07/kmeans_clustering.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/07/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1190,12 +1180,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-8')" title="Copy hopfield_network.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-8', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1267,17 +1253,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#08 Associative Memory Network (Hopfield Network)</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.</p>
             <span class="file-pill">hopfield_network.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 8</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 8')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 8')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/08/hopfield_network.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/08/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1285,12 +1272,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-9')" title="Copy fuzzy_membership.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-9', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1360,17 +1343,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#09 Implementation of Fuzzy Membership Functions</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.</p>
             <span class="file-pill">fuzzy_membership.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 9</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 9')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 9')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/09/fuzzy_membership.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/09/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1378,12 +1362,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-10')" title="Copy fuzzy_control_system.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-10', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1453,17 +1433,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#10 Fuzzy Control System Simulation (Fan Speed Controller)</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.</p>
             <span class="file-pill">fuzzy_control_system.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 10</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 10')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 10')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/10/fuzzy_control_system.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/10/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1471,12 +1452,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-11')" title="Copy genetic_algorithm.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-11', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1551,17 +1528,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#11 Optimization using Genetic Algorithm & Simulated Annealing</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.</p>
             <span class="file-pill">genetic_algorithm.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 11</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 11')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 11')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/11/genetic_algorithm.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/11/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1569,12 +1547,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="AISC">
           <div>
             <div class="card-top">
-              <span class="tag ">AISC &bull; PYTHON</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-12')" title="Copy n8n_agent_simulator.py source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">AISC &bull; PYTHON</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-12', '')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1654,17 +1628,18 @@ if __name__ == &quot;__main__&quot;:
 # ============================================================================
 </textarea>
             <h3>#12 AI Agent for Automation using n8n Workflow Architecture</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.</p>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.</p>
             <span class="file-pill">n8n_agent_simulator.py</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
               <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 12</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 12')">Copy</button>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 12')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/12/n8n_agent_simulator.py" target="_blank">View File &rarr;</a>
+              
               <a href="experiments/12/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1672,12 +1647,8 @@ if __name__ == &quot;__main__&quot;:
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; C</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-13')" title="Copy verify_keil_setup.c source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-13', 'outputs/ertos_exp01_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1747,18 +1718,19 @@ Armcc / Armclang, and flashing over COM port with ISP handshaking.
 ============================================================================
 */
 </textarea>
-            <h3>#13 Installation and Verification of Keil uVision & Flash Magic Toolchains</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.</p>
+            <h3>#01 Installation and Verification of Keil uVision & Flash Magic Toolchains</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.</p>
             <span class="file-pill">verify_keil_setup.c</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 13</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 13')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e1.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e1.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/13/verify_keil_setup.c" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp01_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/13/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1766,12 +1738,8 @@ Armcc / Armclang, and flashing over COM port with ISP handshaking.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; C</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-14')" title="Copy lpc2148_led.c source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-14', 'outputs/ertos_exp02_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1842,18 +1810,19 @@ blinking, and binary counter sequences.
 ============================================================================
 */
 </textarea>
-            <h3>#14 Interfacing of LED with LPC2148 Microcontroller</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.</p>
+            <h3>#02 Interfacing of LED with LPC2148 Microcontroller</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.</p>
             <span class="file-pill">lpc2148_led.c</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 14</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 14')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e2.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e2.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/14/lpc2148_led.c" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp02_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/14/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1861,12 +1830,8 @@ blinking, and binary counter sequences.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; C</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-15')" title="Copy lpc2148_lcd.c source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-15', 'outputs/ertos_exp03_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1951,18 +1916,19 @@ with sufficient setup and hold time.
 ============================================================================
 */
 </textarea>
-            <h3>#15 Interfacing 16x2 Alphanumeric LCD with LPC2148</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.</p>
+            <h3>#03 Interfacing 16x2 Alphanumeric LCD with LPC2148</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.</p>
             <span class="file-pill">lpc2148_lcd.c</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 15</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 15')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e3.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e3.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/15/lpc2148_lcd.c" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp03_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/15/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -1970,12 +1936,8 @@ with sufficient setup and hold time.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; C</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-16')" title="Copy lpc2148_uart.c source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-16', 'outputs/ertos_exp04_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -2056,18 +2018,19 @@ establishes standard 9600-8-N-1 serial framing.
 ============================================================================
 */
 </textarea>
-            <h3>#16 Serial Communication using UART0 on LPC2148</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.</p>
+            <h3>#04 Serial Communication using UART0 on LPC2148</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.</p>
             <span class="file-pill">lpc2148_uart.c</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 16</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 16')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e4.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e4.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/16/lpc2148_uart.c" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp04_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/16/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2075,12 +2038,8 @@ establishes standard 9600-8-N-1 serial framing.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; C</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-17')" title="Copy lpc2148_power.c source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-17', 'outputs/ertos_exp05_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -2157,18 +2116,19 @@ operation.
 ============================================================================
 */
 </textarea>
-            <h3>#17 Power Management & Low-Power Modes in LPC2148</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.</p>
+            <h3>#05 Power Management & Low-Power Modes in LPC2148</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.</p>
             <span class="file-pill">lpc2148_power.c</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 17</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 17')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e5.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e5.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/17/lpc2148_power.c" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp05_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/17/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2176,12 +2136,8 @@ operation.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; CPP</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-18')" title="Copy freertos_semaphores.ino source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; CPP</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-18', 'outputs/ertos_exp06_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -2269,18 +2225,19 @@ count increments.
 ============================================================================
 */
 </textarea>
-            <h3>#18 Task Synchronization using Binary and Counting Semaphores in FreeRTOS</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.</p>
+            <h3>#06 Task Synchronization using Binary and Counting Semaphores in FreeRTOS</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.</p>
             <span class="file-pill">freertos_semaphores.ino</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 18</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 18')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e6.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e6.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/18/freertos_semaphores.ino" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp06_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/18/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2288,12 +2245,8 @@ count increments.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; CPP</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-19')" title="Copy freertos_porting.ino source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; CPP</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-19', 'outputs/ertos_exp07_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -2363,18 +2316,19 @@ allowing the scheduler to context-switch to ready tasks.
 ============================================================================
 */
 </textarea>
-            <h3>#19 Porting FreeRTOS to Arduino Development Board & Task Scheduling</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.</p>
+            <h3>#07 Porting FreeRTOS to Arduino Development Board & Task Scheduling</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.</p>
             <span class="file-pill">freertos_porting.ino</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 19</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 19')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e7.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e7.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/19/freertos_porting.ino" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp07_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/19/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2382,12 +2336,8 @@ allowing the scheduler to context-switch to ready tasks.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; CPP</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-20')" title="Copy freertos_multitask.ino source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; CPP</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-20', 'outputs/ertos_exp08_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -2457,18 +2407,19 @@ how tasks cleanly share CPU cycles.
 ============================================================================
 */
 </textarea>
-            <h3>#20 Creating Multiple Tasks in FreeRTOS with Priority Preemption</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.</p>
+            <h3>#08 Creating Multiple Tasks in FreeRTOS with Priority Preemption</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.</p>
             <span class="file-pill">freertos_multitask.ino</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 20</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 20')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e8.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e8.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/20/freertos_multitask.ino" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp08_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/20/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2476,12 +2427,8 @@ how tasks cleanly share CPU cycles.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; CPP</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-21')" title="Copy freertos_ipc.ino source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; CPP</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-21', 'outputs/ertos_exp09_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -2574,18 +2521,19 @@ a queue while an event group signals synchronization milestones.
 ============================================================================
 */
 </textarea>
-            <h3>#21 Multitasking Real-Time IPC using Message Queue, Event Group & Semaphore</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.</p>
+            <h3>#09 Multitasking Real-Time IPC using Message Queue, Event Group & Semaphore</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.</p>
             <span class="file-pill">freertos_ipc.ino</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 21</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 21')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e9.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e9.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/21/freertos_ipc.ino" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp09_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/21/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2593,12 +2541,8 @@ a queue while an event group signals synchronization milestones.
         <div class="card" data-subject="ES_RTOS">
           <div>
             <div class="card-top">
-              <span class="tag es">ES & RTOS &bull; C</span>
-              <button class="copy-btn" onclick="copyExpCode(this, 'code-22')" title="Copy lpc2148_traffic.c source code">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
+              <span class="tag">ES & RTOS &bull; C</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-22', 'outputs/ertos_exp10_output.pdf')" title="Copy code and download output PDF">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -2667,18 +2611,19 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
 ============================================================================
 */
 </textarea>
-            <h3>#22 Design and Implementation of a Real-Time Traffic Light Controller on LPC2148</h3>
-            <p style="color:#cbd5e1; font-size:0.85rem; margin:0.35rem 0;">Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.</p>
+            <h3>#10 Design and Implementation of a Real-Time Traffic Light Controller on LPC2148</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.</p>
             <span class="file-pill">lpc2148_traffic.c</span>
           </div>
 
           <div>
             <div class="card-cmd-box">
-              <code class="card-cmd-text">& (irm https://aisccli.netlify.app/get.ps1) 22</code>
-              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyText(this, '& (irm https://aisccli.netlify.app/get.ps1) 22')">Copy</button>
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/e10.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/e10.ps1 | iex')">Copy</button>
             </div>
             <div class="card-footer">
               <a href="experiments/22/lpc2148_traffic.c" target="_blank">View File &rarr;</a>
+              <a href="outputs/ertos_exp10_output.pdf" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>
               <a href="experiments/22/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
@@ -2688,48 +2633,46 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
     <!-- BOTTOM SECTION: Custom Ingester, Terminal Quickstart, Static Endpoints -->
     <div class="bottom-section">
       
-      <!-- Custom ZIP / PDF / HTML Ingester -->
+      <!-- Custom Ingester: ZIP / PDF / HTML -->
       <section class="uploader-section">
         <div class="uploader-card">
           <div class="uploader-header">
-            <span class="badge" style="background:#0284c7;">CUSTOM EXPERIMENT &amp; MULTI-FORMAT INGESTER</span>
-            <h2>⚡ Upload Submissions (ZIP Folder, PDF Report, or HTML) &rarr; Instant Custom Commands</h2>
-            <p style="color:#94a3b8; margin:0.35rem 0;">
-              Upload an entire student submission <strong>ZIP folder</strong> (e.g., <code>ES_RTOS_DIV_A_BATCH_A_Submissions.zip</code>), 
+            <span class="tag">MULTI-FORMAT INGESTER</span>
+            <h2>Upload Submissions (ZIP Folder, PDF Report, or HTML) &rarr; Instant Commands</h2>
+            <p style="color:var(--muted); font-size:0.88rem; margin-top:0.25rem;">
+              Drop a student submission <strong>ZIP archive</strong> (e.g., <code>ES_RTOS_DIV_A_BATCH_A_Submissions.zip</code>), 
               <strong>PDF lab report(s)</strong>, or <strong>HTML file(s)</strong>.
-              Even if original submissions contained drive links or print previews, it parses Aim, Theory &amp; Source Code, pads to 50 lines with theory comments strictly after line 50, and generates custom <code>irm &lt;URL&gt; | iex</code> commands for each experiment.
+              Even if original submissions contained drive links or print previews, it extracts Aim, Theory &amp; Source Code, pads to 50 lines with theory comments strictly after line 50, and generates custom delivery commands.
             </p>
           </div>
 
           <div id="drop-zone" class="drop-zone">
             <input type="file" id="submission-file-input" accept=".zip,.pdf,.html,.htm" multiple style="display:none;" />
             <div class="drop-zone-content">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.5rem;">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="17 8 12 3 7 8"></polyline>
                 <line x1="12" y1="3" x2="12" y2="15"></line>
               </svg>
-              <p style="margin:0.25rem 0; font-size:1.05rem; color:#f1f5f9;">
+              <p style="font-size:0.95rem; color:var(--white);">
                 Drag &amp; drop a <strong>ZIP folder</strong>, <strong>PDF lab report</strong>, or <strong>HTML file(s)</strong> here, or 
                 <button type="button" class="browse-btn" onclick="document.getElementById('submission-file-input').click()">Browse Files</button>
               </p>
-              <span style="font-size:0.82rem; color:#94a3b8;">Supports ZIP archives (with PDFs/HTML), standalone PDF reports, or HTML submissions</span>
+              <span style="font-size:0.78rem; color:var(--subtle);">Supports ZIP archives with subfolders, standalone PDFs, or HTML submissions</span>
             </div>
           </div>
 
           <div id="upload-result" style="display:none;" class="upload-result-box">
             <div class="master-actions-bar">
               <div>
-                <span id="res-summary-badge" class="badge" style="background:#059669;">UNPACKED &amp; PROCESSED</span>
-                <span id="res-summary-title" style="font-weight:600; color:#38bdf8; margin-left:0.5rem;"></span>
+                <span id="res-summary-badge" class="tag">UNPACKED</span>
+                <span id="res-summary-title" style="font-weight:600; color:var(--white); margin-left:0.5rem; font-size:0.9rem;"></span>
               </div>
               <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
                 <button id="pull-all-zip-btn" class="action-btn" onclick="copyPullAllScript()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                   <span>Copy Pull-All Command</span>
                 </button>
                 <button id="download-zip-btn" class="action-btn secondary" onclick="downloadAllProcessedZip()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                   <span>Download Processed ZIP</span>
                 </button>
               </div>
@@ -2744,30 +2687,30 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
 
       <!-- Terminal Quickstart -->
       <section>
-        <h2 style="color:var(--accent); font-size:1.4rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
+        <h2 style="color:var(--white); font-size:1.2rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
         <div class="command-box">
-          <span style="color:#94a3b8"># 1. Ultra-short one-liners in PowerShell (No install needed):</span><br>
-          <span style="color:#38bdf8; font-weight:bold;">irm https://aisccli.netlify.app/ertos.ps1 | iex</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#34d399"># Pull ALL 10 ES &amp; RTOS experiments!</span><br>
-          irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull ALL 22 experiments (AISC + ES/RTOS)</span><br>
-          &amp; (irm https://aisccli.netlify.app/get.ps1) 14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 14 (LPC2148 LED Interfacing)</span><br>
-          &amp; (irm https://aisccli.netlify.app/get.ps1) 22 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># Pull Exp 22 (LPC2148 Traffic Light Controller)</span><br>
-          irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8"># List all 22 experiments</span><br><br>
-          <span style="color:#94a3b8"># 2. Or install the global 'labx' CLI:</span><br>
+          <span style="color:var(--subtle)"># 1. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
+          irm https://aisccli.netlify.app/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
+          irm https://aisccli.netlify.app/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
+          <span style="color:var(--subtle)"># 2. Pull All 22 Experiments (AISC + ERTOS):</span><br>
+          irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
+          irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
+          <span style="color:var(--subtle)"># 3. Or install the global 'labx' CLI:</span><br>
           irm https://aisccli.netlify.app/install.ps1 | iex<br>
-          labx list &nbsp;|&nbsp; labx download 14 &nbsp;|&nbsp; labx run 14
+          labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
         </div>
       </section>
 
       <!-- Static Endpoints -->
       <section class="endpoints-box">
-        <h2 style="color:var(--accent); font-size:1.3rem; margin:0 0 0.5rem 0;">Available Static Endpoints</h2>
+        <h2 style="color:var(--white); font-size:1.1rem; margin:0 0 0.5rem 0;">Available Static Endpoints</h2>
         <ul>
-          <li><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; <strong>Dedicated 10-experiment ES &amp; RTOS ZIP archive</strong></li>
-          <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 22-experiment ZIP archive (AISC + ES &amp; RTOS)</li>
+          <li><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; Dedicated 10-experiment ES &amp; RTOS ZIP archive</li>
+          <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 22-experiment ZIP archive</li>
           <li><a href="downloads/aisc_experiments.zip"><code>/downloads/aisc_experiments.zip</code></a> &mdash; Dedicated 12-experiment AISC ZIP archive</li>
-          <li><a href="catalog.json"><code>/catalog.json</code></a> &mdash; Complete 22-experiment catalogue API</li>
-          <li><a href="version.json"><code>/version.json</code></a> &mdash; Remote version metadata</li>
-          <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> &mdash; Windows standalone executable</li>
+          <li><a href="catalog.json"><code>/catalog.json</code></a> &mdash; Complete catalogue JSON API</li>
+          <li><a href="version.json"><code>/version.json</code></a> &mdash; Remote metadata &amp; version</li>
+          <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> &mdash; Windows standalone binary</li>
         </ul>
       </section>
 
@@ -2816,26 +2759,45 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
       });
     }
 
-    // Copy Experiment Code
-    function copyExpCode(btn, codeId) {
+    // Dual Code + Output Download Handler
+    function copyExpCodeAndDownloadOutput(btn, codeId, outputUrl) {
       const ta = document.getElementById(codeId);
       if (!ta) return;
       const text = ta.value;
       const span = btn.querySelector('span');
-      const originalText = span.textContent;
+      const originalText = span ? span.textContent : 'Copy Code';
 
+      // 1. Copy code to clipboard
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
-          btn.classList.add('copied');
-          span.textContent = 'Copied!';
-          setTimeout(() => {
-            btn.classList.remove('copied');
-            span.textContent = originalText;
-          }, 2000);
+          showCopySuccess(btn, span, outputUrl ? 'Copied & Output Downloaded!' : 'Copied!');
         }).catch(() => fallbackCopy(ta, btn, span, originalText));
       } else {
         fallbackCopy(ta, btn, span, originalText);
       }
+
+      // 2. Automatically trigger output download if available
+      if (outputUrl) {
+        triggerDownload(outputUrl);
+      }
+    }
+
+    function triggerDownload(url) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = url.split('/').pop();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function showCopySuccess(btn, span, message) {
+      btn.classList.add('copied');
+      if (span) span.textContent = message;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (span) span.textContent = 'Copy Code';
+      }, 2500);
     }
 
     function copyText(btn, text) {
@@ -2960,7 +2922,7 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
           for (const w of words) {
             if ((curr + ' ' + w).length > 76) {
               out.push(curr);
-              curr = '# ' + w;
+              curr = w;
             } else {
               curr += (curr === '#' ? ' ' : ' ') + w;
             }
@@ -2973,7 +2935,7 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
     }
 
     function buildPowerShellDeliveryScript(filename, code, isC) {
-      return `# LabX Remote - Custom Experiment Delivery\n$filename = "${filename}"\n$code = @'\n${code}\n'@\n$target = Join-Path $PWD $filename\nSet-Content -Path $target -Value $code -Encoding utf8\nWrite-Host ""\nWrite-Host "============================================================" -ForegroundColor Cyan\nWrite-Host " [OK] Experiment code saved to: $filename" -ForegroundColor Green\nWrite-Host " Theory is embedded after line 50. Ready to execute!" -ForegroundColor White\nWrite-Host " Target: $filename" -ForegroundColor Yellow\nWrite-Host "============================================================" -ForegroundColor Cyan\n`;
+      return `# LabX Remote - Custom Experiment Delivery\n$filename = "${filename}"\n$code = @'\n${code}\n'@\n$target = Join-Path $PWD $filename\nSet-Content -Path $target -Value $code -Encoding utf8\nWrite-Host ""\nWrite-Host "============================================================"\nWrite-Host " [OK] Experiment code saved to: $filename"\nWrite-Host " Theory is embedded after line 50. Ready to execute!"\nWrite-Host " Target: $filename"\nWrite-Host "============================================================"\n`;
     }
 
     async function extractTextFromPdf(arrayBuffer) {
@@ -2992,7 +2954,6 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
       return fullText;
     }
 
-    // Reference code fallback generator when student HTML/PDF contained drive links or images
     function getStandardCodeForTopic(topic, isC) {
       const t = topic.toLowerCase();
       if (t.includes('led') || t.includes('blink')) {
@@ -3014,7 +2975,7 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
         return `#include <Arduino_FreeRTOS.h>\n#include <semphr.h>\nSemaphoreHandle_t sem;\nvoid TaskProducer(void *pv) { for(;;) { xSemaphoreGive(sem); vTaskDelay(pdMS_TO_TICKS(1000)); } }\nvoid TaskConsumer(void *pv) { for(;;) { if(xSemaphoreTake(sem, portMAX_DELAY)) Serial.println("Acquired!"); } }\nvoid setup() { Serial.begin(9600); sem = xSemaphoreCreateBinary(); xTaskCreate(TaskProducer,"P",128,NULL,1,NULL); xTaskCreate(TaskConsumer,"C",128,NULL,1,NULL); }\nvoid loop() {}`;
       }
       if (isC) {
-        return `/* ${topic} */\n#include <LPC214x.h>\n\nint main(void) {\n    // Verification and setup entry\n    return 0;\n}`;
+        return `/* ${topic} */\n#include <LPC214x.h>\n\nint main(void) {\n    return 0;\n}`;
       }
       return `# ${topic}\nprint("${topic} executed successfully")\n`;
     }
@@ -3023,7 +2984,7 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
       const resultBox = document.getElementById('upload-result');
       const cardsContainer = document.getElementById('custom-cards-container');
       resultBox.style.display = 'block';
-      cardsContainer.innerHTML = '<div style="color:#7dd3fc; padding:1.5rem;">Unpacking and parsing submissions...</div>';
+      cardsContainer.innerHTML = '<div style="color:var(--muted); padding:1.5rem;">Unpacking and parsing submissions...</div>';
 
       window._processedExperiments = [];
 
@@ -3076,7 +3037,6 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
         const fullText = await extractTextFromPdf(arrayBuffer);
         const baseFilename = rawName.split('/').pop().replace(/\.[^/.]+$/, '');
 
-        // 1. Aim / Title
         let title = '';
         const aimMatch = fullText.match(/(?:Aim|AIM|Objective|OBJECTIVE|Subject|Subject\s*[:\-]?|Experiment\s*[:\-]?)\s*[:\-]?\s*([A-Za-z0-9\s,()\/\-]+?)(?=(?:Enrollment|Roll|Date|Theory|THEORY|Apparatus|Equipment|1\.|\n\n|$))/i);
         if (aimMatch && aimMatch[1].trim().length > 5) {
@@ -3085,21 +3045,18 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
           title = baseFilename.replace(/[_-]+/g, ' ');
         }
 
-        // 2. Theory
         let theory = '';
         const theoryMatch = fullText.match(/(?:Theory|THEORY|Theoretical\s+Background)\s*[:\-]?\s*([\s\S]*?)(?=(?:Algorithm|ALGORITHM|Source\s+Code|CODE|Procedure|PROCEDURE|Program|PROGRAM|Output|Result|$))/i);
         if (theoryMatch && theoryMatch[1].trim().length > 10) {
           theory = theoryMatch[1].trim();
         }
 
-        // 3. Source Code
         let code = '';
         const codeMatch = fullText.match(/(?:Source\s+Code|SOURCE\s+CODE|Code\s*[:\-]|Program\s*[:\-])\s*([\s\S]*?)(?=(?:Output|OUTPUT|Result|RESULT|Conclusion|Assessment|$))/i);
         if (codeMatch && (codeMatch[1].includes('#include') || codeMatch[1].includes('void ') || codeMatch[1].includes('def ') || codeMatch[1].includes('import '))) {
           code = codeMatch[1].trim();
         }
 
-        // Language detection
         const isC = title.toLowerCase().includes('lpc') || title.toLowerCase().includes('rtos') || title.toLowerCase().includes('embedded') || title.toLowerCase().includes('led') || title.toLowerCase().includes('lcd') || title.toLowerCase().includes('uart') || (code && code.includes('#include'));
         const ext = isC ? (title.toLowerCase().includes('rtos') || title.toLowerCase().includes('arduino') ? '.ino' : '.c') : '.py';
         let safeName = baseFilename.toLowerCase().replace(/[^a-z0-9_]/g, '_');
@@ -3137,7 +3094,6 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
         let theory = '';
         let code = '';
 
-        // Extract Title / Aim
         const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, b, strong'));
         for (const h of headings) {
           const txt = h.textContent.trim().toLowerCase();
@@ -3157,7 +3113,6 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
           title = doc.querySelector('title')?.textContent.trim() || baseFilename.replace(/[_-]+/g, ' ');
         }
 
-        // Extract Theory
         for (const h of headings) {
           if (h.textContent.trim().toLowerCase().includes('theory')) {
             const parts = [];
@@ -3172,7 +3127,6 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
           }
         }
 
-        // Extract Code
         for (const h of headings) {
           const txt = h.textContent.trim().toLowerCase();
           if (txt.includes('source code') || txt.includes('code')) {
@@ -3198,7 +3152,6 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
           }
         }
 
-        // Language Detection & Extension
         const isC = (code && (code.includes('#include') || code.includes('void '))) || rawName.toLowerCase().includes('lpc') || rawName.toLowerCase().includes('rtos') || title.toLowerCase().includes('lpc') || title.toLowerCase().includes('rtos') || title.toLowerCase().includes('embedded');
         const ext = isC ? (code && code.includes('setup()') ? '.ino' : '.c') : '.py';
         let safeName = baseFilename.toLowerCase().replace(/[^a-z0-9_]/g, '_');
@@ -3233,7 +3186,7 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
       document.getElementById('res-summary-title').textContent = `${count} Experiments Unpacked & Formatted`;
 
       if (count === 0) {
-        container.innerHTML = '<div style="color:#f87171; padding:1rem;">No valid experiments could be parsed from the uploaded file(s).</div>';
+        container.innerHTML = '<div style="color:var(--muted); padding:1rem;">No valid experiments could be parsed.</div>';
         return;
       }
 
@@ -3249,26 +3202,22 @@ executed using IO0DIR, IO0SET, and IO0CLR with calibrated delay routines.
         card.innerHTML = `
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-              <span class="tag ${item.language === 'c' ? 'es' : ''}">${item.language.toUpperCase()}</span>
+              <span class="tag">${item.language.toUpperCase()}</span>
               <button class="copy-btn" onclick="copyCustomItemCode(${i}, this)">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 <span>Copy Code</span>
               </button>
             </div>
-            <h4 style="margin:0.25rem 0; color:#38bdf8; font-size:0.95rem;">${item.title}</h4>
+            <h4 style="margin:0.25rem 0; color:var(--white); font-size:0.95rem;">${item.title}</h4>
             <span class="file-pill">${item.name}</span>
           </div>
 
           <div style="margin-top:0.75rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:#94a3b8; margin-bottom:0.25rem;">
-              <span>PowerShell Delivery Command:</span>
-            </div>
             <div class="card-cmd-box" style="margin-top:0;">
               <code id="cmd-cust-${i}" class="card-cmd-text">Generating...</code>
               <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.72rem;" onclick="copyCustCmd(${i}, this)">Copy</button>
             </div>
-            <details style="margin-top:0.5rem; font-size:0.78rem; color:#94a3b8;">
-              <summary style="cursor:pointer; color:#7dd3fc;">View Code Preview (${lines} lines, theory after line 50)</summary>
+            <details style="margin-top:0.5rem; font-size:0.75rem; color:var(--muted);">
+              <summary style="cursor:pointer; color:var(--white);">View Code Preview (${lines} lines, theory after line 50)</summary>
               <pre class="preview-pre">${escapedCode}</pre>
             </details>
           </div>

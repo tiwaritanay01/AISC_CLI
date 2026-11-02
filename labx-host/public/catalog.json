@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-11-02T12:00:00Z",
+  "updated_at": "2026-11-02T22:00:00Z",
   "zip_url": "downloads/labx_experiments.zip",
   "ertos_zip_url": "downloads/ertos.zip",
   "experiments": [
@@ -17,7 +17,10 @@
         "peas properties"
       ],
       "description": "Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.",
-      "manifest_url": "experiments/01/manifest.json"
+      "manifest_url": "experiments/01/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 1,
+      "output_url": null
     },
     {
       "id": 2,
@@ -32,7 +35,10 @@
         "manhattan distance"
       ],
       "description": "Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.",
-      "manifest_url": "experiments/02/manifest.json"
+      "manifest_url": "experiments/02/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 2,
+      "output_url": null
     },
     {
       "id": 3,
@@ -47,7 +53,10 @@
         "depth first"
       ],
       "description": "Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.",
-      "manifest_url": "experiments/03/manifest.json"
+      "manifest_url": "experiments/03/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 3,
+      "output_url": null
     },
     {
       "id": 4,
@@ -62,7 +71,10 @@
         "adversarial search"
       ],
       "description": "Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.",
-      "manifest_url": "experiments/04/manifest.json"
+      "manifest_url": "experiments/04/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 4,
+      "output_url": null
     },
     {
       "id": 5,
@@ -77,7 +89,10 @@
         "binary classification"
       ],
       "description": "Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.",
-      "manifest_url": "experiments/05/manifest.json"
+      "manifest_url": "experiments/05/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 5,
+      "output_url": null
     },
     {
       "id": 6,
@@ -92,7 +107,10 @@
         "neural network"
       ],
       "description": "Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.",
-      "manifest_url": "experiments/06/manifest.json"
+      "manifest_url": "experiments/06/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 6,
+      "output_url": null
     },
     {
       "id": 7,
@@ -107,7 +125,10 @@
         "cluster centroids"
       ],
       "description": "K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.",
-      "manifest_url": "experiments/07/manifest.json"
+      "manifest_url": "experiments/07/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 7,
+      "output_url": null
     },
     {
       "id": 8,
@@ -122,7 +143,10 @@
         "hopfield network"
       ],
       "description": "Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.",
-      "manifest_url": "experiments/08/manifest.json"
+      "manifest_url": "experiments/08/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 8,
+      "output_url": null
     },
     {
       "id": 9,
@@ -137,7 +161,10 @@
         "soft computing"
       ],
       "description": "Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.",
-      "manifest_url": "experiments/09/manifest.json"
+      "manifest_url": "experiments/09/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 9,
+      "output_url": null
     },
     {
       "id": 10,
@@ -152,7 +179,10 @@
         "fuzzy simulation"
       ],
       "description": "Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.",
-      "manifest_url": "experiments/10/manifest.json"
+      "manifest_url": "experiments/10/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 10,
+      "output_url": null
     },
     {
       "id": 11,
@@ -167,7 +197,10 @@
         "ga"
       ],
       "description": "Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.",
-      "manifest_url": "experiments/11/manifest.json"
+      "manifest_url": "experiments/11/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 11,
+      "output_url": null
     },
     {
       "id": 12,
@@ -182,7 +215,10 @@
         "automation agent"
       ],
       "description": "AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.",
-      "manifest_url": "experiments/12/manifest.json"
+      "manifest_url": "experiments/12/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 12,
+      "output_url": null
     },
     {
       "id": 13,
@@ -197,7 +233,10 @@
         "lpc2148 setup"
       ],
       "description": "ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.",
-      "manifest_url": "experiments/13/manifest.json"
+      "manifest_url": "experiments/13/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 1,
+      "output_url": "outputs/ertos_exp01_output.pdf"
     },
     {
       "id": 14,
@@ -212,7 +251,10 @@
         "led counter"
       ],
       "description": "General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.",
-      "manifest_url": "experiments/14/manifest.json"
+      "manifest_url": "experiments/14/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 2,
+      "output_url": "outputs/ertos_exp02_output.pdf"
     },
     {
       "id": 15,
@@ -227,7 +269,10 @@
         "lcd display"
       ],
       "description": "8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.",
-      "manifest_url": "experiments/15/manifest.json"
+      "manifest_url": "experiments/15/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 3,
+      "output_url": "outputs/ertos_exp03_output.pdf"
     },
     {
       "id": 16,
@@ -242,7 +287,10 @@
         "uart0"
       ],
       "description": "Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.",
-      "manifest_url": "experiments/16/manifest.json"
+      "manifest_url": "experiments/16/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 4,
+      "output_url": "outputs/ertos_exp04_output.pdf"
     },
     {
       "id": 17,
@@ -257,7 +305,10 @@
         "eint0"
       ],
       "description": "LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.",
-      "manifest_url": "experiments/17/manifest.json"
+      "manifest_url": "experiments/17/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 5,
+      "output_url": "outputs/ertos_exp05_output.pdf"
     },
     {
       "id": 18,
@@ -272,7 +323,10 @@
         "freertos"
       ],
       "description": "Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.",
-      "manifest_url": "experiments/18/manifest.json"
+      "manifest_url": "experiments/18/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 6,
+      "output_url": "outputs/ertos_exp06_output.pdf"
     },
     {
       "id": 19,
@@ -287,7 +341,10 @@
         "freertos uno"
       ],
       "description": "Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.",
-      "manifest_url": "experiments/19/manifest.json"
+      "manifest_url": "experiments/19/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 7,
+      "output_url": "outputs/ertos_exp07_output.pdf"
     },
     {
       "id": 20,
@@ -301,7 +358,10 @@
         "rtos multitasking"
       ],
       "description": "Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.",
-      "manifest_url": "experiments/20/manifest.json"
+      "manifest_url": "experiments/20/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 8,
+      "output_url": "outputs/ertos_exp08_output.pdf"
     },
     {
       "id": 21,
@@ -316,7 +376,10 @@
         "inter process communication"
       ],
       "description": "Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.",
-      "manifest_url": "experiments/21/manifest.json"
+      "manifest_url": "experiments/21/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 9,
+      "output_url": "outputs/ertos_exp09_output.pdf"
     },
     {
       "id": 22,
@@ -330,7 +393,10 @@
         "fsm traffic"
       ],
       "description": "Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.",
-      "manifest_url": "experiments/22/manifest.json"
+      "manifest_url": "experiments/22/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 10,
+      "output_url": "outputs/ertos_exp10_output.pdf"
     }
   ]
 }

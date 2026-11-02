@@ -39,7 +39,10 @@
       "kind": "python",
       "entry": "agent_case_study.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 1,
+    "lab_label": "AISC Exp 01",
+    "output_url": null
   },
   {
     "id": 2,
@@ -76,7 +79,10 @@
       "kind": "python",
       "entry": "a_star_15_puzzle.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 2,
+    "lab_label": "AISC Exp 02",
+    "output_url": null
   },
   {
     "id": 3,
@@ -112,7 +118,10 @@
       "kind": "python",
       "entry": "dfid_search.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 3,
+    "lab_label": "AISC Exp 03",
+    "output_url": null
   },
   {
     "id": 4,
@@ -149,7 +158,10 @@
       "kind": "python",
       "entry": "alpha_beta_pruning.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 4,
+    "lab_label": "AISC Exp 04",
+    "output_url": null
   },
   {
     "id": 5,
@@ -186,7 +198,10 @@
       "kind": "python",
       "entry": "perceptron_slp.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 5,
+    "lab_label": "AISC Exp 05",
+    "output_url": null
   },
   {
     "id": 6,
@@ -224,7 +239,10 @@
       "kind": "python",
       "entry": "mlp_neural_network.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 6,
+    "lab_label": "AISC Exp 06",
+    "output_url": null
   },
   {
     "id": 7,
@@ -260,7 +278,10 @@
       "kind": "python",
       "entry": "kmeans_clustering.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 7,
+    "lab_label": "AISC Exp 07",
+    "output_url": null
   },
   {
     "id": 8,
@@ -297,7 +318,10 @@
       "kind": "python",
       "entry": "hopfield_network.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 8,
+    "lab_label": "AISC Exp 08",
+    "output_url": null
   },
   {
     "id": 9,
@@ -333,7 +357,10 @@
       "kind": "python",
       "entry": "fuzzy_membership.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 9,
+    "lab_label": "AISC Exp 09",
+    "output_url": null
   },
   {
     "id": 10,
@@ -370,7 +397,10 @@
       "kind": "python",
       "entry": "fuzzy_control_system.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 10,
+    "lab_label": "AISC Exp 10",
+    "output_url": null
   },
   {
     "id": 11,
@@ -407,7 +437,10 @@
       "kind": "python",
       "entry": "genetic_algorithm.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 11,
+    "lab_label": "AISC Exp 11",
+    "output_url": null
   },
   {
     "id": 12,
@@ -449,7 +482,10 @@
       "kind": "python",
       "entry": "n8n_agent_simulator.py"
     },
-    "subject": "AISC"
+    "subject": "AISC",
+    "lab_serial": 12,
+    "lab_label": "AISC Exp 12",
+    "output_url": null
   },
   {
     "id": 13,
@@ -486,7 +522,10 @@
       "kind": "embedded",
       "entry": "verify_keil_setup.c",
       "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-    }
+    },
+    "lab_serial": 1,
+    "lab_label": "ERTOS Exp 1",
+    "output_url": "outputs/ertos_exp01_output.pdf"
   },
   {
     "id": 14,
@@ -523,7 +562,10 @@
       "kind": "embedded",
       "entry": "lpc2148_led.c",
       "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-    }
+    },
+    "lab_serial": 2,
+    "lab_label": "ERTOS Exp 2",
+    "output_url": "outputs/ertos_exp02_output.pdf"
   },
   {
     "id": 15,
@@ -561,7 +603,10 @@
       "kind": "embedded",
       "entry": "lpc2148_lcd.c",
       "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-    }
+    },
+    "lab_serial": 3,
+    "lab_label": "ERTOS Exp 3",
+    "output_url": "outputs/ertos_exp03_output.pdf"
   },
   {
     "id": 16,
@@ -600,7 +645,10 @@
       "kind": "embedded",
       "entry": "lpc2148_uart.c",
       "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-    }
+    },
+    "lab_serial": 4,
+    "lab_label": "ERTOS Exp 04",
+    "output_url": "outputs/ertos_exp04_output.pdf"
   },
   {
     "id": 17,
@@ -639,7 +687,10 @@
       "kind": "embedded",
       "entry": "lpc2148_power.c",
       "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-    }
+    },
+    "lab_serial": 5,
+    "lab_label": "ERTOS Exp 5",
+    "output_url": "outputs/ertos_exp05_output.pdf"
   },
   {
     "id": 18,
@@ -676,7 +727,10 @@
       "kind": "embedded",
       "entry": "freertos_semaphores.ino",
       "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-    }
+    },
+    "lab_serial": 6,
+    "lab_label": "ERTOS Exp 06",
+    "output_url": "outputs/ertos_exp06_output.pdf"
   },
   {
     "id": 19,
@@ -713,7 +767,10 @@
       "kind": "embedded",
       "entry": "freertos_porting.ino",
       "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-    }
+    },
+    "lab_serial": 7,
+    "lab_label": "ERTOS Exp 07",
+    "output_url": "outputs/ertos_exp07_output.pdf"
   },
   {
     "id": 20,
@@ -750,7 +807,10 @@
       "kind": "embedded",
       "entry": "freertos_multitask.ino",
       "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-    }
+    },
+    "lab_serial": 8,
+    "lab_label": "ERTOS Exp 8",
+    "output_url": "outputs/ertos_exp08_output.pdf"
   },
   {
     "id": 21,
@@ -788,7 +848,10 @@
       "kind": "embedded",
       "entry": "freertos_ipc.ino",
       "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
-    }
+    },
+    "lab_serial": 9,
+    "lab_label": "ERTOS Exp 9",
+    "output_url": "outputs/ertos_exp09_output.pdf"
   },
   {
     "id": 22,
@@ -825,6 +888,9 @@
       "kind": "embedded",
       "entry": "lpc2148_traffic.c",
       "hardware": "NXP LPC2148 (ARM7TDMI-S)"
-    }
+    },
+    "lab_serial": 10,
+    "lab_label": "ERTOS Exp 10",
+    "output_url": "outputs/ertos_exp10_output.pdf"
   }
 ]
