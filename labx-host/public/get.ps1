@@ -1,6 +1,6 @@
 param($Id, [string]$Lab = "")
 if (-not $Id) {
-    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 6-8 for CN, 1-12 for AISC, or 1-25)"
+    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 6-9 for CN, 1-12 for AISC, or 1-26)"
 }
 
 $intId = [int]$Id
@@ -14,10 +14,13 @@ if ($Lab -eq "ertos" -or $Lab -eq "es") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "AISC" -and $_.lab_serial -eq $intId }
 } else {
     $item = $cat.experiments | Where-Object { $_.id -eq $intId }
-    if (-not $item -and $intId -ge 6 -and $intId -le 8) {
+    if (-not $item -and $intId -ge 6 -and $intId -le 9) {
         $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
     }
     if (-not $item -and $intId -le 10) {
+        $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+    }
+}
         $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
     }
 }

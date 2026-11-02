@@ -506,6 +506,27 @@
       "lab_serial": 8,
       "output_url": null,
       "output_files": []
+    },
+    {
+      "id": 26,
+      "slug": "cn-socket-programming-java",
+      "title": "Experiment 9 \u2013 Client-Server Socket Programming in Java",
+      "language": "java",
+      "aliases": [
+        "socket",
+        "socket programming",
+        "java socket",
+        "tcp socket",
+        "cn 9",
+        "cn socket",
+        "tcp server client"
+      ],
+      "description": "Two-way client-server socket communication implementation in Java using ServerSocket and Socket classes over TCP.",
+      "manifest_url": "experiments/26/manifest.json",
+      "subject": "CN",
+      "lab_serial": 9,
+      "output_url": null,
+      "output_files": []
     }
   ]
 }

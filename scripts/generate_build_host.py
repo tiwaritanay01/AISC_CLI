@@ -509,10 +509,10 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (25)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (26)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (3)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (4)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -1357,8 +1357,20 @@ generate_host_code = '''def generate_host():
 
         # Stage specific collections
         subject_type = exp.get("subject", "AISC")
+        lab_serial = exp.get("lab_serial", exp_id)
         if subject_type == "ES_RTOS":
-            shutil.copytree(zip_exp_all, zip_staging_ertos / folder_tag)
+            ertos_folder_tag = f"Experiment{lab_serial:02d}_{exp['slug'].replace('-', '_')}"
+            dest_exp_dir = zip_staging_ertos / ertos_folder_tag
+            shutil.copytree(zip_exp_all, dest_exp_dir)
+
+            # Copy all outputs (JPG images + PDF reports) into this experiment folder
+            out_files = exp.get("output_files", [])
+            if not out_files and exp.get("output_url"):
+                out_files = [exp["output_url"]]
+            for out_p in out_files:
+                src_out = PUBLIC_DIR / out_p
+                if src_out.exists():
+                    shutil.copy(src_out, dest_exp_dir / src_out.name)
         elif subject_type == "CN":
             cn_dir = zip_staging_cn / "CN"
             cn_dir.mkdir(parents=True, exist_ok=True)
@@ -1459,9 +1471,14 @@ generate_host_code = '''def generate_host():
                 rel_path = full_path.relative_to(zip_staging_all)
                 zf.write(full_path, arcname=str(rel_path).replace("\\\\", "/"))
 
-    # B. Dedicated ERTOS ZIP (Exp 13-22)
+    # B. Dedicated ERTOS ZIP (Exp 13-22 with all code and outputs)
+    ertos_outputs_dir = zip_staging_ertos / "outputs"
+    ertos_outputs_dir.mkdir(parents=True, exist_ok=True)
+    for out_f in (PUBLIC_DIR / "outputs").glob("ertos_*"):
+        shutil.copy(out_f, ertos_outputs_dir / out_f.name)
+
     zip_ertos_out = DL_DIR / "ertos_experiments.zip"
-    print(f"Building dedicated ERTOS ZIP archive at {zip_ertos_out}...")
+    print(f"Building dedicated ERTOS ZIP archive with code and outputs at {zip_ertos_out}...")
     with zipfile.ZipFile(zip_ertos_out, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, _, files in os.walk(zip_staging_ertos):
             for file in files:
@@ -1509,11 +1526,11 @@ Write-Host "[OK] All {len(EXPERIMENTS)} experiments extracted to current directo
         f.write(all_ps1)
 
     ertos_ps1 = """$zip = Join-Path $PWD "ertos_temp.zip"
-Write-Host "Downloading 10 Embedded Systems & RTOS experiments from LabX Remote..." -ForegroundColor White
+Write-Host "Downloading all 10 Embedded Systems & RTOS experiments (Code + All Output Images & PDFs) from LabX Remote..." -ForegroundColor White
 Invoke-WebRequest "https://aisccli.netlify.app/downloads/ertos.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
-Write-Host "[OK] All 10 ES & RTOS experiments extracted to current directory!" -ForegroundColor White
+Write-Host "[OK] All 10 ES & RTOS experiments with code and authentic outputs extracted to current directory!" -ForegroundColor White
 """
     with open(PUBLIC_DIR / "ertos.ps1", "w", encoding="utf-8") as f:
         f.write(ertos_ps1)
@@ -1567,33 +1584,40 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
             with open(PUBLIC_DIR / f"e{s_num}.ps1", "w", encoding="utf-8") as f:
                 f.write(e_ps1)
 
-    # Generate individual scripts (cn6.ps1 - cn8.ps1) for CN
+    # Generate individual scripts (cn6.ps1 - cn9.ps1) for CN
     for exp in EXPERIMENTS:
         if exp.get("subject") == "CN":
             s_num = exp.get("lab_serial", 1)
-            src_file = exp["files"][0]
-            src_fname = src_file["path"]
-            src_content = src_file["content"]
-            
             lines_ps1 = [
-                f"# LabX Remote: CN Exp {s_num:02d} ({exp['title']})",
-                f'$filename = "{src_fname}"',
-                "$code = @'",
-                src_content,
-                "'@",
-                "$target = Join-Path $PWD $filename",
-                "Set-Content -Path $target -Value $code -Encoding utf8",
-                f'Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -ForegroundColor White'
+                f"# LabX Remote: CN Exp {s_num:02d} ({exp['title']})"
             ]
+            for src_file in exp["files"]:
+                src_fname = src_file["path"]
+                src_content = src_file["content"]
+                lines_ps1.extend([
+                    f'$filename = "{src_fname}"',
+                    "$code = @'",
+                    src_content,
+                    "'@",
+                    "$target = Join-Path $PWD $filename",
+                    "Set-Content -Path $target -Value $code -Encoding utf8",
+                    f'Write-Host "[OK] Saved: $filename (Theory embedded after line 50)" -ForegroundColor White',
+                    ""
+                ])
             cn_code = "\\n".join(lines_ps1)
             with open(PUBLIC_DIR / f"cn{s_num}.ps1", "w", encoding="utf-8") as f:
                 f.write(cn_code)
             with open(PUBLIC_DIR / f"c{s_num}.ps1", "w", encoding="utf-8") as f:
                 f.write(cn_code)
+            if s_num == 9:
+                with open(PUBLIC_DIR / "cnsocket.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
+                with open(PUBLIC_DIR / "socket.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
 
     get_ps1 = """param($Id, [string]$Lab = "")
 if (-not $Id) {
-    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 6-8 for CN, 1-12 for AISC, or 1-25)"
+    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 6-9 for CN, 1-12 for AISC, or 1-26)"
 }
 
 $intId = [int]$Id
@@ -1607,10 +1631,13 @@ if ($Lab -eq "ertos" -or $Lab -eq "es") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "AISC" -and $_.lab_serial -eq $intId }
 } else {
     $item = $cat.experiments | Where-Object { $_.id -eq $intId }
-    if (-not $item -and $intId -ge 6 -and $intId -le 8) {
+    if (-not $item -and $intId -ge 6 -and $intId -le 9) {
         $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
     }
     if (-not $item -and $intId -le 10) {
+        $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+    }
+}
         $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
     }
 }
@@ -1649,8 +1676,9 @@ Write-Host "`n==== AISC, Embedded Systems / RTOS & Computer Networks Experiments
 $cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
 Write-Host "Quick commands:" -ForegroundColor White
 Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://aisccli.netlify.app/e2.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All ERTOS experiments       : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All Computer Networks (CN)  : irm https://aisccli.netlify.app/cn.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull CN Java Socket Programming  : irm https://aisccli.netlify.app/cnsocket.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All experiments             : irm https://aisccli.netlify.app/all.ps1 | iex`n" -ForegroundColor Gray
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:

@@ -149,4 +149,4 @@ Mathematical Foundation (One's Complement Arithmetic):
 '@
 $target = Join-Path $PWD $filename
 Set-Content -Path $target -Value $code -Encoding utf8
-Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -ForegroundColor White
+Write-Host "[OK] Saved: $filename (Theory embedded after line 50)" -ForegroundColor White

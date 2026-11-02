@@ -473,10 +473,10 @@
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (25)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (26)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (3)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (4)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -3116,6 +3116,137 @@ Mathematical Foundation (One&#x27;s Complement Arithmetic):
               <a href="experiments/25/checksum.c" target="_blank">View File &rarr;</a>
               
               <a href="experiments/25/manifest.json" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="CN">
+          <div>
+            <div class="card-top">
+              <span class="tag">CN &bull; JAVA</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-26', '')" title="Copy code and download outputs">
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-26" style="display:none;">/*
+ * Computer Networks Laboratory - Socket Programming
+ * Experiment: Implementation of Concurrent / Two-Way TCP Socket Server in Java
+ */
+
+import java.io.*;
+import java.net.*;
+
+public class TCPServer {
+    private static final int PORT = 5000;
+
+    public static void main(String[] args) {
+        System.out.println(&quot;==================================================&quot;);
+        System.out.println(&quot;   TCP Echo &amp; Communication Server Started        &quot;);
+        System.out.println(&quot;==================================================&quot;);
+        System.out.println(&quot;[*] Server listening on port: &quot; + PORT);
+
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println(&quot;[*] Waiting for incoming client connection...&quot;);
+
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                String clientIP = clientSocket.getInetAddress().getHostAddress();
+                int clientPort = clientSocket.getPort();
+                System.out.println(&quot;\n[+] Client connected from: &quot; + clientIP + &quot;:&quot; + clientPort);
+
+                // Handle client in session
+                handleClient(clientSocket);
+                break; // Session completed
+            }
+        } catch (IOException e) {
+            System.err.println(&quot;[!] Server Exception: &quot; + e.getMessage());
+        }
+    }
+
+    private static void handleClient(Socket socket) {
+        try (
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader console = new BufferedReader(new InputStreamReader(System.in))
+        ) {
+            out.println(&quot;CONNECTED: Welcome to Java TCP Server. Type &#x27;exit&#x27; to quit.&quot;);
+
+            String clientMsg;
+            while ((clientMsg = in.readLine()) != null) {
+                System.out.println(&quot;[Client]: &quot; + clientMsg);
+                if (clientMsg.equalsIgnoreCase(&quot;exit&quot;) || clientMsg.equalsIgnoreCase(&quot;quit&quot;)) {
+                    out.println(&quot;BYE: Connection closed by request.&quot;);
+                    System.out.println(&quot;[-] Client requested termination.&quot;);
+                    break;
+                }
+
+                String echoResponse = &quot;SERVER ECHO: &quot; + clientMsg.toUpperCase();
+                out.println(echoResponse);
+            }
+        } catch (IOException e) {
+            System.err.println(&quot;[!] Communication error: &quot; + e.getMessage());
+        } finally {
+            try {
+                socket.close();
+                System.out.println(&quot;[*] Client socket closed successfully.&quot;);
+            } catch (IOException ex) {
+                System.err.println(&quot;[!] Error closing socket: &quot; + ex.getMessage());
+            }
+        }
+    }
+}
+
+/*
+============================================================================
+EXPERIMENT THEORY (Computer Networks - Java Socket Programming Server):
+============================================================================
+A Network Socket is one endpoint of a two-way communication link between
+two programs running over a computer network. In Java, networking APIs are
+encapsulated in the java.net package, built on top of the TCP/IP stack.
+
+Core Concepts:
+1. TCP (Transmission Control Protocol):
+   A connection-oriented, reliable, byte-stream transport layer protocol.
+   Before data transfer begins, a three-way handshake (SYN, SYN-ACK, ACK)
+   establishes a virtual circuit between client and server.
+
+2. ServerSocket (Server Endpoint):
+   The ServerSocket class binds to a specific port on the local machine and
+   listens for incoming connection requests via its blocking accept() method.
+   When a connection is received, accept() returns a dedicated Socket instance
+   for communicating with that specific client.
+
+3. Socket (Client Endpoint):
+   The Socket class initiates the TCP connection by specifying the server&#x27;s
+   IP address (or hostname) and port number.
+
+4. Stream-Based I/O:
+   - InputStream / BufferedReader: Reads incoming byte/character streams from the
+     remote endpoint.
+   - OutputStream / PrintWriter: Transmits outgoing byte/character streams to the
+     remote endpoint with automatic flushing.
+
+5. Connection Lifecycle:
+   1) Server creates ServerSocket(port) and invokes accept().
+   2) Client constructs Socket(host, port) to establish handshake.
+   3) Both sides exchange data through input/output streams.
+   4) Connections are cleanly terminated by closing stream handles and sockets.
+============================================================================
+*/
+</textarea>
+            <h3>#09 Experiment 9 – Client-Server Socket Programming in Java</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Two-way client-server socket communication implementation in Java using ServerSocket and Socket classes over TCP.</p>
+            <span class="file-pill">TCPServer.java</span>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">irm https://aisccli.netlify.app/cn9.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://aisccli.netlify.app/cn9.ps1 | iex')">Copy</button>
+            </div>
+            <div class="card-footer">
+              <a href="experiments/26/TCPServer.java" target="_blank">View File &rarr;</a>
+              
+              <a href="experiments/26/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
         </div>      </div>

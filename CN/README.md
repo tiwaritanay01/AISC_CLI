@@ -1,11 +1,12 @@
 # Computer Networks (CN) Laboratory Experiments
 
-This directory contains standalone, standard C implementations for core Data Link & Transport layer error detection and correction algorithms.
+This directory contains standalone, standard implementations for core Data Link, Transport, and Application layer protocols and error detection algorithms.
 
 ## Experiments Included:
 
 ### 1. Experiment 6: CRC (Cyclic Redundancy Check)
 - **File:** `crc.c`
+- **Language:** C
 - **Description:** Implements Modulo-2 binary division using generator polynomials to compute remainder codewords and verify frame integrity at the receiver.
 - **Compilation & Execution:**
   ```bash
@@ -15,6 +16,7 @@ This directory contains standalone, standard C implementations for core Data Lin
 
 ### 2. Experiment 7: Hamming Code Error Detection & Correction
 - **File:** `hamming.c`
+- **Language:** C
 - **Description:** Generates parity bits at power-of-two positions ($2^i$), computes error syndrome at receiver, identifies the corrupted bit position, and performs single-bit correction.
 - **Compilation & Execution:**
   ```bash
@@ -24,6 +26,7 @@ This directory contains standalone, standard C implementations for core Data Lin
 
 ### 3. Experiment 8: Checksum Error Detection
 - **File:** `checksum.c`
+- **Language:** C
 - **Description:** Implements 8-bit one's complement addition with end-around carry and complement checksum generation matching Internet TCP/IP checksum principles.
 - **Compilation & Execution:**
   ```bash
@@ -31,6 +34,20 @@ This directory contains standalone, standard C implementations for core Data Lin
   ./checksum
   ```
 
+### 4. Experiment 9: Client-Server Socket Programming
+- **Files:** `TCPServer.java`, `TCPClient.java`
+- **Language:** Java
+- **Description:** Two-way stream-based client-server communication using Java `ServerSocket` and `Socket` APIs over TCP port 5000 with request-response echoing and session termination.
+- **Compilation & Execution:**
+  ```bash
+  # In terminal 1:
+  javac TCPServer.java
+  java TCPServer
+
+  # In terminal 2:
+  javac TCPClient.java
+  java TCPClient
+  ```
+
 ---
 *Generated via LabX Remote Platform*
-
