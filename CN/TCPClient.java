@@ -70,6 +70,22 @@ public class TCPClient {
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Prerequisites: JDK 8 or higher (`javac -version` and `java -version`).
+
+1. Terminal 1 (Start Server First):
+   javac TCPServer.java
+   java TCPServer
+
+2. Terminal 2 (Start Client):
+   javac TCPClient.java
+   java TCPClient
+
+3. Communication & Exit:
+   Enter any text message to transmit to the server and receive the echo.
+   Type 'exit' to terminate the client connection cleanly.
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Java Socket Programming Client):
 ============================================================================
 The client application acts as the initiator in the client-server architecture.

@@ -119,6 +119,29 @@ int main()
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Requirements: GCC (MinGW / MSYS2 / build-essential) or Clang.
+
+1. Compilation:
+   Windows:   gcc hamming.c -o hamming.exe
+   Linux/Mac: gcc hamming.c -o hamming
+
+2. Execution:
+   Windows:   .\hamming.exe
+   Linux/Mac: ./hamming
+
+3. Sample Run:
+   Enter number of data bits: 4
+   Enter data bits (0 or 1): 1 0 1 1
+   -> Output:
+      Hamming Code: 1010101
+   Enter received codeword: 1010101
+   -> Output:
+      No error detected.
+
+   (Or introduce an error: e.g. 1011101 -> Error detected at position: 4)
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Hamming Code Error Detection & Correction):
 ============================================================================
 Hamming Code is a linear error-correcting code invented by Richard Hamming in 1950.
@@ -149,6 +172,7 @@ Operating Principles:
    Inverting the bit at received[syndrome] restores the original codeword.
 ============================================================================
 */
+
 
 '@
 $target = Join-Path $PWD $filename

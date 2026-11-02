@@ -2728,6 +2728,28 @@ int main()
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Requirements: GCC (MinGW / MSYS2 / build-essential) or Clang.
+
+1. Compilation:
+   Windows:   gcc crc.c -o crc.exe
+   Linux/Mac: gcc crc.c -o crc
+
+2. Execution:
+   Windows:   .\crc.exe
+   Linux/Mac: ./crc
+
+3. Sample Run:
+   Enter data bits: 110101
+   Enter generator bits: 1011
+   -&gt; Output:
+      CRC Remainder: 001
+      Transmitted Codeword: 110101001
+   Enter received codeword: 110101001
+   -&gt; Output:
+      No error detected.
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Cyclic Redundancy Check):
 ============================================================================
 Cyclic Redundancy Check (CRC) is an error-detecting code widely used in
@@ -2757,6 +2779,7 @@ Error Detection Capabilities:
 - Detects all burst errors of length &lt;= (m - 1).
 ============================================================================
 */
+
 </textarea>
             <h3>#06 Experiment 6 – CRC (Cyclic Redundancy Check)</h3>
             <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Implementation of Cyclic Redundancy Check (CRC) error detection using modulo-2 polynomial division.</p>
@@ -2901,6 +2924,29 @@ int main()
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Requirements: GCC (MinGW / MSYS2 / build-essential) or Clang.
+
+1. Compilation:
+   Windows:   gcc hamming.c -o hamming.exe
+   Linux/Mac: gcc hamming.c -o hamming
+
+2. Execution:
+   Windows:   .\hamming.exe
+   Linux/Mac: ./hamming
+
+3. Sample Run:
+   Enter number of data bits: 4
+   Enter data bits (0 or 1): 1 0 1 1
+   -&gt; Output:
+      Hamming Code: 1010101
+   Enter received codeword: 1010101
+   -&gt; Output:
+      No error detected.
+
+   (Or introduce an error: e.g. 1011101 -&gt; Error detected at position: 4)
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Hamming Code Error Detection &amp; Correction):
 ============================================================================
 Hamming Code is a linear error-correcting code invented by Richard Hamming in 1950.
@@ -2931,6 +2977,7 @@ Operating Principles:
    Inverting the bit at received[syndrome] restores the original codeword.
 ============================================================================
 */
+
 </textarea>
             <h3>#07 Experiment 7 – Hamming Code Error Detection & Correction</h3>
             <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Implementation of Hamming Code for single-bit error detection and automatic bit correction.</p>
@@ -3072,6 +3119,34 @@ int main()
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Requirements: GCC (MinGW / MSYS2 / build-essential) or Clang.
+
+1. Compilation:
+   Windows:   gcc checksum.c -o checksum.exe
+   Linux/Mac: gcc checksum.c -o checksum
+
+2. Execution:
+   Windows:   .\checksum.exe
+   Linux/Mac: ./checksum
+
+3. Sample Run:
+   Enter number of 8-bit data words: 2
+   Enter 2 binary data words:
+   10101001
+   00111100
+   -&gt; Output:
+      Checksum: 00011001
+   Enter received data words:
+   10101001
+   00111100
+   Enter received checksum:
+   00011001
+   -&gt; Output:
+      Receiver Sum: 11111111
+      No error detected.
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Checksum Error Detection):
 ============================================================================
 The Checksum algorithm is an error-detection technique widely deployed at the
@@ -3101,6 +3176,7 @@ Mathematical Foundation (One&#x27;s Complement Arithmetic):
      and an error is reported.
 ============================================================================
 */
+
 </textarea>
             <h3>#08 Experiment 8 – Checksum Error Detection</h3>
             <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Implementation of Internet Checksum algorithm using 8-bit one's complement arithmetic and end-around carry.</p>
@@ -3197,6 +3273,25 @@ public class TCPServer {
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Prerequisites: JDK 8 or higher (`javac -version` and `java -version`).
+
+1. Terminal 1 (Start Server):
+   javac TCPServer.java
+   java TCPServer
+   -&gt; Server starts and listens on port 5000:
+      [*] Server listening on port: 5000
+      [*] Waiting for incoming client connection...
+
+2. Terminal 2 (Start Client):
+   javac TCPClient.java
+   java TCPClient
+   -&gt; Client connects, sends messages, and receives uppercase echo responses.
+
+3. Termination:
+   Type &#x27;exit&#x27; in the client console to terminate the session cleanly.
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Java Socket Programming Server):
 ============================================================================
 A Network Socket is one endpoint of a two-way communication link between
@@ -3232,6 +3327,7 @@ Core Concepts:
    4) Connections are cleanly terminated by closing stream handles and sockets.
 ============================================================================
 */
+
 </textarea>
             <h3>#09 Experiment 9 – Client-Server Socket Programming in Java</h3>
             <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Two-way client-server socket communication implementation in Java using ServerSocket and Socket classes over TCP.</p>

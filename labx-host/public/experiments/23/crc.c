@@ -89,6 +89,28 @@ int main()
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Requirements: GCC (MinGW / MSYS2 / build-essential) or Clang.
+
+1. Compilation:
+   Windows:   gcc crc.c -o crc.exe
+   Linux/Mac: gcc crc.c -o crc
+
+2. Execution:
+   Windows:   .\crc.exe
+   Linux/Mac: ./crc
+
+3. Sample Run:
+   Enter data bits: 110101
+   Enter generator bits: 1011
+   -> Output:
+      CRC Remainder: 001
+      Transmitted Codeword: 110101001
+   Enter received codeword: 110101001
+   -> Output:
+      No error detected.
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Cyclic Redundancy Check):
 ============================================================================
 Cyclic Redundancy Check (CRC) is an error-detecting code widely used in
@@ -118,3 +140,4 @@ Error Detection Capabilities:
 - Detects all burst errors of length <= (m - 1).
 ============================================================================
 */
+

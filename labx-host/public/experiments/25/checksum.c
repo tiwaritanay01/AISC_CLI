@@ -113,6 +113,34 @@ int main()
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Requirements: GCC (MinGW / MSYS2 / build-essential) or Clang.
+
+1. Compilation:
+   Windows:   gcc checksum.c -o checksum.exe
+   Linux/Mac: gcc checksum.c -o checksum
+
+2. Execution:
+   Windows:   .\checksum.exe
+   Linux/Mac: ./checksum
+
+3. Sample Run:
+   Enter number of 8-bit data words: 2
+   Enter 2 binary data words:
+   10101001
+   00111100
+   -> Output:
+      Checksum: 00011001
+   Enter received data words:
+   10101001
+   00111100
+   Enter received checksum:
+   00011001
+   -> Output:
+      Receiver Sum: 11111111
+      No error detected.
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Checksum Error Detection):
 ============================================================================
 The Checksum algorithm is an error-detection technique widely deployed at the
@@ -142,3 +170,4 @@ Mathematical Foundation (One's Complement Arithmetic):
      and an error is reported.
 ============================================================================
 */
+

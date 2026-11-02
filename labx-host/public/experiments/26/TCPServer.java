@@ -68,6 +68,25 @@ public class TCPServer {
 
 /*
 ============================================================================
+HOW TO RUN THIS EXPERIMENT:
+============================================================================
+Prerequisites: JDK 8 or higher (`javac -version` and `java -version`).
+
+1. Terminal 1 (Start Server):
+   javac TCPServer.java
+   java TCPServer
+   -> Server starts and listens on port 5000:
+      [*] Server listening on port: 5000
+      [*] Waiting for incoming client connection...
+
+2. Terminal 2 (Start Client):
+   javac TCPClient.java
+   java TCPClient
+   -> Client connects, sends messages, and receives uppercase echo responses.
+
+3. Termination:
+   Type 'exit' in the client console to terminate the session cleanly.
+============================================================================
 EXPERIMENT THEORY (Computer Networks - Java Socket Programming Server):
 ============================================================================
 A Network Socket is one endpoint of a two-way communication link between
@@ -103,3 +122,4 @@ Core Concepts:
    4) Connections are cleanly terminated by closing stream handles and sockets.
 ============================================================================
 */
+
