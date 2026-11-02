@@ -36,8 +36,14 @@ foreach ($f in $mf.files) {
 }
 Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
 
-if ($item.output_url) {
+if ($item.output_files) {
+    foreach ($outP in $item.output_files) {
+        $outName = Split-Path $outP -Leaf
+        Invoke-WebRequest "https://aisccli.netlify.app/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+        Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
+    }
+} elseif ($item.output_url) {
     $outName = Split-Path $item.output_url -Leaf
     Invoke-WebRequest "https://aisccli.netlify.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
-    Write-Host "[OK] Downloaded Output PDF: $outName into $dir/" -ForegroundColor White
+    Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
 }

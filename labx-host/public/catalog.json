@@ -21,7 +21,8 @@
       "manifest_url": "experiments/01/manifest.json",
       "subject": "AISC",
       "lab_serial": 1,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 2,
@@ -39,7 +40,8 @@
       "manifest_url": "experiments/02/manifest.json",
       "subject": "AISC",
       "lab_serial": 2,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 3,
@@ -57,7 +59,8 @@
       "manifest_url": "experiments/03/manifest.json",
       "subject": "AISC",
       "lab_serial": 3,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 4,
@@ -75,7 +78,8 @@
       "manifest_url": "experiments/04/manifest.json",
       "subject": "AISC",
       "lab_serial": 4,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 5,
@@ -93,7 +97,8 @@
       "manifest_url": "experiments/05/manifest.json",
       "subject": "AISC",
       "lab_serial": 5,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 6,
@@ -111,7 +116,8 @@
       "manifest_url": "experiments/06/manifest.json",
       "subject": "AISC",
       "lab_serial": 6,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 7,
@@ -129,7 +135,8 @@
       "manifest_url": "experiments/07/manifest.json",
       "subject": "AISC",
       "lab_serial": 7,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 8,
@@ -147,7 +154,8 @@
       "manifest_url": "experiments/08/manifest.json",
       "subject": "AISC",
       "lab_serial": 8,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 9,
@@ -165,7 +173,8 @@
       "manifest_url": "experiments/09/manifest.json",
       "subject": "AISC",
       "lab_serial": 9,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 10,
@@ -183,7 +192,8 @@
       "manifest_url": "experiments/10/manifest.json",
       "subject": "AISC",
       "lab_serial": 10,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 11,
@@ -201,7 +211,8 @@
       "manifest_url": "experiments/11/manifest.json",
       "subject": "AISC",
       "lab_serial": 11,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 12,
@@ -219,7 +230,8 @@
       "manifest_url": "experiments/12/manifest.json",
       "subject": "AISC",
       "lab_serial": 12,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 13,
@@ -237,7 +249,10 @@
       "manifest_url": "experiments/13/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 1,
-      "output_url": "outputs/ertos_exp01_output.pdf"
+      "output_url": "outputs/ertos_exp01_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp01_output.pdf"
+      ]
     },
     {
       "id": 14,
@@ -255,7 +270,11 @@
       "manifest_url": "experiments/14/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 2,
-      "output_url": "outputs/ertos_exp02_output.pdf"
+      "output_url": "outputs/ertos_exp02_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp02_output.jpg",
+        "outputs/ertos_exp02_output.pdf"
+      ]
     },
     {
       "id": 15,
@@ -273,7 +292,11 @@
       "manifest_url": "experiments/15/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 3,
-      "output_url": "outputs/ertos_exp03_output.pdf"
+      "output_url": "outputs/ertos_exp03_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp03_drive_output.pdf",
+        "outputs/ertos_exp03_output.pdf"
+      ]
     },
     {
       "id": 16,
@@ -291,7 +314,11 @@
       "manifest_url": "experiments/16/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 4,
-      "output_url": "outputs/ertos_exp04_output.pdf"
+      "output_url": "outputs/ertos_exp04_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp04_drive_output.pdf",
+        "outputs/ertos_exp04_output.pdf"
+      ]
     },
     {
       "id": 17,
@@ -309,7 +336,11 @@
       "manifest_url": "experiments/17/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 5,
-      "output_url": "outputs/ertos_exp05_output.pdf"
+      "output_url": "outputs/ertos_exp05_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp05_drive_output.pdf",
+        "outputs/ertos_exp05_output.pdf"
+      ]
     },
     {
       "id": 18,
@@ -327,7 +358,11 @@
       "manifest_url": "experiments/18/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 6,
-      "output_url": "outputs/ertos_exp06_output.pdf"
+      "output_url": "outputs/ertos_exp06_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp06_output.jpg",
+        "outputs/ertos_exp06_output.pdf"
+      ]
     },
     {
       "id": 19,
@@ -345,7 +380,11 @@
       "manifest_url": "experiments/19/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 7,
-      "output_url": "outputs/ertos_exp07_output.pdf"
+      "output_url": "outputs/ertos_exp07_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp07_output.jpg",
+        "outputs/ertos_exp07_output.pdf"
+      ]
     },
     {
       "id": 20,
@@ -362,7 +401,11 @@
       "manifest_url": "experiments/20/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 8,
-      "output_url": "outputs/ertos_exp08_output.pdf"
+      "output_url": "outputs/ertos_exp08_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp08_output.jpg",
+        "outputs/ertos_exp08_output.pdf"
+      ]
     },
     {
       "id": 21,
@@ -380,7 +423,11 @@
       "manifest_url": "experiments/21/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 9,
-      "output_url": "outputs/ertos_exp09_output.pdf"
+      "output_url": "outputs/ertos_exp09_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp09_drive_output.pdf",
+        "outputs/ertos_exp09_output.pdf"
+      ]
     },
     {
       "id": 22,
@@ -397,7 +444,11 @@
       "manifest_url": "experiments/22/manifest.json",
       "subject": "ES_RTOS",
       "lab_serial": 10,
-      "output_url": "outputs/ertos_exp10_output.pdf"
+      "output_url": "outputs/ertos_exp10_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp10_drive_output.pdf",
+        "outputs/ertos_exp10_output.pdf"
+      ]
     },
     {
       "id": 23,
@@ -415,7 +466,8 @@
       "manifest_url": "experiments/23/manifest.json",
       "subject": "CN",
       "lab_serial": 6,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 24,
@@ -433,7 +485,8 @@
       "manifest_url": "experiments/24/manifest.json",
       "subject": "CN",
       "lab_serial": 7,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     },
     {
       "id": 25,
@@ -451,7 +504,8 @@
       "manifest_url": "experiments/25/manifest.json",
       "subject": "CN",
       "lab_serial": 8,
-      "output_url": null
+      "output_url": null,
+      "output_files": []
     }
   ]
 }

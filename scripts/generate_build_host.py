@@ -663,7 +663,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
     }
 
     // Dual Code + Output Download Handler
-    function copyExpCodeAndDownloadOutput(btn, codeId, outputUrl) {
+    function copyExpCodeAndDownloadOutput(btn, codeId, outputUrlsStr) {
       const ta = document.getElementById(codeId);
       if (!ta) return;
       const text = ta.value;
@@ -673,15 +673,18 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       // 1. Copy code to clipboard
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
-          showCopySuccess(btn, span, outputUrl ? 'Copied & Output Downloaded!' : 'Copied!');
+          showCopySuccess(btn, span, outputUrlsStr ? 'Copied & Output Downloaded!' : 'Copied!');
         }).catch(() => fallbackCopy(ta, btn, span, originalText));
       } else {
         fallbackCopy(ta, btn, span, originalText);
       }
 
-      // 2. Automatically trigger output download if available
-      if (outputUrl) {
-        triggerDownload(outputUrl);
+      // 2. Automatically trigger output downloads if available
+      if (outputUrlsStr) {
+        const urls = outputUrlsStr.split(',').filter(Boolean);
+        urls.forEach((u, i) => {
+          setTimeout(() => triggerDownload(u.trim()), i * 250);
+        });
       }
     }
 
@@ -1305,7 +1308,8 @@ generate_host_code = '''def generate_host():
             "manifest_url": manifest_url,
             "subject": exp.get("subject", "AISC"),
             "lab_serial": exp.get("lab_serial", exp_id),
-            "output_url": exp.get("output_url")
+            "output_url": exp.get("output_url"),
+            "output_files": exp.get("output_files", [])
         })
 
         # Write experiment files
@@ -1388,14 +1392,28 @@ generate_host_code = '''def generate_host():
             cmd_str = f"& (irm https://aisccli.netlify.app/get.ps1) {exp_id}"
             output_url = ""
 
-        output_link_html = f'<a href="{output_url}" target="_blank" style="font-size:0.75rem; color:#888;">Output PDF &rarr;</a>' if output_url else ""
+        output_files = exp.get("output_files", [])
+        if not output_files and exp.get("output_url"):
+            output_files = [exp["output_url"]]
+
+        output_links = []
+        for out_path in output_files:
+            fname = out_path.split("/")[-1]
+            ext = fname.split(".")[-1].upper()
+            if "drive" in fname.lower() or ext in ["JPG", "JPEG", "PNG"]:
+                label = f"Output {ext} &rarr;"
+            else:
+                label = f"Report {ext} &rarr;"
+            output_links.append(f'<a href="{out_path}" target="_blank" style="font-size:0.75rem; color:#888;">{label}</a>')
+        output_link_html = " ".join(output_links)
+        output_urls_str = ",".join(output_files)
 
         # HTML card
         html_cards.append(f"""        <div class="card" data-subject="{subject_type}">
           <div>
             <div class="card-top">
               <span class="tag">{subject_label} &bull; {exp['language'].upper()}</span>
-              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-{exp_id}', '{output_url}')" title="Copy code and download output PDF">
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-{exp_id}', '{output_urls_str}')" title="Copy code and download outputs">
                 <span>Copy Code</span>
               </button>
             </div>
@@ -1519,10 +1537,12 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
             src_file = exp["files"][0]
             src_fname = src_file["path"]
             src_content = src_file["content"]
-            out_fname = f"ertos_exp{s_num:02d}_output.pdf"
+            out_files = exp.get("output_files", [])
+            if not out_files and exp.get("output_url"):
+                out_files = [exp["output_url"]]
             
             lines_ps1 = [
-                f"# LabX Remote: ERTOS Exp {s_num:02d} (Code + Output PDF)",
+                f"# LabX Remote: ERTOS Exp {s_num:02d} (Code + Outputs)",
                 f'$filename = "{src_fname}"',
                 "$code = @'",
                 src_content,
@@ -1530,15 +1550,19 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                 "$target = Join-Path $PWD $filename",
                 "Set-Content -Path $target -Value $code -Encoding utf8",
                 f'Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -ForegroundColor White',
-                "",
-                f'$outTarget = Join-Path $PWD "{out_fname}"',
-                "try {",
-                f'    Invoke-WebRequest "https://aisccli.netlify.app/outputs/{out_fname}" -OutFile $outTarget -UseBasicParsing',
-                f'    Write-Host "[OK] Downloaded Output PDF to: {out_fname}" -ForegroundColor White',
-                "} catch {",
-                f'    Write-Host "[!] Could not fetch {out_fname}: $_" -ForegroundColor DarkGray',
-                "}"
+                ""
             ]
+            for out_p in out_files:
+                out_leaf = out_p.split("/")[-1]
+                lines_ps1.extend([
+                    f'$outTarget = Join-Path $PWD "{out_leaf}"',
+                    "try {",
+                    f'    Invoke-WebRequest "https://aisccli.netlify.app/{out_p}" -OutFile $outTarget -UseBasicParsing',
+                    f'    Write-Host "[OK] Downloaded Output to: {out_leaf}" -ForegroundColor White',
+                    "} catch {",
+                    f'    Write-Host "[!] Could not fetch {out_leaf}: $_" -ForegroundColor DarkGray',
+                    "}"
+                ])
             e_ps1 = "\\n".join(lines_ps1)
             with open(PUBLIC_DIR / f"e{s_num}.ps1", "w", encoding="utf-8") as f:
                 f.write(e_ps1)
@@ -1605,10 +1629,16 @@ foreach ($f in $mf.files) {
 }
 Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
 
-if ($item.output_url) {
+if ($item.output_files) {
+    foreach ($outP in $item.output_files) {
+        $outName = Split-Path $outP -Leaf
+        Invoke-WebRequest "https://aisccli.netlify.app/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+        Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
+    }
+} elseif ($item.output_url) {
     $outName = Split-Path $item.output_url -Leaf
     Invoke-WebRequest "https://aisccli.netlify.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
-    Write-Host "[OK] Downloaded Output PDF: $outName into $dir/" -ForegroundColor White
+    Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
 }
 """
     with open(PUBLIC_DIR / "get.ps1", "w", encoding="utf-8") as f:

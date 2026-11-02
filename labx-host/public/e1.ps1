@@ -1,4 +1,4 @@
-# LabX Remote: ERTOS Exp 01 (Code + Output PDF)
+# LabX Remote: ERTOS Exp 01 (Code + Outputs)
 $filename = "verify_keil_setup.c"
 $code = @'
 /*
@@ -75,7 +75,7 @@ Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -Fore
 $outTarget = Join-Path $PWD "ertos_exp01_output.pdf"
 try {
     Invoke-WebRequest "https://aisccli.netlify.app/outputs/ertos_exp01_output.pdf" -OutFile $outTarget -UseBasicParsing
-    Write-Host "[OK] Downloaded Output PDF to: ertos_exp01_output.pdf" -ForegroundColor White
+    Write-Host "[OK] Downloaded Output to: ertos_exp01_output.pdf" -ForegroundColor White
 } catch {
     Write-Host "[!] Could not fetch ertos_exp01_output.pdf: $_" -ForegroundColor DarkGray
 }

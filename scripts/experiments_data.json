@@ -525,7 +525,10 @@
     },
     "lab_serial": 1,
     "lab_label": "ERTOS Exp 1",
-    "output_url": "outputs/ertos_exp01_output.pdf"
+    "output_url": "outputs/ertos_exp01_output.pdf",
+    "output_files": [
+      "outputs/ertos_exp01_output.pdf"
+    ]
   },
   {
     "id": 14,
@@ -565,7 +568,11 @@
     },
     "lab_serial": 2,
     "lab_label": "ERTOS Exp 2",
-    "output_url": "outputs/ertos_exp02_output.pdf"
+    "output_url": "outputs/ertos_exp02_output.jpg",
+    "output_files": [
+      "outputs/ertos_exp02_output.jpg",
+      "outputs/ertos_exp02_output.pdf"
+    ]
   },
   {
     "id": 15,
@@ -606,7 +613,11 @@
     },
     "lab_serial": 3,
     "lab_label": "ERTOS Exp 3",
-    "output_url": "outputs/ertos_exp03_output.pdf"
+    "output_url": "outputs/ertos_exp03_drive_output.pdf",
+    "output_files": [
+      "outputs/ertos_exp03_drive_output.pdf",
+      "outputs/ertos_exp03_output.pdf"
+    ]
   },
   {
     "id": 16,
@@ -648,7 +659,11 @@
     },
     "lab_serial": 4,
     "lab_label": "ERTOS Exp 04",
-    "output_url": "outputs/ertos_exp04_output.pdf"
+    "output_url": "outputs/ertos_exp04_drive_output.pdf",
+    "output_files": [
+      "outputs/ertos_exp04_drive_output.pdf",
+      "outputs/ertos_exp04_output.pdf"
+    ]
   },
   {
     "id": 17,
@@ -690,7 +705,11 @@
     },
     "lab_serial": 5,
     "lab_label": "ERTOS Exp 5",
-    "output_url": "outputs/ertos_exp05_output.pdf"
+    "output_url": "outputs/ertos_exp05_drive_output.pdf",
+    "output_files": [
+      "outputs/ertos_exp05_drive_output.pdf",
+      "outputs/ertos_exp05_output.pdf"
+    ]
   },
   {
     "id": 18,
@@ -730,7 +749,11 @@
     },
     "lab_serial": 6,
     "lab_label": "ERTOS Exp 06",
-    "output_url": "outputs/ertos_exp06_output.pdf"
+    "output_url": "outputs/ertos_exp06_output.jpg",
+    "output_files": [
+      "outputs/ertos_exp06_output.jpg",
+      "outputs/ertos_exp06_output.pdf"
+    ]
   },
   {
     "id": 19,
@@ -770,7 +793,11 @@
     },
     "lab_serial": 7,
     "lab_label": "ERTOS Exp 07",
-    "output_url": "outputs/ertos_exp07_output.pdf"
+    "output_url": "outputs/ertos_exp07_output.jpg",
+    "output_files": [
+      "outputs/ertos_exp07_output.jpg",
+      "outputs/ertos_exp07_output.pdf"
+    ]
   },
   {
     "id": 20,
@@ -810,7 +837,11 @@
     },
     "lab_serial": 8,
     "lab_label": "ERTOS Exp 8",
-    "output_url": "outputs/ertos_exp08_output.pdf"
+    "output_url": "outputs/ertos_exp08_output.jpg",
+    "output_files": [
+      "outputs/ertos_exp08_output.jpg",
+      "outputs/ertos_exp08_output.pdf"
+    ]
   },
   {
     "id": 21,
@@ -851,7 +882,11 @@
     },
     "lab_serial": 9,
     "lab_label": "ERTOS Exp 9",
-    "output_url": "outputs/ertos_exp09_output.pdf"
+    "output_url": "outputs/ertos_exp09_drive_output.pdf",
+    "output_files": [
+      "outputs/ertos_exp09_drive_output.pdf",
+      "outputs/ertos_exp09_output.pdf"
+    ]
   },
   {
     "id": 22,
@@ -891,7 +926,11 @@
     },
     "lab_serial": 10,
     "lab_label": "ERTOS Exp 10",
-    "output_url": "outputs/ertos_exp10_output.pdf"
+    "output_url": "outputs/ertos_exp10_drive_output.pdf",
+    "output_files": [
+      "outputs/ertos_exp10_drive_output.pdf",
+      "outputs/ertos_exp10_output.pdf"
+    ]
   },
   {
     "id": 23,

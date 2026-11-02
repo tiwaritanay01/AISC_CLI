@@ -1,4 +1,4 @@
-# LabX Remote: ERTOS Exp 03 (Code + Output PDF)
+# LabX Remote: ERTOS Exp 03 (Code + Outputs)
 $filename = "lpc2148_lcd.c"
 $code = @'
 /*
@@ -87,10 +87,17 @@ $target = Join-Path $PWD $filename
 Set-Content -Path $target -Value $code -Encoding utf8
 Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -ForegroundColor White
 
+$outTarget = Join-Path $PWD "ertos_exp03_drive_output.pdf"
+try {
+    Invoke-WebRequest "https://aisccli.netlify.app/outputs/ertos_exp03_drive_output.pdf" -OutFile $outTarget -UseBasicParsing
+    Write-Host "[OK] Downloaded Output to: ertos_exp03_drive_output.pdf" -ForegroundColor White
+} catch {
+    Write-Host "[!] Could not fetch ertos_exp03_drive_output.pdf: $_" -ForegroundColor DarkGray
+}
 $outTarget = Join-Path $PWD "ertos_exp03_output.pdf"
 try {
     Invoke-WebRequest "https://aisccli.netlify.app/outputs/ertos_exp03_output.pdf" -OutFile $outTarget -UseBasicParsing
-    Write-Host "[OK] Downloaded Output PDF to: ertos_exp03_output.pdf" -ForegroundColor White
+    Write-Host "[OK] Downloaded Output to: ertos_exp03_output.pdf" -ForegroundColor White
 } catch {
     Write-Host "[!] Could not fetch ertos_exp03_output.pdf: $_" -ForegroundColor DarkGray
 }
