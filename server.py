@@ -30,11 +30,18 @@ def add_cors_headers(response):
 @app.route("/health", methods=["GET"])
 def health_check():
     """Health check endpoint for Render monitoring."""
+    cat_file = PUBLIC_DIR / "catalog.json"
+    count = 27
+    if cat_file.exists():
+        try:
+            count = len(json.loads(cat_file.read_text(encoding="utf-8")).get("experiments", []))
+        except Exception:
+            pass
     return jsonify({
         "status": "healthy",
         "service": "AISC_CLI",
         "version": "1.0.0",
-        "experiments_count": 26
+        "experiments_count": count
     }), 200
 
 

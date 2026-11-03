@@ -512,7 +512,7 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
           <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (26)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (4)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (5)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -598,10 +598,14 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           <span style="color:var(--subtle)"># 2. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
           irm https://cli-t0km.onrender.com/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
           irm https://cli-t0km.onrender.com/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
-          <span style="color:var(--subtle)"># 2. Pull All 22 Experiments (AISC + ERTOS):</span><br>
+          <span style="color:var(--subtle)"># 3. Pull Computer Networks (CN):</span><br>
+          irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Dijkstra Shortest Path Routing (Link-State OSPF)</span><br>
+          irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Java Socket Programming (Server + Client)</span><br>
+          irm https://cli-t0km.onrender.com/cn.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL CN experiments</span><br><br>
+          <span style="color:var(--subtle)"># 4. Pull Everything (All 27 Experiments):</span><br>
           irm https://cli-t0km.onrender.com/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
           irm https://cli-t0km.onrender.com/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
-          <span style="color:var(--subtle)"># 3. Or install the global 'labx' CLI:</span><br>
+          <span style="color:var(--subtle)"># 5. Global CLI:</span><br>
           irm https://cli-t0km.onrender.com/install.ps1 | iex<br>
           labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
         </div>
@@ -1617,6 +1621,11 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                     f.write(cn_code)
                 with open(PUBLIC_DIR / "socket.ps1", "w", encoding="utf-8") as f:
                     f.write(cn_code)
+            if s_num == 10:
+                with open(PUBLIC_DIR / "dijkstra.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
+                with open(PUBLIC_DIR / "cndijkstra.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
     # Generate individual pinpoint scripts (a1.ps1 - a12.ps1) for AISC
     for exp in EXPERIMENTS:
         if exp.get("subject", "AISC") == "AISC":
@@ -1742,6 +1751,7 @@ Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://cli-t0km.onrender.c
 Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://cli-t0km.onrender.com/ertos.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All Computer Networks (CN)  : irm https://cli-t0km.onrender.com/cn.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull CN Java Socket Programming  : irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull CN Dijkstra Algorithm       : irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.com/all.ps1 | iex`n" -ForegroundColor Gray
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:

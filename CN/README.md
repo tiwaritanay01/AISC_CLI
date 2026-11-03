@@ -49,5 +49,15 @@ This directory contains standalone, standard implementations for core Data Link,
   java TCPClient
   ```
 
+### 5. Experiment 10: Dijkstra's Shortest Path Routing Algorithm
+- **File:** `dijkstra.c`
+- **Language:** C
+- **Description:** Implements Link State Routing (OSPF) to compute the single-source shortest path tree and generate complete routing tables with optimal costs and intermediate node paths.
+- **Compilation & Execution:**
+  ```bash
+  gcc dijkstra.c -o dijkstra
+  ./dijkstra
+  ```
+
 ---
 *Generated via LabX Remote Platform*

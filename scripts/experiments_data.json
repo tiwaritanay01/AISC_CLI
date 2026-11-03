@@ -1098,5 +1098,49 @@
     "lab_serial": 9,
     "lab_label": "CN Exp 09",
     "output_url": null
+  },
+  {
+    "id": 27,
+    "slug": "cn-dijkstra-shortest-path",
+    "title": "Experiment 10 \u2013 Dijkstra's Shortest Path Routing Algorithm",
+    "language": "c",
+    "aliases": [
+      "dijkstra",
+      "shortest path",
+      "routing",
+      "link state routing",
+      "ospf",
+      "cn 10",
+      "cn dijkstra",
+      "routing algorithm"
+    ],
+    "description": "Implementation of Dijkstra's algorithm in C to compute single-source shortest path routing tables for Link State Routing (OSPF).",
+    "aim": "To implement Dijkstra's shortest path routing algorithm in C to find minimum cost routes in a computer network.",
+    "theory": "Dijkstra's algorithm is a greedy algorithm used in Link-State routing protocols like OSPF and IS-IS to compute the Shortest Path Tree (SPT) from a single source router to all other network routers. Each router maintains a global link-state database (LSDB), and through edge relaxation, computes the optimal routing table.",
+    "algorithm": [
+      "Initialize distance array: dist[source] = 0, and dist[i] = cost[source][i] for all other nodes.",
+      "Mark source as visited in visited[] array and set parent pointers.",
+      "Find unvisited node u with minimum distance value.",
+      "Mark u as visited.",
+      "Update distances of all unvisited neighbors v: if dist[u] + cost[u][v] < dist[v], then dist[v] = dist[u] + cost[u][v] and parent[v] = u.",
+      "Repeat until all nodes are visited or minimum distance is infinity.",
+      "Print routing table displaying destination, minimum cost, and complete node path."
+    ],
+    "files": [
+      {
+        "path": "dijkstra.c",
+        "source": "dijkstra.c",
+        "role": "source",
+        "content": "/*\n * Computer Networks Laboratory - Routing Algorithms\n * Experiment 10: Dijkstra's Shortest Path Routing Algorithm\n * Demonstrates Link State Routing (OSPF) to find minimum-cost routes\n */\n\n#include <stdio.h>\n#include <stdbool.h>\n\n#define INFINITY 9999\n#define MAX_NODES 20\n\nvoid printPath(int parent[], int j) {\n    if (parent[j] == -1) {\n        printf(\"%d\", j);\n        return;\n    }\n    printPath(parent, parent[j]);\n    printf(\" -> %d\", j);\n}\n\nvoid dijkstra(int cost[MAX_NODES][MAX_NODES], int n, int source) {\n    int distance[MAX_NODES];\n    bool visited[MAX_NODES];\n    int parent[MAX_NODES];\n\n    for (int i = 0; i < n; i++) {\n        distance[i] = cost[source][i];\n        visited[i] = false;\n        parent[i] = (cost[source][i] != INFINITY && i != source) ? source : -1;\n    }\n\n    distance[source] = 0;\n    visited[source] = true;\n    parent[source] = -1;\n\n    for (int count = 1; count < n - 1; count++) {\n        int min_dist = INFINITY;\n        int next_node = -1;\n\n        for (int i = 0; i < n; i++) {\n            if (!visited[i] && distance[i] < min_dist) {\n                min_dist = distance[i];\n                next_node = i;\n            }\n        }\n\n        if (next_node == -1) break;\n        visited[next_node] = true;\n\n        for (int i = 0; i < n; i++) {\n            if (!visited[i] && cost[next_node][i] != INFINITY) {\n                if (distance[next_node] + cost[next_node][i] < distance[i]) {\n                    distance[i] = distance[next_node] + cost[next_node][i];\n                    parent[i] = next_node;\n                }\n            }\n        }\n    }\n\n    printf(\"\\n===============================================================\\n\");\n    printf(\" Routing Table for Source Router: %d (Link-State Shortest Path)\\n\", source);\n    printf(\"===============================================================\\n\");\n    printf(\" Destination | Minimum Cost | Shortest Path\\n\");\n    printf(\"-------------|--------------|----------------------------------\\n\");\n\n    for (int i = 0; i < n; i++) {\n        if (i == source) {\n            printf(\"      %2d     |      %2d      | [Local Node]\\n\", i, 0);\n        } else if (distance[i] == INFINITY) {\n            printf(\"      %2d     |   Unreachable| No Path\\n\", i);\n        } else {\n            printf(\"      %2d     |      %2d      | \", i, distance[i]);\n            printPath(parent, i);\n            printf(\"\\n\");\n        }\n    }\n    printf(\"===============================================================\\n\");\n}\n\nint main() {\n    int n, source;\n    int cost[MAX_NODES][MAX_NODES];\n\n    printf(\"=====================================================\\n\");\n    printf(\"   Dijkstra's Shortest Path Routing Algorithm (CN)   \\n\");\n    printf(\"=====================================================\\n\");\n    printf(\"Enter number of network nodes/routers: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0 || n > MAX_NODES) {\n        printf(\"Invalid input or non-interactive console. Using default 5-node topology.\\n\");\n        n = 5;\n        int default_cost[5][5] = {\n            {0, 4, 2, INFINITY, INFINITY},\n            {4, 0, 1, 5, INFINITY},\n            {2, 1, 0, 8, 10},\n            {INFINITY, 5, 8, 0, 2},\n            {INFINITY, INFINITY, 10, 2, 0}\n        };\n        for (int i = 0; i < 5; i++)\n            for (int j = 0; j < 5; j++)\n                cost[i][j] = default_cost[i][j];\n        source = 0;\n    } else {\n        printf(\"Enter routing cost matrix (%dx%d, 0 for self, 9999 for infinity):\\n\", n, n);\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                scanf(\"%d\", &cost[i][j]);\n                if (i != j && cost[i][j] == 0) cost[i][j] = INFINITY;\n            }\n        }\n        printf(\"Enter source router (0 to %d): \", n - 1);\n        if (scanf(\"%d\", &source) != 1 || source < 0 || source >= n) {\n            source = 0;\n        }\n    }\n\n    dijkstra(cost, n, source);\n    return 0;\n}\n\n/*\n============================================================================\nHOW TO RUN THIS EXPERIMENT:\n============================================================================\nPrerequisites: GCC compiler (`gcc --version`).\n\n1. Compile the C code:\n   gcc dijkstra.c -o dijkstra\n\n2. Run the executable:\n   ./dijkstra\n\n3. Interactive Sample Run:\n   Enter number of network nodes/routers: 5\n   Enter routing cost matrix (5x5):\n   0 4 2 9999 9999\n   4 0 1 5 9999\n   2 1 0 8 10\n   9999 5 8 0 2\n   9999 9999 10 2 0\n   Enter source router (0 to 4): 0\n\n   Output:\n   Destination | Minimum Cost | Shortest Path\n        0      |       0      | [Local Node]\n        1      |       3      | 0 -> 2 -> 1\n        2      |       2      | 0 -> 2\n        3      |       8      | 0 -> 2 -> 1 -> 3\n        4      |      10      | 0 -> 2 -> 1 -> 3 -> 4\n============================================================================\nEXPERIMENT THEORY (Computer Networks - Dijkstra's Link-State Routing):\n============================================================================\nDijkstra's Algorithm is a greedy single-source shortest path algorithm used\nwidely in computer networking for unicast routing protocols, notably Open\nShortest Path First (OSPF) and Intermediate System to Intermediate System\n(IS-IS) in the Link State Routing domain.\n\nKey Principles:\n1. Global Topology Knowledge:\n   Every router floods Link State Advertisements (LSAs) containing the state\n   and metric of its directly connected links to all routers via Dijkstra's\n   algorithm so that each router builds an identical link-state database (LSDB).\n\n2. Forward Search Tree (SPT):\n   The router places itself as the root and iteratively builds a Shortest\n   Path Tree (SPT) by maintaining:\n   - Visited Set (Permanent nodes with confirmed minimal cost).\n   - Tentative Set (Candidate neighbors evaluated through relaxation).\n\n3. Edge Relaxation:\n   If traversing via node 'u' to 'v' produces a strictly lower cumulative\n   path cost:\n   dist[v] = min(dist[v], dist[u] + cost[u][v])\n\n4. Forwarding Table Generation:\n   From the completed SPT, the router extracts the next-hop IP address and\n   outgoing interface for each destination subnet, achieving loop-free routing\n   with O(V^2) or O(E + V log V) convergence time.\n============================================================================\n*/\n"
+      }
+    ],
+    "run": {
+      "kind": "c",
+      "entry": "dijkstra.c"
+    },
+    "subject": "CN",
+    "lab_serial": 10,
+    "lab_label": "CN Exp 10",
+    "output_url": null
   }
 ]

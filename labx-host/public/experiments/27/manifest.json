@@ -1,0 +1,40 @@
+{
+  "id": 27,
+  "slug": "cn-dijkstra-shortest-path",
+  "title": "Experiment 10 \u2013 Dijkstra's Shortest Path Routing Algorithm",
+  "language": "c",
+  "aliases": [
+    "dijkstra",
+    "shortest path",
+    "routing",
+    "link state routing",
+    "ospf",
+    "cn 10",
+    "cn dijkstra",
+    "routing algorithm"
+  ],
+  "description": "Implementation of Dijkstra's algorithm in C to compute single-source shortest path routing tables for Link State Routing (OSPF).",
+  "aim": "To implement Dijkstra's shortest path routing algorithm in C to find minimum cost routes in a computer network.",
+  "theory": "Dijkstra's algorithm is a greedy algorithm used in Link-State routing protocols like OSPF and IS-IS to compute the Shortest Path Tree (SPT) from a single source router to all other network routers. Each router maintains a global link-state database (LSDB), and through edge relaxation, computes the optimal routing table.",
+  "algorithm": [
+    "Initialize distance array: dist[source] = 0, and dist[i] = cost[source][i] for all other nodes.",
+    "Mark source as visited in visited[] array and set parent pointers.",
+    "Find unvisited node u with minimum distance value.",
+    "Mark u as visited.",
+    "Update distances of all unvisited neighbors v: if dist[u] + cost[u][v] < dist[v], then dist[v] = dist[u] + cost[u][v] and parent[v] = u.",
+    "Repeat until all nodes are visited or minimum distance is infinity.",
+    "Print routing table displaying destination, minimum cost, and complete node path."
+  ],
+  "files": [
+    {
+      "path": "dijkstra.c",
+      "source": "dijkstra.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "c",
+    "entry": "dijkstra.c"
+  },
+  "version": "1.0.0"
+}
