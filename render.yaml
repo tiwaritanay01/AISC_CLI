@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: CLI
+    runtime: python
+    region: virginia
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt && python scripts/build_host.py
+    startCommand: gunicorn -w 2 -b 0.0.0.0:$PORT server:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
