@@ -30,6 +30,7 @@ code_lines.append('PUBLIC_DIR = HOST_DIR / "public"')
 code_lines.append('EXP_DIR = PUBLIC_DIR / "experiments"')
 code_lines.append('DL_DIR = PUBLIC_DIR / "downloads"')
 code_lines.append('OUT_DIR = PUBLIC_DIR / "outputs"')
+code_lines.append('SE_DIR = BASE_DIR / "SE"')
 code_lines.append('')
 code_lines.append(f'EXPERIMENTS = {repr(experiments)}')
 code_lines.append('')
@@ -498,10 +499,13 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
         <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
       </div>
       <div class="badge-bar">
-        <span class="badge">22 Experiments Live</span>
+        <span class="badge">53 Modules Live</span>
         <span class="badge">AISC Lab (12)</span>
-        <span class="badge">ES &amp; RTOS Lab (10)</span>
+        <span class="badge">ES &amp; RTOS (10)</span>
+        <span class="badge">CN Lab (6)</span>
+        <span class="badge">SE Lab (25)</span>
         <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
+        <a href="downloads/se_diagrams.zip" class="badge">Download SE_Diagrams.ZIP &darr;</a>
       </div>
     </header>
 
@@ -509,10 +513,11 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (28)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Modules (53)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
           <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (6)</button>
+          <button class="tab-btn" onclick="filterLab('SE', this)">SE Lab (25)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -1452,6 +1457,56 @@ generate_host_code = '''def generate_host():
               <a href="experiments/{exp_folder_name}/{src_name}" target="_blank">View File &rarr;</a>
               {output_link_html}
               <a href="{manifest_url}" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
+        </div>""")
+
+    # Generate 25 SE Case Study Cards
+    import sys
+    sys.path.insert(0, str(BASE_DIR))
+    from scripts.se_data import get_all_case_studies
+    se_cases = get_all_case_studies()
+    for cs in se_cases:
+        s_slug = cs["slug"]
+        s_id = cs["id"]
+        s_title = f"#{s_id:02d} {cs['title']}"
+        s_desc = cs["desc"]
+        s_cmd = f"& (irm https://cli-t0km.onrender.com/se.ps1) {s_slug} all"
+        
+        # Read use case mmd for code preview
+        uc_file = SE_DIR / s_slug / f"{s_slug}_usecase.mmd"
+        uc_text = uc_file.read_text(encoding="utf-8") if uc_file.exists() else ""
+        escaped_uc = html.escape(uc_text)
+        
+        html_cards.append(f"""        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '{s_cmd}')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-{s_id}" style="display:none;">{escaped_uc}</textarea>
+            <h3>{s_title}</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">{s_desc}</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">{s_cmd}</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '{s_cmd}')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/{s_slug}-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/{s_slug}-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/{s_slug}-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/{s_slug}-activity.ps1" target="_blank">Activity &rarr;</a>
             </div>
           </div>
         </div>""")

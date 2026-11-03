@@ -462,10 +462,13 @@
         <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
       </div>
       <div class="badge-bar">
-        <span class="badge">22 Experiments Live</span>
+        <span class="badge">53 Modules Live</span>
         <span class="badge">AISC Lab (12)</span>
-        <span class="badge">ES &amp; RTOS Lab (10)</span>
+        <span class="badge">ES &amp; RTOS (10)</span>
+        <span class="badge">CN Lab (6)</span>
+        <span class="badge">SE Lab (25)</span>
         <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
+        <a href="downloads/se_diagrams.zip" class="badge">Download SE_Diagrams.ZIP &darr;</a>
       </div>
     </header>
 
@@ -473,10 +476,11 @@
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (28)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Modules (53)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
           <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (6)</button>
+          <button class="tab-btn" onclick="filterLab('SE', this)">SE Lab (25)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -3644,6 +3648,1750 @@ ping 192.168.1.2
               <a href="experiments/28/static_routing_gns3_commands.txt" target="_blank">View File &rarr;</a>
               
               <a href="experiments/28/manifest.json" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) school all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-1" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;School Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Enroll Student&quot;])
+        UC02([&quot;UC02: Record Daily Attendance&quot;])
+        UC03([&quot;UC03: Generate Timetable &amp; Roster&quot;])
+        UC04([&quot;UC04: Publish Examination Marks&quot;])
+        UC05([&quot;UC05: Collect Tuition Fees &amp; Invoice&quot;])
+        UC06([&quot;UC06: Process Staff Payroll&quot;])
+        UC07([&quot;UC07: Manage Bus Transport &amp; Routes&quot;])
+        UC08([&quot;UC08: Manage Department Inventory&quot;])
+    end
+
+    %% Actors
+    Student[&quot;&lt;&lt;Actor&gt;&gt;\nStudent&quot;]:::actorStyle
+    Teacher[&quot;&lt;&lt;Actor&gt;&gt;\nTeacher&quot;]:::actorStyle
+    Accountant[&quot;&lt;&lt;Actor&gt;&gt;\nAccountant&quot;]:::actorStyle
+    SchoolAdmin[&quot;&lt;&lt;Actor&gt;&gt;\nSchoolAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Student --&gt; UC01
+    Student --&gt; UC04
+    Student --&gt; UC05
+    Teacher --&gt; UC02
+    Teacher --&gt; UC03
+    Teacher --&gt; UC04
+    Accountant --&gt; UC05
+    Accountant --&gt; UC06
+    SchoolAdmin --&gt; UC01
+    SchoolAdmin --&gt; UC03
+    SchoolAdmin --&gt; UC07
+    SchoolAdmin --&gt; UC08
+
+    %% Include &amp; Extend Relationships
+    UC01 -.-&gt;|&lt;&lt;include&gt;&gt;| UC05
+    UC04 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC02
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC06</textarea>
+            <h3>#01 School Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Manages academic operations: student profiles, admissions, attendance tracking, fee collection, exam schedules, grading, staff payroll, timetables, and transport inventory.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/school-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/school-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/school-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/school-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) school all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) school all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/school-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/school-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/school-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/school-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) library all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-2" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Library Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Search Online Catalog (OPAC)&quot;])
+        UC02([&quot;UC02: Borrow / Issue Book&quot;])
+        UC03([&quot;UC03: Return &amp; Inspect Book&quot;])
+        UC04([&quot;UC04: Calculate &amp; Collect Overdue Fine&quot;])
+        UC05([&quot;UC05: Reserve Unavailable Book&quot;])
+        UC06([&quot;UC06: Catalog New Book &amp; Author&quot;])
+        UC07([&quot;UC07: Generate Circulation Reports&quot;])
+    end
+
+    %% Actors
+    StudentMember[&quot;&lt;&lt;Actor&gt;&gt;\nStudentMember&quot;]:::actorStyle
+    FacultyMember[&quot;&lt;&lt;Actor&gt;&gt;\nFacultyMember&quot;]:::actorStyle
+    Librarian[&quot;&lt;&lt;Actor&gt;&gt;\nLibrarian&quot;]:::actorStyle
+    Admin[&quot;&lt;&lt;Actor&gt;&gt;\nAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    StudentMember --&gt; UC01
+    StudentMember --&gt; UC02
+    StudentMember --&gt; UC03
+    StudentMember --&gt; UC05
+    FacultyMember --&gt; UC01
+    FacultyMember --&gt; UC02
+    FacultyMember --&gt; UC03
+    FacultyMember --&gt; UC05
+    Librarian --&gt; UC02
+    Librarian --&gt; UC03
+    Librarian --&gt; UC04
+    Librarian --&gt; UC06
+    Librarian --&gt; UC07
+    Admin --&gt; UC06
+    Admin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC02 -.-&gt;|&lt;&lt;include&gt;&gt;| UC01
+    UC03 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC04
+    UC05 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC01</textarea>
+            <h3>#02 Library Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Automates cataloging, book borrowing, returns, fine calculations, reservation queues, and stock inventory between Admin and Student members.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/library-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/library-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/library-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/library-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) library all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) library all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/library-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/library-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/library-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/library-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) hospital all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-3" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Hospital Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register / Login Patient&quot;])
+        UC02([&quot;UC02: Book / Reschedule Appointment&quot;])
+        UC03([&quot;UC03: Verify Doctor Availability&quot;])
+        UC04([&quot;UC04: View &amp; Update EMR Medical Records&quot;])
+        UC05([&quot;UC05: Generate Diagnosis &amp; Prescription&quot;])
+        UC06([&quot;UC06: Order Lab Diagnostic Tests&quot;])
+        UC07([&quot;UC07: Process Discharge &amp; Invoicing&quot;])
+        UC08([&quot;UC08: Manage Pharmacy &amp; Inventory&quot;])
+        UC09([&quot;UC09: Manage Hospital Staff &amp; System Roles&quot;])
+    end
+
+    %% Actors
+    Patient[&quot;&lt;&lt;Actor&gt;&gt;\nPatient&quot;]:::actorStyle
+    Receptionist[&quot;&lt;&lt;Actor&gt;&gt;\nReceptionist&quot;]:::actorStyle
+    Doctor[&quot;&lt;&lt;Actor&gt;&gt;\nDoctor&quot;]:::actorStyle
+    Administrator[&quot;&lt;&lt;Actor&gt;&gt;\nAdministrator&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Patient --&gt; UC01
+    Patient --&gt; UC02
+    Receptionist --&gt; UC01
+    Receptionist --&gt; UC02
+    Receptionist --&gt; UC07
+    Doctor --&gt; UC04
+    Doctor --&gt; UC05
+    Administrator --&gt; UC07
+    Administrator --&gt; UC08
+    Administrator --&gt; UC09
+
+    %% Include &amp; Extend Relationships
+    UC02 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06
+    UC07 -.-&gt;|&lt;&lt;include&gt;&gt;| UC08</textarea>
+            <h3>#03 Hospital Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Manages doctor schedules, outpatient/inpatient admissions, Electronic Medical Records (EMR), laboratory diagnostics, pharmacy inventory, and billing settlement.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hospital-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hospital-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hospital-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hospital-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) hospital all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) hospital all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/hospital-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/hospital-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/hospital-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/hospital-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) performance all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-4" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Performance Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Submit Self-Appraisal &amp; Goals&quot;])
+        UC02([&quot;UC02: Review Team KPI Deliverables&quot;])
+        UC03([&quot;UC03: Conduct 360-Degree Peer Feedback&quot;])
+        UC04([&quot;UC04: Calculate Merit Rating Score&quot;])
+        UC05([&quot;UC05: Recommend Bonus / Promotion&quot;])
+        UC06([&quot;UC06: Record Disciplinary Action / PIP&quot;])
+        UC07([&quot;UC07: Generate Quarterly Performance Analytics&quot;])
+    end
+
+    %% Actors
+    Employee[&quot;&lt;&lt;Actor&gt;&gt;\nEmployee&quot;]:::actorStyle
+    Manager[&quot;&lt;&lt;Actor&gt;&gt;\nManager&quot;]:::actorStyle
+    HRAdmin[&quot;&lt;&lt;Actor&gt;&gt;\nHRAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Employee --&gt; UC01
+    Employee --&gt; UC03
+    Manager --&gt; UC02
+    Manager --&gt; UC04
+    Manager --&gt; UC05
+    Manager --&gt; UC06
+    HRAdmin --&gt; UC04
+    HRAdmin --&gt; UC05
+    HRAdmin --&gt; UC06
+    HRAdmin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC02 -.-&gt;|&lt;&lt;include&gt;&gt;| UC01
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC04</textarea>
+            <h3>#04 Performance Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Holds employee performance appraisals, reviews, milestone ratings, KPIs, 360-degree feedback, reward allocations, and disciplinary tracking.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/performance-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/performance-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/performance-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/performance-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) performance all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) performance all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/performance-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/performance-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/performance-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/performance-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) project all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-5" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Project Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Create Project &amp; Define Scope&quot;])
+        UC02([&quot;UC02: Breakdown Work Breakdown Structure (WBS)&quot;])
+        UC03([&quot;UC03: Assign Tasks &amp; Allocate Resources&quot;])
+        UC04([&quot;UC04: Log Timesheet &amp; Update Progress&quot;])
+        UC05([&quot;UC05: Track Sprint Burndown &amp; Milestones&quot;])
+        UC06([&quot;UC06: Review Deliverables &amp; Signoff&quot;])
+        UC07([&quot;UC07: Generate Project Health &amp; Budget Reports&quot;])
+    end
+
+    %% Actors
+    TeamMember[&quot;&lt;&lt;Actor&gt;&gt;\nTeamMember&quot;]:::actorStyle
+    ProjectManager[&quot;&lt;&lt;Actor&gt;&gt;\nProjectManager&quot;]:::actorStyle
+    Client[&quot;&lt;&lt;Actor&gt;&gt;\nClient&quot;]:::actorStyle
+    Executive[&quot;&lt;&lt;Actor&gt;&gt;\nExecutive&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    TeamMember --&gt; UC04
+    TeamMember --&gt; UC05
+    ProjectManager --&gt; UC01
+    ProjectManager --&gt; UC02
+    ProjectManager --&gt; UC03
+    ProjectManager --&gt; UC05
+    ProjectManager --&gt; UC07
+    Client --&gt; UC06
+    Client --&gt; UC07
+    Executive --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC02 -.-&gt;|&lt;&lt;include&gt;&gt;| UC01
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC05 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC04</textarea>
+            <h3>#05 Project Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Tracks project portfolios, milestones, Gantt schedules, sprint deliverables, task assignments, resource allocation, and team velocity metrics.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/project-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/project-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/project-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/project-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) project all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) project all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/project-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/project-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/project-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/project-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) warehouse all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-6" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Warehouse Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate WarehouseWorker&quot;])
+        UC02([&quot;UC02: Search &amp; View Warehouse Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    WarehouseWorker[&quot;&lt;&lt;Actor&gt;&gt;\nWarehouseWorker&quot;]:::actorStyle
+    Picker[&quot;&lt;&lt;Actor&gt;&gt;\nPicker&quot;]:::actorStyle
+    Dispatcher[&quot;&lt;&lt;Actor&gt;&gt;\nDispatcher&quot;]:::actorStyle
+    LogisticsManager[&quot;&lt;&lt;Actor&gt;&gt;\nLogisticsManager&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    WarehouseWorker --&gt; UC01
+    WarehouseWorker --&gt; UC02
+    WarehouseWorker --&gt; UC03
+    WarehouseWorker --&gt; UC05
+    Picker --&gt; UC02
+    Picker --&gt; UC03
+    Picker --&gt; UC04
+    Picker --&gt; UC06
+    LogisticsManager --&gt; UC04
+    LogisticsManager --&gt; UC06
+    LogisticsManager --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#06 Warehouse Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Automates inbound pallet receiving, rack put-away, FIFO/LIFO pick-pack-ship, inventory cycle counts, and freight dispatch.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/warehouse-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/warehouse-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/warehouse-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/warehouse-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) warehouse all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) warehouse all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/warehouse-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/warehouse-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/warehouse-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/warehouse-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) parking all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-7" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Vehicle Parking Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Driver&quot;])
+        UC02([&quot;UC02: Search &amp; View Vehicle Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Driver[&quot;&lt;&lt;Actor&gt;&gt;\nDriver&quot;]:::actorStyle
+    ParkingAttendant[&quot;&lt;&lt;Actor&gt;&gt;\nParkingAttendant&quot;]:::actorStyle
+    Admin[&quot;&lt;&lt;Actor&gt;&gt;\nAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Driver --&gt; UC01
+    Driver --&gt; UC02
+    Driver --&gt; UC03
+    Driver --&gt; UC05
+    ParkingAttendant --&gt; UC02
+    ParkingAttendant --&gt; UC03
+    ParkingAttendant --&gt; UC04
+    ParkingAttendant --&gt; UC06
+    Admin --&gt; UC04
+    Admin --&gt; UC06
+    Admin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#07 Vehicle Parking Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Maintains entry gate ticketing, number plate OCR detection, parking slot allocation, time duration billing, and exit barrier gate control.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/parking-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/parking-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/parking-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/parking-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) parking all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) parking all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/parking-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/parking-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/parking-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/parking-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) attendance all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-8" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Attendance Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Employee&quot;])
+        UC02([&quot;UC02: Search &amp; View Attendance Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Employee[&quot;&lt;&lt;Actor&gt;&gt;\nEmployee&quot;]:::actorStyle
+    Supervisor[&quot;&lt;&lt;Actor&gt;&gt;\nSupervisor&quot;]:::actorStyle
+    HRAdmin[&quot;&lt;&lt;Actor&gt;&gt;\nHRAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Employee --&gt; UC01
+    Employee --&gt; UC02
+    Employee --&gt; UC03
+    Employee --&gt; UC05
+    Supervisor --&gt; UC02
+    Supervisor --&gt; UC03
+    Supervisor --&gt; UC04
+    Supervisor --&gt; UC06
+    HRAdmin --&gt; UC04
+    HRAdmin --&gt; UC06
+    HRAdmin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#08 Attendance Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Automates biometric/card logging, leave approvals, shifts, work hours calculation, and monthly attendance sync for payroll.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/attendance-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/attendance-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/attendance-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/attendance-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) attendance all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) attendance all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/attendance-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/attendance-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/attendance-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/attendance-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) restaurant all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-9" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Restaurant Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Customer&quot;])
+        UC02([&quot;UC02: Search &amp; View Restaurant Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Customer[&quot;&lt;&lt;Actor&gt;&gt;\nCustomer&quot;]:::actorStyle
+    Waiter[&quot;&lt;&lt;Actor&gt;&gt;\nWaiter&quot;]:::actorStyle
+    Chef[&quot;&lt;&lt;Actor&gt;&gt;\nChef&quot;]:::actorStyle
+    Manager[&quot;&lt;&lt;Actor&gt;&gt;\nManager&quot;]:::actorStyle
+    DeliveryDriver[&quot;&lt;&lt;Actor&gt;&gt;\nDeliveryDriver&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Customer --&gt; UC01
+    Customer --&gt; UC02
+    Customer --&gt; UC03
+    Customer --&gt; UC05
+    Waiter --&gt; UC02
+    Waiter --&gt; UC03
+    Waiter --&gt; UC04
+    Waiter --&gt; UC06
+    DeliveryDriver --&gt; UC04
+    DeliveryDriver --&gt; UC06
+    DeliveryDriver --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#09 Restaurant Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Manages food catalog, table reservations, POS billing, kitchen order tickets (KOT), delivery driver routing, and sales reports.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/restaurant-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/restaurant-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/restaurant-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/restaurant-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) restaurant all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) restaurant all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/restaurant-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/restaurant-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/restaurant-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/restaurant-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) pharmacy all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-10" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Pharmacy Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Patient&quot;])
+        UC02([&quot;UC02: Search &amp; View Pharmacy Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Patient[&quot;&lt;&lt;Actor&gt;&gt;\nPatient&quot;]:::actorStyle
+    Pharmacist[&quot;&lt;&lt;Actor&gt;&gt;\nPharmacist&quot;]:::actorStyle
+    Doctor[&quot;&lt;&lt;Actor&gt;&gt;\nDoctor&quot;]:::actorStyle
+    PharmacyAdmin[&quot;&lt;&lt;Actor&gt;&gt;\nPharmacyAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Patient --&gt; UC01
+    Patient --&gt; UC02
+    Patient --&gt; UC03
+    Patient --&gt; UC05
+    Pharmacist --&gt; UC02
+    Pharmacist --&gt; UC03
+    Pharmacist --&gt; UC04
+    Pharmacist --&gt; UC06
+    PharmacyAdmin --&gt; UC04
+    PharmacyAdmin --&gt; UC06
+    PharmacyAdmin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#10 Pharmacy Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Manages prescription validation, drug stock inventory, supplier batch expiries, POS cash counter billing, and regulatory drug audits.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/pharmacy-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/pharmacy-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/pharmacy-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/pharmacy-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) pharmacy all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) pharmacy all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/pharmacy-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/pharmacy-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/pharmacy-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/pharmacy-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) rental all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-11" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Vehicle Rental Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Customer&quot;])
+        UC02([&quot;UC02: Search &amp; View Vehicle Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Customer[&quot;&lt;&lt;Actor&gt;&gt;\nCustomer&quot;]:::actorStyle
+    RentalAgent[&quot;&lt;&lt;Actor&gt;&gt;\nRentalAgent&quot;]:::actorStyle
+    FleetManager[&quot;&lt;&lt;Actor&gt;&gt;\nFleetManager&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Customer --&gt; UC01
+    Customer --&gt; UC02
+    Customer --&gt; UC03
+    Customer --&gt; UC05
+    RentalAgent --&gt; UC02
+    RentalAgent --&gt; UC03
+    RentalAgent --&gt; UC04
+    RentalAgent --&gt; UC06
+    FleetManager --&gt; UC04
+    FleetManager --&gt; UC06
+    FleetManager --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#11 Vehicle Rental Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Coordinates two-wheeler & four-wheeler rental fleet, customer KYC licensing verification, booking dates, security deposit, and vehicle handover.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/rental-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/rental-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/rental-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/rental-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) rental all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) rental all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/rental-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/rental-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/rental-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/rental-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) cms all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-12" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Content Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Reader&quot;])
+        UC02([&quot;UC02: Search &amp; View Content Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Reader[&quot;&lt;&lt;Actor&gt;&gt;\nReader&quot;]:::actorStyle
+    ContentWriter[&quot;&lt;&lt;Actor&gt;&gt;\nContentWriter&quot;]:::actorStyle
+    Editor[&quot;&lt;&lt;Actor&gt;&gt;\nEditor&quot;]:::actorStyle
+    SystemAdmin[&quot;&lt;&lt;Actor&gt;&gt;\nSystemAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Reader --&gt; UC01
+    Reader --&gt; UC02
+    Reader --&gt; UC03
+    Reader --&gt; UC05
+    ContentWriter --&gt; UC02
+    ContentWriter --&gt; UC03
+    ContentWriter --&gt; UC04
+    ContentWriter --&gt; UC06
+    SystemAdmin --&gt; UC04
+    SystemAdmin --&gt; UC06
+    SystemAdmin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#12 Content Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Allows multi-author article drafting, markdown/WYSIWYG editing, SEO meta tagging, approval workflows, media uploads, and publishing.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/cms-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/cms-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/cms-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/cms-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) cms all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) cms all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/cms-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/cms-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/cms-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/cms-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) railway all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-13" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Railway Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Passenger&quot;])
+        UC02([&quot;UC02: Search &amp; View Railway Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Passenger[&quot;&lt;&lt;Actor&gt;&gt;\nPassenger&quot;]:::actorStyle
+    TicketingClerk[&quot;&lt;&lt;Actor&gt;&gt;\nTicketingClerk&quot;]:::actorStyle
+    StationMaster[&quot;&lt;&lt;Actor&gt;&gt;\nStationMaster&quot;]:::actorStyle
+    RailwayAdmin[&quot;&lt;&lt;Actor&gt;&gt;\nRailwayAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Passenger --&gt; UC01
+    Passenger --&gt; UC02
+    Passenger --&gt; UC03
+    Passenger --&gt; UC05
+    TicketingClerk --&gt; UC02
+    TicketingClerk --&gt; UC03
+    TicketingClerk --&gt; UC04
+    TicketingClerk --&gt; UC06
+    RailwayAdmin --&gt; UC04
+    RailwayAdmin --&gt; UC06
+    RailwayAdmin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#13 Railway Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Coordinates station graph networks, train timetables, passenger berth seat allocations, PNR status tracking, and online ticket booking.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/railway-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/railway-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/railway-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/railway-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) railway all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) railway all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/railway-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/railway-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/railway-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/railway-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) payroll all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-14" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Payroll Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Employee&quot;])
+        UC02([&quot;UC02: Search &amp; View Payroll Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Employee[&quot;&lt;&lt;Actor&gt;&gt;\nEmployee&quot;]:::actorStyle
+    PayrollAccountant[&quot;&lt;&lt;Actor&gt;&gt;\nPayrollAccountant&quot;]:::actorStyle
+    FinanceDirector[&quot;&lt;&lt;Actor&gt;&gt;\nFinanceDirector&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Employee --&gt; UC01
+    Employee --&gt; UC02
+    Employee --&gt; UC03
+    Employee --&gt; UC05
+    PayrollAccountant --&gt; UC02
+    PayrollAccountant --&gt; UC03
+    PayrollAccountant --&gt; UC04
+    PayrollAccountant --&gt; UC06
+    FinanceDirector --&gt; UC04
+    FinanceDirector --&gt; UC06
+    FinanceDirector --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#14 Payroll Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Computes employee net salaries, monthly allowances (DA, HRA, Medical), statutory deductions (PF, Tax, Social Welfare), and payslip generation.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/payroll-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/payroll-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/payroll-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/payroll-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) payroll all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) payroll all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/payroll-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/payroll-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/payroll-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/payroll-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) hr all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-15" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;HR Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Candidate&quot;])
+        UC02([&quot;UC02: Search &amp; View HR Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Candidate[&quot;&lt;&lt;Actor&gt;&gt;\nCandidate&quot;]:::actorStyle
+    Employee[&quot;&lt;&lt;Actor&gt;&gt;\nEmployee&quot;]:::actorStyle
+    HRExecutive[&quot;&lt;&lt;Actor&gt;&gt;\nHRExecutive&quot;]:::actorStyle
+    HRHead[&quot;&lt;&lt;Actor&gt;&gt;\nHRHead&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Candidate --&gt; UC01
+    Candidate --&gt; UC02
+    Candidate --&gt; UC03
+    Candidate --&gt; UC05
+    Employee --&gt; UC02
+    Employee --&gt; UC03
+    Employee --&gt; UC04
+    Employee --&gt; UC06
+    HRHead --&gt; UC04
+    HRHead --&gt; UC06
+    HRHead --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#15 HR Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Automates talent acquisition, candidate onboarding, employee skills matrix, document issuance (offer/experience letters), and grievance redressal.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hr-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hr-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hr-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/hr-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) hr all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) hr all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/hr-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/hr-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/hr-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/hr-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) complaint all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-16" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Complaint Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Consumer&quot;])
+        UC02([&quot;UC02: Search &amp; View Complaint Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Consumer[&quot;&lt;&lt;Actor&gt;&gt;\nConsumer&quot;]:::actorStyle
+    SupportAgent[&quot;&lt;&lt;Actor&gt;&gt;\nSupportAgent&quot;]:::actorStyle
+    EscalationOfficer[&quot;&lt;&lt;Actor&gt;&gt;\nEscalationOfficer&quot;]:::actorStyle
+    QualityAuditor[&quot;&lt;&lt;Actor&gt;&gt;\nQualityAuditor&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Consumer --&gt; UC01
+    Consumer --&gt; UC02
+    Consumer --&gt; UC03
+    Consumer --&gt; UC05
+    SupportAgent --&gt; UC02
+    SupportAgent --&gt; UC03
+    SupportAgent --&gt; UC04
+    SupportAgent --&gt; UC06
+    QualityAuditor --&gt; UC04
+    QualityAuditor --&gt; UC06
+    QualityAuditor --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#16 Complaint Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Allows consumers to log grievance tickets, assigns escalation tiers, tracks resolution SLAs, and compiles customer satisfaction CSAT metrics.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/complaint-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/complaint-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/complaint-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/complaint-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) complaint all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) complaint all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/complaint-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/complaint-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/complaint-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/complaint-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) tourism all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-17" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Tourism Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Tourist&quot;])
+        UC02([&quot;UC02: Search &amp; View Tourism Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Tourist[&quot;&lt;&lt;Actor&gt;&gt;\nTourist&quot;]:::actorStyle
+    TravelAgent[&quot;&lt;&lt;Actor&gt;&gt;\nTravelAgent&quot;]:::actorStyle
+    TourGuide[&quot;&lt;&lt;Actor&gt;&gt;\nTourGuide&quot;]:::actorStyle
+    TourismAdmin[&quot;&lt;&lt;Actor&gt;&gt;\nTourismAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Tourist --&gt; UC01
+    Tourist --&gt; UC02
+    Tourist --&gt; UC03
+    Tourist --&gt; UC05
+    TravelAgent --&gt; UC02
+    TravelAgent --&gt; UC03
+    TravelAgent --&gt; UC04
+    TravelAgent --&gt; UC06
+    TourismAdmin --&gt; UC04
+    TourismAdmin --&gt; UC06
+    TourismAdmin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#17 Tourism Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Enables package itinerary exploration, hotel and guide booking, travel ticket generation, custom tour quotes, and customer reviews.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/tourism-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/tourism-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/tourism-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/tourism-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) tourism all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) tourism all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/tourism-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/tourism-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/tourism-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/tourism-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) atm all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-18" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;ATM Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate BankCustomer&quot;])
+        UC02([&quot;UC02: Search &amp; View ATM Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    BankCustomer[&quot;&lt;&lt;Actor&gt;&gt;\nBankCustomer&quot;]:::actorStyle
+    ATMHardwareController[&quot;&lt;&lt;Actor&gt;&gt;\nATMHardwareController&quot;]:::actorStyle
+    BankCoreServer[&quot;&lt;&lt;Actor&gt;&gt;\nBankCoreServer&quot;]:::actorStyle
+    CashTechnician[&quot;&lt;&lt;Actor&gt;&gt;\nCashTechnician&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    BankCustomer --&gt; UC01
+    BankCustomer --&gt; UC02
+    BankCustomer --&gt; UC03
+    BankCustomer --&gt; UC05
+    ATMHardwareController --&gt; UC02
+    ATMHardwareController --&gt; UC03
+    ATMHardwareController --&gt; UC04
+    ATMHardwareController --&gt; UC06
+    CashTechnician --&gt; UC04
+    CashTechnician --&gt; UC06
+    CashTechnician --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#18 ATM Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Performs PIN verification, cash withdrawals, balance inquiries, mini-statements, fund transfers, and central bank ATM switch reconciliation.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/atm-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/atm-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/atm-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/atm-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) atm all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) atm all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/atm-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/atm-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/atm-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/atm-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) visitor all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-19" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Company Visitor Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Visitor&quot;])
+        UC02([&quot;UC02: Search &amp; View Company Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Visitor[&quot;&lt;&lt;Actor&gt;&gt;\nVisitor&quot;]:::actorStyle
+    HostEmployee[&quot;&lt;&lt;Actor&gt;&gt;\nHostEmployee&quot;]:::actorStyle
+    SecurityGuard[&quot;&lt;&lt;Actor&gt;&gt;\nSecurityGuard&quot;]:::actorStyle
+    Admin[&quot;&lt;&lt;Actor&gt;&gt;\nAdmin&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Visitor --&gt; UC01
+    Visitor --&gt; UC02
+    Visitor --&gt; UC03
+    Visitor --&gt; UC05
+    HostEmployee --&gt; UC02
+    HostEmployee --&gt; UC03
+    HostEmployee --&gt; UC04
+    HostEmployee --&gt; UC06
+    Admin --&gt; UC04
+    Admin --&gt; UC06
+    Admin --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#19 Company Visitor Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Tracks workplace guest pre-registration, badge photo printing, NDA agreements, host employee notifications, and entry/exit security time stamps.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/visitor-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/visitor-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/visitor-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/visitor-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) visitor all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) visitor all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/visitor-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/visitor-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/visitor-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/visitor-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) water all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-20" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Water Supply Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Consumer&quot;])
+        UC02([&quot;UC02: Search &amp; View Water Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Consumer[&quot;&lt;&lt;Actor&gt;&gt;\nConsumer&quot;]:::actorStyle
+    WaterDistributor[&quot;&lt;&lt;Actor&gt;&gt;\nWaterDistributor&quot;]:::actorStyle
+    DeliveryDriver[&quot;&lt;&lt;Actor&gt;&gt;\nDeliveryDriver&quot;]:::actorStyle
+    PlantManager[&quot;&lt;&lt;Actor&gt;&gt;\nPlantManager&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Consumer --&gt; UC01
+    Consumer --&gt; UC02
+    Consumer --&gt; UC03
+    Consumer --&gt; UC05
+    WaterDistributor --&gt; UC02
+    WaterDistributor --&gt; UC03
+    WaterDistributor --&gt; UC04
+    WaterDistributor --&gt; UC06
+    PlantManager --&gt; UC04
+    PlantManager --&gt; UC06
+    PlantManager --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#20 Water Supply Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Handles bulk and domestic water can delivery orders, dispatch vehicle routing, retailer inventory tracking, bottle deposit accounting, and invoicing.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/water-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/water-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/water-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/water-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) water all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) water all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/water-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/water-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/water-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/water-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) time all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-21" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Time Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Employee&quot;])
+        UC02([&quot;UC02: Search &amp; View Time Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Employee[&quot;&lt;&lt;Actor&gt;&gt;\nEmployee&quot;]:::actorStyle
+    TeamLead[&quot;&lt;&lt;Actor&gt;&gt;\nTeamLead&quot;]:::actorStyle
+    OperationsManager[&quot;&lt;&lt;Actor&gt;&gt;\nOperationsManager&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Employee --&gt; UC01
+    Employee --&gt; UC02
+    Employee --&gt; UC03
+    Employee --&gt; UC05
+    TeamLead --&gt; UC02
+    TeamLead --&gt; UC03
+    TeamLead --&gt; UC04
+    TeamLead --&gt; UC06
+    OperationsManager --&gt; UC04
+    OperationsManager --&gt; UC06
+    OperationsManager --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#21 Time Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Tracks employee active application times, project task duration, idle time detection, productivity benchmarking, and automated timesheet submission.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/time-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/time-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/time-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/time-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) time all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) time all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/time-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/time-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/time-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/time-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) bloodbank all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-22" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Blood Donor Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Donor&quot;])
+        UC02([&quot;UC02: Search &amp; View Blood Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Donor[&quot;&lt;&lt;Actor&gt;&gt;\nDonor&quot;]:::actorStyle
+    BloodSeeker[&quot;&lt;&lt;Actor&gt;&gt;\nBloodSeeker&quot;]:::actorStyle
+    BloodBankOfficer[&quot;&lt;&lt;Actor&gt;&gt;\nBloodBankOfficer&quot;]:::actorStyle
+    HospitalCoordinator[&quot;&lt;&lt;Actor&gt;&gt;\nHospitalCoordinator&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Donor --&gt; UC01
+    Donor --&gt; UC02
+    Donor --&gt; UC03
+    Donor --&gt; UC05
+    BloodSeeker --&gt; UC02
+    BloodSeeker --&gt; UC03
+    BloodSeeker --&gt; UC04
+    BloodSeeker --&gt; UC06
+    HospitalCoordinator --&gt; UC04
+    HospitalCoordinator --&gt; UC06
+    HospitalCoordinator --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#22 Blood Donor Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Connects emergency blood seekers with verified donors based on blood group compatibility, geolocated hospitals, and blood bank inventory.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bloodbank-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bloodbank-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bloodbank-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bloodbank-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) bloodbank all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) bloodbank all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/bloodbank-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/bloodbank-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/bloodbank-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/bloodbank-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) expense all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-23" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Daily Expense Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate User&quot;])
+        UC02([&quot;UC02: Search &amp; View Daily Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    User[&quot;&lt;&lt;Actor&gt;&gt;\nUser&quot;]:::actorStyle
+    FamilyMember[&quot;&lt;&lt;Actor&gt;&gt;\nFamilyMember&quot;]:::actorStyle
+    FinancialAdvisor[&quot;&lt;&lt;Actor&gt;&gt;\nFinancialAdvisor&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    User --&gt; UC01
+    User --&gt; UC02
+    User --&gt; UC03
+    User --&gt; UC05
+    FamilyMember --&gt; UC02
+    FamilyMember --&gt; UC03
+    FamilyMember --&gt; UC04
+    FamilyMember --&gt; UC06
+    FinancialAdvisor --&gt; UC04
+    FinancialAdvisor --&gt; UC06
+    FinancialAdvisor --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#23 Daily Expense Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Tracks personal and household expenditures across categories (groceries, utilities, rent), budget limits, monthly comparisons, and financial charts.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/expense-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/expense-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/expense-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/expense-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) expense all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) expense all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/expense-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/expense-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/expense-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/expense-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) event all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-24" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Event Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate ClientOrganizer&quot;])
+        UC02([&quot;UC02: Search &amp; View Event Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    ClientOrganizer[&quot;&lt;&lt;Actor&gt;&gt;\nClientOrganizer&quot;]:::actorStyle
+    VendorSupplier[&quot;&lt;&lt;Actor&gt;&gt;\nVendorSupplier&quot;]:::actorStyle
+    EventCoordinator[&quot;&lt;&lt;Actor&gt;&gt;\nEventCoordinator&quot;]:::actorStyle
+    FinanceManager[&quot;&lt;&lt;Actor&gt;&gt;\nFinanceManager&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    ClientOrganizer --&gt; UC01
+    ClientOrganizer --&gt; UC02
+    ClientOrganizer --&gt; UC03
+    ClientOrganizer --&gt; UC05
+    VendorSupplier --&gt; UC02
+    VendorSupplier --&gt; UC03
+    VendorSupplier --&gt; UC04
+    VendorSupplier --&gt; UC06
+    FinanceManager --&gt; UC04
+    FinanceManager --&gt; UC06
+    FinanceManager --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#24 Event Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Coordinates corporate & private events, venue bookings, catering/audio vendor allocations, budget estimates, ticketing, and attendee registration.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/event-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/event-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/event-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/event-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) event all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) event all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/event-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/event-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/event-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/event-activity.ps1" target="_blank">Activity &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-subject="SE">
+          <div>
+            <div class="card-top">
+              <span class="tag">SE &bull; UML &amp; DFD</span>
+              <button class="copy-btn" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) bookshop all')" title="Copy pull all diagrams command">
+                <span>Copy Command</span>
+              </button>
+            </div>
+            <textarea id="code-se-25" style="display:none;">%%{init: {&#x27;theme&#x27;: &#x27;base&#x27;, &#x27;themeVariables&#x27;: {&#x27;primaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;primaryTextColor&#x27;: &#x27;#000000&#x27;, &#x27;primaryBorderColor&#x27;: &#x27;#000000&#x27;, &#x27;lineColor&#x27;: &#x27;#000000&#x27;, &#x27;secondaryColor&#x27;: &#x27;#ffffff&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#ffffff&#x27;}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM [&quot;Bookshop Management System (System Boundary)&quot;]
+        UC01([&quot;UC01: Register &amp; Authenticate Customer&quot;])
+        UC02([&quot;UC02: Search &amp; View Bookshop Items&quot;])
+        UC03([&quot;UC03: Create New Booking / Request&quot;])
+        UC04([&quot;UC04: Process Verification &amp; Approvals&quot;])
+        UC05([&quot;UC05: Generate Invoice &amp; Process Payment&quot;])
+        UC06([&quot;UC06: Update Central Records &amp; Inventory&quot;])
+        UC07([&quot;UC07: Generate Operational &amp; Audit Reports&quot;])
+    end
+
+    %% Actors
+    Customer[&quot;&lt;&lt;Actor&gt;&gt;\nCustomer&quot;]:::actorStyle
+    SalesClerk[&quot;&lt;&lt;Actor&gt;&gt;\nSalesClerk&quot;]:::actorStyle
+    BookstoreManager[&quot;&lt;&lt;Actor&gt;&gt;\nBookstoreManager&quot;]:::actorStyle
+    Supplier[&quot;&lt;&lt;Actor&gt;&gt;\nSupplier&quot;]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Customer --&gt; UC01
+    Customer --&gt; UC02
+    Customer --&gt; UC03
+    Customer --&gt; UC05
+    SalesClerk --&gt; UC02
+    SalesClerk --&gt; UC03
+    SalesClerk --&gt; UC04
+    SalesClerk --&gt; UC06
+    Supplier --&gt; UC04
+    Supplier --&gt; UC06
+    Supplier --&gt; UC07
+
+    %% Include &amp; Extend Relationships
+    UC03 -.-&gt;|&lt;&lt;include&gt;&gt;| UC02
+    UC04 -.-&gt;|&lt;&lt;include&gt;&gt;| UC03
+    UC05 -.-&gt;|&lt;&lt;include&gt;&gt;| UC04
+    UC07 -.-&gt;|&lt;&lt;extend&gt;&gt;| UC06</textarea>
+            <h3>#25 Bookshop Management System</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Controls physical and online book sales, author catalog, publisher bulk purchasing, POS barcode billing, customer memberships, and e-book deliveries.</p>
+            <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bookshop-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bookshop-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bookshop-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/bookshop-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">& (irm https://cli-t0km.onrender.com/se.ps1) bookshop all</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, '& (irm https://cli-t0km.onrender.com/se.ps1) bookshop all')">Copy</button>
+            </div>
+            <div class="card-footer" style="flex-wrap:wrap; gap:0.5rem;">
+              <a href="se/bookshop-usecase.ps1" target="_blank">UC &rarr;</a>
+              <a href="se/bookshop-class.ps1" target="_blank">Class &rarr;</a>
+              <a href="se/bookshop-dfd.ps1" target="_blank">DFD &rarr;</a>
+              <a href="se/bookshop-activity.ps1" target="_blank">Activity &rarr;</a>
             </div>
           </div>
         </div>      </div>
