@@ -158,6 +158,7 @@ def index():
     content = target.read_text(encoding="utf-8")
     current_host = request.host_url.rstrip("/")
     content = content.replace("https://aisccli.netlify.app", current_host)
+    content = content.replace("https://cli-t0km.onrender.com", current_host)
     return Response(content, mimetype="text/html; charset=utf-8")
 
 
@@ -181,6 +182,7 @@ def static_files(filepath):
         content = target.read_text(encoding="utf-8")
         current_host = request.host_url.rstrip("/")
         content = content.replace("https://aisccli.netlify.app", current_host)
+        content = content.replace("https://cli-t0km.onrender.com", current_host)
         
         mimetype = "text/plain; charset=utf-8" if ext in [".ps1", ".sh"] else (
             "application/json; charset=utf-8" if ext == ".json" else "text/html; charset=utf-8"
