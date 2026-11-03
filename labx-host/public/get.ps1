@@ -18,9 +18,7 @@ if ($Lab -eq "ertos" -or $Lab -eq "es") {
         $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
     }
     if (-not $item -and $intId -le 10) {
-        $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
-    }
-}
+
         $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
     }
 }

@@ -592,7 +592,10 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       <section>
         <h2 style="color:var(--white); font-size:1.2rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
         <div class="command-box">
-          <span style="color:var(--subtle)"># 1. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
+          <span style="color:var(--subtle)"># 1. AISC Practicals:</span><br>
+          irm https://cli-t0km.onrender.com/aisc.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive: pull all 12 or select 1-12</span><br>
+          irm https://cli-t0km.onrender.com/a1.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pinpoint Practical 01 (AI Agents & PEAS)</span><br><br>
+          <span style="color:var(--subtle)"># 2. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
           irm https://cli-t0km.onrender.com/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
           irm https://cli-t0km.onrender.com/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
           <span style="color:var(--subtle)"># 2. Pull All 22 Experiments (AISC + ERTOS):</span><br>
@@ -1401,7 +1404,7 @@ generate_host_code = '''def generate_host():
         else:
             display_title = f"#{exp_id:02d} {exp['title']}"
             subject_label = "AISC"
-            cmd_str = f"& (irm https://cli-t0km.onrender.com/get.ps1) {exp_id}"
+            cmd_str = f"irm https://cli-t0km.onrender.com/a{exp_id}.ps1 | iex"
             output_url = ""
 
         output_files = exp.get("output_files", [])
@@ -1614,6 +1617,66 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                     f.write(cn_code)
                 with open(PUBLIC_DIR / "socket.ps1", "w", encoding="utf-8") as f:
                     f.write(cn_code)
+    # Generate individual pinpoint scripts (a1.ps1 - a12.ps1) for AISC
+    for exp in EXPERIMENTS:
+        if exp.get("subject", "AISC") == "AISC":
+            s_num = exp["id"]
+            lines_ps1 = [
+                f"# LabX Remote: AISC Practical {s_num:02d} ({exp['title']})"
+            ]
+            for src_file in exp["files"]:
+                src_fname = src_file["path"]
+                src_content = src_file["content"]
+                lines_ps1.extend([
+                    f'$filename = "{src_fname}"',
+                    "$code = @'",
+                    src_content,
+                    "'@",
+                    "$target = Join-Path $PWD $filename",
+                    "Set-Content -Path $target -Value $code -Encoding utf8",
+                    f'Write-Host "[OK] Saved: $filename (Theory embedded after line 50)" -ForegroundColor White',
+                    ""
+                ])
+            lines_ps1.append(f'Write-Host "[OK] AISC Practical {s_num:02d} ready!" -ForegroundColor White')
+            a_code = "\\n".join(lines_ps1)
+            with open(PUBLIC_DIR / f"a{s_num}.ps1", "w", encoding="utf-8") as f:
+                f.write(a_code)
+            with open(PUBLIC_DIR / f"aisc{s_num}.ps1", "w", encoding="utf-8") as f:
+                f.write(a_code)
+
+    # Generate interactive / universal aisc.ps1 script
+    aisc_ps1 = """param([string]$Choice = "")
+
+if (-not $Choice) {
+    Write-Host "==============================================================" -ForegroundColor White
+    Write-Host "               AISC Practicals Delivery Tool                  " -ForegroundColor White
+    Write-Host "==============================================================" -ForegroundColor Gray
+    Write-Host "  [all]   Pull ALL 12 AISC Practicals (Complete bundle)" -ForegroundColor Gray
+    Write-Host "  [1-12]  Pull a specific Practical by serial number" -ForegroundColor Gray
+    Write-Host "==============================================================" -ForegroundColor Gray
+    $Choice = Read-Host "Enter choice [all or 1-12, default: all]"
+}
+
+if (-not $Choice -or $Choice -eq "all") {
+    $zip = Join-Path $PWD "aisc_temp.zip"
+    Write-Host "Downloading all 12 AISC Practicals from LabX Remote..." -ForegroundColor White
+    Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/aisc_experiments.zip" -OutFile $zip -UseBasicParsing
+    Expand-Archive $zip -DestinationPath $PWD -Force
+    Remove-Item $zip -Force
+    Write-Host "[OK] All 12 AISC Practicals extracted into current directory!" -ForegroundColor White
+} else {
+    $num = [int]$Choice
+    if ($num -ge 1 -and $num -le 12) {
+        $scriptUrl = "https://cli-t0km.onrender.com/a$num.ps1"
+        Invoke-Expression (Invoke-RestMethod $scriptUrl)
+    } else {
+        Write-Host "[!] Invalid practical number: $Choice (Please enter 1-12 or 'all')" -ForegroundColor DarkGray
+    }
+}
+"""
+    with open(PUBLIC_DIR / "aisc.ps1", "w", encoding="utf-8") as f:
+        f.write(aisc_ps1)
+
 
     get_ps1 = """param($Id, [string]$Lab = "")
 if (-not $Id) {
@@ -1635,9 +1698,7 @@ if ($Lab -eq "ertos" -or $Lab -eq "es") {
         $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
     }
     if (-not $item -and $intId -le 10) {
-        $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
-    }
-}
+
         $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
     }
 }
@@ -1675,6 +1736,8 @@ if ($item.output_files) {
 Write-Host "`n==== AISC, Embedded Systems / RTOS & Computer Networks Experiments ====" -ForegroundColor White
 $cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
 Write-Host "Quick commands:" -ForegroundColor White
+Write-Host "  Pull AISC Practical (e.g. 1)     : irm https://cli-t0km.onrender.com/a1.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull AISC Interactive (all/1-12) : irm https://cli-t0km.onrender.com/aisc.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://cli-t0km.onrender.com/e2.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://cli-t0km.onrender.com/ertos.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All Computer Networks (CN)  : irm https://cli-t0km.onrender.com/cn.ps1 | iex" -ForegroundColor Gray
