@@ -143,29 +143,45 @@ def raw_script():
 
 @app.route("/", methods=["GET"])
 def index():
-    """Serves index.html at root."""
-    return send_from_directory(PUBLIC_DIR, "index.html")
+    """Serves index.html at root with dynamic host adaptation."""
+    target = PUBLIC_DIR / "index.html"
+    if not target.exists():
+        return Response("Not Found", status=404)
+    content = target.read_text(encoding="utf-8")
+    current_host = request.host_url.rstrip("/")
+    content = content.replace("https://aisccli.netlify.app", current_host)
+    return Response(content, mimetype="text/html; charset=utf-8")
 
 
 @app.route("/<path:filepath>", methods=["GET"])
 def static_files(filepath):
     """
     Serves static assets, downloads, outputs, and PS1 scripts
-    with correct MIME types for PowerShell execution.
+    with correct MIME types and dynamic host adaptation.
     """
     target = PUBLIC_DIR / filepath
     if not target.exists() or target.is_dir():
         # Fallback to index.html for SPA routes if any
         if (PUBLIC_DIR / "index.html").exists():
-            return send_from_directory(PUBLIC_DIR, "index.html")
+            return index()
         return Response("Not Found", status=404)
 
-    # Force text/plain for PowerShell and source code files
     ext = target.suffix.lower()
-    if ext in [".ps1", ".c", ".java", ".py", ".md", ".txt"]:
+
+    # Dynamic host adaptation for scripts and web pages
+    if ext in [".ps1", ".json", ".html", ".sh"]:
+        content = target.read_text(encoding="utf-8")
+        current_host = request.host_url.rstrip("/")
+        content = content.replace("https://aisccli.netlify.app", current_host)
+        
+        mimetype = "text/plain; charset=utf-8" if ext in [".ps1", ".sh"] else (
+            "application/json; charset=utf-8" if ext == ".json" else "text/html; charset=utf-8"
+        )
+        return Response(content, mimetype=mimetype)
+
+    # Force text/plain for source code files
+    if ext in [".c", ".java", ".py", ".md", ".txt"]:
         return Response(target.read_bytes(), mimetype="text/plain; charset=utf-8")
-    if ext == ".json":
-        return Response(target.read_bytes(), mimetype="application/json; charset=utf-8")
 
     return send_from_directory(target.parent, target.name)
 
