@@ -462,10 +462,10 @@
         <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
       </div>
       <div class="badge-bar">
-        <span class="badge">53 Modules Live</span>
+        <span class="badge">54 Modules Live</span>
         <span class="badge">AISC Lab (12)</span>
         <span class="badge">ES &amp; RTOS (10)</span>
-        <span class="badge">CN Lab (6)</span>
+        <span class="badge">CN Lab (7)</span>
         <span class="badge">SE Lab (25)</span>
         <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
         <a href="downloads/se_diagrams.zip" class="badge">Download SE_Diagrams.ZIP &darr;</a>
@@ -476,10 +476,10 @@
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Modules (53)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Modules (54)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (6)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (7)</button>
           <button class="tab-btn" onclick="filterLab('SE', this)">SE Lab (25)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
@@ -3651,6 +3651,97 @@ ping 192.168.1.2
             </div>
           </div>
         </div>
+        <div class="card" data-subject="CN">
+          <div>
+            <div class="card-top">
+              <span class="tag">CN &bull; TEXT</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-29', '')" title="Copy code and download outputs">
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-29" style="display:none;">EXPERIMENT 8 — DYNAMIC ROUTING (RIP v2)
+GNS3 topology: PC1 — Switch1 — R1 — R2 — Switch2 — PC2
+
+IP ADDRESSING
+PC1: 192.168.1.2 /24, gateway 192.168.1.1
+R1 FastEthernet0/0: 192.168.1.1 /24
+R1 FastEthernet1/0: 192.168.2.1 /24
+R2 FastEthernet1/0: 192.168.2.2 /24
+R2 FastEthernet0/0: 192.168.3.1 /24
+PC2: 192.168.3.2 /24, gateway 192.168.3.1
+Subnet mask: 255.255.255.0
+
+Run each section in the named device&#x27;s console, in order.
+Use the same interface names as your current GNS3 topology.
+This assumes interface IP addresses are already configured and static routes have been removed.
+
+============================================================
+PC1 TERMINAL
+============================================================
+ip 192.168.1.2 255.255.255.0 192.168.1.1
+
+============================================================
+R1 TERMINAL — ENABLE RIP VERSION 2
+============================================================
+enable
+configure terminal
+router rip
+version 2
+no auto-summary
+network 192.168.1.0
+network 192.168.2.0
+end
+
+============================================================
+R2 TERMINAL — ENABLE RIP VERSION 2
+============================================================
+enable
+configure terminal
+router rip
+version 2
+no auto-summary
+network 192.168.2.0
+network 192.168.3.0
+end
+
+============================================================
+PC2 TERMINAL
+============================================================
+ip 192.168.3.2 255.255.255.0 192.168.3.1
+
+============================================================
+VERIFY ROUTING — RUN ON R1 AND R2
+============================================================
+show ip route
+
+Wait briefly for RIP to exchange routes. Remote LAN routes should be marked R.
+
+============================================================
+TEST CONNECTIVITY
+============================================================
+On PC1:
+ping 192.168.3.2
+
+On PC2:
+ping 192.168.1.2
+</textarea>
+            <h3>#12 Dynamic Routing Configuration using RIP v2 in GNS3</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Complete Cisco IOS and VPCS terminal configuration commands for activating Dynamic Routing Information Protocol (RIP v2) across routers R1 and R2 with classless routing in GNS3.</p>
+            <span class="file-pill">dynamic_routing_rip_v2_commands.txt</span>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">irm https://cli-t0km.onrender.com/cn12.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/cn12.ps1 | iex')">Copy</button>
+            </div>
+            <div class="card-footer">
+              <a href="experiments/29/dynamic_routing_rip_v2_commands.txt" target="_blank">View File &rarr;</a>
+              
+              <a href="experiments/29/manifest.json" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
+        </div>
         <div class="card" data-subject="SE">
           <div>
             <div class="card-top">
@@ -5465,6 +5556,7 @@ flowchart LR
           <span style="color:var(--subtle)"># 3. Pull Computer Networks (CN):</span><br>
           irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Dijkstra Shortest Path Routing (Link-State OSPF)</span><br>
           irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex &nbsp;<span style="color:var(--subtle)"># GNS3 Static Routing Configuration (R1/R2)</span><br>
+          irm https://cli-t0km.onrender.com/rip.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># GNS3 Dynamic Routing (RIP v2)</span><br>
           irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Java Socket Programming (Server + Client)</span><br>
           irm https://cli-t0km.onrender.com/cn.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL CN experiments</span><br><br>
           <span style="color:var(--subtle)"># 4. Pull Everything (All 27 Experiments):</span><br>

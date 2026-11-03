@@ -65,6 +65,12 @@ This directory contains standalone, standard implementations for core Data Link,
 - **Description:** Configuration and verification commands for multi-hop static routing between two Cisco routers (R1, R2) and VPCS hosts (PC1, PC2) with subnet addressing, default gateways, and ping verification.
 - **Execution:** Run respective device blocks in GNS3 PC1, R1, R2, PC2 consoles in order.
 
+### 7. Experiment 12: Dynamic Routing Configuration using RIP v2 in GNS3
+- **File:** `dynamic_routing_rip_v2_commands.txt`
+- **Language:** Cisco IOS / GNS3 CLI
+- **Description:** Distance-vector dynamic routing configuration using Routing Information Protocol (RIP version 2) with classless subnet advertisement (`no auto-summary`), network boundary propagation, convergence verification (`show ip route`), and ICMP end-to-end ping testing.
+- **Execution:** Run device console blocks on R1 and R2 to activate RIP v2, verify with `show ip route` (routes marked with `R`), and ping across subnets from PC1/PC2.
+
 ---
 *Generated via LabX Remote Platform*
 

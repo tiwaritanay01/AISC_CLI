@@ -499,10 +499,10 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
         <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
       </div>
       <div class="badge-bar">
-        <span class="badge">53 Modules Live</span>
+        <span class="badge">54 Modules Live</span>
         <span class="badge">AISC Lab (12)</span>
         <span class="badge">ES &amp; RTOS (10)</span>
-        <span class="badge">CN Lab (6)</span>
+        <span class="badge">CN Lab (7)</span>
         <span class="badge">SE Lab (25)</span>
         <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
         <a href="downloads/se_diagrams.zip" class="badge">Download SE_Diagrams.ZIP &darr;</a>
@@ -513,10 +513,10 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Modules (53)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Modules (54)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (6)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (7)</button>
           <button class="tab-btn" onclick="filterLab('SE', this)">SE Lab (25)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
@@ -606,6 +606,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           <span style="color:var(--subtle)"># 3. Pull Computer Networks (CN):</span><br>
           irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Dijkstra Shortest Path Routing (Link-State OSPF)</span><br>
           irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex &nbsp;<span style="color:var(--subtle)"># GNS3 Static Routing Configuration (R1/R2)</span><br>
+          irm https://cli-t0km.onrender.com/rip.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># GNS3 Dynamic Routing (RIP v2)</span><br>
           irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Java Socket Programming (Server + Client)</span><br>
           irm https://cli-t0km.onrender.com/cn.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL CN experiments</span><br><br>
           <span style="color:var(--subtle)"># 4. Pull Everything (All 27 Experiments):</span><br>
@@ -1689,6 +1690,11 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                     f.write(cn_code)
                 with open(PUBLIC_DIR / "routing.ps1", "w", encoding="utf-8") as f:
                     f.write(cn_code)
+            if s_num == 12:
+                with open(PUBLIC_DIR / "rip.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
+                with open(PUBLIC_DIR / "dynamicrouting.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
     # Generate individual pinpoint scripts (a1.ps1 - a12.ps1) for AISC
     for exp in EXPERIMENTS:
         if exp.get("subject", "AISC") == "AISC":
@@ -1804,22 +1810,96 @@ if ($item.output_files) {
     with open(PUBLIC_DIR / "get.ps1", "w", encoding="utf-8") as f:
         f.write(get_ps1)
 
-    list_ps1 = """$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
-Write-Host "`n==== AISC, Embedded Systems / RTOS & Computer Networks Experiments ====" -ForegroundColor White
-$cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
-Write-Host "Quick commands:" -ForegroundColor White
-Write-Host "  Pull AISC Practical (e.g. 1)     : irm https://cli-t0km.onrender.com/a1.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull AISC Interactive (all/1-12) : irm https://cli-t0km.onrender.com/aisc.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://cli-t0km.onrender.com/e2.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://cli-t0km.onrender.com/ertos.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All Computer Networks (CN)  : irm https://cli-t0km.onrender.com/cn.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull CN Java Socket Programming  : irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull CN Dijkstra Algorithm       : irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull CN GNS3 Static Routing      : irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.com/all.ps1 | iex`n" -ForegroundColor Gray
+    list_ps1 = """param([string]$Subject = "")
+
+$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
+
+if (-not $Subject) {
+    Write-Host "==========================================================================" -ForegroundColor White
+    Write-Host "                   LABX - EXPERIMENTS DIRECTORY BY SUBJECT                " -ForegroundColor White
+    Write-Host "==========================================================================" -ForegroundColor Gray
+    Write-Host "  [1] aisc    - Artificial Intelligence & Soft Computing (12 Practicals)" -ForegroundColor White
+    Write-Host "  [2] ertos   - Embedded Systems & Real-Time Operating Systems (10 Exp)" -ForegroundColor White
+    Write-Host "  [3] cn      - Computer Networks (7 Experiments & Setups)" -ForegroundColor White
+    Write-Host "  [4] se      - Software Engineering (25 UML & DFD Case Studies)" -ForegroundColor White
+    Write-Host "  [5] all     - Show All Subjects" -ForegroundColor White
+    Write-Host "==========================================================================" -ForegroundColor Gray
+    $Subject = Read-Host "Enter subject to list [1-5 or aisc/ertos/cn/se/all, default: all]"
+    if (-not $Subject) { $Subject = "all" }
+}
+
+$cleanSub = $Subject.ToLower().Trim()
+switch ($cleanSub) {
+    "1" { $cleanSub = "aisc" }
+    "2" { $cleanSub = "ertos" }
+    "3" { $cleanSub = "cn" }
+    "4" { $cleanSub = "se" }
+    "5" { $cleanSub = "all" }
+    "es" { $cleanSub = "ertos" }
+    "rtos" { $cleanSub = "ertos" }
+}
+
+function Show-AISC {
+    Write-Host "`n==========================================================================" -ForegroundColor White
+    Write-Host "  AISC Laboratory Practicals (Artificial Intelligence & Soft Computing)   " -ForegroundColor White
+    Write-Host "==========================================================================" -ForegroundColor Gray
+    $items = $cat.experiments | Where-Object { $_.subject -eq "AISC" }
+    $items | Format-Table @{Label="#"; Expression={"a" + $_.id}; Width=5}, @{Label="Title"; Expression={$_.title}; Width=52}, @{Label="Pull Command"; Expression={"irm https://cli-t0km.onrender.com/a" + $_.id + ".ps1 | iex"}}
+    Write-Host "Quick Pull: irm https://cli-t0km.onrender.com/aisc.ps1 | iex (all or 1-12)`n" -ForegroundColor Gray
+}
+
+function Show-ERTOS {
+    Write-Host "`n==========================================================================" -ForegroundColor White
+    Write-Host "  ES & RTOS Laboratory Experiments (Embedded Systems & LPC2148 / FreeRTOS)" -ForegroundColor White
+    Write-Host "==========================================================================" -ForegroundColor Gray
+    $items = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" }
+    $items | Format-Table @{Label="#"; Expression={"e" + $_.lab_serial}; Width=5}, @{Label="Title"; Expression={$_.title}; Width=52}, @{Label="Pull Command (Code + Output)"; Expression={"irm https://cli-t0km.onrender.com/e" + $_.lab_serial + ".ps1 | iex"}}
+    Write-Host "Quick Pull All 10: irm https://cli-t0km.onrender.com/ertos.ps1 | iex`n" -ForegroundColor Gray
+}
+
+function Show-CN {
+    Write-Host "`n==========================================================================" -ForegroundColor White
+    Write-Host "  Computer Networks (CN) Laboratory Experiments & Configurations           " -ForegroundColor White
+    Write-Host "==========================================================================" -ForegroundColor Gray
+    $items = $cat.experiments | Where-Object { $_.subject -eq "CN" }
+    $items | Format-Table @{Label="#"; Expression={"cn" + $_.lab_serial}; Width=6}, @{Label="Title"; Expression={$_.title}; Width=52}, @{Label="Pull Command"; Expression={"irm https://cli-t0km.onrender.com/cn" + $_.lab_serial + ".ps1 | iex"}}
+    Write-Host "Quick Pull All: irm https://cli-t0km.onrender.com/cn.ps1 | iex`n" -ForegroundColor Gray
+}
+
+function Show-SE {
+    Write-Host "`n==========================================================================" -ForegroundColor White
+    Write-Host "  Software Engineering (SE) Case Studies (UML & Level 1 DFD Diagrams)     " -ForegroundColor White
+    Write-Host "==========================================================================" -ForegroundColor Gray
+    Write-Host "25 Case Studies available (Use Case, Class, DFD Level 1, Activity Diagrams)." -ForegroundColor Gray
+    Write-Host "Quick Commands:" -ForegroundColor Gray
+    Write-Host "  Interactive SE Generator : irm https://cli-t0km.onrender.com/se.ps1 | iex" -ForegroundColor White
+    Write-Host "  Hospital Management     : & (irm https://cli-t0km.onrender.com/se.ps1) hospital all" -ForegroundColor White
+    Write-Host "  School Management       : & (irm https://cli-t0km.onrender.com/se.ps1) school all" -ForegroundColor White
+    Write-Host "  ATM Management System   : & (irm https://cli-t0km.onrender.com/se.ps1) atm all" -ForegroundColor White
+    Write-Host "  Download All 100 Diagrams: irm https://cli-t0km.onrender.com/downloads/se_diagrams.zip`n" -ForegroundColor Gray
+}
+
+if ($cleanSub -eq "aisc") { Show-AISC }
+elseif ($cleanSub -eq "ertos") { Show-ERTOS }
+elseif ($cleanSub -eq "cn") { Show-CN }
+elseif ($cleanSub -eq "se") { Show-SE }
+else {
+    Show-AISC
+    Show-ERTOS
+    Show-CN
+    Show-SE
+}
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)
+    with open(PUBLIC_DIR / "list-aisc.ps1", "w", encoding="utf-8") as f:
+        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) aisc')
+    with open(PUBLIC_DIR / "list-ertos.ps1", "w", encoding="utf-8") as f:
+        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) ertos')
+    with open(PUBLIC_DIR / "list-cn.ps1", "w", encoding="utf-8") as f:
+        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) cn')
+    with open(PUBLIC_DIR / "list-se.ps1", "w", encoding="utf-8") as f:
+        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) se')
 
     # 7. Write index.html
     full_html = HTML_HEADER + "\\n".join(html_cards) + HTML_FOOTER

