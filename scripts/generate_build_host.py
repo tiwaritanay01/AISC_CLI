@@ -1762,6 +1762,13 @@ Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.c
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(full_html)
 
+    # 8. Build Software Engineering (SE) diagrams
+    se_script = BASE_DIR / "scripts" / "build_se.py"
+    if se_script.exists():
+        import subprocess
+        import sys
+        subprocess.run([sys.executable, str(se_script)], check=False)
+
     print("Minimalist Black & White host build completed successfully!")
     print(f"Total experiments compiled: {len(EXPERIMENTS)}")
 
