@@ -5,6 +5,7 @@ Serves LabX Remote static assets, catalog, PowerShell scripts, and custom delive
 
 import os
 import sys
+import json
 import gzip
 import base64
 import urllib.parse
