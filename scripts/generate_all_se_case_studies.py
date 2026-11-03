@@ -356,7 +356,7 @@ switch ($cleanTopic) {{
 }}
 
 if (-not $Diagram) {{
-    Write-Host "`nAvailable Diagram Types for $cleanTopic:" -ForegroundColor Gray
+    Write-Host "`nAvailable Diagram Types for ${{cleanTopic}}:" -ForegroundColor Gray
     Write-Host "  [1] usecase   - Use Case Diagram (Actors, Boundary, Include/Extend)" -ForegroundColor White
     Write-Host "  [2] class     - Class Diagram (Attributes, Methods, Relationships)" -ForegroundColor White
     Write-Host "  [3] dfd       - Data Flow Diagram (Level 1 Processes & Data Stores)" -ForegroundColor White
