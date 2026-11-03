@@ -473,10 +473,10 @@
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (26)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (28)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (5)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (6)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -3551,6 +3551,101 @@ Key Principles:
               <a href="experiments/27/manifest.json" target="_blank">Manifest &rarr;</a>
             </div>
           </div>
+        </div>
+        <div class="card" data-subject="CN">
+          <div>
+            <div class="card-top">
+              <span class="tag">CN &bull; TEXT</span>
+              <button class="copy-btn" onclick="copyExpCodeAndDownloadOutput(this, 'code-28', '')" title="Copy code and download outputs">
+                <span>Copy Code</span>
+              </button>
+            </div>
+            <textarea id="code-28" style="display:none;">EXPERIMENT 7 — STATIC ROUTING
+GNS3 topology: PC1 — Switch1 — R1 — R2 — Switch2 — PC2
+
+IP ADDRESSING
+PC1: 192.168.1.2/24, gateway 192.168.1.1
+R1 FastEthernet0/0: 192.168.1.1/24
+R1 FastEthernet1/0: 192.168.2.1/24
+R2 FastEthernet1/0: 192.168.2.2/24
+R2 FastEthernet0/0: 192.168.3.1/24
+PC2: 192.168.3.2/24, gateway 192.168.3.1
+Subnet mask: 255.255.255.0
+
+Run each section in the named device&#x27;s console, in order.
+If an interface name differs on your router, use the interface actually connected in your topology.
+
+============================================================
+PC1 TERMINAL
+============================================================
+ip 192.168.1.2 255.255.255.0 192.168.1.1
+
+============================================================
+R1 TERMINAL
+============================================================
+enable
+configure terminal
+interface fastethernet 0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+interface fastethernet 1/0
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+exit
+ip route 192.168.3.0 255.255.255.0 192.168.2.2
+end
+
+============================================================
+R2 TERMINAL
+============================================================
+enable
+configure terminal
+interface fastethernet 1/0
+ip address 192.168.2.2 255.255.255.0
+no shutdown
+exit
+interface fastethernet 0/0
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+exit
+ip route 192.168.1.0 255.255.255.0 192.168.2.1
+end
+
+============================================================
+PC2 TERMINAL
+============================================================
+ip 192.168.3.2 255.255.255.0 192.168.3.1
+
+============================================================
+VERIFY
+============================================================
+On R1 and R2:
+show ip interface brief
+show ip route
+
+On PC1:
+ping 192.168.3.2
+
+On PC2:
+ping 192.168.1.2
+</textarea>
+            <h3>#11 Static Routing Configuration in GNS3 (Router & Host Setup)</h3>
+            <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">Complete Cisco IOS and VPCS terminal configuration commands for setting up static routes across R1 and R2 routers in a GNS3 network topology.</p>
+            <span class="file-pill">static_routing_gns3_commands.txt</span>
+          </div>
+
+          <div>
+            <div class="card-cmd-box">
+              <code class="card-cmd-text">irm https://cli-t0km.onrender.com/cn11.ps1 | iex</code>
+              <button class="copy-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/cn11.ps1 | iex')">Copy</button>
+            </div>
+            <div class="card-footer">
+              <a href="experiments/28/static_routing_gns3_commands.txt" target="_blank">View File &rarr;</a>
+              
+              <a href="experiments/28/manifest.json" target="_blank">Manifest &rarr;</a>
+            </div>
+          </div>
         </div>      </div>
     </section>
 
@@ -3621,6 +3716,7 @@ Key Principles:
           irm https://cli-t0km.onrender.com/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
           <span style="color:var(--subtle)"># 3. Pull Computer Networks (CN):</span><br>
           irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Dijkstra Shortest Path Routing (Link-State OSPF)</span><br>
+          irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex &nbsp;<span style="color:var(--subtle)"># GNS3 Static Routing Configuration (R1/R2)</span><br>
           irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Java Socket Programming (Server + Client)</span><br>
           irm https://cli-t0km.onrender.com/cn.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL CN experiments</span><br><br>
           <span style="color:var(--subtle)"># 4. Pull Everything (All 27 Experiments):</span><br>

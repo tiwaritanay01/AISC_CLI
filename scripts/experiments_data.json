@@ -1142,5 +1142,51 @@
     "lab_serial": 10,
     "lab_label": "CN Exp 10",
     "output_url": null
+  },
+  {
+    "id": 28,
+    "slug": "cn-static-routing-gns3",
+    "title": "Static Routing Configuration in GNS3 (Router & Host Setup)",
+    "language": "text",
+    "aliases": [
+      "static routing",
+      "gns3",
+      "routing",
+      "cisco",
+      "cn 11",
+      "cn 7 routing",
+      "static route",
+      "cisco ios",
+      "ip route"
+    ],
+    "description": "Complete Cisco IOS and VPCS terminal configuration commands for setting up static routes across R1 and R2 routers in a GNS3 network topology.",
+    "aim": "To configure and verify Static Routing between two Cisco routers connecting distinct subnets using GNS3.",
+    "theory": "Static routing is a method where routes are manually programmed into a router's routing table using the 'ip route <destination-network> <subnet-mask> <next-hop-ip>' command. Unlike dynamic routing protocols, static routes do not incur bandwidth or CPU overhead and provide predictable deterministic packet paths. In this GNS3 topology (PC1 - Switch1 - R1 - R2 - Switch2 - PC2), R1 is configured with a static route to the 192.168.3.0/24 subnet via R2 (192.168.2.2), and R2 with a static route to the 192.168.1.0/24 subnet via R1 (192.168.2.1), enabling bidirectional ICMP echo ping communication.",
+    "algorithm": [
+      "Configure host IP, subnet mask, and default gateway on PC1 (192.168.1.2/24 -> gateway 192.168.1.1).",
+      "On R1, configure FastEthernet 0/0 (192.168.1.1/24) and FastEthernet 1/0 (192.168.2.1/24) interfaces with 'no shutdown'.",
+      "On R1, add static route: ip route 192.168.3.0 255.255.255.0 192.168.2.2.",
+      "On R2, configure FastEthernet 1/0 (192.168.2.2/24) and FastEthernet 0/0 (192.168.3.1/24) interfaces with 'no shutdown'.",
+      "On R2, add static route: ip route 192.168.1.0 255.255.255.0 192.168.2.1.",
+      "Configure host IP, subnet mask, and default gateway on PC2 (192.168.3.2/24 -> gateway 192.168.3.1).",
+      "Verify interfaces using 'show ip interface brief' and routing table using 'show ip route'.",
+      "Test end-to-end connectivity by pinging PC2 from PC1 (ping 192.168.3.2) and vice-versa."
+    ],
+    "files": [
+      {
+        "path": "static_routing_gns3_commands.txt",
+        "source": "static_routing_gns3_commands.txt",
+        "role": "source",
+        "content": "EXPERIMENT 7 \u2014 STATIC ROUTING\nGNS3 topology: PC1 \u2014 Switch1 \u2014 R1 \u2014 R2 \u2014 Switch2 \u2014 PC2\n\nIP ADDRESSING\nPC1: 192.168.1.2/24, gateway 192.168.1.1\nR1 FastEthernet0/0: 192.168.1.1/24\nR1 FastEthernet1/0: 192.168.2.1/24\nR2 FastEthernet1/0: 192.168.2.2/24\nR2 FastEthernet0/0: 192.168.3.1/24\nPC2: 192.168.3.2/24, gateway 192.168.3.1\nSubnet mask: 255.255.255.0\n\nRun each section in the named device's console, in order.\nIf an interface name differs on your router, use the interface actually connected in your topology.\n\n============================================================\nPC1 TERMINAL\n============================================================\nip 192.168.1.2 255.255.255.0 192.168.1.1\n\n============================================================\nR1 TERMINAL\n============================================================\nenable\nconfigure terminal\ninterface fastethernet 0/0\nip address 192.168.1.1 255.255.255.0\nno shutdown\nexit\ninterface fastethernet 1/0\nip address 192.168.2.1 255.255.255.0\nno shutdown\nexit\nip route 192.168.3.0 255.255.255.0 192.168.2.2\nend\n\n============================================================\nR2 TERMINAL\n============================================================\nenable\nconfigure terminal\ninterface fastethernet 1/0\nip address 192.168.2.2 255.255.255.0\nno shutdown\nexit\ninterface fastethernet 0/0\nip address 192.168.3.1 255.255.255.0\nno shutdown\nexit\nip route 192.168.1.0 255.255.255.0 192.168.2.1\nend\n\n============================================================\nPC2 TERMINAL\n============================================================\nip 192.168.3.2 255.255.255.0 192.168.3.1\n\n============================================================\nVERIFY\n============================================================\nOn R1 and R2:\nshow ip interface brief\nshow ip route\n\nOn PC1:\nping 192.168.3.2\n\nOn PC2:\nping 192.168.1.2\n"
+      }
+    ],
+    "run": {
+      "kind": "manual",
+      "entry": "static_routing_gns3_commands.txt"
+    },
+    "subject": "CN",
+    "lab_serial": 11,
+    "lab_label": "CN Exp 11",
+    "output_url": null
   }
 ]

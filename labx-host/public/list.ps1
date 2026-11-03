@@ -9,4 +9,5 @@ Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://cli-t0km.onrender.c
 Write-Host "  Pull All Computer Networks (CN)  : irm https://cli-t0km.onrender.com/cn.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull CN Java Socket Programming  : irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull CN Dijkstra Algorithm       : irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull CN GNS3 Static Routing      : irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.com/all.ps1 | iex`n" -ForegroundColor Gray

@@ -509,10 +509,10 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (26)</button>
+          <button class="tab-btn active" onclick="filterLab('all', this)">All Experiments (28)</button>
           <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
           <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (5)</button>
+          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (6)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -600,6 +600,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           irm https://cli-t0km.onrender.com/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
           <span style="color:var(--subtle)"># 3. Pull Computer Networks (CN):</span><br>
           irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Dijkstra Shortest Path Routing (Link-State OSPF)</span><br>
+          irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex &nbsp;<span style="color:var(--subtle)"># GNS3 Static Routing Configuration (R1/R2)</span><br>
           irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Java Socket Programming (Server + Client)</span><br>
           irm https://cli-t0km.onrender.com/cn.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL CN experiments</span><br><br>
           <span style="color:var(--subtle)"># 4. Pull Everything (All 27 Experiments):</span><br>
@@ -1626,6 +1627,13 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                     f.write(cn_code)
                 with open(PUBLIC_DIR / "cndijkstra.ps1", "w", encoding="utf-8") as f:
                     f.write(cn_code)
+            if s_num == 11:
+                with open(PUBLIC_DIR / "staticrouting.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
+                with open(PUBLIC_DIR / "gns3.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
+                with open(PUBLIC_DIR / "routing.ps1", "w", encoding="utf-8") as f:
+                    f.write(cn_code)
     # Generate individual pinpoint scripts (a1.ps1 - a12.ps1) for AISC
     for exp in EXPERIMENTS:
         if exp.get("subject", "AISC") == "AISC":
@@ -1752,6 +1760,7 @@ Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://cli-t0km.onrender.c
 Write-Host "  Pull All Computer Networks (CN)  : irm https://cli-t0km.onrender.com/cn.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull CN Java Socket Programming  : irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull CN Dijkstra Algorithm       : irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull CN GNS3 Static Routing      : irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex" -ForegroundColor Gray
 Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.com/all.ps1 | iex`n" -ForegroundColor Gray
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:

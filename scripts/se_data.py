@@ -422,3 +422,4 @@ def get_all_case_studies():
         all_studies.append(study)
 
     return all_studies
+

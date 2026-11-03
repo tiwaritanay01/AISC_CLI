@@ -549,6 +549,29 @@
       "lab_serial": 10,
       "output_url": null,
       "output_files": []
+    },
+    {
+      "id": 28,
+      "slug": "cn-static-routing-gns3",
+      "title": "Static Routing Configuration in GNS3 (Router & Host Setup)",
+      "language": "text",
+      "aliases": [
+        "static routing",
+        "gns3",
+        "routing",
+        "cisco",
+        "cn 11",
+        "cn 7 routing",
+        "static route",
+        "cisco ios",
+        "ip route"
+      ],
+      "description": "Complete Cisco IOS and VPCS terminal configuration commands for setting up static routes across R1 and R2 routers in a GNS3 network topology.",
+      "manifest_url": "experiments/28/manifest.json",
+      "subject": "CN",
+      "lab_serial": 11,
+      "output_url": null,
+      "output_files": []
     }
   ]
 }

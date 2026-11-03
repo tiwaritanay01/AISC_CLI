@@ -59,6 +59,12 @@ This directory contains standalone, standard implementations for core Data Link,
   ./dijkstra
   ```
 
+### 6. Experiment 11: Static Routing Configuration in GNS3
+- **File:** `static_routing_gns3_commands.txt`
+- **Language:** Cisco IOS / GNS3 CLI
+- **Description:** Configuration and verification commands for multi-hop static routing between two Cisco routers (R1, R2) and VPCS hosts (PC1, PC2) with subnet addressing, default gateways, and ping verification.
+- **Execution:** Run respective device blocks in GNS3 PC1, R1, R2, PC2 consoles in order.
+
 ---
 *Generated via LabX Remote Platform*
 
