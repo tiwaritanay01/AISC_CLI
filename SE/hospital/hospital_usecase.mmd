@@ -4,43 +4,36 @@ flowchart LR
     classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
 
     subgraph SYSTEM ["Hospital Management System (System Boundary)"]
-        UC1([UC-01: Register / Login Patient])
-        UC2([UC-02: Book / Reschedule Appointment])
-        UC3([UC-03: Verify Doctor Availability])
-        UC4([UC-04: View & Update EMR Medical Records])
-        UC5([UC-05: Generate Diagnosis & Prescription])
-        UC6([UC-06: Order Lab Diagnostic Tests])
-        UC7([UC-07: Process Discharge & Invoicing])
-        UC8([UC-08: Process Insurance & Payment])
-        UC9([UC-09: Manage Pharmacy & Drug Inventory])
-        UC10([UC-10: Manage Hospital Staff & System Roles])
+        UC01(["UC01: Register / Login Patient"])
+        UC02(["UC02: Book / Reschedule Appointment"])
+        UC03(["UC03: Verify Doctor Availability"])
+        UC04(["UC04: View & Update EMR Medical Records"])
+        UC05(["UC05: Generate Diagnosis & Prescription"])
+        UC06(["UC06: Order Lab Diagnostic Tests"])
+        UC07(["UC07: Process Discharge & Invoicing"])
+        UC08(["UC08: Manage Pharmacy & Inventory"])
+        UC09(["UC09: Manage Hospital Staff & System Roles"])
     end
 
     %% Actors
     Patient["<<Actor>>\nPatient"]:::actorStyle
     Receptionist["<<Actor>>\nReceptionist"]:::actorStyle
     Doctor["<<Actor>>\nDoctor"]:::actorStyle
-    Admin["<<Actor>>\nAdministrator"]:::actorStyle
+    Administrator["<<Actor>>\nAdministrator"]:::actorStyle
 
-    %% Patient Associations
-    Patient --> UC1
-    Patient --> UC2
-
-    %% Receptionist Associations
-    Receptionist --> UC1
-    Receptionist --> UC2
-    Receptionist --> UC7
-
-    %% Doctor Associations
-    Doctor --> UC4
-    Doctor --> UC5
-
-    %% Admin Associations
-    Admin --> UC9
-    Admin --> UC10
-    Admin --> UC7
+    %% Actor to Use Case Associations
+    Patient --> UC01
+    Patient --> UC02
+    Receptionist --> UC01
+    Receptionist --> UC02
+    Receptionist --> UC07
+    Doctor --> UC04
+    Doctor --> UC05
+    Administrator --> UC07
+    Administrator --> UC08
+    Administrator --> UC09
 
     %% Include & Extend Relationships
-    UC2 -.->|&lt;&lt;include&gt;&gt;| UC3
-    UC5 -.->|&lt;&lt;extend&gt;&gt;| UC6
-    UC7 -.->|&lt;&lt;include&gt;&gt;| UC8
+    UC02 -.->|<<include>>| UC03
+    UC05 -.->|<<extend>>| UC06
+    UC07 -.->|<<include>>| UC08

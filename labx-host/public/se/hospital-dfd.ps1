@@ -1,10 +1,10 @@
-# LabX SE Remote: Hospital Management System - Data Flow Diagram (Level 1 DFD)
-$title = "Data Flow Diagram (Level 1 DFD)"
+# LabX SE Remote: Hospital Management System - Data Flow Diagram (Level 1)
+$title = "Data Flow Diagram (Level 1)"
 $topic = "Hospital Management System"
 $filename = "hospital_dfd.mmd"
 
 $mermaidCode = @'
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff'}}}%%
 flowchart TD
     classDef entity fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000;
     classDef process fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
@@ -17,52 +17,33 @@ flowchart TD
     E4["[Entity] Administrator"]:::entity
 
     %% Processes (Level 1 DFD)
-    P1(["1.0 Patient Registration & Verification"]):::process
-    P2(["2.0 Appointment Scheduling"]):::process
-    P3(["3.0 Clinical Consultation & EMR Update"]):::process
-    P4(["4.0 Inventory & Pharmacy Dispensing"]):::process
-    P5(["5.0 Billing & Invoice Settlement"]):::process
+    P1(["1.0 Patient Intake & Triage"]):::process
+    P2(["2.0 Appointment Booking"]):::process
+    P3(["3.0 Clinical Consultation & EMR"]):::process
+    P4(["4.0 Pharmacy & Diagnostics"]):::process
+    P5(["5.0 Billing & Discharge"]):::process
 
     %% Data Stores
     D1[("D1: Patient Database")]:::datastore
-    D2[("D2: Doctor Roster & Slots")]:::datastore
-    D3[("D3: EMR & Medical Histories")]:::datastore
-    D4[("D4: Drug & Stock Inventory")]:::datastore
-    D5[("D5: Financial & Accounts Store")]:::datastore
+    D2[("D2: Doctor Duty Roster")]:::datastore
+    D3[("D3: Medical Records Store")]:::datastore
+    D4[("D4: Pharmacy Stock")]:::datastore
+    D5[("D5: Financial Accounts")]:::datastore
 
-    %% Data Flows: Registration
-    E1 -->|Registration Details| P1
-    E2 -->|Walk-in Details| P1
-    P1 -->|Store Patient Info| D1
-    P1 -->|Patient ID & Card| E1
-
-    %% Data Flows: Appointments
-    E1 -->|Appointment Request| P2
-    P2 <-->|Check / Block Slot| D2
-    D1 -->|Verify Patient ID| P2
-    P2 -->|Appointment Slip| E1
-    P2 -->|Daily Patient Queue| E3
-
-    %% Data Flows: Clinical & EMR
-    E3 -->|Diagnosis & Lab Notes| P3
-    P3 <-->|Read / Write EMR| D3
-    P3 -->|Prescription Orders| P4
-
-    %% Data Flows: Inventory & Pharmacy
-    P4 <-->|Check Stock / Deduct Items| D4
-    E4 -->|Stock Restock Entries| P4
-    P4 -->|Medicine Cost Breakdown| P5
-
-    %% Data Flows: Billing
-    P3 -->|Consultation Charges| P5
-    P5 <-->|Record Ledger & Invoices| D5
-    P5 -->|Final Itemized Invoice| E1
-    E1 -->|Payment Settlement| P5
-    P5 -->|Revenue & Audit Summary| E4
-
+    %% Data Flows
+    E1 -->|Personal Details| P1
+    P1 -->|Save Patient Details| D1
+    E2 -->|Slot Booking Request| P2
+    P2 -->|Check Doctor Availability| D2
+    E3 -->|Clinical Notes & Rx| P3
+    P3 -->|Append EMR| D3
+    P3 -->|Medicine Dispense Order| P4
+    P4 -->|Deduct Drug Stock| D4
+    P4 -->|Drug Bill Items| P5
+    P5 -->|Settlement Receipt| E1
 '@
 
-# 1. Output to console
+# 1. Output to terminal
 Write-Host "==============================================================" -ForegroundColor White
 Write-Host "  Software Engineering (SE) Diagram: $title" -ForegroundColor White
 Write-Host "  Case Study: $topic" -ForegroundColor Gray
@@ -77,7 +58,7 @@ try {
     Write-Host "`n[!] Could not auto-copy to clipboard: $_" -ForegroundColor DarkGray
 }
 
-# 3. Save to local SE directory
+# 3. Save to local SE folder
 $seDir = Join-Path $PWD "SE"
 if (-not (Test-Path $seDir)) { New-Item -ItemType Directory -Path $seDir -Force | Out-Null }
 $outFile = Join-Path $seDir $filename

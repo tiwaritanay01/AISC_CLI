@@ -1,0 +1,39 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff'}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM ["Tourism Management System (System Boundary)"]
+        UC01(["UC01: Register & Authenticate Tourist"])
+        UC02(["UC02: Search & View Tourism Items"])
+        UC03(["UC03: Create New Booking / Request"])
+        UC04(["UC04: Process Verification & Approvals"])
+        UC05(["UC05: Generate Invoice & Process Payment"])
+        UC06(["UC06: Update Central Records & Inventory"])
+        UC07(["UC07: Generate Operational & Audit Reports"])
+    end
+
+    %% Actors
+    Tourist["<<Actor>>\nTourist"]:::actorStyle
+    TravelAgent["<<Actor>>\nTravelAgent"]:::actorStyle
+    TourGuide["<<Actor>>\nTourGuide"]:::actorStyle
+    TourismAdmin["<<Actor>>\nTourismAdmin"]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Tourist --> UC01
+    Tourist --> UC02
+    Tourist --> UC03
+    Tourist --> UC05
+    TravelAgent --> UC02
+    TravelAgent --> UC03
+    TravelAgent --> UC04
+    TravelAgent --> UC06
+    TourismAdmin --> UC04
+    TourismAdmin --> UC06
+    TourismAdmin --> UC07
+
+    %% Include & Extend Relationships
+    UC03 -.->|<<include>>| UC02
+    UC04 -.->|<<include>>| UC03
+    UC05 -.->|<<include>>| UC04
+    UC07 -.->|<<extend>>| UC06

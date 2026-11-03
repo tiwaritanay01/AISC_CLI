@@ -1,0 +1,52 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff'}}}%%
+classDiagram
+    direction TB
+
+    class BaseUser {
+        <<abstract>>
+        #String userId
+        #String name
+        #String contact
+        #String status
+        +login() bool
+        +logout() void
+    }
+
+    class BankCustomerProfile {
+        -String regNumber
+        -Date joinDate
+        +submitRequest() String
+        +viewStatus() void
+    }
+
+    class CashTechnicianProfile {
+        -String accessLevel
+        -String badgeId
+        +verifyEntry() bool
+        +generateSummary() Report
+    }
+
+    class ATMRecord {
+        -String recordId
+        -Date recordDate
+        -float feeAmount
+        -String state
+        +approve() void
+        +cancel() void
+        +calculateTotals() float
+    }
+
+    class TransactionPayment {
+        -String txnId
+        -Date timestamp
+        -float amount
+        -String paymentType
+        +execute() bool
+        +printReceipt() Receipt
+    }
+
+    BaseUser <|-- BankCustomerProfile
+    BaseUser <|-- CashTechnicianProfile
+    BankCustomerProfile "1" --> "*" ATMRecord : initiates
+    CashTechnicianProfile "1" --> "*" ATMRecord : moderates
+    ATMRecord "1" --> "1" TransactionPayment : settled by

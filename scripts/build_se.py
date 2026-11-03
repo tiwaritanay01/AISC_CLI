@@ -147,3 +147,4 @@ if ($cleanDiag -eq "all") {
 
 (HOST_PUBLIC / "se.ps1").write_text(se_master_ps1, encoding="utf-8")
 print("SE scripts generated successfully in labx-host/public/se/ and labx-host/public/se.ps1")
+

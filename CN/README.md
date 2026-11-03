@@ -62,9 +62,3 @@ This directory contains standalone, standard implementations for core Data Link,
 ---
 *Generated via LabX Remote Platform*
 
-SE prompt : I have added chapter 2.pdf in this directory now using that make UML diagrams make a seperate subjetc named SE and add use case and activity diagrams , data flow diagram mermaid.js code for these list of case studies C:\dev\CLI_AISC\CASE STUDIES.pdf 
-these 3 keep the colors black and white not colorful follow all stnadard drawing convenrtions and then how will you give it to me for this particular topic say hospital/usecase in this types of commands to paste the mermaid.js code
-this is the diagram list whose code is needed Class 
-Use 
-Data flow
-Activity or state

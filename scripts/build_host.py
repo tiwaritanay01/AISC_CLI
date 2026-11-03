@@ -1740,7 +1740,7 @@ Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.c
         f.write(full_html)
 
     # 8. Build Software Engineering (SE) diagrams
-    se_script = BASE_DIR / "scripts" / "build_se.py"
+    se_script = BASE_DIR / "scripts" / "generate_all_se_case_studies.py"
     if se_script.exists():
         import subprocess
         import sys
