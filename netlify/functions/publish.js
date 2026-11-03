@@ -2,7 +2,7 @@
  * Netlify Function: publish.js
  * Receives an experiment Python code or delivery script, publishes it to dpaste,
  * and returns the custom short PowerShell command:
- * irm https://aisccli.netlify.app/s/<ID> | iex
+ * irm https://cli-t0km.onrender.com/s/<ID> | iex
  */
 
 const zlib = require('zlib');
@@ -82,7 +82,7 @@ Write-Host "============================================================" -Foreg
         // text is e.g. "https://dpaste.org/AbCdE" or "https://dpaste.org/AbCdE/"
         const parts = text.split('/').filter(Boolean);
         slug = parts[parts.length - 1];
-        customUrl = `https://aisccli.netlify.app/s/${slug}`;
+        customUrl = `https://cli-t0km.onrender.com/s/${slug}`;
       }
     } catch (dpasteErr) {
       console.warn('dpaste error, falling back to compressed URL:', dpasteErr.message);
@@ -108,7 +108,7 @@ Write-Host "============================================================" -Foreg
 
     // 3. Fallback: Stateless compressed URL
     const compressed = zlib.gzipSync(Buffer.from(script, 'utf-8')).toString('base64url');
-    const directUrl = `https://aisccli.netlify.app/r?f=${encodeURIComponent(filename)}&d=${compressed}`;
+    const directUrl = `https://cli-t0km.onrender.com/r?f=${encodeURIComponent(filename)}&d=${compressed}`;
 
     return {
       statusCode: 200,

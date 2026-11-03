@@ -593,13 +593,13 @@ html_footer_template = '''HTML_FOOTER = """      </div>
         <h2 style="color:var(--white); font-size:1.2rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
         <div class="command-box">
           <span style="color:var(--subtle)"># 1. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
-          irm https://aisccli.netlify.app/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
-          irm https://aisccli.netlify.app/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
+          irm https://cli-t0km.onrender.com/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
+          irm https://cli-t0km.onrender.com/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
           <span style="color:var(--subtle)"># 2. Pull All 22 Experiments (AISC + ERTOS):</span><br>
-          irm https://aisccli.netlify.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
-          irm https://aisccli.netlify.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
+          irm https://cli-t0km.onrender.com/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
+          irm https://cli-t0km.onrender.com/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
           <span style="color:var(--subtle)"># 3. Or install the global 'labx' CLI:</span><br>
-          irm https://aisccli.netlify.app/install.ps1 | iex<br>
+          irm https://cli-t0km.onrender.com/install.ps1 | iex<br>
           labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
         </div>
       </section>
@@ -983,7 +983,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           title: title,
           language: isC ? 'c' : 'python',
           code: finalContent,
-          command: `irm https://aisccli.netlify.app/s/${safeName} | iex`
+          command: `irm https://cli-t0km.onrender.com/s/${safeName} | iex`
         });
       } catch (err) {
         console.warn('Error parsing PDF file:', rawName, err);
@@ -1078,7 +1078,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           title: title,
           language: isC ? 'c' : 'python',
           code: finalContent,
-          command: `irm https://aisccli.netlify.app/s/${safeName} | iex`
+          command: `irm https://cli-t0km.onrender.com/s/${safeName} | iex`
         });
 
       } catch (err) {
@@ -1163,13 +1163,13 @@ html_footer_template = '''HTML_FOOTER = """      </div>
             if (dpRes.ok) {
               const url = (await dpRes.text()).trim();
               const slug = url.split('/').filter(Boolean).pop();
-              cmd = `irm https://aisccli.netlify.app/s/${slug} | iex`;
+              cmd = `irm https://cli-t0km.onrender.com/s/${slug} | iex`;
             }
           } catch (e2) {}
         }
 
         if (!cmd) {
-          cmd = `irm https://aisccli.netlify.app/all.ps1 | iex`;
+          cmd = `irm https://cli-t0km.onrender.com/all.ps1 | iex`;
         }
 
         item.command = cmd;
@@ -1391,17 +1391,17 @@ generate_host_code = '''def generate_host():
         if subject_type == "ES_RTOS":
             display_title = f"#{lab_serial:02d} {exp['title']}"
             subject_label = "ES & RTOS"
-            cmd_str = f"irm https://aisccli.netlify.app/e{lab_serial}.ps1 | iex"
+            cmd_str = f"irm https://cli-t0km.onrender.com/e{lab_serial}.ps1 | iex"
             output_url = exp.get("output_url", "")
         elif subject_type == "CN":
             display_title = f"#{lab_serial:02d} {exp['title']}"
             subject_label = "CN"
-            cmd_str = f"irm https://aisccli.netlify.app/cn{lab_serial}.ps1 | iex"
+            cmd_str = f"irm https://cli-t0km.onrender.com/cn{lab_serial}.ps1 | iex"
             output_url = ""
         else:
             display_title = f"#{exp_id:02d} {exp['title']}"
             subject_label = "AISC"
-            cmd_str = f"& (irm https://aisccli.netlify.app/get.ps1) {exp_id}"
+            cmd_str = f"& (irm https://cli-t0km.onrender.com/get.ps1) {exp_id}"
             output_url = ""
 
         output_files = exp.get("output_files", [])
@@ -1517,7 +1517,7 @@ generate_host_code = '''def generate_host():
     # 6. PowerShell scripts
     all_ps1 = f"""$zip = Join-Path $PWD "labx_temp.zip"
 Write-Host "Downloading all {len(EXPERIMENTS)} experiments (AISC, ES & RTOS, and Computer Networks) from LabX Remote..." -ForegroundColor White
-Invoke-WebRequest "https://aisccli.netlify.app/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
+Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
 Write-Host "[OK] All {len(EXPERIMENTS)} experiments extracted to current directory!" -ForegroundColor White
@@ -1527,7 +1527,7 @@ Write-Host "[OK] All {len(EXPERIMENTS)} experiments extracted to current directo
 
     ertos_ps1 = """$zip = Join-Path $PWD "ertos_temp.zip"
 Write-Host "Downloading all 10 Embedded Systems & RTOS experiments (Code + All Output Images & PDFs) from LabX Remote..." -ForegroundColor White
-Invoke-WebRequest "https://aisccli.netlify.app/downloads/ertos.zip" -OutFile $zip -UseBasicParsing
+Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/ertos.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
 Write-Host "[OK] All 10 ES & RTOS experiments with code and authentic outputs extracted to current directory!" -ForegroundColor White
@@ -1539,7 +1539,7 @@ Write-Host "[OK] All 10 ES & RTOS experiments with code and authentic outputs ex
 
     cn_ps1 = """$zip = Join-Path $PWD "cn_temp.zip"
 Write-Host "Downloading Computer Networks (CN) Experiments from LabX Remote..." -ForegroundColor White
-Invoke-WebRequest "https://aisccli.netlify.app/downloads/cn.zip" -OutFile $zip -UseBasicParsing
+Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/cn.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
 Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -ForegroundColor White
@@ -1574,7 +1574,7 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                 lines_ps1.extend([
                     f'$outTarget = Join-Path $PWD "{out_leaf}"',
                     "try {",
-                    f'    Invoke-WebRequest "https://aisccli.netlify.app/{out_p}" -OutFile $outTarget -UseBasicParsing',
+                    f'    Invoke-WebRequest "https://cli-t0km.onrender.com/{out_p}" -OutFile $outTarget -UseBasicParsing',
                     f'    Write-Host "[OK] Downloaded Output to: {out_leaf}" -ForegroundColor White',
                     "} catch {",
                     f'    Write-Host "[!] Could not fetch {out_leaf}: $_" -ForegroundColor DarkGray',
@@ -1621,7 +1621,7 @@ if (-not $Id) {
 }
 
 $intId = [int]$Id
-$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
+$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
 
 if ($Lab -eq "ertos" -or $Lab -eq "es") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
@@ -1648,38 +1648,38 @@ if (-not $item) {
 }
 
 $num = "{0:D2}" -f [int]$item.id
-$mf = Invoke-RestMethod "https://aisccli.netlify.app/$($item.manifest_url)"
+$mf = Invoke-RestMethod "https://cli-t0km.onrender.com/$($item.manifest_url)"
 $dir = "Experiment$num"
 New-Item -ItemType Directory -Path $dir -Force | Out-Null
 foreach ($f in $mf.files) {
-    Invoke-WebRequest "https://aisccli.netlify.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
+    Invoke-WebRequest "https://cli-t0km.onrender.com/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
 }
 Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
 
 if ($item.output_files) {
     foreach ($outP in $item.output_files) {
         $outName = Split-Path $outP -Leaf
-        Invoke-WebRequest "https://aisccli.netlify.app/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+        Invoke-WebRequest "https://cli-t0km.onrender.com/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
         Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
     }
 } elseif ($item.output_url) {
     $outName = Split-Path $item.output_url -Leaf
-    Invoke-WebRequest "https://aisccli.netlify.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+    Invoke-WebRequest "https://cli-t0km.onrender.com/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
     Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
 }
 """
     with open(PUBLIC_DIR / "get.ps1", "w", encoding="utf-8") as f:
         f.write(get_ps1)
 
-    list_ps1 = """$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
+    list_ps1 = """$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
 Write-Host "`n==== AISC, Embedded Systems / RTOS & Computer Networks Experiments ====" -ForegroundColor White
 $cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
 Write-Host "Quick commands:" -ForegroundColor White
-Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://aisccli.netlify.app/e2.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All Computer Networks (CN)  : irm https://aisccli.netlify.app/cn.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull CN Java Socket Programming  : irm https://aisccli.netlify.app/cnsocket.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All experiments             : irm https://aisccli.netlify.app/all.ps1 | iex`n" -ForegroundColor Gray
+Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://cli-t0km.onrender.com/e2.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://cli-t0km.onrender.com/ertos.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All Computer Networks (CN)  : irm https://cli-t0km.onrender.com/cn.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull CN Java Socket Programming  : irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.com/all.ps1 | iex`n" -ForegroundColor Gray
 """
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)

@@ -89,14 +89,14 @@ Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -Fore
 
 $outTarget = Join-Path $PWD "ertos_exp03_drive_output.pdf"
 try {
-    Invoke-WebRequest "https://aisccli.netlify.app/outputs/ertos_exp03_drive_output.pdf" -OutFile $outTarget -UseBasicParsing
+    Invoke-WebRequest "https://cli-t0km.onrender.com/outputs/ertos_exp03_drive_output.pdf" -OutFile $outTarget -UseBasicParsing
     Write-Host "[OK] Downloaded Output to: ertos_exp03_drive_output.pdf" -ForegroundColor White
 } catch {
     Write-Host "[!] Could not fetch ertos_exp03_drive_output.pdf: $_" -ForegroundColor DarkGray
 }
 $outTarget = Join-Path $PWD "ertos_exp03_output.pdf"
 try {
-    Invoke-WebRequest "https://aisccli.netlify.app/outputs/ertos_exp03_output.pdf" -OutFile $outTarget -UseBasicParsing
+    Invoke-WebRequest "https://cli-t0km.onrender.com/outputs/ertos_exp03_output.pdf" -OutFile $outTarget -UseBasicParsing
     Write-Host "[OK] Downloaded Output to: ertos_exp03_output.pdf" -ForegroundColor White
 } catch {
     Write-Host "[!] Could not fetch ertos_exp03_output.pdf: $_" -ForegroundColor DarkGray

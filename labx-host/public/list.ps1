@@ -1,9 +1,9 @@
-$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
+$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
 Write-Host "`n==== AISC, Embedded Systems / RTOS & Computer Networks Experiments ====" -ForegroundColor White
 $cat.experiments | Format-Table @{Label="Lab"; Expression={$_.subject}}, @{Label="Exp"; Expression={"#" + ("{0:D2}" -f $_.lab_serial)}}, @{Label="Title"; Expression={$_.title}}, @{Label="Language"; Expression={$_.language}}
 Write-Host "Quick commands:" -ForegroundColor White
-Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://aisccli.netlify.app/e2.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://aisccli.netlify.app/ertos.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All Computer Networks (CN)  : irm https://aisccli.netlify.app/cn.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull CN Java Socket Programming  : irm https://aisccli.netlify.app/cnsocket.ps1 | iex" -ForegroundColor Gray
-Write-Host "  Pull All experiments             : irm https://aisccli.netlify.app/all.ps1 | iex`n" -ForegroundColor Gray
+Write-Host "  Pull ERTOS Exp 2 (Code + Output) : irm https://cli-t0km.onrender.com/e2.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All ERTOS (Code + Outputs)  : irm https://cli-t0km.onrender.com/ertos.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All Computer Networks (CN)  : irm https://cli-t0km.onrender.com/cn.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull CN Java Socket Programming  : irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex" -ForegroundColor Gray
+Write-Host "  Pull All experiments             : irm https://cli-t0km.onrender.com/all.ps1 | iex`n" -ForegroundColor Gray

@@ -160,7 +160,7 @@ Write-Host "============================================================" -Foreg
     with urllib.request.urlopen(req) as resp:
         url = resp.read().decode('utf-8').strip()
         slug = url.split('/')[-1]
-        return f"irm https://aisccli.netlify.app/s/{slug} | iex"
+        return f"irm https://cli-t0km.onrender.com/s/{slug} | iex"
 
 def main():
     if len(sys.argv) < 2:

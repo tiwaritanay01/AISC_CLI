@@ -4,7 +4,7 @@ if (-not $Id) {
 }
 
 $intId = [int]$Id
-$cat = Invoke-RestMethod "https://aisccli.netlify.app/catalog.json"
+$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
 
 if ($Lab -eq "ertos" -or $Lab -eq "es") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
@@ -31,22 +31,22 @@ if (-not $item) {
 }
 
 $num = "{0:D2}" -f [int]$item.id
-$mf = Invoke-RestMethod "https://aisccli.netlify.app/$($item.manifest_url)"
+$mf = Invoke-RestMethod "https://cli-t0km.onrender.com/$($item.manifest_url)"
 $dir = "Experiment$num"
 New-Item -ItemType Directory -Path $dir -Force | Out-Null
 foreach ($f in $mf.files) {
-    Invoke-WebRequest "https://aisccli.netlify.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
+    Invoke-WebRequest "https://cli-t0km.onrender.com/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
 }
 Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
 
 if ($item.output_files) {
     foreach ($outP in $item.output_files) {
         $outName = Split-Path $outP -Leaf
-        Invoke-WebRequest "https://aisccli.netlify.app/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+        Invoke-WebRequest "https://cli-t0km.onrender.com/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
         Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
     }
 } elseif ($item.output_url) {
     $outName = Split-Path $item.output_url -Leaf
-    Invoke-WebRequest "https://aisccli.netlify.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+    Invoke-WebRequest "https://cli-t0km.onrender.com/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
     Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
 }
