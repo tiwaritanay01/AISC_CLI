@@ -302,17 +302,37 @@ def generate_all():
             ps1_text = make_ps1_content(cs, d_key, d_title, d_fname, d_code)
             (SE_PUBLIC / f"{slug}-{d_key}.ps1").write_text(ps1_text, encoding="utf-8")
 
-        # All-in-one script for this specific case study
+        # All-in-one script for this specific case study (self-contained, zero nested HTTP calls)
+        all_blocks = []
+        for d_key, d_title, d_fname, d_code in diags:
+            all_blocks.append(f"""Write-Host "  -> Saving {d_title} ({d_fname})..." -ForegroundColor White
+$code_{d_key} = @'
+{d_code.strip()}
+'@
+Set-Content -Path (Join-Path $seDir "{d_fname}") -Value $code_{d_key} -Encoding utf8""")
+        
+        joined_blocks = "\n\n".join(all_blocks)
+
         all_ps1 = f"""# LabX SE Remote: All 4 Diagrams for {cs['title']}
-Write-Host "Fetching all 4 UML & DFD Diagrams for {cs['title']}..." -ForegroundColor White
-$diags = @("usecase", "class", "dfd", "activity")
-foreach ($d in $diags) {{
-    $url = "https://cli-t0km.onrender.com/se/{slug}-$d.ps1"
-    Invoke-Expression (Invoke-RestMethod $url)
-}}
-Write-Host "`n[OK] All 4 diagrams for {cs['title']} saved to SE\\ folder!" -ForegroundColor White
+Write-Host "==============================================================" -ForegroundColor White
+Write-Host "  LabX SE: All 4 UML & DFD Diagrams for {cs['title']}" -ForegroundColor White
+Write-Host "==============================================================" -ForegroundColor Gray
+
+$seDir = Join-Path $PWD "SE"
+if (-not (Test-Path $seDir)) {{ New-Item -ItemType Directory -Path $seDir -Force | Out-Null }}
+
+{joined_blocks}
+
+try {{
+    Set-Clipboard -Value $code_usecase
+    Write-Host "`n[OK] Use Case Diagram copied to clipboard! (Ctrl + V to paste)" -ForegroundColor White
+}} catch {{}}
+
+Write-Host "`n[OK] All 4 diagrams for {cs['title']} successfully saved into SE\\ directory!" -ForegroundColor White
+Write-Host "[*] Created: {slug}_usecase.mmd, {slug}_class.mmd, {slug}_dfd.mmd, {slug}_activity.mmd" -ForegroundColor Gray
 """
         (SE_PUBLIC / f"{slug}-all.ps1").write_text(all_ps1, encoding="utf-8")
+        (SE_PUBLIC / f"{slug}.ps1").write_text(all_ps1, encoding="utf-8")
 
     # Generate master se.ps1 interactive selector supporting all 25 case studies
     options_menu = []

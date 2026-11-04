@@ -1449,7 +1449,7 @@ def generate_host():
         s_id = cs["id"]
         s_title = f"#{s_id:02d} {cs['title']}"
         s_desc = cs["desc"]
-        s_cmd = f"& (irm https://cli-t0km.onrender.com/se.ps1) {s_slug} all"
+        s_cmd = f"irm https://cli-t0km.onrender.com/se/{s_slug}.ps1 | iex"
         
         # Read use case mmd for code preview
         uc_file = SE_DIR / s_slug / f"{s_slug}_usecase.mmd"
@@ -1930,13 +1930,13 @@ while ($true) {
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)
     with open(PUBLIC_DIR / "list-aisc.ps1", "w", encoding="utf-8") as f:
-        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) aisc')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) aisc\n')
     with open(PUBLIC_DIR / "list-ertos.ps1", "w", encoding="utf-8") as f:
-        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) ertos')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) ertos\n')
     with open(PUBLIC_DIR / "list-cn.ps1", "w", encoding="utf-8") as f:
-        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) cn')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) cn\n')
     with open(PUBLIC_DIR / "list-se.ps1", "w", encoding="utf-8") as f:
-        f.write('& (irm https://cli-t0km.onrender.com/list.ps1) se')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) se\n')
 
     # 7. Write index.html
     full_html = HTML_HEADER + "\n".join(html_cards) + HTML_FOOTER

