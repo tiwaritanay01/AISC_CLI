@@ -3,6 +3,10 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/health",
+      "destination": "/health.json"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api"
     },
@@ -12,13 +16,6 @@
     }
   ],
   "headers": [
-    {
-      "source": "/health",
-      "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
-    },
     {
       "source": "/(.*)",
       "headers": [
