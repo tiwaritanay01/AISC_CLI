@@ -16,3 +16,4 @@ from server import app
 
 # Vercel looks for 'app' variable at module level
 __all__ = ["app"]
+
