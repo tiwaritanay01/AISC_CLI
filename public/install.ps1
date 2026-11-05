@@ -1,10 +1,10 @@
 # scripts/install_windows.ps1
 # LabX Remote - Automated Student Installation Script for Windows
-# Run in PowerShell: irm https://cli-ashen-two.vercel.app/install.ps1 | iex
+# Run in PowerShell: irm https://cli-t0km.onrender.com/install.ps1 | iex
 
 param (
     [string]$InstallDir = "$env:LOCALAPPDATA\Programs\LabX",
-    [string]$ReleaseUrl = "https://cli-ashen-two.vercel.app/downloads/labx.exe"
+    [string]$ReleaseUrl = "https://cli-t0km.onrender.com/downloads/labx.exe"
 )
 
 $ErrorActionPreference = "Stop"

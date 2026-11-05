@@ -1,4 +1,5 @@
 # LabX Remote: AISC Practical 12 (AI Agent for Automation using n8n Workflow Architecture)
+$clipCode = $null
 $filename = "n8n_agent_simulator.py"
 $code = @'
 import json
@@ -80,6 +81,7 @@ if __name__ == "__main__":
 $target = Join-Path $PWD $filename
 Set-Content -Path $target -Value $code -Encoding utf8
 Write-Host "[OK] Saved: $filename (Theory embedded after line 50)" -ForegroundColor White
+if (-not $clipCode -or $filename.EndsWith(".py")) { $clipCode = $code }
 
 $filename = "n8n_workflow.json"
 $code = @'
@@ -111,5 +113,17 @@ $code = @'
 $target = Join-Path $PWD $filename
 Set-Content -Path $target -Value $code -Encoding utf8
 Write-Host "[OK] Saved: $filename (Theory embedded after line 50)" -ForegroundColor White
+if (-not $clipCode -or $filename.EndsWith(".py")) { $clipCode = $code }
 
+if ($clipCode) {
+    try {
+        Set-Clipboard -Value $clipCode -ErrorAction Stop
+        Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White
+    } catch {
+        try {
+            $clipCode | clip.exe
+            Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White
+        } catch {}
+    }
+}
 Write-Host "[OK] AISC Practical 12 ready!" -ForegroundColor White

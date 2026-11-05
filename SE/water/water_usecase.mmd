@@ -1,0 +1,39 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff'}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM ["Water Supply Management System (System Boundary)"]
+        UC01(["UC01: Register & Authenticate Consumer"])
+        UC02(["UC02: Search & View Water Items"])
+        UC03(["UC03: Create New Booking / Request"])
+        UC04(["UC04: Process Verification & Approvals"])
+        UC05(["UC05: Generate Invoice & Process Payment"])
+        UC06(["UC06: Update Central Records & Inventory"])
+        UC07(["UC07: Generate Operational & Audit Reports"])
+    end
+
+    %% Actors
+    Consumer["<<Actor>>\nConsumer"]:::actorStyle
+    WaterDistributor["<<Actor>>\nWaterDistributor"]:::actorStyle
+    DeliveryDriver["<<Actor>>\nDeliveryDriver"]:::actorStyle
+    PlantManager["<<Actor>>\nPlantManager"]:::actorStyle
+
+    %% Actor to Use Case Associations
+    Consumer --> UC01
+    Consumer --> UC02
+    Consumer --> UC03
+    Consumer --> UC05
+    WaterDistributor --> UC02
+    WaterDistributor --> UC03
+    WaterDistributor --> UC04
+    WaterDistributor --> UC06
+    PlantManager --> UC04
+    PlantManager --> UC06
+    PlantManager --> UC07
+
+    %% Include & Extend Relationships
+    UC03 -.->|<<include>>| UC02
+    UC04 -.->|<<include>>| UC03
+    UC05 -.->|<<include>>| UC04
+    UC07 -.->|<<extend>>| UC06

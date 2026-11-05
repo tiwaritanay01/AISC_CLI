@@ -4,7 +4,7 @@ if (-not $Id) {
 }
 
 $intId = [int]$Id
-$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
+$cat = Invoke-RestMethod "https://nirpin.vercel.app/catalog.json"
 
 if ($Lab -eq "ertos" -or $Lab -eq "es") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
@@ -29,22 +29,36 @@ if (-not $item) {
 }
 
 $num = "{0:D2}" -f [int]$item.id
-$mf = Invoke-RestMethod "https://cli-t0km.onrender.com/$($item.manifest_url)"
+$mf = Invoke-RestMethod "https://nirpin.vercel.app/$($item.manifest_url)"
 $dir = "Experiment$num"
 New-Item -ItemType Directory -Path $dir -Force | Out-Null
 foreach ($f in $mf.files) {
-    Invoke-WebRequest "https://cli-t0km.onrender.com/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
 }
 Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
+
+if ($item.subject -eq "AISC") {
+    $pyFile = $mf.files | Where-Object { $_.path.EndsWith(".py") } | Select-Object -First 1
+    if ($pyFile) {
+        try {
+            $pyPath = Join-Path $dir $pyFile.path
+            $pyContent = Get-Content -Path $pyPath -Raw -Encoding utf8
+            Set-Clipboard -Value $pyContent -ErrorAction Stop
+            Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White
+        } catch {
+            try { $pyContent | clip.exe; Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White } catch {}
+        }
+    }
+}
 
 if ($item.output_files) {
     foreach ($outP in $item.output_files) {
         $outName = Split-Path $outP -Leaf
-        Invoke-WebRequest "https://cli-t0km.onrender.com/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+        Invoke-WebRequest "https://nirpin.vercel.app/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
         Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
     }
 } elseif ($item.output_url) {
     $outName = Split-Path $item.output_url -Leaf
-    Invoke-WebRequest "https://cli-t0km.onrender.com/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
     Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
 }

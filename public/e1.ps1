@@ -74,7 +74,7 @@ Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -Fore
 
 $outTarget = Join-Path $PWD "ertos_exp01_output.pdf"
 try {
-    Invoke-WebRequest "https://cli-ashen-two.vercel.app/outputs/ertos_exp01_output.pdf" -OutFile $outTarget -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/outputs/ertos_exp01_output.pdf" -OutFile $outTarget -UseBasicParsing
     Write-Host "[OK] Downloaded Output to: ertos_exp01_output.pdf" -ForegroundColor White
 } catch {
     Write-Host "[!] Could not fetch ertos_exp01_output.pdf: $_" -ForegroundColor DarkGray

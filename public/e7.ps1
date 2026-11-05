@@ -74,14 +74,14 @@ Write-Host "[OK] Saved code to: $filename (Theory embedded after line 50)" -Fore
 
 $outTarget = Join-Path $PWD "ertos_exp07_output.jpg"
 try {
-    Invoke-WebRequest "https://cli-ashen-two.vercel.app/outputs/ertos_exp07_output.jpg" -OutFile $outTarget -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/outputs/ertos_exp07_output.jpg" -OutFile $outTarget -UseBasicParsing
     Write-Host "[OK] Downloaded Output to: ertos_exp07_output.jpg" -ForegroundColor White
 } catch {
     Write-Host "[!] Could not fetch ertos_exp07_output.jpg: $_" -ForegroundColor DarkGray
 }
 $outTarget = Join-Path $PWD "ertos_exp07_output.pdf"
 try {
-    Invoke-WebRequest "https://cli-ashen-two.vercel.app/outputs/ertos_exp07_output.pdf" -OutFile $outTarget -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/outputs/ertos_exp07_output.pdf" -OutFile $outTarget -UseBasicParsing
     Write-Host "[OK] Downloaded Output to: ertos_exp07_output.pdf" -ForegroundColor White
 } catch {
     Write-Host "[!] Could not fetch ertos_exp07_output.pdf: $_" -ForegroundColor DarkGray

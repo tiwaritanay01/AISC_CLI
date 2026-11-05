@@ -1,0 +1,37 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff'}}}%%
+flowchart LR
+    classDef default fill:#ffffff,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef actorStyle fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0;
+
+    subgraph SYSTEM ["Project Management System (System Boundary)"]
+        UC01(["UC01: Create Project & Define Scope"])
+        UC02(["UC02: Breakdown Work Breakdown Structure (WBS)"])
+        UC03(["UC03: Assign Tasks & Allocate Resources"])
+        UC04(["UC04: Log Timesheet & Update Progress"])
+        UC05(["UC05: Track Sprint Burndown & Milestones"])
+        UC06(["UC06: Review Deliverables & Signoff"])
+        UC07(["UC07: Generate Project Health & Budget Reports"])
+    end
+
+    %% Actors
+    TeamMember["<<Actor>>\nTeamMember"]:::actorStyle
+    ProjectManager["<<Actor>>\nProjectManager"]:::actorStyle
+    Client["<<Actor>>\nClient"]:::actorStyle
+    Executive["<<Actor>>\nExecutive"]:::actorStyle
+
+    %% Actor to Use Case Associations
+    TeamMember --> UC04
+    TeamMember --> UC05
+    ProjectManager --> UC01
+    ProjectManager --> UC02
+    ProjectManager --> UC03
+    ProjectManager --> UC05
+    ProjectManager --> UC07
+    Client --> UC06
+    Client --> UC07
+    Executive --> UC07
+
+    %% Include & Extend Relationships
+    UC02 -.->|<<include>>| UC01
+    UC03 -.->|<<include>>| UC02
+    UC05 -.->|<<extend>>| UC04

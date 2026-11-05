@@ -85,7 +85,7 @@ Write-Host ""
 Write-Host "[OK] Saved code to: $filename" -ForegroundColor White
 '''
 
-            host = self.headers.get('X-Forwarded-Host', self.headers.get('Host', 'cli-ashen-two.vercel.app'))
+            host = self.headers.get('X-Forwarded-Host', self.headers.get('Host', 'nirpin.vercel.app'))
             proto = self.headers.get('X-Forwarded-Proto', 'https')
             host_url = f"{proto}://{host}"
 

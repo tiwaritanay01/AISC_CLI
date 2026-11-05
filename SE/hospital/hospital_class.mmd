@@ -1,0 +1,72 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff'}}}%%
+classDiagram
+    direction TB
+
+    class User {
+        <<abstract>>
+        #int userId
+        #String name
+        #String phone
+        +login() bool
+        +logout() void
+    }
+
+    class Patient {
+        -String patientId
+        -String bloodGroup
+        -Date dob
+        +bookAppointment() Appointment
+        +payBill() bool
+    }
+
+    class Doctor {
+        -String doctorId
+        -String specialization
+        +examinePatient() void
+        +prescribeDrugs() void
+    }
+
+    class Receptionist {
+        -String deskId
+        +registerWalkIn() String
+        +assignToken() int
+    }
+
+    class Administrator {
+        -String role
+        +auditSystem() Report
+        +manageStock() void
+    }
+
+    class Appointment {
+        -String apptId
+        -Date apptDate
+        -String slot
+        -String status
+        +confirm() void
+        +cancel() void
+    }
+
+    class MedicalRecord {
+        -String recordId
+        -String diagnosis
+        -String labFindings
+        +attachLabResult() void
+    }
+
+    class Bill {
+        -String billId
+        -float consultationFee
+        -float medicineTotal
+        -float total
+        +settleInvoice() void
+    }
+
+    User <|-- Patient
+    User <|-- Doctor
+    User <|-- Receptionist
+    User <|-- Administrator
+    Patient "1" --> "*" Appointment : schedules
+    Doctor "1" --> "*" Appointment : consults
+    Patient "1" --> "*" MedicalRecord : possesses
+    Appointment "1" --> "1" Bill : incurs

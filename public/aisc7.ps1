@@ -1,4 +1,5 @@
 # LabX Remote: AISC Practical 07 (Unsupervised Learning using K-Means Clustering)
+$clipCode = $null
 $filename = "kmeans_clustering.py"
 $code = @'
 import numpy as np
@@ -67,5 +68,17 @@ if __name__ == "__main__":
 $target = Join-Path $PWD $filename
 Set-Content -Path $target -Value $code -Encoding utf8
 Write-Host "[OK] Saved: $filename (Theory embedded after line 50)" -ForegroundColor White
+if (-not $clipCode -or $filename.EndsWith(".py")) { $clipCode = $code }
 
+if ($clipCode) {
+    try {
+        Set-Clipboard -Value $clipCode -ErrorAction Stop
+        Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White
+    } catch {
+        try {
+            $clipCode | clip.exe
+            Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White
+        } catch {}
+    }
+}
 Write-Host "[OK] AISC Practical 07 ready!" -ForegroundColor White

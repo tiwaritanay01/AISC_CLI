@@ -161,7 +161,7 @@ while ($true) {
     }
 
     if ($cleanDiag -eq "all") {
-        $url = "https://cli-t0km.onrender.com/se/$cleanTopic-all.ps1"
+        $url = "https://nirpin.vercel.app/se/$cleanTopic-all.ps1"
         Invoke-Expression (Invoke-RestMethod $url)
     } else {
         $validDiags = @("usecase", "class", "dfd", "activity")
@@ -169,7 +169,7 @@ while ($true) {
             Write-Host "[!] Unknown diagram '$cleanDiag'. Defaulting to 'usecase'." -ForegroundColor DarkGray
             $cleanDiag = "usecase"
         }
-        $url = "https://cli-t0km.onrender.com/se/$cleanTopic-$cleanDiag.ps1"
+        $url = "https://nirpin.vercel.app/se/$cleanTopic-$cleanDiag.ps1"
         Invoke-Expression (Invoke-RestMethod $url)
     }
 

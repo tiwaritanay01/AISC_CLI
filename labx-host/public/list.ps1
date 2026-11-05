@@ -1,6 +1,6 @@
 param([string]$Subject = "", [string]$Item = "")
 
-$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
+$cat = Invoke-RestMethod "https://nirpin.vercel.app/catalog.json"
 
 function Show-Header {
     param([string]$Title)
@@ -59,11 +59,11 @@ while ($true) {
         $pick = if ($Item) { $Item } else { Read-Host "Enter practical to pull [1-12, 'all', or 'b' for back]" }
         if ($pick -and $pick -ne "b" -and $pick -ne "back") {
             if ($pick -eq "all") {
-                irm https://cli-t0km.onrender.com/aisc.ps1 | iex
+                irm https://nirpin.vercel.app/aisc.ps1 | iex
             } else {
                 $num = [int]$pick
                 if ($num -ge 1 -and $num -le 12) {
-                    $url = "https://cli-t0km.onrender.com/a$num.ps1"
+                    $url = "https://nirpin.vercel.app/a$num.ps1"
                     Invoke-Expression (Invoke-RestMethod $url)
                 }
             }
@@ -87,11 +87,11 @@ while ($true) {
         $pick = if ($Item) { $Item } else { Read-Host "Enter experiment to pull [1-10, 'all', or 'b' for back]" }
         if ($pick -and $pick -ne "b" -and $pick -ne "back") {
             if ($pick -eq "all") {
-                irm https://cli-t0km.onrender.com/ertos.ps1 | iex
+                irm https://nirpin.vercel.app/ertos.ps1 | iex
             } else {
                 $num = [int]$pick
                 if ($num -ge 1 -and $num -le 10) {
-                    $url = "https://cli-t0km.onrender.com/e$num.ps1"
+                    $url = "https://nirpin.vercel.app/e$num.ps1"
                     Invoke-Expression (Invoke-RestMethod $url)
                 }
             }
@@ -112,19 +112,19 @@ while ($true) {
         $pick = if ($Item) { $Item } else { Read-Host "Enter experiment to pull [6-12, 'all', or 'b' for back]" }
         if ($pick -and $pick -ne "b" -and $pick -ne "back") {
             if ($pick -eq "all") {
-                irm https://cli-t0km.onrender.com/cn.ps1 | iex
+                irm https://nirpin.vercel.app/cn.ps1 | iex
             } else {
                 $cleanPick = $pick.ToLower().Replace("cn", "").Trim()
                 $num = [int]$cleanPick
                 if ($num -ge 6 -and $num -le 12) {
-                    $url = "https://cli-t0km.onrender.com/cn$num.ps1"
+                    $url = "https://nirpin.vercel.app/cn$num.ps1"
                     Invoke-Expression (Invoke-RestMethod $url)
                 }
             }
         }
     }
     elseif ($cleanSub -eq "se") {
-        irm https://cli-t0km.onrender.com/se.ps1 | iex
+        irm https://nirpin.vercel.app/se.ps1 | iex
     }
     else {
         Show-Header "All Laboratory Experiments Overview"
