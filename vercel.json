@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "labx-host/public/{*.ps1,*.json,*.html,se/**,outputs/**,experiments/**}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/downloads/(.*)",
+      "destination": "/downloads/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.py"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, HEAD, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization, X-Requested-With" }
+      ]
+    }
+  ]
+}

@@ -701,6 +701,10 @@ HTML_FOOTER = """      </div>
     }
 
     function copyText(btn, text) {
+      if (text && (text.includes('cli-t0km.onrender.com') || text.includes('aisccli.netlify.app'))) {
+        text = text.replaceAll('https://cli-t0km.onrender.com', window.location.origin)
+                   .replaceAll('https://aisccli.netlify.app', window.location.origin);
+      }
       const span = btn.querySelector('span');
       const originalText = span ? span.textContent : 'Copy';
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1554,6 +1558,13 @@ def generate_host():
     # Cleanup staging
     for stg in [zip_staging_all, zip_staging_ertos, zip_staging_aisc, zip_staging_cn]:
         shutil.rmtree(stg)
+
+    # Sync downloads to root public/downloads for static CDN hosting (Vercel)
+    root_dl = BASE_DIR / "public" / "downloads"
+    root_dl.mkdir(parents=True, exist_ok=True)
+    for dl_file in DL_DIR.glob("*"):
+        if dl_file.is_file():
+            shutil.copy2(dl_file, root_dl / dl_file.name)
 
     # 6. PowerShell scripts
     all_ps1 = f"""$zip = Join-Path $PWD "labx_temp.zip"

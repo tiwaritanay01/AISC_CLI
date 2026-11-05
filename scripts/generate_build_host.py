@@ -721,6 +721,10 @@ html_footer_template = '''HTML_FOOTER = """      </div>
     }
 
     function copyText(btn, text) {
+      if (text && (text.includes('cli-t0km.onrender.com') || text.includes('aisccli.netlify.app'))) {
+        text = text.replaceAll('https://cli-t0km.onrender.com', window.location.origin)
+                   .replaceAll('https://aisccli.netlify.app', window.location.origin);
+      }
       const span = btn.querySelector('span');
       const originalText = span ? span.textContent : 'Copy';
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1578,6 +1582,13 @@ generate_host_code = '''def generate_host():
     for stg in [zip_staging_all, zip_staging_ertos, zip_staging_aisc, zip_staging_cn]:
         shutil.rmtree(stg)
 
+    # Sync downloads to root public/downloads for static CDN hosting (Vercel)
+    root_dl = BASE_DIR / "public" / "downloads"
+    root_dl.mkdir(parents=True, exist_ok=True)
+    for dl_file in DL_DIR.glob("*"):
+        if dl_file.is_file():
+            shutil.copy2(dl_file, root_dl / dl_file.name)
+
     # 6. PowerShell scripts
     all_ps1 = f"""$zip = Join-Path $PWD "labx_temp.zip"
 Write-Host "Downloading all {len(EXPERIMENTS)} experiments (AISC, ES & RTOS, and Computer Networks) from LabX Remote..." -ForegroundColor White
@@ -1953,13 +1964,13 @@ while ($true) {
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)
     with open(PUBLIC_DIR / "list-aisc.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) aisc\n')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) aisc\\n')
     with open(PUBLIC_DIR / "list-ertos.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) ertos\n')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) ertos\\n')
     with open(PUBLIC_DIR / "list-cn.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) cn\n')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) cn\\n')
     with open(PUBLIC_DIR / "list-se.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\n& ([scriptblock]::Create($s)) se\n')
+        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) se\\n')
 
     # 7. Write index.html
     full_html = HTML_HEADER + "\\n".join(html_cards) + HTML_FOOTER

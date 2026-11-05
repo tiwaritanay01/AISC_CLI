@@ -16,8 +16,15 @@ from flask import Flask, send_from_directory, request, jsonify, redirect, Respon
 # Directory paths
 BASE_DIR = Path(__file__).resolve().parent
 PUBLIC_DIR = BASE_DIR / "labx-host" / "public"
+ROOT_PUBLIC_DIR = BASE_DIR / "public"
 
 app = Flask(__name__, static_folder=None)
+
+def get_current_host():
+    """Extracts reliable public host and protocol behind reverse proxies (Vercel, Render)."""
+    proto = request.headers.get("X-Forwarded-Proto", request.scheme)
+    host = request.headers.get("X-Forwarded-Host", request.host)
+    return f"{proto}://{host}".rstrip("/")
 
 # Ensure CORS on all responses
 @app.after_request
@@ -84,7 +91,7 @@ Write-Host "[OK] Saved code to: $filename" -ForegroundColor White
 '''
 
         # Publish to dpaste
-        host_url = request.host_url.rstrip("/")
+        host_url = get_current_host()
         try:
             resp = requests.post(
                 "https://dpaste.org/api/",
@@ -156,7 +163,7 @@ def index():
     if not target.exists():
         return Response("Not Found", status=404)
     content = target.read_text(encoding="utf-8")
-    current_host = request.host_url.rstrip("/")
+    current_host = get_current_host()
     content = content.replace("https://aisccli.netlify.app", current_host)
     content = content.replace("https://cli-t0km.onrender.com", current_host)
     return Response(content, mimetype="text/html; charset=utf-8")
@@ -170,17 +177,21 @@ def static_files(filepath):
     """
     target = PUBLIC_DIR / filepath
     if not target.exists() or target.is_dir():
-        # Fallback to index.html for SPA routes if any
-        if (PUBLIC_DIR / "index.html").exists():
+        # Check root public directory if not found in labx-host/public
+        alt = ROOT_PUBLIC_DIR / filepath
+        if alt.exists() and not alt.is_dir():
+            target = alt
+        elif (PUBLIC_DIR / "index.html").exists():
             return index()
-        return Response("Not Found", status=404)
+        else:
+            return Response("Not Found", status=404)
 
     ext = target.suffix.lower()
 
     # Dynamic host adaptation for scripts and web pages
     if ext in [".ps1", ".json", ".html", ".sh"]:
         content = target.read_text(encoding="utf-8")
-        current_host = request.host_url.rstrip("/")
+        current_host = get_current_host()
         content = content.replace("https://aisccli.netlify.app", current_host)
         content = content.replace("https://cli-t0km.onrender.com", current_host)
         
