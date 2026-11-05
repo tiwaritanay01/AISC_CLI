@@ -1,0 +1,36 @@
+{
+  "id": 8,
+  "slug": "hopfield-associative-memory-network",
+  "title": "Associative Memory Network (Hopfield Network)",
+  "language": "python",
+  "aliases": [
+    "hopfield",
+    "associative memory",
+    "hebbian learning",
+    "pattern recall",
+    "hopfield network"
+  ],
+  "description": "Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.",
+  "aim": "To implement an Associative Memory Network (Hopfield Network) for pattern storage and associative recall.",
+  "theory": "Associative memory stores patterns as high-dimensional vectors and retrieves them by similarity. The classic Hopfield network uses a symmetric weight matrix built from outer products of stored patterns, and updates neurons asynchronously until convergence. Retrieval works by presenting a noisy or incomplete pattern, then iteratively applying the sign of the weighted sum until the state stabilizes to the nearest stored pattern. TODO: compute weight matrix W = \u03a3_i p_i p_i\u1d40 - N\u00b7I, then iterate v \u2190 sign(Wv) until convergence.",
+  "algorithm": [
+    "Initialize zero weight matrix of size N x N.",
+    "For each bipolar prototype pattern P: compute outer product P . P^T and add to weight matrix.",
+    "Zero out diagonal entries (no self-loops: W_ii = 0) and normalize weights by 1/N.",
+    "To recall: initialize network state with noisy probe pattern.",
+    "Iteratively update neuron states: state_i = +1 if sum(W_ij * state_j) >= 0 else -1.",
+    "Repeat until state stabilizes at the nearest stored memory attractor."
+  ],
+  "files": [
+    {
+      "path": "hopfield_network.py",
+      "source": "hopfield_network.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "hopfield_network.py"
+  },
+  "version": "1.0.0"
+}

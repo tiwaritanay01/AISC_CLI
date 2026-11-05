@@ -1,0 +1,36 @@
+{
+  "id": 4,
+  "slug": "alpha-beta-pruning",
+  "title": "Implementation of Alpha-Beta Pruning Algorithm",
+  "language": "python",
+  "aliases": [
+    "alpha beta",
+    "game search",
+    "minimax",
+    "alpha beta pruning",
+    "adversarial search"
+  ],
+  "description": "Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.",
+  "aim": "To implement Minimax Search with Alpha-Beta Pruning for two-player adversarial games.",
+  "theory": "Alpha-Beta Pruning is a search algorithm used to reduce the number of nodes to be evaluated in a minimax tree, it considers two values alpha and beta which represent the best possible score for the maximizing player and the minimizing player respectively. The algorithm works by maintaining a window of possible scores, if the score of a node is outside this window it can be pruned, reducing the number of nodes to be evaluated. The alpha value is the best possible score for the maximizing player, while the beta value is the best possible score for the minimizing player, the algorithm prunes nodes that are guaranteed to have a score outside the alpha-beta window.",
+  "algorithm": [
+    "Initialize alpha = -infinity, beta = +infinity.",
+    "For maximizing player: evaluate each child, update value = max(value, child_score), update alpha = max(alpha, value).",
+    "If beta <= alpha, break loop (prune remaining siblings).",
+    "For minimizing player: evaluate each child, update value = min(value, child_score), update beta = min(beta, value).",
+    "If beta <= alpha, break loop (prune remaining siblings).",
+    "Return optimal evaluated terminal score."
+  ],
+  "files": [
+    {
+      "path": "alpha_beta_pruning.py",
+      "source": "alpha_beta_pruning.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "alpha_beta_pruning.py"
+  },
+  "version": "1.0.0"
+}

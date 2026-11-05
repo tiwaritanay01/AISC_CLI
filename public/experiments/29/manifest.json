@@ -1,0 +1,43 @@
+{
+  "id": 29,
+  "slug": "cn-dynamic-routing-rip-v2",
+  "title": "Dynamic Routing Configuration using RIP v2 in GNS3",
+  "language": "text",
+  "aliases": [
+    "rip",
+    "rip v2",
+    "dynamic routing",
+    "routing rip",
+    "gns3 rip",
+    "cn 12",
+    "cn 8 rip",
+    "distance vector",
+    "router rip"
+  ],
+  "description": "Complete Cisco IOS and VPCS terminal configuration commands for activating Dynamic Routing Information Protocol (RIP v2) across routers R1 and R2 with classless routing in GNS3.",
+  "aim": "To configure and verify Dynamic Routing using RIP version 2 between two Cisco routers connecting distinct subnets using GNS3.",
+  "theory": "Routing Information Protocol (RIP) is an Interior Gateway Protocol (IGP) based on the Bellman-Ford Distance-Vector routing algorithm. RIP uses hop count as its primary routing metric (maximum 15 hops, 16 is unreachable). RIP version 2 improves upon RIP v1 by supporting classless inter-domain routing (CIDR), Variable Length Subnet Masking (VLSM) via 'no auto-summary', route summarization, and multicast updates (224.0.0.9). In this topology, routers R1 and R2 dynamically advertise directly connected subnets, compute optimal routing tables with periodic update timers (30 seconds), and converge to enable end-to-end ICMP ping traffic.",
+  "algorithm": [
+    "Configure host IP and default gateway on PC1 (192.168.1.2/24 -> gateway 192.168.1.1).",
+    "Ensure FastEthernet interfaces on R1 and R2 have IP addresses and static routes are cleared.",
+    "On R1, enter router configuration mode: 'router rip'.",
+    "Specify protocol version: 'version 2' and disable classful boundary aggregation: 'no auto-summary'.",
+    "Advertise networks connected to R1: 'network 192.168.1.0' and 'network 192.168.2.0'.",
+    "On R2, configure RIP v2: 'router rip', 'version 2', 'no auto-summary', and advertise 'network 192.168.2.0' and 'network 192.168.3.0'.",
+    "Configure host IP and default gateway on PC2 (192.168.3.2/24 -> gateway 192.168.3.1).",
+    "Verify routing table convergence on R1 and R2 with 'show ip route' (confirm learned routes marked with 'R').",
+    "Test full bidirectional network reachability by pinging PC2 from PC1 (ping 192.168.3.2) and vice-versa."
+  ],
+  "files": [
+    {
+      "path": "dynamic_routing_rip_v2_commands.txt",
+      "source": "dynamic_routing_rip_v2_commands.txt",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "manual",
+    "entry": "dynamic_routing_rip_v2_commands.txt"
+  },
+  "version": "1.0.0"
+}

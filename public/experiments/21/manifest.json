@@ -1,0 +1,37 @@
+{
+  "id": 21,
+  "slug": "freertos-ipc-queue-eventgroup",
+  "title": "Multitasking Real-Time IPC using Message Queue, Event Group & Semaphore",
+  "language": "cpp",
+  "aliases": [
+    "freertos ipc",
+    "message queue",
+    "event group",
+    "rtos queue",
+    "inter process communication"
+  ],
+  "description": "Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.",
+  "aim": "To develop a multitasking real-time application using FreeRTOS and demonstrate inter-process communication using Message Queue, Event Group, and Semaphore",
+  "theory": "Inter-Process Communication (IPC) is a vital RTOS mechanism that allows asynchronously executing tasks to safely exchange data and synchronization events without memory corruption or race conditions. FreeRTOS provides Message Queues (xQueueCreate, xQueueSend, xQueueReceive) for thread-safe FIFO passing of data packets, Event Groups (xEventGroupCreate, xEventGroupSetBits, xEventGroupWaitBits) for compound multi-task flag synchronization, and Semaphores/Mutexes for mutually exclusive hardware bus access. In this experiment, a producer task sends data packets through a queue while an event group signals synchronization milestones.",
+  "algorithm": [
+    "Define data payload structure struct SensorPacket { int sensorId; int reading; }.",
+    "Create a Message Queue of capacity 5 using xQueueCreate.",
+    "Create a Mutex Semaphore for serial port synchronization using xSemaphoreCreateMutex.",
+    "Create Producer Task that populates packets and calls xQueueSend.",
+    "Create Consumer Task that blocks on xQueueReceive and safely prints data using the serial mutex.",
+    "Verify race-free inter-task communication via the serial monitor."
+  ],
+  "files": [
+    {
+      "path": "freertos_ipc.ino",
+      "source": "freertos_ipc.ino",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "freertos_ipc.ino",
+    "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
+  },
+  "version": "1.0.0"
+}

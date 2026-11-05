@@ -1,0 +1,36 @@
+{
+  "id": 2,
+  "slug": "a-star-15-puzzle-problem",
+  "title": "Informed Search - A* Algorithm for 15-Puzzle Problem",
+  "language": "python",
+  "aliases": [
+    "a star",
+    "15 puzzle",
+    "a star algorithm",
+    "informed search",
+    "manhattan distance"
+  ],
+  "description": "Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.",
+  "aim": "Informed Search - A* Algorithm for the 15-Puzzle Problem using Manhattan Distance heuristic.",
+  "theory": "The A* algorithm is an informed search strategy used to find the shortest path between two nodes in a weighted graph. It uses a best-first search approach, where the node with the lowest estimated total cost is chosen next. The algorithm consists of a priority queue to hold nodes to be evaluated, a set of visited nodes, and a heuristic function to estimate the distance from a node to the goal. The heuristic function guides the search towards the goal, making it more efficient than uninformed search algorithms. The algorithm terminates when the goal node is reached or the queue is empty.",
+  "algorithm": [
+    "Initialize priority queue with start state, g=0, and f=manhattan(start).",
+    "Pop state with minimum f-value from priority queue.",
+    "If current state matches GOAL, return reconstructed solution path.",
+    "Generate valid neighbor states by sliding empty tile (0) in 4 directions.",
+    "For each unvisited neighbor, compute g_new = g + 1, f_new = g_new + manhattan(neighbor).",
+    "Push updated states into priority queue and repeat until goal is reached."
+  ],
+  "files": [
+    {
+      "path": "a_star_15_puzzle.py",
+      "source": "a_star_15_puzzle.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "a_star_15_puzzle.py"
+  },
+  "version": "1.0.0"
+}

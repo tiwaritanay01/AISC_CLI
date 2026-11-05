@@ -1,0 +1,36 @@
+{
+  "id": 5,
+  "slug": "single-layer-perceptron-slp",
+  "title": "Single Layer Perceptron (SLP) for Binary Classification",
+  "language": "python",
+  "aliases": [
+    "perceptron",
+    "slp",
+    "single layer perceptron",
+    "perceptron learning rule",
+    "binary classification"
+  ],
+  "description": "Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.",
+  "aim": "To implement a Single Layer Perceptron (SLP) neural network using the Perceptron Learning Rule to classify linearly separable binary patterns.",
+  "theory": "A Single Layer Perceptron is a type of feedforward neural network that consists of an input layer and an output layer, with no hidden layers. The Perceptron Learning Rule is an algorithm used to train the SLP, which is based on the concept of supervised learning. The goal of the SLP is to classify linearly separable binary patterns into two distinct classes. The Perceptron Learning Rule works by iteratively adjusting the weights of the connections between the input and output layers to minimize the error between the predicted output and the actual output. The SLP uses a threshold function to make predictions, where if the weighted sum of the inputs is greater than or equal to the threshold, the output is 1, otherwise it is 0. The Perceptron Learning Rule updates the weights based on the difference between the predicted output and the actual output, and the learning process continues until the SLP is able to correctly classify all the training patterns.",
+  "algorithm": [
+    "Initialize weights vector W with zeros and bias b = 0.",
+    "For each training sample (x_i, target_i): compute linear output z = W . x_i + b.",
+    "Apply hard step activation: output = 1 if z >= 0 else 0.",
+    "Compute error = target - output.",
+    "Update weights: W += learning_rate * error * x_i; bias += learning_rate * error.",
+    "Repeat for specified epochs or until training error converges to zero."
+  ],
+  "files": [
+    {
+      "path": "perceptron_slp.py",
+      "source": "perceptron_slp.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "perceptron_slp.py"
+  },
+  "version": "1.0.0"
+}

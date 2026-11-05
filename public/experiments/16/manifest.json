@@ -1,0 +1,38 @@
+{
+  "id": 16,
+  "slug": "lpc2148-uart-serial",
+  "title": "Serial Communication using UART0 on LPC2148",
+  "language": "c",
+  "aliases": [
+    "uart",
+    "serial communication",
+    "lpc2148 uart",
+    "baud rate",
+    "uart0"
+  ],
+  "description": "Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.",
+  "aim": "Serial communication between controller boards or any other device (UART on LPC 2148)",
+  "theory": "LPC2148 features two asynchronous serial ports (UART0 and UART1). UART communication requires setting the baud rate generator using U0LCR (Line Control Register, DLAB=1), U0DLL, and U0DLM divider latches based on PCLK (Peripheral Clock). Data transmission occurs by polling the Transmit Holding Register Empty (THRE) flag in U0LSR and writing bytes to U0THR. Data reception polls the Receiver Data Ready (RDR) flag and reads from U0RBR. Setting word length to 8 bits, 1 stop bit, and no parity establishes standard 9600-8-N-1 serial framing.",
+  "algorithm": [
+    "Configure P0.0 as TXD0 and P0.1 as RXD0 using PINSEL0 (PINSEL0 |= 0x00000005).",
+    "Enable Divisor Latch Access Bit (DLAB = 1) in U0LCR.",
+    "Set baud rate divisor latches (U0DLL = 97, U0DLM = 0 for 9600 baud rate at PCLK=15MHz).",
+    "Clear DLAB bit and set 8-bit character length with 1 stop bit (U0LCR = 0x03).",
+    "Define UART0_SendChar and UART0_SendString functions by polling the THRE flag in U0LSR.",
+    "Define UART0_ReceiveChar by polling the RDR flag in U0LSR.",
+    "Send welcome message and echo back incoming serial keystrokes."
+  ],
+  "files": [
+    {
+      "path": "lpc2148_uart.c",
+      "source": "lpc2148_uart.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "lpc2148_uart.c",
+    "hardware": "NXP LPC2148 (ARM7TDMI-S)"
+  },
+  "version": "1.0.0"
+}

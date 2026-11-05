@@ -1,0 +1,23 @@
+{
+  "name": "LabX AI Agent Automation",
+  "nodes": [
+    {
+      "parameters": {"path": "labx-webhook"},
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300]
+    },
+    {
+      "parameters": {"model": "gpt-4o"},
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [450, 300]
+    },
+    {
+      "parameters": {"toEmail": "admin@college.edu"},
+      "name": "Email",
+      "type": "n8n-nodes-base.emailSend",
+      "position": [700, 200]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": 7,
+  "slug": "kmeans-unsupervised-clustering",
+  "title": "Unsupervised Learning using K-Means Clustering",
+  "language": "python",
+  "aliases": [
+    "kmeans",
+    "k-means",
+    "clustering",
+    "unsupervised learning",
+    "cluster centroids"
+  ],
+  "description": "K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.",
+  "aim": "To implement the Unsupervised Learning algorithm using K-Means Clustering to group unlabelled sample points.",
+  "theory": "Unsupervised learning finds structure in data without labels, using methods like clustering to group similar items and dimensionality reduction to uncover latent factors. Techniques such as k-means, DBSCAN, hierarchical clustering, PCA, t-SNE, and autoencoders help reveal patterns, anomalies, or low-dimensional representations. The goal is to extract insights, compress data, or prepare features for downstream tasks.",
+  "algorithm": [
+    "Select K centroid initial locations.",
+    "Compute Euclidean distance from each sample point to all K centroids.",
+    "Assign each sample point to the nearest cluster centroid.",
+    "Recalculate cluster centroids as the arithmetic mean of all points assigned to that cluster.",
+    "Repeat distance computation and reassignment until centroids stabilize and convergence is reached."
+  ],
+  "files": [
+    {
+      "path": "kmeans_clustering.py",
+      "source": "kmeans_clustering.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "kmeans_clustering.py"
+  },
+  "version": "1.0.0"
+}

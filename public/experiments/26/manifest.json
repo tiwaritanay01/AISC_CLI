@@ -1,0 +1,43 @@
+{
+  "id": 26,
+  "slug": "cn-socket-programming-java",
+  "title": "Experiment 9 \u2013 Client-Server Socket Programming in Java",
+  "language": "java",
+  "aliases": [
+    "socket",
+    "socket programming",
+    "java socket",
+    "tcp socket",
+    "cn 9",
+    "cn socket",
+    "tcp server client"
+  ],
+  "description": "Two-way client-server socket communication implementation in Java using ServerSocket and Socket classes over TCP.",
+  "aim": "To write a client-server socket program using TCP in Java for two-way communication.",
+  "theory": "A Network Socket is one endpoint of a two-way communication link between two programs over a computer network. The ServerSocket class binds to a local port and awaits client connections via accept(). The Socket class establishes connection to the server IP and port. Java streams (BufferedReader, PrintWriter) handle bidirectional character and data transmission.",
+  "algorithm": [
+    "Initialize ServerSocket on designated port (5000).",
+    "Invoke serverSocket.accept() to block and wait for client connection.",
+    "On client, create Socket(host, port) to perform TCP three-way handshake.",
+    "Bind BufferedReader and PrintWriter streams to socket input and output streams.",
+    "Client sends string message; Server receives, logs, and echoes back uppercase response.",
+    "When client sends termination signal (exit), cleanly close streams and socket handles."
+  ],
+  "files": [
+    {
+      "path": "TCPServer.java",
+      "source": "TCPServer.java",
+      "role": "source"
+    },
+    {
+      "path": "TCPClient.java",
+      "source": "TCPClient.java",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "java",
+    "entry": "TCPServer.java"
+  },
+  "version": "1.0.0"
+}

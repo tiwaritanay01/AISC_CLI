@@ -1,0 +1,35 @@
+{
+  "id": 25,
+  "slug": "cn-checksum-error-detection",
+  "title": "Experiment 8 \u2013 Checksum Error Detection",
+  "language": "c",
+  "aliases": [
+    "checksum",
+    "checksum detection",
+    "cn 8",
+    "cn exp 8",
+    "binary checksum"
+  ],
+  "description": "Implementation of Internet Checksum algorithm using 8-bit one's complement arithmetic and end-around carry.",
+  "aim": "To write a C program to implement Checksum error detection using one's complement addition.",
+  "theory": "The checksum algorithm partitions data into equal k-bit words and sums them using one's complement arithmetic with end-around carry. The sender transmits the bitwise complement as the checksum. The receiver sums data words plus checksum; a total equal to all 1s confirms error-free transmission.",
+  "algorithm": [
+    "Read number of 8-bit data words and their binary representations.",
+    "Accumulate one's complement sum with end-around carry for any overflow past 255.",
+    "Compute checksum as bitwise NOT of final accumulated sum.",
+    "At receiver, sum all received data words plus received checksum.",
+    "If receiver sum equals 255 (all 1s), report no error; otherwise report error detected."
+  ],
+  "files": [
+    {
+      "path": "checksum.c",
+      "source": "checksum.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "c",
+    "entry": "checksum.c"
+  },
+  "version": "1.0.0"
+}

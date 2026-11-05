@@ -1,0 +1,37 @@
+{
+  "id": 15,
+  "slug": "lpc2148-lcd-interfacing",
+  "title": "Interfacing 16x2 Alphanumeric LCD with LPC2148",
+  "language": "c",
+  "aliases": [
+    "lcd interfacing",
+    "lpc2148 lcd",
+    "16x2 lcd",
+    "hd44780",
+    "lcd display"
+  ],
+  "description": "8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.",
+  "aim": "Interfacing of LCD with an embedded core (LPC 2148)",
+  "theory": "A 16x2 alphanumeric LCD display interfaces with the LPC2148 using 8 data lines (D0-D7) and 3 control lines: RS (Register Select - 0 for command, 1 for data), RW (Read/Write - grounded for write), and EN (Enable - high-to-low pulse to latch data). Commands initialize display mode (0x38 for 8-bit, 2-line mode), display ON cursor OFF (0x0C), clear screen (0x01), and set DDRAM address (0x80 line 1, 0xC0 line 2). The LPC2148 drives the LCD by asserting RS, placing data on Port 0, and pulsing EN with sufficient setup and hold time.",
+  "algorithm": [
+    "Connect LCD data pins D0-D7 to P0.0-P0.7 and control pins RS, RW, EN to P0.8, P0.9, P0.10.",
+    "Configure P0.0 through P0.10 as GPIO outputs in PINSEL0 and IO0DIR.",
+    "Define LCD_Command function to latch command bytes (RS=0, RW=0, pulse EN).",
+    "Define LCD_Data function to latch character bytes (RS=1, RW=0, pulse EN).",
+    "Initialize LCD with commands 0x38 (8-bit mode), 0x0C (display ON), 0x06 (auto-increment), and 0x01 (clear screen).",
+    "Write custom strings to Line 1 and Line 2."
+  ],
+  "files": [
+    {
+      "path": "lpc2148_lcd.c",
+      "source": "lpc2148_lcd.c",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "lpc2148_lcd.c",
+    "hardware": "NXP LPC2148 (ARM7TDMI-S)"
+  },
+  "version": "1.0.0"
+}

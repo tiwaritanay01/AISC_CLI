@@ -1,0 +1,40 @@
+{
+  "id": 12,
+  "slug": "n8n-ai-agent-automation",
+  "title": "AI Agent for Automation using n8n Workflow Architecture",
+  "language": "python",
+  "aliases": [
+    "n8n",
+    "ai automation",
+    "agent workflow",
+    "n8n agent",
+    "automation agent"
+  ],
+  "description": "AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.",
+  "aim": "To create an AI agent for automation using node-based workflow tools like n8n.",
+  "theory": "n8n is a workflow automation tool that uses nodes to connect services via APIs. An AI agent can be built by creating a node that sends user input to an LLM (e.g., OpenAI) and processes the response. The workflow then routes the LLM output to subsequent nodes that perform actions like sending emails, updating databases, or triggering other APIs. By chaining these nodes, the agent can interpret natural language commands and execute complex automation tasks.",
+  "algorithm": [
+    "Capture user trigger via incoming Webhook / Chat node.",
+    "Forward prompt to LLM agent node configured with system prompt and available tools.",
+    "Parse model response into target action intent and parameter payload.",
+    "Conditionally branch execution through node routing connectors.",
+    "Execute automated external service operations and return status to caller."
+  ],
+  "files": [
+    {
+      "path": "n8n_agent_simulator.py",
+      "source": "n8n_agent_simulator.py",
+      "role": "source"
+    },
+    {
+      "path": "n8n_workflow.json",
+      "source": "n8n_workflow.json",
+      "role": "config"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "n8n_agent_simulator.py"
+  },
+  "version": "1.0.0"
+}

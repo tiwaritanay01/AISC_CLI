@@ -1,0 +1,35 @@
+{
+  "id": 3,
+  "slug": "dfid-uninformed-search",
+  "title": "Uninformed Search - Depth First Iterative Deepening (DFID)",
+  "language": "python",
+  "aliases": [
+    "dfid",
+    "iterative deepening",
+    "iddfs",
+    "uninformed search",
+    "depth first"
+  ],
+  "description": "Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.",
+  "aim": "Uninformed Search - Depth First Iterative Deepening (DFID) search implementation on state graphs.",
+  "theory": "Depth First Iterative Deepening is a search strategy that combines the benefits of Breadth First Search and Depth First Search. It works by performing a series of depth-first searches with increasing depth limits, starting from a small limit and gradually increasing it until the goal is found. The algorithm uses a stack to keep track of nodes to visit and their depths, and it backtracks when it reaches a node that exceeds the current depth limit. This approach allows DFID to find the shortest path to the goal while avoiding the high memory usage of Breadth First Search. The time complexity of DFID is O(b^d) and the space complexity is O(d), where b is the branching factor and d is the depth of the goal node.",
+  "algorithm": [
+    "Set current depth limit L = 0.",
+    "Execute recursive Depth-Limited Search (DLS) starting from root up to limit L.",
+    "If goal node is encountered during traversal, terminate search and return path.",
+    "If entire tree up to depth L is traversed without goal, increment L = L + 1.",
+    "Repeat until goal is found or maximum search depth is exhausted."
+  ],
+  "files": [
+    {
+      "path": "dfid_search.py",
+      "source": "dfid_search.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "dfid_search.py"
+  },
+  "version": "1.0.0"
+}

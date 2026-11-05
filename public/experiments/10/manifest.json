@@ -1,0 +1,36 @@
+{
+  "id": 10,
+  "slug": "fuzzy-control-system-simulation",
+  "title": "Fuzzy Control System Simulation (Fan Speed Controller)",
+  "language": "python",
+  "aliases": [
+    "fuzzy control",
+    "fuzzy controller",
+    "mamdani",
+    "temperature fan controller",
+    "fuzzy simulation"
+  ],
+  "description": "Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.",
+  "aim": "To write a program to simulate a fuzzy logic control system for temperature-dependent fan speed control.",
+  "theory": "Fuzzy control systems use linguistic variables and membership functions to map crisp inputs to fuzzy sets. Rules are expressed in IF-THEN form, combining antecedents with AND/OR operators to produce fuzzy outputs. Defuzzification (e.g., centroid) converts the aggregated fuzzy output back to a crisp control action. The system handles uncertainty by allowing partial membership, enabling smoother transitions than binary logic.",
+  "algorithm": [
+    "Define input linguistic variable (Temperature: Cold, Warm, Hot).",
+    "Define output linguistic variable (Fan Speed: Slow, Medium, Fast).",
+    "Define rule base: (Cold -> Slow), (Warm -> Medium), (Hot -> Fast).",
+    "Obtain crisp input temperature value.",
+    "Perform fuzzification, evaluate active rule firing strengths.",
+    "Defuzzify aggregated fuzzy region using centroid calculation and output crisp speed."
+  ],
+  "files": [
+    {
+      "path": "fuzzy_control_system.py",
+      "source": "fuzzy_control_system.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "fuzzy_control_system.py"
+  },
+  "version": "1.0.0"
+}

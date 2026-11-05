@@ -1,17 +1,17 @@
 {
   "version": 2,
-  "functions": {
-    "api/index.py": {
-      "includeFiles": "labx-host/public/{*.ps1,*.json,*.html,se/**,outputs/**,experiments/**}"
-    }
-  },
+  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/downloads/(.*)",
-      "destination": "/downloads/$1"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "source": "/(.*)",
+      "source": "/health",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/s/(.*)",
       "destination": "/api/index.py"
     }
   ],
@@ -26,4 +26,3 @@
     }
   ]
 }
-

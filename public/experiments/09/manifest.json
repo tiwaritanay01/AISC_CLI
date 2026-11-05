@@ -1,0 +1,35 @@
+{
+  "id": 9,
+  "slug": "fuzzy-membership-functions",
+  "title": "Implementation of Fuzzy Membership Functions",
+  "language": "python",
+  "aliases": [
+    "fuzzy membership",
+    "fuzzy logic",
+    "triangular membership",
+    "trapezoidal membership",
+    "soft computing"
+  ],
+  "description": "Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.",
+  "aim": "To implement fuzzy membership functions (Triangular and Trapezoidal) and calculate degrees of membership for inputs.",
+  "theory": "Fuzzy membership functions map crisp inputs to degrees of belonging between 0 and 1, enabling reasoning with imprecise data. Common shapes include triangular, trapezoidal, Gaussian, and sigmoid, each defined by a few parameters that control the width and center of the fuzzy set. The choice of shape affects smoothness, computational cost, and interpretability. Membership values are combined via fuzzy operators (AND, OR) and aggregated to produce fuzzy outputs, which are then defuzzified to crisp decisions. Proper tuning of parameters is essential for accurate modeling of real-world phenomena.",
+  "algorithm": [
+    "Define triangular function: max(min((x - a)/(b - a), (c - x)/(c - b)), 0).",
+    "Define trapezoidal function: max(min(min((x - a)/(b - a), 1), (d - x)/(d - c)), 0).",
+    "Generate discrete input universe of discourse X.",
+    "Compute membership degree for each input value.",
+    "Display membership evaluation table across boundary and transition points."
+  ],
+  "files": [
+    {
+      "path": "fuzzy_membership.py",
+      "source": "fuzzy_membership.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "fuzzy_membership.py"
+  },
+  "version": "1.0.0"
+}

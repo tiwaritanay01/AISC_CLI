@@ -1,0 +1,36 @@
+{
+  "id": 20,
+  "slug": "freertos-multiple-tasks-creation",
+  "title": "Creating Multiple Tasks in FreeRTOS with Priority Preemption",
+  "language": "cpp",
+  "aliases": [
+    "multiple tasks",
+    "freertos tasks",
+    "priority preemption",
+    "rtos multitasking"
+  ],
+  "description": "Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.",
+  "aim": "To create Multiple Task using free RTOS On an Arduino UNO and understanding the multitasking capabilities of RTOS",
+  "theory": "Multitasking in FreeRTOS enables the concurrent execution of multiple independent operational threads on a single core microcontroller. The FreeRTOS preemptive scheduler enforces priority-based task switching, ensuring that the highest priority ready task always gains execution control. In this experiment, three distinct tasks (Sensor Reading Task, Display/Telemetry Task, and Heartbeat Monitor Task) are instantiated with varying priorities to demonstrate how priority inversion is avoided and how tasks cleanly share CPU cycles.",
+  "algorithm": [
+    "Include Arduino_FreeRTOS library.",
+    "Define TaskSensorRead (priority 2), TaskDisplay (priority 1), and TaskHeartbeat (priority 1).",
+    "Allocate individual stack depths and task parameters for each task.",
+    "Create the three tasks in setup() using xTaskCreate.",
+    "Use vTaskDelayUntil or vTaskDelay for deterministic periodic execution.",
+    "Observe concurrent execution output on Arduino Serial Monitor."
+  ],
+  "files": [
+    {
+      "path": "freertos_multitask.ino",
+      "source": "freertos_multitask.ino",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "embedded",
+    "entry": "freertos_multitask.ino",
+    "hardware": "Arduino UNO (ATmega328P) / FreeRTOS"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,600 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-11-02T22:00:00Z",
+  "zip_url": "downloads/labx_experiments.zip",
+  "ertos_zip_url": "downloads/ertos.zip",
+  "cn_zip_url": "downloads/cn.zip",
+  "experiments": [
+    {
+      "id": 1,
+      "slug": "ai-agents-peas-case-study",
+      "title": "Case Study on AI Agents & PEAS Properties",
+      "language": "python",
+      "aliases": [
+        "ai agents",
+        "peas",
+        "agent types",
+        "case study ai",
+        "peas properties"
+      ],
+      "description": "Comprehensive study and simulation of AI Agent types (Simple Reflex, Model, Goal, Utility) and PEAS properties.",
+      "manifest_url": "experiments/01/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 1,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 2,
+      "slug": "a-star-15-puzzle-problem",
+      "title": "Informed Search - A* Algorithm for 15-Puzzle Problem",
+      "language": "python",
+      "aliases": [
+        "a star",
+        "15 puzzle",
+        "a star algorithm",
+        "informed search",
+        "manhattan distance"
+      ],
+      "description": "Heuristic A* search algorithm using Manhattan Distance to solve the 15-Puzzle problem.",
+      "manifest_url": "experiments/02/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 2,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 3,
+      "slug": "dfid-uninformed-search",
+      "title": "Uninformed Search - Depth First Iterative Deepening (DFID)",
+      "language": "python",
+      "aliases": [
+        "dfid",
+        "iterative deepening",
+        "iddfs",
+        "uninformed search",
+        "depth first"
+      ],
+      "description": "Depth First Iterative Deepening (DFID/IDDFS) graph search combining space efficiency of DFS with optimality of BFS.",
+      "manifest_url": "experiments/03/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 3,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 4,
+      "slug": "alpha-beta-pruning",
+      "title": "Implementation of Alpha-Beta Pruning Algorithm",
+      "language": "python",
+      "aliases": [
+        "alpha beta",
+        "game search",
+        "minimax",
+        "alpha beta pruning",
+        "adversarial search"
+      ],
+      "description": "Adversarial search and branch pruning algorithm optimizing the minimax game-tree decision process.",
+      "manifest_url": "experiments/04/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 4,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 5,
+      "slug": "single-layer-perceptron-slp",
+      "title": "Single Layer Perceptron (SLP) for Binary Classification",
+      "language": "python",
+      "aliases": [
+        "perceptron",
+        "slp",
+        "single layer perceptron",
+        "perceptron learning rule",
+        "binary classification"
+      ],
+      "description": "Perceptron Learning Rule implementation to train a Single Layer Perceptron on linearly separable patterns.",
+      "manifest_url": "experiments/05/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 5,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 6,
+      "slug": "mlp-supervised-learning",
+      "title": "Supervised Learning using Multi-Layer Perceptron (MLP)",
+      "language": "python",
+      "aliases": [
+        "mlp",
+        "multilayer perceptron",
+        "backpropagation",
+        "supervised learning",
+        "neural network"
+      ],
+      "description": "Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.",
+      "manifest_url": "experiments/06/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 6,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 7,
+      "slug": "kmeans-unsupervised-clustering",
+      "title": "Unsupervised Learning using K-Means Clustering",
+      "language": "python",
+      "aliases": [
+        "kmeans",
+        "k-means",
+        "clustering",
+        "unsupervised learning",
+        "cluster centroids"
+      ],
+      "description": "K-Means clustering algorithm partitioning unlabelled multidimensional data into optimal spatial clusters.",
+      "manifest_url": "experiments/07/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 7,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 8,
+      "slug": "hopfield-associative-memory-network",
+      "title": "Associative Memory Network (Hopfield Network)",
+      "language": "python",
+      "aliases": [
+        "hopfield",
+        "associative memory",
+        "hebbian learning",
+        "pattern recall",
+        "hopfield network"
+      ],
+      "description": "Discrete Hopfield Network using Hebbian learning for auto-associative memory and corrupted pattern restoration.",
+      "manifest_url": "experiments/08/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 8,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 9,
+      "slug": "fuzzy-membership-functions",
+      "title": "Implementation of Fuzzy Membership Functions",
+      "language": "python",
+      "aliases": [
+        "fuzzy membership",
+        "fuzzy logic",
+        "triangular membership",
+        "trapezoidal membership",
+        "soft computing"
+      ],
+      "description": "Mathematical implementation and evaluation of Triangular and Trapezoidal fuzzy membership functions.",
+      "manifest_url": "experiments/09/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 9,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 10,
+      "slug": "fuzzy-control-system-simulation",
+      "title": "Fuzzy Control System Simulation (Fan Speed Controller)",
+      "language": "python",
+      "aliases": [
+        "fuzzy control",
+        "fuzzy controller",
+        "mamdani",
+        "temperature fan controller",
+        "fuzzy simulation"
+      ],
+      "description": "Simulation of a Mamdani fuzzy inference control system regulating fan speed based on room temperature.",
+      "manifest_url": "experiments/10/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 10,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 11,
+      "slug": "genetic-algorithm-simulated-annealing",
+      "title": "Optimization using Genetic Algorithm & Simulated Annealing",
+      "language": "python",
+      "aliases": [
+        "genetic algorithm",
+        "simulated annealing",
+        "optimization",
+        "metaheuristic",
+        "ga"
+      ],
+      "description": "Population-based Genetic Algorithm and stochastic Simulated Annealing for non-linear function optimization.",
+      "manifest_url": "experiments/11/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 11,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 12,
+      "slug": "n8n-ai-agent-automation",
+      "title": "AI Agent for Automation using n8n Workflow Architecture",
+      "language": "python",
+      "aliases": [
+        "n8n",
+        "ai automation",
+        "agent workflow",
+        "n8n agent",
+        "automation agent"
+      ],
+      "description": "AI Agent automation framework simulating n8n node routing, LLM intent parsing, and automated tool triggering.",
+      "manifest_url": "experiments/12/manifest.json",
+      "subject": "AISC",
+      "lab_serial": 12,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 13,
+      "slug": "keil-uvision-flash-magic-setup",
+      "title": "Installation and Verification of Keil uVision & Flash Magic Toolchains",
+      "language": "c",
+      "aliases": [
+        "keil",
+        "flash magic",
+        "arm7 setup",
+        "keil uvision",
+        "lpc2148 setup"
+      ],
+      "description": "ARM7TDMI-S microcontroller toolchain configuration, PLL clocking, and Flash Magic ISP programming verification.",
+      "manifest_url": "experiments/13/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 1,
+      "output_url": "outputs/ertos_exp01_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp01_output.pdf"
+      ]
+    },
+    {
+      "id": 14,
+      "slug": "lpc2148-led-interfacing",
+      "title": "Interfacing of LED with LPC2148 Microcontroller",
+      "language": "c",
+      "aliases": [
+        "led interfacing",
+        "lpc2148 led",
+        "gpio led",
+        "blinking led",
+        "led counter"
+      ],
+      "description": "General Purpose I/O pin control on LPC2148: PINSEL, IO0DIR, IO0SET, and IO0CLR for LED blinking and binary ripple counters.",
+      "manifest_url": "experiments/14/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 2,
+      "output_url": "outputs/ertos_exp02_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp02_output.jpg",
+        "outputs/ertos_exp02_output.pdf"
+      ]
+    },
+    {
+      "id": 15,
+      "slug": "lpc2148-lcd-interfacing",
+      "title": "Interfacing 16x2 Alphanumeric LCD with LPC2148",
+      "language": "c",
+      "aliases": [
+        "lcd interfacing",
+        "lpc2148 lcd",
+        "16x2 lcd",
+        "hd44780",
+        "lcd display"
+      ],
+      "description": "8-bit HD44780 LCD driver interfacing with LPC2148: command latching, data transmission, and string rendering.",
+      "manifest_url": "experiments/15/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 3,
+      "output_url": "outputs/ertos_exp03_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp03_drive_output.pdf",
+        "outputs/ertos_exp03_output.pdf"
+      ]
+    },
+    {
+      "id": 16,
+      "slug": "lpc2148-uart-serial",
+      "title": "Serial Communication using UART0 on LPC2148",
+      "language": "c",
+      "aliases": [
+        "uart",
+        "serial communication",
+        "lpc2148 uart",
+        "baud rate",
+        "uart0"
+      ],
+      "description": "Full-duplex asynchronous serial transceiver configuration on LPC2148: baud rate generation, FIFOs, and character echo.",
+      "manifest_url": "experiments/16/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 4,
+      "output_url": "outputs/ertos_exp04_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp04_drive_output.pdf",
+        "outputs/ertos_exp04_output.pdf"
+      ]
+    },
+    {
+      "id": 17,
+      "slug": "lpc2148-power-management",
+      "title": "Power Management & Low-Power Modes in LPC2148",
+      "language": "c",
+      "aliases": [
+        "power management",
+        "lpc2148 power",
+        "idle mode",
+        "power down",
+        "eint0"
+      ],
+      "description": "LPC2148 power saving techniques configuring PCON register Idle Mode with external interrupt (EINT0) wake-up.",
+      "manifest_url": "experiments/17/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 5,
+      "output_url": "outputs/ertos_exp05_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp05_drive_output.pdf",
+        "outputs/ertos_exp05_output.pdf"
+      ]
+    },
+    {
+      "id": 18,
+      "slug": "freertos-semaphores-synchronization",
+      "title": "Task Synchronization using Binary and Counting Semaphores in FreeRTOS",
+      "language": "cpp",
+      "aliases": [
+        "freertos semaphores",
+        "binary semaphore",
+        "counting semaphore",
+        "task sync",
+        "freertos"
+      ],
+      "description": "Synchronization of producer and worker tasks using FreeRTOS binary signaling and counting semaphore resource pools.",
+      "manifest_url": "experiments/18/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 6,
+      "output_url": "outputs/ertos_exp06_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp06_output.jpg",
+        "outputs/ertos_exp06_output.pdf"
+      ]
+    },
+    {
+      "id": 19,
+      "slug": "freertos-arduino-porting",
+      "title": "Porting FreeRTOS to Arduino Development Board & Task Scheduling",
+      "language": "cpp",
+      "aliases": [
+        "porting freertos",
+        "arduino rtos",
+        "freertos porting",
+        "task scheduling",
+        "freertos uno"
+      ],
+      "description": "Porting FreeRTOS kernel to ATmega328P microcontroller, configuring system tick, and executing independent scheduled tasks.",
+      "manifest_url": "experiments/19/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 7,
+      "output_url": "outputs/ertos_exp07_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp07_output.jpg",
+        "outputs/ertos_exp07_output.pdf"
+      ]
+    },
+    {
+      "id": 20,
+      "slug": "freertos-multiple-tasks-creation",
+      "title": "Creating Multiple Tasks in FreeRTOS with Priority Preemption",
+      "language": "cpp",
+      "aliases": [
+        "multiple tasks",
+        "freertos tasks",
+        "priority preemption",
+        "rtos multitasking"
+      ],
+      "description": "Multi-task instantiation in FreeRTOS: assigning priority tiers, preemptive context switches, and telemetry logging.",
+      "manifest_url": "experiments/20/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 8,
+      "output_url": "outputs/ertos_exp08_output.jpg",
+      "output_files": [
+        "outputs/ertos_exp08_output.jpg",
+        "outputs/ertos_exp08_output.pdf"
+      ]
+    },
+    {
+      "id": 21,
+      "slug": "freertos-ipc-queue-eventgroup",
+      "title": "Multitasking Real-Time IPC using Message Queue, Event Group & Semaphore",
+      "language": "cpp",
+      "aliases": [
+        "freertos ipc",
+        "message queue",
+        "event group",
+        "rtos queue",
+        "inter process communication"
+      ],
+      "description": "Safe inter-process communication in FreeRTOS using FIFO Message Queues, Mutex Serial protection, and Event Groups.",
+      "manifest_url": "experiments/21/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 9,
+      "output_url": "outputs/ertos_exp09_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp09_drive_output.pdf",
+        "outputs/ertos_exp09_output.pdf"
+      ]
+    },
+    {
+      "id": 22,
+      "slug": "lpc2148-traffic-light-controller",
+      "title": "Design and Implementation of a Real-Time Traffic Light Controller on LPC2148",
+      "language": "c",
+      "aliases": [
+        "traffic light",
+        "lpc2148 traffic light",
+        "traffic controller",
+        "fsm traffic"
+      ],
+      "description": "Deterministic real-time traffic light controller finite state machine implemented on LPC2148 ARM7 GPIOs.",
+      "manifest_url": "experiments/22/manifest.json",
+      "subject": "ES_RTOS",
+      "lab_serial": 10,
+      "output_url": "outputs/ertos_exp10_drive_output.pdf",
+      "output_files": [
+        "outputs/ertos_exp10_drive_output.pdf",
+        "outputs/ertos_exp10_output.pdf"
+      ]
+    },
+    {
+      "id": 23,
+      "slug": "cn-crc-cyclic-redundancy-check",
+      "title": "Experiment 6 \u2013 CRC (Cyclic Redundancy Check)",
+      "language": "c",
+      "aliases": [
+        "crc",
+        "cyclic redundancy check",
+        "cn 6",
+        "cn exp 6",
+        "crc error detection"
+      ],
+      "description": "Implementation of Cyclic Redundancy Check (CRC) error detection using modulo-2 polynomial division.",
+      "manifest_url": "experiments/23/manifest.json",
+      "subject": "CN",
+      "lab_serial": 6,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 24,
+      "slug": "cn-hamming-code-error-detection",
+      "title": "Experiment 7 \u2013 Hamming Code Error Detection & Correction",
+      "language": "c",
+      "aliases": [
+        "hamming",
+        "hamming code",
+        "cn 7",
+        "cn exp 7",
+        "hamming error correction"
+      ],
+      "description": "Implementation of Hamming Code for single-bit error detection and automatic bit correction.",
+      "manifest_url": "experiments/24/manifest.json",
+      "subject": "CN",
+      "lab_serial": 7,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 25,
+      "slug": "cn-checksum-error-detection",
+      "title": "Experiment 8 \u2013 Checksum Error Detection",
+      "language": "c",
+      "aliases": [
+        "checksum",
+        "checksum detection",
+        "cn 8",
+        "cn exp 8",
+        "binary checksum"
+      ],
+      "description": "Implementation of Internet Checksum algorithm using 8-bit one's complement arithmetic and end-around carry.",
+      "manifest_url": "experiments/25/manifest.json",
+      "subject": "CN",
+      "lab_serial": 8,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 26,
+      "slug": "cn-socket-programming-java",
+      "title": "Experiment 9 \u2013 Client-Server Socket Programming in Java",
+      "language": "java",
+      "aliases": [
+        "socket",
+        "socket programming",
+        "java socket",
+        "tcp socket",
+        "cn 9",
+        "cn socket",
+        "tcp server client"
+      ],
+      "description": "Two-way client-server socket communication implementation in Java using ServerSocket and Socket classes over TCP.",
+      "manifest_url": "experiments/26/manifest.json",
+      "subject": "CN",
+      "lab_serial": 9,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 27,
+      "slug": "cn-dijkstra-shortest-path",
+      "title": "Experiment 10 \u2013 Dijkstra's Shortest Path Routing Algorithm",
+      "language": "c",
+      "aliases": [
+        "dijkstra",
+        "shortest path",
+        "routing",
+        "link state routing",
+        "ospf",
+        "cn 10",
+        "cn dijkstra",
+        "routing algorithm"
+      ],
+      "description": "Implementation of Dijkstra's algorithm in C to compute single-source shortest path routing tables for Link State Routing (OSPF).",
+      "manifest_url": "experiments/27/manifest.json",
+      "subject": "CN",
+      "lab_serial": 10,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 28,
+      "slug": "cn-static-routing-gns3",
+      "title": "Static Routing Configuration in GNS3 (Router & Host Setup)",
+      "language": "text",
+      "aliases": [
+        "static routing",
+        "gns3",
+        "routing",
+        "cisco",
+        "cn 11",
+        "cn 7 routing",
+        "static route",
+        "cisco ios",
+        "ip route"
+      ],
+      "description": "Complete Cisco IOS and VPCS terminal configuration commands for setting up static routes across R1 and R2 routers in a GNS3 network topology.",
+      "manifest_url": "experiments/28/manifest.json",
+      "subject": "CN",
+      "lab_serial": 11,
+      "output_url": null,
+      "output_files": []
+    },
+    {
+      "id": 29,
+      "slug": "cn-dynamic-routing-rip-v2",
+      "title": "Dynamic Routing Configuration using RIP v2 in GNS3",
+      "language": "text",
+      "aliases": [
+        "rip",
+        "rip v2",
+        "dynamic routing",
+        "routing rip",
+        "gns3 rip",
+        "cn 12",
+        "cn 8 rip",
+        "distance vector",
+        "router rip"
+      ],
+      "description": "Complete Cisco IOS and VPCS terminal configuration commands for activating Dynamic Routing Information Protocol (RIP v2) across routers R1 and R2 with classless routing in GNS3.",
+      "manifest_url": "experiments/29/manifest.json",
+      "subject": "CN",
+      "lab_serial": 12,
+      "output_url": null,
+      "output_files": []
+    }
+  ]
+}

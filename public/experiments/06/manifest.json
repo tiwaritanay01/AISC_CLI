@@ -1,0 +1,37 @@
+{
+  "id": 6,
+  "slug": "mlp-supervised-learning",
+  "title": "Supervised Learning using Multi-Layer Perceptron (MLP)",
+  "language": "python",
+  "aliases": [
+    "mlp",
+    "multilayer perceptron",
+    "backpropagation",
+    "supervised learning",
+    "neural network"
+  ],
+  "description": "Multi-Layer Perceptron neural network with sigmoid activations and gradient descent backpropagation.",
+  "aim": "To implement the Supervised Learning algorithm using Multi-Layer Perceptron (MLP) with Backpropagation to solve non-linear problems (XOR).",
+  "theory": "Multi-layer perceptron (MLP) is a feed-forward neural network that maps input vectors to output vectors using layers of weighted neurons. Each neuron computes a weighted sum of its inputs, adds a bias, and applies a nonlinear activation function (e.g., ReLU, sigmoid). Training uses back-propagation to compute gradients of a loss function (e.g., cross-entropy) with respect to weights, and optimizers (SGD, Adam) update weights to minimize error. The network learns hierarchical feature representations, enabling classification or regression on complex data.",
+  "algorithm": [
+    "Initialize network weights W1, W2 with small random values and biases b1, b2 with zeros.",
+    "Forward Propagation: z1 = X . W1 + b1, a1 = sigmoid(z1), z2 = a1 . W2 + b2, output = sigmoid(z2).",
+    "Compute error = target - output.",
+    "Backward Propagation: calculate output delta = error * sigmoid_derivative(output).",
+    "Propagate error to hidden layer: hidden delta = (output_delta . W2.T) * sigmoid_derivative(a1).",
+    "Update weights and biases using gradient descent with learning rate lr.",
+    "Iterate across training epochs."
+  ],
+  "files": [
+    {
+      "path": "mlp_neural_network.py",
+      "source": "mlp_neural_network.py",
+      "role": "source"
+    }
+  ],
+  "run": {
+    "kind": "python",
+    "entry": "mlp_neural_network.py"
+  },
+  "version": "1.0.0"
+}

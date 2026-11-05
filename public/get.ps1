@@ -1,0 +1,50 @@
+param($Id, [string]$Lab = "")
+if (-not $Id) {
+    $Id = Read-Host "Enter experiment number (1-10 for ERTOS, 6-9 for CN, 1-12 for AISC, or 1-26)"
+}
+
+$intId = [int]$Id
+$cat = Invoke-RestMethod "https://cli-ashen-two.vercel.app/catalog.json"
+
+if ($Lab -eq "ertos" -or $Lab -eq "es") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+} elseif ($Lab -eq "cn") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
+} elseif ($Lab -eq "aisc") {
+    $item = $cat.experiments | Where-Object { $_.subject -eq "AISC" -and $_.lab_serial -eq $intId }
+} else {
+    $item = $cat.experiments | Where-Object { $_.id -eq $intId }
+    if (-not $item -and $intId -ge 6 -and $intId -le 9) {
+        $item = $cat.experiments | Where-Object { $_.subject -eq "CN" -and $_.lab_serial -eq $intId }
+    }
+    if (-not $item -and $intId -le 10) {
+
+        $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
+    }
+}
+
+if (-not $item) {
+    Write-Host "[!] Experiment $Id not found." -ForegroundColor DarkGray
+    return
+}
+
+$num = "{0:D2}" -f [int]$item.id
+$mf = Invoke-RestMethod "https://cli-ashen-two.vercel.app/$($item.manifest_url)"
+$dir = "Experiment$num"
+New-Item -ItemType Directory -Path $dir -Force | Out-Null
+foreach ($f in $mf.files) {
+    Invoke-WebRequest "https://cli-ashen-two.vercel.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
+}
+Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
+
+if ($item.output_files) {
+    foreach ($outP in $item.output_files) {
+        $outName = Split-Path $outP -Leaf
+        Invoke-WebRequest "https://cli-ashen-two.vercel.app/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+        Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
+    }
+} elseif ($item.output_url) {
+    $outName = Split-Path $item.output_url -Leaf
+    Invoke-WebRequest "https://cli-ashen-two.vercel.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+    Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
+}
