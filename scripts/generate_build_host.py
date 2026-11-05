@@ -40,7 +40,7 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LabX Remote - Minimalist Experiment Distribution</title>
+  <title>NIRPIN ATELIER — Luxury Minimalist Apparel</title>
   <script src="jszip.min.js"></script>
   <script src="pdf.min.js"></script>
   <script>
@@ -74,13 +74,15 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding: 2rem 1.5rem;
+      padding: 0;
+      margin: 0;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
     .container {
       max-width: 1320px;
       margin: 0 auto;
+      padding: 2rem 1.5rem;
     }
     header {
       padding-bottom: 2rem;
@@ -489,23 +491,907 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     .endpoints-box code {
       color: var(--white);
     }
+    .secret-item {
+      display: none !important;
+    }
+    .secret-item-block {
+      display: none !important;
+    }
+    body.unlocked .secret-item {
+      display: inline-flex !important;
+    }
+    body.unlocked .secret-item-block {
+      display: block !important;
+    }
+
+    /* ==================== STOREFRONT CURTAIN STYLES ==================== */
+    .store-wrapper {
+      width: 100%;
+      min-height: 100vh;
+      background: #000000;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .store-announcement {
+      background: #0e0e0e;
+      color: #888888;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #1a1a1a;
+      font-weight: 600;
+    }
+    .store-header {
+      border-bottom: 1px solid #1c1c1c;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .store-header-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 1.15rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .store-logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .store-nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .store-nav a {
+      color: #888888;
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+    .store-nav a:hover {
+      color: #ffffff;
+    }
+    .store-header-actions {
+      display: flex;
+      gap: 0.85rem;
+      align-items: center;
+    }
+    .store-search-box {
+      background: #0a0a0a;
+      border: 1px solid #282828;
+      color: #ffffff;
+      padding: 0.5rem 0.95rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      width: 250px;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .store-search-box:focus {
+      border-color: #ffffff;
+    }
+    .store-btn-link {
+      background: transparent;
+      border: 1px solid #282828;
+      color: #ffffff;
+      padding: 0.5rem 0.9rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .store-btn-link:hover {
+      border-color: #ffffff;
+      background: #111111;
+    }
+    .store-hero {
+      max-width: 1320px;
+      margin: 1.5rem auto 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .store-hero-card {
+      background: linear-gradient(180deg, #121212 0%, #050505 100%);
+      border: 1px solid #222222;
+      border-radius: 8px;
+      padding: 4rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .store-hero-eyebrow {
+      color: #888888;
+      font-size: 0.75rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+      font-weight: 700;
+    }
+    .store-hero-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      max-width: 720px;
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+    }
+    .store-hero-sub {
+      color: #888888;
+      font-size: 0.95rem;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .store-cta-btn {
+      background: #ffffff;
+      color: #000000;
+      padding: 0.75rem 1.6rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      margin-right: 0.75rem;
+      transition: background 0.15s ease;
+    }
+    .store-cta-btn:hover {
+      background: #dedede;
+    }
+    .store-sec-btn {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid #333333;
+      padding: 0.75rem 1.6rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .store-sec-btn:hover {
+      border-color: #ffffff;
+    }
+    .store-catalog {
+      max-width: 1320px;
+      margin: 2.5rem auto 4.5rem auto;
+      padding: 0 1.5rem;
+    }
+    .store-filters-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .store-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .store-pill {
+      background: #0a0a0a;
+      border: 1px solid #222222;
+      color: #888888;
+      padding: 0.45rem 0.95rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .store-pill:hover, .store-pill.active {
+      color: #000000;
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+    .product-card {
+      background: #0a0a0a;
+      border: 1px solid #1c1c1c;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .product-card:hover {
+      border-color: #383838;
+      transform: translateY(-2px);
+    }
+    .product-img-box {
+      width: 100%;
+      height: 330px;
+      background: #121212;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.03);
+    }
+    .product-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.85);
+      color: #ffffff;
+      border: 1px solid #333333;
+      padding: 0.25rem 0.55rem;
+      border-radius: 3px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .product-info {
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+    .product-cat {
+      color: #666666;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .product-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.35rem;
+      line-height: 1.35;
+    }
+    .product-color {
+      color: #888888;
+      font-size: 0.8rem;
+      margin-bottom: 0.85rem;
+    }
+    .product-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.85rem;
+    }
+    .product-price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .product-old-price {
+      color: #555555;
+      font-size: 0.82rem;
+      text-decoration: line-through;
+    }
+    .product-sizes {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .size-btn {
+      background: #111111;
+      border: 1px solid #282828;
+      color: #aaaaaa;
+      width: 28px;
+      height: 28px;
+      border-radius: 3px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .size-btn:hover, .size-btn.active {
+      border-color: #ffffff;
+      color: #ffffff;
+      background: #1c1c1c;
+    }
+    .add-to-bag-btn {
+      width: 100%;
+      background: #161616;
+      border: 1px solid #333333;
+      color: #ffffff;
+      padding: 0.65rem 1rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .add-to-bag-btn:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+    .add-to-bag-btn.added {
+      background: #222222;
+      color: #ffffff;
+      border-color: #555555;
+    }
+    .store-values-row {
+      max-width: 1320px;
+      margin: 0 auto 4rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .value-card {
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      border-radius: 6px;
+      padding: 1.75rem;
+    }
+    .value-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .value-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+    .value-desc {
+      color: #777777;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .store-footer {
+      border-top: 1px solid #1a1a1a;
+      background: #060606;
+      padding: 3rem 1.5rem 2rem 1.5rem;
+    }
+    .store-footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .store-col-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .store-col-links {
+      list-style: none;
+    }
+    .store-col-links li {
+      margin-bottom: 0.5rem;
+    }
+    .store-col-links a {
+      color: #777777;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.15s ease;
+    }
+    .store-col-links a:hover {
+      color: #ffffff;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .newsletter-input {
+      background: #000000;
+      border: 1px solid #282828;
+      color: #ffffff;
+      padding: 0.5rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      flex-grow: 1;
+      outline: none;
+    }
+    .newsletter-btn {
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .store-bottom-bar {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid #141414;
+      display: flex;
+      justify-content: space-between;
+      color: #555555;
+      font-size: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- ==================== CURTAIN: NIRPIN ATELIER STOREFRONT ==================== -->
+  <div id="store-curtain" class="store-wrapper">
+    <div class="store-announcement">
+      COMPLIMENTARY DOMESTIC EXPRESS SHIPPING ON ALL ORDERS OVER &#8377;2,500 &bull; CODE: ATELIER26
+    </div>
+    
+    <header class="store-header">
+      <div class="store-header-inner">
+        <a href="#" class="store-logo" onclick="event.preventDefault(); filterStoreCategory('all', document.querySelector('.store-pill'));">NIRPIN ATELIER</a>
+        <nav class="store-nav">
+          <a href="#collection" onclick="filterStoreCategory('all', document.querySelector('.store-pill'))">Collections</a>
+          <a href="#outerwear" onclick="filterStoreCategory('outerwear', document.querySelectorAll('.store-pill')[1])">Outerwear</a>
+          <a href="#tops" onclick="filterStoreCategory('tops', document.querySelectorAll('.store-pill')[2])">Tops &amp; Tees</a>
+          <a href="#pants" onclick="filterStoreCategory('pants', document.querySelectorAll('.store-pill')[3])">Trousers</a>
+          <a href="#accessories" onclick="filterStoreCategory('accessories', document.querySelectorAll('.store-pill')[4])">Accessories</a>
+        </nav>
+        <div class="store-header-actions">
+          <input type="text" id="store-search" class="store-search-box" placeholder="Search apparel, fabrics, styles..." oninput="handleStoreSearch(this.value)" autocomplete="off" />
+          <button class="store-btn-link" onclick="toggleCartDrawer()">BAG (<span id="cart-count">0</span>)</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="store-hero">
+      <div class="store-hero-card">
+        <div class="store-hero-eyebrow">WINTER 2026 CAPSULE COLLECTION</div>
+        <h1 class="store-hero-title">Architectural tailoring, heavyweight raw fleece, and Japanese selvedge.</h1>
+        <p class="store-hero-sub">Engineered with custom-milled 480 GSM French Terry, double-twisted yarns, and understated monochromatic cuts designed for lasting utility.</p>
+        <div>
+          <button class="store-cta-btn" onclick="document.getElementById('collection-anchor').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
+          <button class="store-sec-btn" onclick="document.getElementById('collection-anchor').scrollIntoView({behavior:'smooth'})">View Lookbook</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="collection-anchor" class="store-catalog">
+      <div class="store-filters-bar">
+        <div class="store-pills">
+          <button class="store-pill active" onclick="filterStoreCategory('all', this)">All Items (12)</button>
+          <button class="store-pill" onclick="filterStoreCategory('outerwear', this)">Outerwear (3)</button>
+          <button class="store-pill" onclick="filterStoreCategory('tops', this)">Tops &amp; Sweaters (3)</button>
+          <button class="store-pill" onclick="filterStoreCategory('pants', this)">Trousers (3)</button>
+          <button class="store-pill" onclick="filterStoreCategory('accessories', this)">Accessories (3)</button>
+        </div>
+        <div style="color:#777; font-size:0.8rem; font-weight:500;">
+          Showing 12 Selected Styles
+        </div>
+      </div>
+
+      <div id="store-products-grid" class="store-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-store-cat="outerwear">
+          <div class="product-img-box">
+            <span class="product-tag">BESTSELLER</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80" alt="Oversized Heavyweight Fleece Hoodie" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Outerwear &bull; 480 GSM Fleece</div>
+              <div class="product-title">Oversized Heavyweight Fleece Hoodie</div>
+              <div class="product-color">Onyx Washed Black</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;3,499</span>
+                <span class="product-old-price">&#8377;4,999</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+                <button class="size-btn" onclick="selectSize(this)">XL</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-store-cat="pants">
+          <div class="product-img-box">
+            <span class="product-tag">NEW ARRIVAL</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80" alt="Tailored Pleated Wool Trousers" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Trousers &bull; Virgin Wool</div>
+              <div class="product-title">Tailored Pleated Wool Trousers</div>
+              <div class="product-color">Charcoal Heather</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;4,299</span>
+                <span class="product-old-price">&#8377;5,499</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">30</button>
+                <button class="size-btn" onclick="selectSize(this)">32</button>
+                <button class="size-btn" onclick="selectSize(this)">34</button>
+                <button class="size-btn" onclick="selectSize(this)">36</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-store-cat="tops">
+          <div class="product-img-box">
+            <span class="product-tag">ESSENTIAL</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80" alt="Boxy Heavyweight Cotton Tee" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Tops &bull; 260 GSM Pima</div>
+              <div class="product-title">Boxy Heavyweight Cotton Tee</div>
+              <div class="product-color">Bone Off-White</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;1,799</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+                <button class="size-btn" onclick="selectSize(this)">XL</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-store-cat="outerwear">
+          <div class="product-img-box">
+            <span class="product-tag">RUNWAY EDIT</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1544441893-675973e31985?w=600&auto=format&fit=crop&q=80" alt="Double-Breasted Wool Trench" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Outerwear &bull; Double-Faced Wool</div>
+              <div class="product-title">Double-Breasted Wool Trench Coat</div>
+              <div class="product-color">Deep Obsidian</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;8,999</span>
+                <span class="product-old-price">&#8377;11,999</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card" data-store-cat="outerwear">
+          <div class="product-img-box">
+            <span class="product-tag">JAPANESE DENIM</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=600&auto=format&fit=crop&q=80" alt="Relaxed Selvedge Denim Jacket" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Outerwear &bull; 14oz Kurabo</div>
+              <div class="product-title">Relaxed Selvedge Denim Jacket</div>
+              <div class="product-color">Raw Kuroki Indigo</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;5,499</span>
+                <span class="product-old-price">&#8377;6,800</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+                <button class="size-btn" onclick="selectSize(this)">XL</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card" data-store-cat="tops">
+          <div class="product-img-box">
+            <span class="product-tag">WARMTH+</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1614975058789-41316d0e2e9c?w=600&auto=format&fit=crop&q=80" alt="Ribbed Mock-Neck Knit Sweater" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Tops &bull; Merino Blend</div>
+              <div class="product-title">Ribbed Mock-Neck Knit Sweater</div>
+              <div class="product-color">Dark Graphite</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;4,799</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">S</button>
+                <button class="size-btn" onclick="selectSize(this)">M</button>
+                <button class="size-btn" onclick="selectSize(this)">L</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-card" data-store-cat="pants">
+          <div class="product-img-box">
+            <span class="product-tag">TIMELESS</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&auto=format&fit=crop&q=80" alt="Minimalist Straight-Leg Chinos" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Trousers &bull; Heavy Twill</div>
+              <div class="product-title">Minimalist Straight-Leg Chinos</div>
+              <div class="product-color">Desert Sand</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;3,299</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">30</button>
+                <button class="size-btn" onclick="selectSize(this)">32</button>
+                <button class="size-btn" onclick="selectSize(this)">34</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-card" data-store-cat="pants">
+          <div class="product-img-box">
+            <span class="product-tag">UTILITY</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=600&auto=format&fit=crop&q=80" alt="Heavyweight Tactical Cargo Pants" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Trousers &bull; Ripstop Cotton</div>
+              <div class="product-title">Heavyweight Tactical Cargo Pants</div>
+              <div class="product-color">Matte Black</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;3,999</span>
+                <span class="product-old-price">&#8377;4,999</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">30</button>
+                <button class="size-btn" onclick="selectSize(this)">32</button>
+                <button class="size-btn" onclick="selectSize(this)">34</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 9 -->
+        <div class="product-card" data-store-cat="accessories">
+          <div class="product-img-box">
+            <span class="product-tag">HANDCRAFTED</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=600&auto=format&fit=crop&q=80" alt="Lug-Sole Commando Derby Shoes" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Footwear &bull; Calfskin Leather</div>
+              <div class="product-title">Lug-Sole Commando Derby Shoes</div>
+              <div class="product-color">Polished Black</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;6,899</span>
+                <span class="product-old-price">&#8377;8,500</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">8</button>
+                <button class="size-btn" onclick="selectSize(this)">9</button>
+                <button class="size-btn" onclick="selectSize(this)">10</button>
+                <button class="size-btn" onclick="selectSize(this)">11</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 10 -->
+        <div class="product-card" data-store-cat="accessories">
+          <div class="product-img-box">
+            <span class="product-tag">NAPPA LEATHER</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&auto=format&fit=crop&q=80" alt="Nappa Leather Minimalist Cardholder" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Accessories &bull; Italian Leather</div>
+              <div class="product-title">Nappa Leather Minimalist Cardholder</div>
+              <div class="product-color">Smooth Jet Black</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;1,499</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">ONE SIZE</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 11 -->
+        <div class="product-card" data-store-cat="accessories">
+          <div class="product-img-box">
+            <span class="product-tag">24OZ CANVAS</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80" alt="Weatherproof Structured Canvas Tote" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Accessories &bull; Weatherproof</div>
+              <div class="product-title">Weatherproof Structured Canvas Tote</div>
+              <div class="product-color">Noir Coated Canvas</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;2,499</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">ONE SIZE</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+
+        <!-- Product 12 -->
+        <div class="product-card" data-store-cat="accessories">
+          <div class="product-img-box">
+            <span class="product-tag">100% CASHMERE</span>
+            <img class="product-img" src="https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=600&auto=format&fit=crop&q=80" alt="Pure Cashmere Fringe Scarf" loading="lazy" onerror="this.style.display='none';" />
+          </div>
+          <div class="product-info">
+            <div>
+              <div class="product-cat">Accessories &bull; Grade-A Cashmere</div>
+              <div class="product-title">Pure Cashmere Fringe Scarf</div>
+              <div class="product-color">Heather Charcoal</div>
+              <div class="product-price-row">
+                <span class="product-price">&#8377;2,999</span>
+              </div>
+              <div class="product-sizes">
+                <button class="size-btn active" onclick="selectSize(this)">ONE SIZE</button>
+              </div>
+            </div>
+            <button class="add-to-bag-btn" onclick="addToCart(this)">Add To Bag</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Store Values Row -->
+    <div class="store-values-row">
+      <div class="value-card">
+        <div class="value-icon">&#129525;</div>
+        <div class="value-title">Material Integrity</div>
+        <div class="value-desc">Custom-milled 480 GSM French Terry, Japanese Kurabo selvedge, and sustainably sourced Mongolian cashmere.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">&#128666;</div>
+        <div class="value-title">Bespoke Fulfillment</div>
+        <div class="value-desc">Complimentary climate-neutral domestic courier dispatched within 24 hours in reusable matte packaging.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">&#128260;</div>
+        <div class="value-title">Effortless Exchanges</div>
+        <div class="value-desc">30-day trial period with complimentary doorstep return pickups across all major metropolitan regions.</div>
+      </div>
+    </div>
+
+    <!-- Store Footer -->
+    <footer class="store-footer">
+      <div class="store-footer-inner">
+        <div>
+          <div class="store-col-title">Client Services</div>
+          <ul class="store-col-links">
+            <li><a href="#" onclick="event.preventDefault()">Order Tracking</a></li>
+            <li><a href="#" onclick="event.preventDefault()">Shipping &amp; Duties</a></li>
+            <li><a href="#" onclick="event.preventDefault()">Returns &amp; Exchanges</a></li>
+            <li><a href="#" onclick="event.preventDefault()">Garment Care Guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="store-col-title">Atelier Story</div>
+          <ul class="store-col-links">
+            <li><a href="#" onclick="event.preventDefault()">Textile Provenance</a></li>
+            <li><a href="#" onclick="event.preventDefault()">Ethical Manufacturing</a></li>
+            <li><a href="#" onclick="event.preventDefault()">Sustainability Commitments</a></li>
+            <li><a href="#" onclick="event.preventDefault()">Retail Stockists</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="store-col-title">Private Access</div>
+          <p style="color:#777; font-size:0.8rem; line-height:1.5;">Subscribe for private invitations to seasonal drops and capsule previews.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='JOINED';">
+            <input type="email" class="newsletter-input" placeholder="Enter email address..." required />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="store-bottom-bar">
+        <span>&copy; 2026 NIRPIN ATELIER INC. ALL RIGHTS RESERVED.</span>
+        <span>CURATED LUXURY MINIMALISM &bull; BOMBAY &bull; TOKYO &bull; LONDON</span>
+      </div>
+    </footer>
+
+    <!-- Cart Slide-Over Drawer -->
+    <div id="cart-drawer" style="display:none; position:fixed; top:0; right:0; width:340px; height:100vh; background:#0c0c0c; border-left:1px solid #222; z-index:9999; padding:2rem 1.5rem; flex-direction:column; justify-content:space-between; box-shadow:-10px 0 30px rgba(0,0,0,0.8);">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+          <span style="font-weight:700; letter-spacing:0.1em; text-transform:uppercase; font-size:0.9rem;">Shopping Bag (<span id="cart-drawer-count">0</span>)</span>
+          <button onclick="toggleCartDrawer()" style="background:transparent; border:none; color:#888; font-size:1.3rem; cursor:pointer;">&times;</button>
+        </div>
+        <div id="cart-items-preview" style="color:#666; font-size:0.85rem; padding:2rem 0; text-align:center;">
+          Your bag is currently empty.
+        </div>
+      </div>
+      <div>
+        <button class="store-cta-btn" style="width:100%; margin:0;" onclick="toggleCartDrawer()">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== UNDER THE CURTAIN: LABX SYSTEM ==================== -->
+  <div id="lab-container" class="container" style="display:none;">
     <header>
       <div class="header-left">
         <h1>LABX REMOTE</h1>
-        <p>AISC &amp; Embedded Systems / RTOS Experiment Distribution System</p>
+        <p id="header-subtitle">Artificial Intelligence &amp; Soft Computing Laboratory (12 Practicals)</p>
       </div>
       <div class="badge-bar">
-        <span class="badge">54 Modules Live</span>
-        <span class="badge">AISC Lab (12)</span>
-        <span class="badge">ES &amp; RTOS (10)</span>
-        <span class="badge">CN Lab (7)</span>
-        <span class="badge">SE Lab (25)</span>
-        <a href="downloads/ertos.zip" class="badge">Download ERTOS.ZIP &darr;</a>
-        <a href="downloads/se_diagrams.zip" class="badge">Download SE_Diagrams.ZIP &darr;</a>
+        <span class="badge" id="badge-total">12 Practicals Live</span>
+        <span class="badge" id="badge-aisc">AISC Lab (12)</span>
+        <span class="badge secret-item">54 Modules Total</span>
+        <span class="badge secret-item">ES &amp; RTOS (10)</span>
+        <span class="badge secret-item">CN Lab (7)</span>
+        <span class="badge secret-item">SE Lab (25)</span>
+        <a href="downloads/aisc_experiments.zip" class="badge">Download AISC.ZIP &darr;</a>
+        <a href="downloads/ertos.zip" class="badge secret-item">Download ERTOS.ZIP &darr;</a>
+        <a href="downloads/se_diagrams.zip" class="badge secret-item">Download SE_Diagrams.ZIP &darr;</a>
       </div>
     </header>
 
@@ -513,11 +1399,11 @@ html_header_template = '''HTML_HEADER = """<!DOCTYPE html>
     <section class="catalog-section">
       <div class="section-header-row">
         <div class="tabs-group">
-          <button class="tab-btn active" onclick="filterLab('all', this)">All Modules (54)</button>
-          <button class="tab-btn" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
-          <button class="tab-btn" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
-          <button class="tab-btn" onclick="filterLab('CN', this)">CN Lab (7)</button>
-          <button class="tab-btn" onclick="filterLab('SE', this)">SE Lab (25)</button>
+          <button class="tab-btn secret-item" id="tab-all" onclick="filterLab('all', this)">All Modules (54)</button>
+          <button class="tab-btn active" id="tab-aisc" onclick="filterLab('AISC', this)">AISC Lab (12)</button>
+          <button class="tab-btn secret-item" onclick="filterLab('ES_RTOS', this)">ES &amp; RTOS Lab (10)</button>
+          <button class="tab-btn secret-item" onclick="filterLab('CN', this)">CN Lab (7)</button>
+          <button class="tab-btn secret-item" onclick="filterLab('SE', this)">SE Lab (25)</button>
         </div>
         <div style="display:flex; gap:0.6rem; align-items:center;">
           <input type="text" id="card-search" class="search-box" placeholder="Search by name, ID, or keyword..." oninput="handleSearch(this.value)" />
@@ -598,22 +1484,24 @@ html_footer_template = '''HTML_FOOTER = """      </div>
         <h2 style="color:var(--white); font-size:1.2rem; margin-bottom:0.5rem;">Terminal Quickstart</h2>
         <div class="command-box">
           <span style="color:var(--subtle)"># 1. AISC Practicals:</span><br>
-          irm https://cli-t0km.onrender.com/aisc.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive: pull all 12 or select 1-12</span><br>
-          irm https://cli-t0km.onrender.com/a1.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pinpoint Practical 01 (AI Agents & PEAS)</span><br><br>
-          <span style="color:var(--subtle)"># 2. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
-          irm https://cli-t0km.onrender.com/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
-          irm https://cli-t0km.onrender.com/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
-          <span style="color:var(--subtle)"># 3. Pull Computer Networks (CN):</span><br>
-          irm https://cli-t0km.onrender.com/dijkstra.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Dijkstra Shortest Path Routing (Link-State OSPF)</span><br>
-          irm https://cli-t0km.onrender.com/staticrouting.ps1 | iex &nbsp;<span style="color:var(--subtle)"># GNS3 Static Routing Configuration (R1/R2)</span><br>
-          irm https://cli-t0km.onrender.com/rip.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># GNS3 Dynamic Routing (RIP v2)</span><br>
-          irm https://cli-t0km.onrender.com/cnsocket.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Java Socket Programming (Server + Client)</span><br>
-          irm https://cli-t0km.onrender.com/cn.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL CN experiments</span><br><br>
-          <span style="color:var(--subtle)"># 4. Pull Everything (All 27 Experiments):</span><br>
-          irm https://cli-t0km.onrender.com/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
-          irm https://cli-t0km.onrender.com/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
-          <span style="color:var(--subtle)"># 5. Global CLI:</span><br>
-          irm https://cli-t0km.onrender.com/install.ps1 | iex<br>
+          irm https://nirpin.vercel.app/aisc.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive: pull all 12 or select 1-12</span><br>
+          irm https://nirpin.vercel.app/a1.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pinpoint Practical 01 (AI Agents &amp; PEAS)</span><br><br>
+          <div class="secret-item-block">
+            <span style="color:var(--subtle)"># 2. Pull ERTOS Experiments (Source Code + Output PDF):</span><br>
+            irm https://nirpin.vercel.app/e2.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull Exp 02 (LED Interfacing Code + Output PDF)</span><br>
+            irm https://nirpin.vercel.app/ertos.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL 10 ERTOS experiments</span><br><br>
+            <span style="color:var(--subtle)"># 3. Pull Computer Networks (CN):</span><br>
+            irm https://nirpin.vercel.app/dijkstra.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Dijkstra Shortest Path Routing (Link-State OSPF)</span><br>
+            irm https://nirpin.vercel.app/staticrouting.ps1 | iex &nbsp;<span style="color:var(--subtle)"># GNS3 Static Routing Configuration (R1/R2)</span><br>
+            irm https://nirpin.vercel.app/rip.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># GNS3 Dynamic Routing (RIP v2)</span><br>
+            irm https://nirpin.vercel.app/cnsocket.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Java Socket Programming (Server + Client)</span><br>
+            irm https://nirpin.vercel.app/cn.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Pull ALL CN experiments</span><br><br>
+            <span style="color:var(--subtle)"># 4. Pull Everything (All 54 Experiments):</span><br>
+            irm https://nirpin.vercel.app/all.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Extract full collection into current directory</span><br>
+            irm https://nirpin.vercel.app/list.ps1 | iex &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--subtle)"># Interactive list table</span><br><br>
+          </div>
+          <span style="color:var(--subtle)"># Global CLI:</span><br>
+          irm https://nirpin.vercel.app/install.ps1 | iex<br>
           labx list &nbsp;|&nbsp; labx download 2 &nbsp;|&nbsp; labx run 2
         </div>
       </section>
@@ -622,9 +1510,10 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       <section class="endpoints-box">
         <h2 style="color:var(--white); font-size:1.1rem; margin:0 0 0.5rem 0;">Available Static Endpoints</h2>
         <ul>
-          <li><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; Dedicated 10-experiment ES &amp; RTOS ZIP archive</li>
-          <li><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 22-experiment ZIP archive</li>
           <li><a href="downloads/aisc_experiments.zip"><code>/downloads/aisc_experiments.zip</code></a> &mdash; Dedicated 12-experiment AISC ZIP archive</li>
+          <li class="secret-item-block"><a href="downloads/ertos.zip"><code>/downloads/ertos.zip</code></a> &mdash; Dedicated 10-experiment ES &amp; RTOS ZIP archive</li>
+          <li class="secret-item-block"><a href="downloads/se_diagrams.zip"><code>/downloads/se_diagrams.zip</code></a> &mdash; Complete 25-Case Study SE Diagrams ZIP archive</li>
+          <li class="secret-item-block"><a href="downloads/labx_experiments.zip"><code>/downloads/labx_experiments.zip</code></a> &mdash; Complete 54-module ZIP archive</li>
           <li><a href="catalog.json"><code>/catalog.json</code></a> &mdash; Complete catalogue JSON API</li>
           <li><a href="version.json"><code>/version.json</code></a> &mdash; Remote metadata &amp; version</li>
           <li><a href="downloads/labx.exe"><code>/downloads/labx.exe</code></a> &mdash; Windows standalone binary</li>
@@ -640,6 +1529,170 @@ html_footer_template = '''HTML_FOOTER = """      </div>
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
     }
 
+    let currentStage = 1; // 1 = Store, 2 = AISC, 3 = All Subjects
+    let currentLab = 'AISC';
+    let cartTotalCount = 0;
+
+    function isSecretTrigger(text) {
+      if (!text) return false;
+      const letters = text.toLowerCase().replace(/[^a-z]/g, '');
+      return letters.includes('thatsjustlazywriting') || letters.includes('thatisjustlazywriting');
+    }
+
+    function isPythonTrigger(text) {
+      const s = text.trim();
+      if (!s) return false;
+      const patterns = [
+        /^import[ \\t]+[a-zA-Z0-9_]+/i,
+        /^from[ \\t]+[a-zA-Z0-9_.]+[ \\t]+import/i,
+        /^def[ \\t]+[a-zA-Z0-9_]+[ \\t]*[(]/i,
+        /^class[ \\t]+[a-zA-Z0-9_]+/i,
+        /^print[ \\t]*[(]/i,
+        /^for[ \\t]+[a-zA-Z0-9_]+[ \\t]+in[ \\t]+/i,
+        /^while[ \\t]+.+:/i,
+        /^if[ \\t]+__name__[ \\t]*==/i,
+        /^lambda[ \\t]+/i,
+        /^return([ \\t]+|$)/i,
+        /^python3?([ \\t]+.*)?$/i,
+        /^py([ \\t]+.*)?$/i,
+        /^__import__[(]/i,
+        /^sys[.]exit/i,
+        /^range[(]/i
+      ];
+      return patterns.some(p => p.test(s));
+    }
+
+    function setStage(stage) {
+      currentStage = stage;
+      sessionStorage.setItem('nirpin_stage', stage.toString());
+
+      const storeEl = document.getElementById('store-curtain');
+      const labEl = document.getElementById('lab-container');
+
+      if (stage === 1) {
+        // Stage 1: Store Curtain
+        if (storeEl) storeEl.style.display = 'block';
+        if (labEl) labEl.style.display = 'none';
+        document.title = 'NIRPIN ATELIER — Luxury Minimalist Apparel';
+        document.body.classList.remove('unlocked');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (stage === 2) {
+        // Stage 2: AISC Mode (12 Practicals)
+        if (storeEl) storeEl.style.display = 'none';
+        if (labEl) labEl.style.display = 'block';
+        document.title = 'AISC Laboratory Directory';
+        document.body.classList.remove('unlocked');
+
+        // Hide secret items
+        document.querySelectorAll('.secret-item').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.secret-item-block').forEach(el => el.style.display = 'none');
+
+        const subtitle = document.getElementById('header-subtitle');
+        if (subtitle) subtitle.textContent = 'Artificial Intelligence & Soft Computing Laboratory (12 Practicals)';
+        const badgeTotal = document.getElementById('badge-total');
+        if (badgeTotal) badgeTotal.textContent = '12 Practicals Live';
+
+        filterLab('AISC', document.getElementById('tab-aisc'));
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else if (stage === 3) {
+        // Stage 3: All Subjects Mode (54 Modules)
+        if (storeEl) storeEl.style.display = 'none';
+        if (labEl) labEl.style.display = 'block';
+        document.title = 'LabX Remote - Minimalist Experiment Distribution';
+        document.body.classList.add('unlocked');
+
+        // Reveal secret items
+        document.querySelectorAll('.secret-item').forEach(el => {
+          el.style.display = (el.tagName === 'SPAN' || el.tagName === 'A' || el.tagName === 'BUTTON') ? 'inline-flex' : 'block';
+        });
+        document.querySelectorAll('.secret-item-block').forEach(el => el.style.display = 'block');
+
+        const subtitle = document.getElementById('header-subtitle');
+        if (subtitle) subtitle.textContent = 'AISC & Embedded Systems / RTOS / CN / SE Experiment Distribution System';
+        const badgeTotal = document.getElementById('badge-total');
+        if (badgeTotal) badgeTotal.textContent = '54 Modules Live';
+
+        filterLab('all', document.getElementById('tab-all'));
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    }
+
+    // Store Interaction Functions
+    function handleStoreSearch(val) {
+      const trimmed = val.trim();
+      if (isSecretTrigger(trimmed) || isPythonTrigger(trimmed)) {
+        setStage(2);
+        const cardSearch = document.getElementById('card-search');
+        if (cardSearch) {
+          cardSearch.value = '';
+          cardSearch.focus();
+        }
+        return;
+      }
+
+      const q = trimmed.toLowerCase();
+      const products = document.querySelectorAll('.product-card');
+      products.forEach(p => {
+        const text = p.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    }
+
+    function filterStoreCategory(cat, btn) {
+      document.querySelectorAll('.store-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const products = document.querySelectorAll('.product-card');
+      products.forEach(p => {
+        const pCat = p.getAttribute('data-store-cat') || 'all';
+        if (cat === 'all' || pCat === cat) {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    }
+
+    function addToCart(btn) {
+      cartTotalCount++;
+      const badge = document.getElementById('cart-count');
+      if (badge) badge.textContent = cartTotalCount;
+      const drawerCount = document.getElementById('cart-drawer-count');
+      if (drawerCount) drawerCount.textContent = cartTotalCount;
+      const preview = document.getElementById('cart-items-preview');
+      if (preview) {
+        preview.innerHTML = '<div style="color:#fff; font-size:0.9rem; font-weight:600; padding:1rem 0; border-bottom:1px solid #222;">' + cartTotalCount + ' item(s) selected</div><div style="color:#aaa; font-size:0.8rem; margin-top:0.75rem;">Estimated Total: ₹' + (cartTotalCount * 3499).toLocaleString() + '</div>';
+      }
+      const originalText = btn.textContent;
+      btn.textContent = 'ADDED \u2713';
+      btn.classList.add('added');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('added');
+      }, 1500);
+    }
+
+    function selectSize(btn) {
+      const parent = btn.parentElement;
+      if (parent) {
+        parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      }
+      btn.classList.add('active');
+    }
+
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      if (!drawer) return;
+      if (drawer.style.display === 'none' || !drawer.style.display) {
+        drawer.style.display = 'flex';
+      } else {
+        drawer.style.display = 'none';
+      }
+    }
+
     // 1. Horizontal Rail Navigation & Filtering
     function scrollRail(distance) {
       const rail = document.getElementById('cards-rail');
@@ -649,12 +1702,17 @@ html_footer_template = '''HTML_FOOTER = """      </div>
     }
 
     function filterLab(lab, btn) {
+      currentLab = lab;
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
 
       const cards = document.querySelectorAll('.card');
       cards.forEach(card => {
         const cardLab = card.getAttribute('data-subject') || 'AISC';
+        if (currentStage === 2 && cardLab !== 'AISC') {
+          card.style.display = 'none';
+          return;
+        }
         if (lab === 'all' || cardLab === lab) {
           card.style.display = 'flex';
         } else {
@@ -664,17 +1722,70 @@ html_footer_template = '''HTML_FOOTER = """      </div>
     }
 
     function handleSearch(query) {
-      const q = query.toLowerCase().trim();
+      const trimmed = query.trim();
+
+      // Return to store curtain
+      if (trimmed.toLowerCase() === 'lock' || trimmed.toLowerCase() === 'exit' || trimmed.toLowerCase() === 'shop') {
+        setStage(1);
+        const storeSearch = document.getElementById('store-search');
+        if (storeSearch) {
+          storeSearch.value = '';
+          storeSearch.focus();
+        }
+        return;
+      }
+
+      // If user types secret keyword in Stage 2 (AISC) -> advance to Stage 3 (All Subjects)
+      const triggeredSecret = isSecretTrigger(trimmed);
+      const triggeredPython = isPythonTrigger(trimmed);
+      if ((triggeredSecret || triggeredPython) && currentStage === 2) {
+        setStage(3);
+        const cardSearch = document.getElementById('card-search');
+        if (cardSearch) {
+          cardSearch.value = '';
+        }
+        return;
+      }
+
+      const q = trimmed.toLowerCase();
       const cards = document.querySelectorAll('.card');
+      let matches = 0;
+
       cards.forEach(card => {
+        const cardLab = card.getAttribute('data-subject') || 'AISC';
+        if (currentStage === 2 && cardLab !== 'AISC') {
+          card.style.display = 'none';
+          return;
+        }
+
+        if (currentLab !== 'all' && cardLab !== currentLab) {
+          card.style.display = 'none';
+          return;
+        }
+
         const text = card.textContent.toLowerCase();
         if (!q || text.includes(q)) {
           card.style.display = 'flex';
+          matches++;
         } else {
           card.style.display = 'none';
         }
       });
+
+      if (matches === 0 && (triggeredSecret || triggeredPython)) {
+        cards.forEach(card => {
+          const cardLab = card.getAttribute('data-subject') || 'AISC';
+          if (currentLab === 'all' || cardLab === currentLab) {
+            card.style.display = 'flex';
+          }
+        });
+      }
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedStage = parseInt(sessionStorage.getItem('nirpin_stage') || '1', 10);
+      setStage(savedStage);
+    });
 
     // Dual Code + Output Download Handler
     function copyExpCodeAndDownloadOutput(btn, codeId, outputUrlsStr) {
@@ -721,9 +1832,9 @@ html_footer_template = '''HTML_FOOTER = """      </div>
     }
 
     function copyText(btn, text) {
-      if (text && (text.includes('cli-t0km.onrender.com') || text.includes('aisccli.netlify.app'))) {
-        text = text.replaceAll('https://cli-t0km.onrender.com', window.location.origin)
-                   .replaceAll('https://aisccli.netlify.app', window.location.origin);
+      if (text && (text.includes('nirpin.vercel.app') || text.includes('nirpin.vercel.app'))) {
+        text = text.replaceAll('https://nirpin.vercel.app', window.location.origin)
+                   .replaceAll('https://nirpin.vercel.app', window.location.origin);
       }
       const span = btn.querySelector('span');
       const originalText = span ? span.textContent : 'Copy';
@@ -1001,7 +2112,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           title: title,
           language: isC ? 'c' : 'python',
           code: finalContent,
-          command: `irm https://cli-t0km.onrender.com/s/${safeName} | iex`
+          command: `irm https://nirpin.vercel.app/s/${safeName} | iex`
         });
       } catch (err) {
         console.warn('Error parsing PDF file:', rawName, err);
@@ -1096,7 +2207,7 @@ html_footer_template = '''HTML_FOOTER = """      </div>
           title: title,
           language: isC ? 'c' : 'python',
           code: finalContent,
-          command: `irm https://cli-t0km.onrender.com/s/${safeName} | iex`
+          command: `irm https://nirpin.vercel.app/s/${safeName} | iex`
         });
 
       } catch (err) {
@@ -1181,13 +2292,13 @@ html_footer_template = '''HTML_FOOTER = """      </div>
             if (dpRes.ok) {
               const url = (await dpRes.text()).trim();
               const slug = url.split('/').filter(Boolean).pop();
-              cmd = `irm https://cli-t0km.onrender.com/s/${slug} | iex`;
+              cmd = `irm https://nirpin.vercel.app/s/${slug} | iex`;
             }
           } catch (e2) {}
         }
 
         if (!cmd) {
-          cmd = `irm https://cli-t0km.onrender.com/all.ps1 | iex`;
+          cmd = `irm https://nirpin.vercel.app/all.ps1 | iex`;
         }
 
         item.command = cmd;
@@ -1409,17 +2520,17 @@ generate_host_code = '''def generate_host():
         if subject_type == "ES_RTOS":
             display_title = f"#{lab_serial:02d} {exp['title']}"
             subject_label = "ES & RTOS"
-            cmd_str = f"irm https://cli-t0km.onrender.com/e{lab_serial}.ps1 | iex"
+            cmd_str = f"irm https://nirpin.vercel.app/e{lab_serial}.ps1 | iex"
             output_url = exp.get("output_url", "")
         elif subject_type == "CN":
             display_title = f"#{lab_serial:02d} {exp['title']}"
             subject_label = "CN"
-            cmd_str = f"irm https://cli-t0km.onrender.com/cn{lab_serial}.ps1 | iex"
+            cmd_str = f"irm https://nirpin.vercel.app/cn{lab_serial}.ps1 | iex"
             output_url = ""
         else:
             display_title = f"#{exp_id:02d} {exp['title']}"
             subject_label = "AISC"
-            cmd_str = f"irm https://cli-t0km.onrender.com/a{exp_id}.ps1 | iex"
+            cmd_str = f"irm https://nirpin.vercel.app/a{exp_id}.ps1 | iex"
             output_url = ""
 
         output_files = exp.get("output_files", [])
@@ -1439,7 +2550,8 @@ generate_host_code = '''def generate_host():
         output_urls_str = ",".join(output_files)
 
         # HTML card
-        html_cards.append(f"""        <div class="card" data-subject="{subject_type}">
+        secret_style = ' style="display:none;"' if subject_type != 'AISC' else ''
+        html_cards.append(f"""        <div class="card"{secret_style} data-subject="{subject_type}">
           <div>
             <div class="card-top">
               <span class="tag">{subject_label} &bull; {exp['language'].upper()}</span>
@@ -1476,14 +2588,14 @@ generate_host_code = '''def generate_host():
         s_id = cs["id"]
         s_title = f"#{s_id:02d} {cs['title']}"
         s_desc = cs["desc"]
-        s_cmd = f"irm https://cli-t0km.onrender.com/se/{s_slug}.ps1 | iex"
+        s_cmd = f"irm https://nirpin.vercel.app/se/{s_slug}.ps1 | iex"
         
         # Read use case mmd for code preview
         uc_file = SE_DIR / s_slug / f"{s_slug}_usecase.mmd"
         uc_text = uc_file.read_text(encoding="utf-8") if uc_file.exists() else ""
         escaped_uc = html.escape(uc_text)
         
-        html_cards.append(f"""        <div class="card" data-subject="SE">
+        html_cards.append(f"""        <div class="card" style="display:none;" data-subject="SE">
           <div>
             <div class="card-top">
               <span class="tag">SE &bull; UML &amp; DFD</span>
@@ -1495,10 +2607,10 @@ generate_host_code = '''def generate_host():
             <h3>{s_title}</h3>
             <p style="color:#888888; font-size:0.84rem; margin:0.35rem 0;">{s_desc}</p>
             <div style="display:flex; gap:0.3rem; flex-wrap:wrap; margin:0.4rem 0;">
-              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
-              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
-              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
-              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://cli-t0km.onrender.com/se/{s_slug}-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://nirpin.vercel.app/se/{s_slug}-usecase.ps1 | iex')" title="Click to copy Use Case command">Use Case</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://nirpin.vercel.app/se/{s_slug}-class.ps1 | iex')" title="Click to copy Class diagram command">Class</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://nirpin.vercel.app/se/{s_slug}-dfd.ps1 | iex')" title="Click to copy DFD command">DFD Level 1</span>
+              <span class="file-pill" style="cursor:pointer;" onclick="copyText(this, 'irm https://nirpin.vercel.app/se/{s_slug}-activity.ps1 | iex')" title="Click to copy Activity diagram command">Activity</span>
             </div>
           </div>
 
@@ -1592,7 +2704,7 @@ generate_host_code = '''def generate_host():
     # 6. PowerShell scripts
     all_ps1 = f"""$zip = Join-Path $PWD "labx_temp.zip"
 Write-Host "Downloading all {len(EXPERIMENTS)} experiments (AISC, ES & RTOS, and Computer Networks) from LabX Remote..." -ForegroundColor White
-Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
+Invoke-WebRequest "https://nirpin.vercel.app/downloads/labx_experiments.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
 Write-Host "[OK] All {len(EXPERIMENTS)} experiments extracted to current directory!" -ForegroundColor White
@@ -1602,7 +2714,7 @@ Write-Host "[OK] All {len(EXPERIMENTS)} experiments extracted to current directo
 
     ertos_ps1 = """$zip = Join-Path $PWD "ertos_temp.zip"
 Write-Host "Downloading all 10 Embedded Systems & RTOS experiments (Code + All Output Images & PDFs) from LabX Remote..." -ForegroundColor White
-Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/ertos.zip" -OutFile $zip -UseBasicParsing
+Invoke-WebRequest "https://nirpin.vercel.app/downloads/ertos.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
 Write-Host "[OK] All 10 ES & RTOS experiments with code and authentic outputs extracted to current directory!" -ForegroundColor White
@@ -1614,7 +2726,7 @@ Write-Host "[OK] All 10 ES & RTOS experiments with code and authentic outputs ex
 
     cn_ps1 = """$zip = Join-Path $PWD "cn_temp.zip"
 Write-Host "Downloading Computer Networks (CN) Experiments from LabX Remote..." -ForegroundColor White
-Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/cn.zip" -OutFile $zip -UseBasicParsing
+Invoke-WebRequest "https://nirpin.vercel.app/downloads/cn.zip" -OutFile $zip -UseBasicParsing
 Expand-Archive $zip -DestinationPath $PWD -Force
 Remove-Item $zip -Force
 Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -ForegroundColor White
@@ -1649,7 +2761,7 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                 lines_ps1.extend([
                     f'$outTarget = Join-Path $PWD "{out_leaf}"',
                     "try {",
-                    f'    Invoke-WebRequest "https://cli-t0km.onrender.com/{out_p}" -OutFile $outTarget -UseBasicParsing',
+                    f'    Invoke-WebRequest "https://nirpin.vercel.app/{out_p}" -OutFile $outTarget -UseBasicParsing',
                     f'    Write-Host "[OK] Downloaded Output to: {out_leaf}" -ForegroundColor White',
                     "} catch {",
                     f'    Write-Host "[!] Could not fetch {out_leaf}: $_" -ForegroundColor DarkGray',
@@ -1711,7 +2823,8 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
         if exp.get("subject", "AISC") == "AISC":
             s_num = exp["id"]
             lines_ps1 = [
-                f"# LabX Remote: AISC Practical {s_num:02d} ({exp['title']})"
+                f"# LabX Remote: AISC Practical {s_num:02d} ({exp['title']})",
+                "$clipCode = $null"
             ]
             for src_file in exp["files"]:
                 src_fname = src_file["path"]
@@ -1724,9 +2837,23 @@ Write-Host "[OK] Computer Networks experiments extracted into CN/ folder!" -Fore
                     "$target = Join-Path $PWD $filename",
                     "Set-Content -Path $target -Value $code -Encoding utf8",
                     f'Write-Host "[OK] Saved: $filename (Theory embedded after line 50)" -ForegroundColor White',
+                    'if (-not $clipCode -or $filename.EndsWith(".py")) { $clipCode = $code }',
                     ""
                 ])
-            lines_ps1.append(f'Write-Host "[OK] AISC Practical {s_num:02d} ready!" -ForegroundColor White')
+            lines_ps1.extend([
+                "if ($clipCode) {",
+                "    try {",
+                "        Set-Clipboard -Value $clipCode -ErrorAction Stop",
+                '        Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White',
+                "    } catch {",
+                "        try {",
+                "            $clipCode | clip.exe",
+                '            Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White',
+                "        } catch {}",
+                "    }",
+                "}",
+                f'Write-Host "[OK] AISC Practical {s_num:02d} ready!" -ForegroundColor White'
+            ])
             a_code = "\\n".join(lines_ps1)
             with open(PUBLIC_DIR / f"a{s_num}.ps1", "w", encoding="utf-8") as f:
                 f.write(a_code)
@@ -1749,14 +2876,14 @@ if (-not $Choice) {
 if (-not $Choice -or $Choice -eq "all") {
     $zip = Join-Path $PWD "aisc_temp.zip"
     Write-Host "Downloading all 12 AISC Practicals from LabX Remote..." -ForegroundColor White
-    Invoke-WebRequest "https://cli-t0km.onrender.com/downloads/aisc_experiments.zip" -OutFile $zip -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/downloads/aisc_experiments.zip" -OutFile $zip -UseBasicParsing
     Expand-Archive $zip -DestinationPath $PWD -Force
     Remove-Item $zip -Force
     Write-Host "[OK] All 12 AISC Practicals extracted into current directory!" -ForegroundColor White
 } else {
     $num = [int]$Choice
     if ($num -ge 1 -and $num -le 12) {
-        $scriptUrl = "https://cli-t0km.onrender.com/a$num.ps1"
+        $scriptUrl = "https://nirpin.vercel.app/a$num.ps1"
         Invoke-Expression (Invoke-RestMethod $scriptUrl)
     } else {
         Write-Host "[!] Invalid practical number: $Choice (Please enter 1-12 or 'all')" -ForegroundColor DarkGray
@@ -1773,7 +2900,7 @@ if (-not $Id) {
 }
 
 $intId = [int]$Id
-$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
+$cat = Invoke-RestMethod "https://nirpin.vercel.app/catalog.json"
 
 if ($Lab -eq "ertos" -or $Lab -eq "es") {
     $item = $cat.experiments | Where-Object { $_.subject -eq "ES_RTOS" -and $_.lab_serial -eq $intId }
@@ -1798,23 +2925,37 @@ if (-not $item) {
 }
 
 $num = "{0:D2}" -f [int]$item.id
-$mf = Invoke-RestMethod "https://cli-t0km.onrender.com/$($item.manifest_url)"
+$mf = Invoke-RestMethod "https://nirpin.vercel.app/$($item.manifest_url)"
 $dir = "Experiment$num"
 New-Item -ItemType Directory -Path $dir -Force | Out-Null
 foreach ($f in $mf.files) {
-    Invoke-WebRequest "https://cli-t0km.onrender.com/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/experiments/$num/$($f.path)" -OutFile (Join-Path $dir $f.path) -UseBasicParsing
 }
 Write-Host "[OK] Downloaded $($item.title) into $dir/" -ForegroundColor White
+
+if ($item.subject -eq "AISC") {
+    $pyFile = $mf.files | Where-Object { $_.path.EndsWith(".py") } | Select-Object -First 1
+    if ($pyFile) {
+        try {
+            $pyPath = Join-Path $dir $pyFile.path
+            $pyContent = Get-Content -Path $pyPath -Raw -Encoding utf8
+            Set-Clipboard -Value $pyContent -ErrorAction Stop
+            Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White
+        } catch {
+            try { $pyContent | clip.exe; Write-Host "[OK] Code copied to clipboard (Ctrl+V ready!)" -ForegroundColor White } catch {}
+        }
+    }
+}
 
 if ($item.output_files) {
     foreach ($outP in $item.output_files) {
         $outName = Split-Path $outP -Leaf
-        Invoke-WebRequest "https://cli-t0km.onrender.com/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+        Invoke-WebRequest "https://nirpin.vercel.app/$outP" -OutFile (Join-Path $dir $outName) -UseBasicParsing
         Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
     }
 } elseif ($item.output_url) {
     $outName = Split-Path $item.output_url -Leaf
-    Invoke-WebRequest "https://cli-t0km.onrender.com/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
+    Invoke-WebRequest "https://nirpin.vercel.app/$($item.output_url)" -OutFile (Join-Path $dir $outName) -UseBasicParsing
     Write-Host "[OK] Downloaded Output: $outName into $dir/" -ForegroundColor White
 }
 """
@@ -1823,7 +2964,7 @@ if ($item.output_files) {
 
     list_ps1 = """param([string]$Subject = "", [string]$Item = "")
 
-$cat = Invoke-RestMethod "https://cli-t0km.onrender.com/catalog.json"
+$cat = Invoke-RestMethod "https://nirpin.vercel.app/catalog.json"
 
 function Show-Header {
     param([string]$Title)
@@ -1882,11 +3023,11 @@ while ($true) {
         $pick = if ($Item) { $Item } else { Read-Host "Enter practical to pull [1-12, 'all', or 'b' for back]" }
         if ($pick -and $pick -ne "b" -and $pick -ne "back") {
             if ($pick -eq "all") {
-                irm https://cli-t0km.onrender.com/aisc.ps1 | iex
+                irm https://nirpin.vercel.app/aisc.ps1 | iex
             } else {
                 $num = [int]$pick
                 if ($num -ge 1 -and $num -le 12) {
-                    $url = "https://cli-t0km.onrender.com/a$num.ps1"
+                    $url = "https://nirpin.vercel.app/a$num.ps1"
                     Invoke-Expression (Invoke-RestMethod $url)
                 }
             }
@@ -1910,11 +3051,11 @@ while ($true) {
         $pick = if ($Item) { $Item } else { Read-Host "Enter experiment to pull [1-10, 'all', or 'b' for back]" }
         if ($pick -and $pick -ne "b" -and $pick -ne "back") {
             if ($pick -eq "all") {
-                irm https://cli-t0km.onrender.com/ertos.ps1 | iex
+                irm https://nirpin.vercel.app/ertos.ps1 | iex
             } else {
                 $num = [int]$pick
                 if ($num -ge 1 -and $num -le 10) {
-                    $url = "https://cli-t0km.onrender.com/e$num.ps1"
+                    $url = "https://nirpin.vercel.app/e$num.ps1"
                     Invoke-Expression (Invoke-RestMethod $url)
                 }
             }
@@ -1935,19 +3076,19 @@ while ($true) {
         $pick = if ($Item) { $Item } else { Read-Host "Enter experiment to pull [6-12, 'all', or 'b' for back]" }
         if ($pick -and $pick -ne "b" -and $pick -ne "back") {
             if ($pick -eq "all") {
-                irm https://cli-t0km.onrender.com/cn.ps1 | iex
+                irm https://nirpin.vercel.app/cn.ps1 | iex
             } else {
                 $cleanPick = $pick.ToLower().Replace("cn", "").Trim()
                 $num = [int]$cleanPick
                 if ($num -ge 6 -and $num -le 12) {
-                    $url = "https://cli-t0km.onrender.com/cn$num.ps1"
+                    $url = "https://nirpin.vercel.app/cn$num.ps1"
                     Invoke-Expression (Invoke-RestMethod $url)
                 }
             }
         }
     }
     elseif ($cleanSub -eq "se") {
-        irm https://cli-t0km.onrender.com/se.ps1 | iex
+        irm https://nirpin.vercel.app/se.ps1 | iex
     }
     else {
         Show-Header "All Laboratory Experiments Overview"
@@ -1964,18 +3105,22 @@ while ($true) {
     with open(PUBLIC_DIR / "list.ps1", "w", encoding="utf-8") as f:
         f.write(list_ps1)
     with open(PUBLIC_DIR / "list-aisc.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) aisc\\n')
+        f.write('$s = Invoke-RestMethod "https://nirpin.vercel.app/list.ps1"\\n& ([scriptblock]::Create($s)) aisc\\n')
     with open(PUBLIC_DIR / "list-ertos.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) ertos\\n')
+        f.write('$s = Invoke-RestMethod "https://nirpin.vercel.app/list.ps1"\\n& ([scriptblock]::Create($s)) ertos\\n')
     with open(PUBLIC_DIR / "list-cn.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) cn\\n')
+        f.write('$s = Invoke-RestMethod "https://nirpin.vercel.app/list.ps1"\\n& ([scriptblock]::Create($s)) cn\\n')
     with open(PUBLIC_DIR / "list-se.ps1", "w", encoding="utf-8") as f:
-        f.write('$s = Invoke-RestMethod "https://cli-t0km.onrender.com/list.ps1"\\n& ([scriptblock]::Create($s)) se\\n')
+        f.write('$s = Invoke-RestMethod "https://nirpin.vercel.app/list.ps1"\\n& ([scriptblock]::Create($s)) se\\n')
 
     # 7. Write index.html
     full_html = HTML_HEADER + "\\n".join(html_cards) + HTML_FOOTER
     with open(PUBLIC_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(full_html)
+    root_public = BASE_DIR / "public"
+    if root_public.exists():
+        with open(root_public / "index.html", "w", encoding="utf-8") as f:
+            f.write(full_html)
 
     # 8. Build Software Engineering (SE) diagrams
     se_script = BASE_DIR / "scripts" / "generate_all_se_case_studies.py"
