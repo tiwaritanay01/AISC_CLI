@@ -4,18 +4,21 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/health",
-      "destination": "/api/index.py"
+      "destination": "/api"
     },
     {
       "source": "/s/(.*)",
-      "destination": "/api/index.py"
+      "destination": "/api"
     }
   ],
   "headers": [
+    {
+      "source": "/health",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
