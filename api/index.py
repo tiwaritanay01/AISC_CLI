@@ -20,8 +20,10 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         url = urllib.parse.urlparse(self.path)
         path = url.path.rstrip('/')
+        matched_path = self.headers.get('x-matched-path', '').rstrip('/')
 
-        if path == '/health':
+        # Handle health check
+        if path == '/health' or matched_path == '/health' or path.endswith('/health') or 'health' in path:
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
@@ -35,8 +37,9 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(data).encode('utf-8'))
             return
 
-        if path.startswith('/s/'):
-            paste_id = path.split('/s/')[-1].strip('/')
+        if '/s/' in path or '/s/' in matched_path:
+            target_str = matched_path if '/s/' in matched_path else path
+            paste_id = target_str.split('/s/')[-1].strip('/')
             self.send_response(302)
             self.send_header('Location', f'https://dpaste.org/{paste_id}/raw')
             self.send_header('Access-Control-Allow-Origin', '*')
@@ -49,8 +52,9 @@ class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         url = urllib.parse.urlparse(self.path)
         path = url.path.rstrip('/')
+        matched_path = self.headers.get('x-matched-path', '').rstrip('/')
 
-        if path == '/api/publish':
+        if path.endswith('/publish') or matched_path.endswith('/publish') or 'publish' in path:
             content_length = int(self.headers.get('Content-Length', 0))
             body = self.rfile.read(content_length).decode('utf-8')
             try:
